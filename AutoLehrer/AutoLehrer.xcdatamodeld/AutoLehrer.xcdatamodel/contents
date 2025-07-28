@@ -25,8 +25,10 @@
         <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relNomen" inverseEntity="Kasus"/>
         <relationship name="relNomenHive" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NomenHive" inverseName="relNomen" inverseEntity="NomenHive"/>
         <relationship name="relNumerus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Numerus" inverseName="relNomen" inverseEntity="Numerus"/>
+        <relationship name="relStatistics" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Statistics" inverseName="relNomen" inverseEntity="Statistics"/>
     </entity>
     <entity name="NomenHive" representedClassName="NomenHive" syncable="YES" codeGenerationType="class">
+        <attribute name="nomenFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNomenHive" inverseEntity="Nomen"/>
     </entity>
     <entity name="Numerus" representedClassName="Numerus" syncable="YES" codeGenerationType="class">
@@ -42,6 +44,6 @@
         <attribute name="failTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="lastSuggested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="passTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relStatistics" inverseEntity="Nomen"/>
     </entity>
 </model>
