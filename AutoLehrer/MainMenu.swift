@@ -100,19 +100,19 @@ struct MainMenu: View {
                         AppWizardView(popupEnabled: $appwizardPopupEnabled, autoClose: autoCloseWizard)
                     }
                     VStack{
-                        Text("Lernen".localized(for: language))
+                        Text("Учить".localized(for: language))
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
                         
 
-                        LazyVGrid(columns: [GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5)], spacing: 5){
+                        LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             NavigationLink(
-                                destination: Repeater().NG_NavigationTitle("Namen".localized(for: language), theme: theme),
+                                destination: NomenRepeater().NG_NavigationTitle("Существительные".localized(for: language), theme: theme),
                                 isActive: $Trainings_isActive
                             ) {
                                 Group {
                                     let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
                                     NG_Button(
-                                        title: "Namen".localized(for: language),
+                                        title: "Существительные".localized(for: language),
                                         style: .NG_ButtonStyle_Regular,
                                         isDisabled: .constant(false),
                                         isHighlighting: .constant(false),
@@ -133,18 +133,18 @@ struct MainMenu: View {
                     .padding(.horizontal)
                     
                     VStack{
-                        Text("Service functions".localized(for: language))
+                        Text("Служебные функции".localized(for: language))
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5), GridItem(.flexible(), spacing: 5)], spacing: 5){
                             
                             NavigationLink(
-                                destination: ThemesView().NG_NavigationTitle("Theme".localized(for: language), theme: theme),
+                                destination: ThemesView().NG_NavigationTitle("Тема".localized(for: language), theme: theme),
                                 isActive: $Theme_isActive
                             ) {
                                 Group {
                                     let state = recommendationModel.buttonStates[.mainmenu_theme] ?? .enabled
                                     NG_Button(
-                                        title: "Theme".localized(for: language),
+                                        title: "Тема".localized(for: language),
                                         style: .NG_ButtonStyle_Service,
                                         isDisabled: .constant(state == .disabled),
                                         isHighlighting: .constant(state == .highlighted),
@@ -161,7 +161,7 @@ struct MainMenu: View {
                             
                             Group{
                                 let state = recommendationModel.buttonStates[.mainmenu_thememode] ?? .enabled
-                                NG_Button(title: theme.currentTheme.themeOption == Theme_Option.bright ? "Bright".localized(for: language) : "Dark".localized(for: language), style: .NG_ButtonStyle_Service, isDisabled: .constant(state == .disabled), isHighlighting: .constant(state == .highlighted), isPulsating: .constant(state == .pulsating), action:{
+                                NG_Button(title: theme.currentTheme.themeOption == Theme_Option.bright ? "Светлая".localized(for: language) : "Тёмная".localized(for: language), style: .NG_ButtonStyle_Service, isDisabled: .constant(state == .disabled), isHighlighting: .constant(state == .highlighted), isPulsating: .constant(state == .pulsating), action:{
                                     switch theme.currentTheme.themeOption{
                                     case Theme_Option.bright:
                                         switch(theme.currentTheme.themeStyle){
@@ -262,11 +262,8 @@ struct MainMenu: View {
         recommendationModel.update(for: .MainMenu, in: viewContext)
     }
     private func updateUI(){
-        autoCloseWizard = previousWizardRecommendation == recommendationModel.recommendation || recommendationModel.recommendation == .mainMenu_lazySuggestWorkout || recommendationModel.recommendation == .mainMenu_oneMoreWorkout
+        autoCloseWizard = true
         appwizardPopupEnabled = true
-        if((previousWizardRecommendation == .mainMenu_suggestWorkout && recommendationModel.recommendation == .mainMenu_lazySuggestWorkout) || recommendationModel.recommendation == .mainMenu_oneMoreWorkout){
-            appwizardPopupEnabled = false
-        }
         previousWizardRecommendation = recommendationModel.recommendation
     }
 }

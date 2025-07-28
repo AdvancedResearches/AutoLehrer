@@ -10,11 +10,6 @@ class RecommendationModel: ObservableObject {
     }
     
     enum RecommendationType {
-        case mainMenu_trainingForToday
-        case mainMenu_welcomeMessage
-        case mainMenu_suggestWorkout
-        case mainMenu_lazySuggestWorkout
-        case mainMenu_oneMoreWorkout
         case none
     }
     
@@ -50,22 +45,6 @@ class RecommendationModel: ObservableObject {
     }
     
     private func update_mainMenu(in context: NSManagedObjectContext) {
-        //setup default state
-        buttonStates = [
-            .mainmenu_trainings : .disabled,
-            .mainmenu_statistics : .disabled,
-            .mainmenu_exercises : .enabled,
-            .mainmenu_equipment : .enabled,
-            .mainmenu_muscles : .enabled,
-            .mainmenu_locations : .enabled,
-            .mainmenu_weightandheight : .enabled,
-            .mainmenu_archival : .enabled,
-            .mainmenu_language : .enabled,
-            .mainmenu_theme : .enabled,
-            .mainmenu_thememode : .enabled,
-            .mainmenu_configs: .enabled
-        ]
-        
         recommendation = .none
     }
 }

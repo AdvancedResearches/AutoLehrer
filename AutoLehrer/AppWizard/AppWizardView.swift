@@ -16,23 +16,16 @@ struct AppWizardView: View {
             if popupEnabled {
                 VStack{
                     VStack{
-                        if recommendationModel.recommendation == .mainMenu_welcomeMessage{
-                            WizardContainerView(coordinator: wizardCoordinator)
-                        }else if recommendationModel.recommendation == .mainMenu_suggestWorkout{
-                            WizardContainerView(coordinator: wizardCoordinator)
-                        }else{
-                            content
-                            if(!autoClose){
-                                NG_Button(title: "OK".localized(for: language), style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                                    withAnimation {
-                                        popupEnabled = false
-                                    }
-                                })
-                            }
+                        content
+                        if(!autoClose){
+                            NG_Button(title: "OK".localized(for: language), style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                                withAnimation {
+                                    popupEnabled = false
+                                }
+                            })
                         }
                     }
                     .NG_Card(.NG_CardStyle_AppWizard, theme: theme)
-                    //.frame(maxWidth: 300)
                     .padding(.horizontal, 10)
                     .shadow(radius: 10)
                 }
@@ -65,69 +58,22 @@ struct AppWizardView: View {
                     .NG_textStyling(.NG_TextStyle_AppWizard, glare: true, pulsation: false, theme: theme)
                 Spacer()
             }
-            if(recommendationModel.recommendation == .mainMenu_lazySuggestWorkout){
-                NG_Button(title: "Yes".localized(for: language), style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                    recommendationModel.recommendation = .mainMenu_suggestWorkout
-                }, widthFlood: true)
-                if(popupEnabled){
-                    NG_Button(title: "No, thanks".localized(for: language), style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                        withAnimation {
-                            popupEnabled = false
-                        }
-                    }, widthFlood: true)
-                }
-            }
-            if(recommendationModel.recommendation == .mainMenu_oneMoreWorkout){
-                NG_Button(title: "Let's do that!".localized(for: language), style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                    recommendationModel.recommendation = .mainMenu_suggestWorkout
-                }, widthFlood: true)
-                if(popupEnabled){
-                    NG_Button(title: "No, thanks".localized(for: language), style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                        withAnimation {
-                            popupEnabled = false
-                        }
-                    }, widthFlood: true)
-                }
-            }
         }
             .onTapGesture {
-                if(recommendationModel.recommendation == .mainMenu_lazySuggestWorkout){
-                    recommendationModel.recommendation = .mainMenu_suggestWorkout
-                }
             }
         }
     
     private var recommendationText: String {
         switch recommendationModel.recommendation {
-        case .mainMenu_trainingForToday:
-            return "You have a workout planned for today".localized(for: language)
         case .none:
-            return "How you doing?".localized(for: language)
-        case .mainMenu_welcomeMessage:
-            return ""
-        case .mainMenu_suggestWorkout:
-            return ""
-        case .mainMenu_lazySuggestWorkout:
-            return "Would you like to workout today?".localized(for: language)
-        case .mainMenu_oneMoreWorkout:
-            return "One more workout today?".localized(for: language)
+            return "Как дела?".localized(for: language)
         }
     }
     
     private var iconName: String {
         switch recommendationModel.recommendation {
-        case .mainMenu_trainingForToday:
-            return "star.bubble"
         case .none:
             return "bubble.left"
-        case .mainMenu_welcomeMessage:
-            return ""
-        case .mainMenu_suggestWorkout:
-            return ""
-        case .mainMenu_lazySuggestWorkout:
-            return "questionmark.diamond"
-        case .mainMenu_oneMoreWorkout:
-            return "questionmark.diamond"
         }
     }
 }
