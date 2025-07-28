@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TextField_Float: View {
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @Binding var value: Float
     @Binding var requestToUpdate: Int
     @State private var inputText: String

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct DatePicker_Simple: View {
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @Binding var selectedDate: Date
     var label: String = "Выберите дату"
     var backgroundColor: Color = Color.blue

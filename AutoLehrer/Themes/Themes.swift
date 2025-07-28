@@ -14,7 +14,7 @@ struct ThemesView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var theme: ThemeManager
     
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     
     @State var currentTheme: Theme_Style = .regular
     

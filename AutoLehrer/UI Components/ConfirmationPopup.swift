@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConfirmationPopup: View {
     @EnvironmentObject var theme: ThemeManager
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @Binding var isPresented: Bool
     var header: String?
     var yesSelection: String?

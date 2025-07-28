@@ -40,7 +40,7 @@ struct Presets: View {
         }
     }
     
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var theme: ThemeManager

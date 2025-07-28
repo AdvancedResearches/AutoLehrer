@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DatePicker_Custom: View {
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @Binding var highlightedDates: [Date] // Подсвеченные даты
     @Binding var closedDates: [Date]
     @Binding var openDates: [Date]

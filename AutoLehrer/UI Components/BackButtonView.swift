@@ -2,7 +2,7 @@ import SwiftUI
 
 struct BackButton: View {
     @EnvironmentObject var theme: ThemeManager
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     var action: () -> Void
     var forPopUp: Bool = false
     var darkMode: Bool = false

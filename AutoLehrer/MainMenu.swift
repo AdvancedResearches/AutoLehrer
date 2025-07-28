@@ -13,7 +13,7 @@ struct MainMenu: View {
     @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var recommendationModel: RecommendationModel
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     
     @State var ThisTraining_disabled: Bool = false
     @State var ThisTraining_highlighted: Bool = false

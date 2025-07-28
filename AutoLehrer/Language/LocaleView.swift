@@ -85,9 +85,9 @@ struct LocaleView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var theme: ThemeManager
     
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     
-    @State var currentLocale: LocaleItem = .english
+    @State var currentLocale: LocaleItem = .russian
     
     let allLocales: [LocaleItem] = [.english, .russian, .czech, .polish, .french, .german, .spanish, .ukrainian]
     

@@ -4,7 +4,7 @@ struct AppWizardView: View {
     @StateObject private var wizardCoordinator = WizardCoordinator()
     @EnvironmentObject var recommendationModel: RecommendationModel
     @EnvironmentObject var theme: ThemeManager
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @Binding var popupEnabled: Bool
     
     var autoClose: Bool

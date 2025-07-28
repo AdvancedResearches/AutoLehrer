@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct LaunchScreen: View {
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     var body: some View {
         ZStack {

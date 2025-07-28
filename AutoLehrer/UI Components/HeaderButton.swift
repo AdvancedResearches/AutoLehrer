@@ -2,7 +2,7 @@ import SwiftUI
 
 struct HeaderButton: View {
     @EnvironmentObject var theme: ThemeManager
-    @AppStorage("appLanguage") var language: String = "en"
+    @AppStorage("appLanguage") var language: String = "ru"
     var text: String
     var action: () -> Void
     var tint: NG_TextColor = .NG_TextColor_Regular
