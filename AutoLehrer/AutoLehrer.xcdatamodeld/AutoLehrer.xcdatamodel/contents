@@ -23,7 +23,11 @@
         <relationship name="relBeispiel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relNomen" inverseEntity="Beispiel"/>
         <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relNomen" inverseEntity="Genus"/>
         <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relNomen" inverseEntity="Kasus"/>
+        <relationship name="relNomenHive" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NomenHive" inverseName="relNomen" inverseEntity="NomenHive"/>
         <relationship name="relNumerus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Numerus" inverseName="relNomen" inverseEntity="Numerus"/>
+    </entity>
+    <entity name="NomenHive" representedClassName="NomenHive" syncable="YES" codeGenerationType="class">
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNomenHive" inverseEntity="Nomen"/>
     </entity>
     <entity name="Numerus" representedClassName="Numerus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
@@ -33,5 +37,11 @@
     <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
         <attribute name="settingName" optional="YES" attributeType="String"/>
         <attribute name="settingValue" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Statistics" representedClassName="Statistics" syncable="YES" codeGenerationType="class">
+        <attribute name="failTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastSuggested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="passTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen"/>
     </entity>
 </model>
