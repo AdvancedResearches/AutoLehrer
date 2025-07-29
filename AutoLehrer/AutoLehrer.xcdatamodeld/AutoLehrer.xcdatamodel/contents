@@ -8,19 +8,19 @@
     <entity name="Genus" representedClassName="Genus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relGenus" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relGenus" inverseEntity="Nomen"/>
     </entity>
     <entity name="Kasus" representedClassName="Kasus" syncable="YES" codeGenerationType="class">
         <attribute name="fragen_DE" optional="YES" attributeType="String"/>
         <attribute name="fragen_RU" optional="YES" attributeType="String"/>
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relKasus" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relKasus" inverseEntity="Nomen"/>
     </entity>
     <entity name="Nomen" representedClassName="Nomen" syncable="YES" codeGenerationType="class">
         <attribute name="nomen_DE" optional="YES" attributeType="String"/>
         <attribute name="nomen_RU" optional="YES" attributeType="String"/>
-        <relationship name="relBeispiel" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relNomen" inverseEntity="Beispiel"/>
+        <relationship name="relBeispiel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relNomen" inverseEntity="Beispiel"/>
         <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relNomen" inverseEntity="Genus"/>
         <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relNomen" inverseEntity="Kasus"/>
         <relationship name="relNomenHive" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NomenHive" inverseName="relNomen" inverseEntity="NomenHive"/>
@@ -34,7 +34,7 @@
     <entity name="Numerus" representedClassName="Numerus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNumerus" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNumerus" inverseEntity="Nomen"/>
     </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
         <attribute name="settingName" optional="YES" attributeType="String"/>
