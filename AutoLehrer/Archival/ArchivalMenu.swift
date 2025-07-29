@@ -204,7 +204,6 @@ struct ArchivalMenu: View {
                                     try childContext.save()
                                     try viewContext.save()
                                 }catch{}
-                                Presets.reloadByLanguage(LocaleView.LocaleItem.filePrefix(for: language), in: viewContext)
                                 DispatchQueue.main.sync {
                                     reloadListOfFiles()
                                     isFlushing = false
@@ -226,7 +225,6 @@ struct ArchivalMenu: View {
                                     try childContext.save()
                                     try viewContext.save()
                                 }catch{}
-                                Presets.reloadByLanguage(LocaleView.LocaleItem.filePrefix(for: language), in: viewContext)
                                 DispatchQueue.main.sync {
                                     reloadListOfFiles()
                                     isFlushing = false

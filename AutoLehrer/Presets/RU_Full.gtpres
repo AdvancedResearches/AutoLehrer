@@ -6051,7 +6051,7 @@
   }
 ]
  },
-  "nomenHive": { "theHive": [
+  "nomenDataHive": { "theHive": [
   {
     "nomen_DE": "die Zeit  ",
     "nomen_RU": "время  ",

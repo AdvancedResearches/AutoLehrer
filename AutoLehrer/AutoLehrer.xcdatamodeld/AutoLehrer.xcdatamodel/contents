@@ -41,9 +41,8 @@
         <attribute name="settingValue" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Statistics" representedClassName="Statistics" syncable="YES" codeGenerationType="class">
-        <attribute name="failTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="lastSuggested" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="passTimes" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="lastAttempt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relStatistics" inverseEntity="Nomen"/>
     </entity>
 </model>

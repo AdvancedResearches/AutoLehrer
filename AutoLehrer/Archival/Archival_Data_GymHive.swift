@@ -72,62 +72,90 @@ struct GymHive: Codable{
 }
  */
 
-struct NameHive: Codable{
-    var theHive: [NameItem]
+struct BeispielHive: Codable{
+    var theHive: [BeispielItem]
 }
 
-struct NameItem: Codable{
-    
+struct BeispielItem: Codable{
+    var beispiel_DE: String
+    var beispiel_RU: String
+    var relNomen: String
+    var beispielKey: String
 }
 
-struct VerbHive: Codable{
-    var theHive: [VerbItem]
+struct GenusHive: Codable{
+    var theHive: [GenusItem]
 }
 
-struct VerbItem: Codable{
-    
+struct GenusItem: Codable{
+    var name_DE: String
+    var name_RU: String
+    var genusKey: String
 }
 
-struct AdjektivHive: Codable{
-    var theHive: [AdjektivItem]
+struct KasusHive: Codable{
+    var theHive: [KasusItem]
 }
 
-struct AdjektivItem: Codable{
-    
+struct KasusItem: Codable{
+    var fragen_DE: String
+    var fragen_RU: String
+    var name_DE: String
+    var name_RU: String
+    var kasusKey: String
 }
 
-struct FunktionalHive: Codable{
-    var theHive: [FunktionalItem]
+struct NumerusHive: Codable{
+    var theHive: [NumerusItem]
 }
 
-struct FunktionalItem: Codable{
-    
+struct NumerusItem: Codable{
+    var name_DE: String
+    var name_RU: String
+    var numerusKey: String
 }
 
-struct PhraseHive: Codable{
-    var theHive: [PhraseItem]
+struct NomenDataHive: Codable{
+    var theHive: [NomenItem]
 }
 
-struct PhraseItem: Codable{
-    
+struct NomenItem: Codable{
+    var nomen_DE: String
+    var nomen_RU: String
+    var relGenus: String
+    var relKasus: String
+    var relNomenHive: String
+    var relNumerus: String
+    var nomenKey: String
+}
+
+struct nomenHiveHive: Codable{
+    var theHive: [NomenHiveItem]
+}
+
+struct NomenHiveItem: Codable{
+    var nomenFrequencyOrder: Int64
+    var nomenHiveKey: String
 }
 
 struct VocabularyHive: Codable{
-    var nameHive: NameHive
-    var verbHive: VerbHive
-    var adjektivHive: AdjektivHive
-    var funktonalHive: FunktionalHive
-    var phraseHive: PhraseHive
+    var nomenDataHive: NomenDataHive
+    var beispielHive: BeispielHive
+    var genusHive: GenusHive
+    var kasusHive: KasusHive
+    var numerusHive: NumerusHive
+    var nomenHiveHive: nomenHiveHive
 }
 
 struct Archival_Vocabulary{
     static func dump(theContext: NSManagedObjectContext) -> VocabularyHive{
         var retHive = VocabularyHive(
-            nameHive: NameHive(theHive: []),
-            verbHive: VerbHive(theHive: []),
-            adjektivHive: AdjektivHive(theHive: []),
-            funktonalHive: FunktionalHive(theHive: []),
-            phraseHive: PhraseHive(theHive: [])
+            nomenDataHive: NomenDataHive(theHive: []),
+            beispielHive: BeispielHive(theHive: []),
+            genusHive: GenusHive(theHive: []),
+            kasusHive: KasusHive(theHive: []),
+            numerusHive: NumerusHive(theHive: []),
+            nomenHiveHive: nomenHiveHive(theHive: [])
         )
         do{
             /*
@@ -158,6 +186,27 @@ struct Archival_Vocabulary{
                 theContext.delete(theEquipment)
             }
              */
+            for theBeispiel in try theContext.fetch(Beispiel.fetchRequest()){
+                theContext.delete(theBeispiel)
+            }
+            for theStatistics in try theContext.fetch(Statistics.fetchRequest()){
+                theContext.delete(theStatistics)
+            }
+            for theNomenHive in try theContext.fetch(NomenHive.fetchRequest()){
+                theContext.delete(theNomenHive)
+            }
+            for theNomen in try theContext.fetch(Nomen.fetchRequest()){
+                theContext.delete(theNomen)
+            }
+            for theGenus in try theContext.fetch(Genus.fetchRequest()){
+                theContext.delete(theGenus)
+            }
+            for theKasus in try theContext.fetch(Kasus.fetchRequest()){
+                theContext.delete(theKasus)
+            }
+            for theNumerus in try theContext.fetch(Numerus.fetchRequest()){
+                theContext.delete(theNumerus)
+            }
             try theContext.save()
         }catch{
             
@@ -168,6 +217,60 @@ struct Archival_Vocabulary{
         do{
             //flush
             flush(theContext: theContext, totalFlush: false)
+            
+            var GenusDictionary: [String:Genus] = [:]
+            for theGenus in theData.genusHive.theHive{
+                let uploadingGenus = Genus(context: theContext)
+                uploadingGenus.name_DE = theGenus.name_DE
+                uploadingGenus.name_RU = theGenus.name_RU
+                GenusDictionary.updateValue(uploadingGenus, forKey: theGenus.genusKey)
+            }
+            
+            var KasusDictionary: [String:Kasus] = [:]
+            for theKasus in theData.kasusHive.theHive{
+                let uploadingKasus = Kasus(context: theContext)
+                uploadingKasus.name_DE = theKasus.name_DE
+                uploadingKasus.name_RU = theKasus.name_RU
+                uploadingKasus.fragen_DE = theKasus.fragen_DE
+                uploadingKasus.fragen_RU = theKasus.fragen_RU
+                KasusDictionary.updateValue(uploadingKasus, forKey: theKasus.kasusKey)
+            }
+            
+            var NumerusDictionary: [String:Numerus] = [:]
+            for theNumerus in theData.numerusHive.theHive{
+                let uploadingNumerus = Numerus(context: theContext)
+                uploadingNumerus.name_DE = theNumerus.name_DE
+                uploadingNumerus.name_RU = theNumerus.name_RU
+                NumerusDictionary.updateValue(uploadingNumerus, forKey: theNumerus.numerusKey)
+            }
+            
+            var nomenHiveDictionary: [String:NomenHive] = [:]
+            for theNomenHive in theData.nomenHiveHive.theHive{
+                let uploadingNomenHive = NomenHive(context: theContext)
+                uploadingNomenHive.nomenFrequencyOrder = theNomenHive.nomenFrequencyOrder
+                nomenHiveDictionary.updateValue(uploadingNomenHive, forKey: theNomenHive.nomenHiveKey)
+            }
+            
+            var NomenDictionary: [String:Nomen] = [:]
+            for theNomen in theData.nomenDataHive.theHive{
+                let uploadingNomen = Nomen(context: theContext)
+                uploadingNomen.nomen_DE = theNomen.nomen_DE
+                uploadingNomen.nomen_RU = theNomen.nomen_RU
+                uploadingNomen.relGenus = GenusDictionary[theNomen.relGenus]
+                uploadingNomen.relKasus = KasusDictionary[theNomen.relKasus]
+                uploadingNomen.relNumerus = NumerusDictionary[theNomen.relNumerus]
+                uploadingNomen.relNomenHive = nomenHiveDictionary[theNomen.relNomenHive]
+                NomenDictionary.updateValue(uploadingNomen, forKey: theNomen.nomenKey)
+            }
+            
+            var BeispielDictionary: [String:Beispiel] = [:]
+            for theBeispel in theData.beispielHive.theHive{
+                let uploadingBeispiel = Beispiel(context: theContext)
+                uploadingBeispiel.beispiel_DE = theBeispel.beispiel_DE
+                uploadingBeispiel.beispiel_RU = theBeispel.beispiel_RU
+                uploadingBeispiel.relNomen = NomenDictionary[theBeispel.relNomen]
+                BeispielDictionary.updateValue(uploadingBeispiel, forKey: theBeispel.beispielKey)
+            }
             /*
             //exercise recovery
             var ExerciseDictionary: [String:Exercise] = [:]
