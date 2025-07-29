@@ -7,11 +7,14 @@ struct NomenRepeater: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     
+    @State var nomenHive: NomenHive?
+    
     var body: some View {
         VStack {
             Text("Placeholder")
             Spacer()
         }
+        .frame(maxWidth: .infinity)
         .background(theme.currentTheme.NG_LinearGradient_Background_Page)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
@@ -21,5 +24,6 @@ struct NomenRepeater: View {
                     dismiss()
                 }, blinking: false)
         )
+        
     }
 }

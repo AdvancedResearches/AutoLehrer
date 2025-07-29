@@ -8,6 +8,48 @@
 import CoreData
 
 extension Statistics{
+    public static func set_success(_ nomen: Nomen){
+        guard let context = nomen.managedObjectContext else {
+            return
+        }
+        if let theStatistics = get_statistics(nomen){
+            theStatistics.score += 1
+            theStatistics.lastAttempt = Date.now
+        }else{
+            let newStatistics = Statistics(context: context)
+            newStatistics.relNomen = nomen
+            newStatistics.score = 1
+            
+        }
+    }
+    public static func set_failure(_ nomen: Nomen){
+        guard let context = nomen.managedObjectContext else {
+            return
+        }
+        if let theStatistics = get_statistics(nomen){
+            theStatistics.score = 0
+            theStatistics.lastAttempt = Date.now
+        }else{
+            let newStatistics = Statistics(context: context)
+            newStatistics.relNomen = nomen
+            newStatistics.score = 0
+            
+        }
+    }
+    public static func set_default(_ nomen: Nomen){
+        guard let context = nomen.managedObjectContext else {
+            return
+        }
+        if let theStatistics = get_statistics(nomen){
+            theStatistics.score = 0
+            theStatistics.lastAttempt = Date.now
+        }else{
+            let newStatistics = Statistics(context: context)
+            newStatistics.relNomen = nomen
+            newStatistics.score = 0
+            
+        }
+    }
     public static func get_statistics(_ nomen: Nomen) -> Statistics?{
         guard let context = nomen.managedObjectContext else {
             return nil
@@ -41,7 +83,8 @@ extension Statistics{
     }
     public static func nomenFormScore(_ nomen: Nomen) -> Float{
         guard let statisticsForNomen: Statistics = Statistics.get_statistics(nomen) else {
-            return 0
+            Statistics.set_default(nomen)
+            return log(1.0 + Float(Date.get_offset_inDays(Date.distantPast, Date.now)))
         }
         return (1.0/(1.0 + Float(statisticsForNomen.score)))*log(1.0 + Float(Date.get_offset_inDays(statisticsForNomen.lastAttempt ?? Date.distantPast, Date.now)))
     }
