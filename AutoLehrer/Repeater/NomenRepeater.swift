@@ -11,9 +11,16 @@ struct NomenRepeater: View {
     
     var body: some View {
         VStack {
-            Text("Placeholder")
+            let pickedNomenHive = Statistics.pickNomenHive(viewContext)
+            let nominativ_singular = Nomen.pick_nomenative_singular(pickedNomenHive)
+            Text(nominativ_singular.nomen_DE!)
+                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+            Text(nominativ_singular.nomen_RU!)
+                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+            //Text("Placeholder")
             Spacer()
         }
+        .NG_Card(.NG_CardStyle_Regular, theme: theme)
         .frame(maxWidth: .infinity)
         .background(theme.currentTheme.NG_LinearGradient_Background_Page)
         .navigationBarTitleDisplayMode(.inline)
