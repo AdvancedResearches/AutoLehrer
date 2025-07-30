@@ -65,11 +65,14 @@ extension Statistics{
         let allTheNomenHives = try! context.fetch(NomenHive.fetchRequest())
         var retValue = allTheNomenHives.first!
         var retScore = nomenHiveUrgency(retValue)
+        print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
         for theCounter in 1..<allTheNomenHives.count{
             let theUrgency = nomenHiveUrgency(allTheNomenHives[theCounter])
-            if theUrgency < retScore{
+            print("Statistics.pickNomenHive: urgency \(theUrgency) for \(allTheNomenHives[theCounter].nomenFrequencyOrder)")
+            if theUrgency > retScore{
                 retValue = allTheNomenHives[theCounter]
                 retScore = theUrgency
+                print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
             }
         }
         return retValue

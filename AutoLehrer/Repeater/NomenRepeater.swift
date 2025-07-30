@@ -20,8 +20,8 @@ struct NomenRepeater: View {
             //Text("Placeholder")
             Spacer()
         }
-        .NG_Card(.NG_CardStyle_Regular, theme: theme)
         .frame(maxWidth: .infinity)
+        .NG_Card(.NG_CardStyle_Regular, theme: theme)
         .background(theme.currentTheme.NG_LinearGradient_Background_Page)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
