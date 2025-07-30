@@ -14,7 +14,7 @@ struct FlipCard: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     
-    @State var deutschesSeite: Bool
+    @Binding var deutschesSeite: Bool
     var deutschesWorte: String
     var russischesWorte: String
     @Binding var result: Int

@@ -8,10 +8,11 @@ struct NomenRepeater: View {
     @EnvironmentObject var theme: ThemeManager
     
     @State var nomenHive: NomenHive?
-    @State var nominative_singular_correct: Int = 0
-    
     @State var pickedNomenHive: NomenHive?
+    
+    @State var nominative_singular_correct: Int = 0
     @State var nominativ_singular: Nomen?
+    @State var nominative_singular_deutschesSeite: Bool = false
     
     var body: some View {
         VStack {
@@ -31,7 +32,7 @@ struct NomenRepeater: View {
                     Text("Nominative Singlular")
                         .NG_textStyling(.NG_TextStyle_Title, theme: theme)
                     HStack{
-                        FlipCard(deutschesSeite: true, deutschesWorte: nominativ_singular!.nomen_DE!, russischesWorte: nominativ_singular!.nomen_RU!, result: $nominative_singular_correct)
+                        FlipCard(deutschesSeite: $nominative_singular_deutschesSeite, deutschesWorte: nominativ_singular!.nomen_DE!, russischesWorte: nominativ_singular!.nomen_RU!, result: $nominative_singular_correct)
                         Image(systemName: "checkmark.square.fill")
                             .resizable()
                             .frame(width: 35, height: 35)
@@ -73,6 +74,7 @@ struct NomenRepeater: View {
         if pickedNomenHive != nil {
             nominativ_singular = Nomen.pick_nomenative_singular(pickedNomenHive!)
             nominative_singular_correct = 0
+            nominative_singular_deutschesSeite = false
         }
     }
 }
