@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "static Statistics.nomenFormScore(_:):Extensions_Statistics.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(1.0/(1.0 + Float(statisticsForNomen.score)))*log(1.0 + Float(Date.get_offset_inDays(statisticsForNomen.lastAttempt ?? Date.distantPast, Date.now)))">
+            </PersistentString>
+            <PersistentString
+               value = "nomen.nomen_RU!">
+            </PersistentString>
+            <PersistentString
+               value = "nomen.nomen_DE!">
+            </PersistentString>
+            <PersistentString
+               value = "(1.0/(1.0 + Float(statisticsForNomen.score)))">
+            </PersistentString>
+            <PersistentString
+               value = "Date.get_offset_inDays(statisticsForNomen.lastAttempt ?? Date.distantPast, Date.now)">
+            </PersistentString>
+            <PersistentString
+               value = "statisticsForNomen.lastAttempt">
+            </PersistentString>
+            <PersistentString
+               value = "log(1.0 + Float(Date.get_offset_inDays(statisticsForNomen.lastAttempt ?? Date.distantPast, Date.now)))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Data_Archival.preset():Data_Archival.swift">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
