@@ -220,11 +220,30 @@ struct ArchivalMenu: View {
                                 childContext.parent = PersistenceController.shared.container.viewContext
                                 childContext.automaticallyMergesChangesFromParent = false
                                 Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileSelectorForHovers), theContext: childContext).flush()
-                                Settings.setLocale(language, in: childContext)
+                                //Settings.setLocale(language, in: childContext)
                                 do{
                                     try childContext.save()
                                     try viewContext.save()
                                 }catch{}
+                                //Presets.reloadByLanguage(LocaleView.LocaleItem.filePrefix(for: language), in: viewContext)
+                                let fileDirectory: URL? = Bundle.main.resourceURL
+                                if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
+                                    for fileURL in presetFiles.sorted{$0.lastPathComponent < $1.lastPathComponent} {
+                                        childContext.performAndWait{
+                                            Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: childContext).preset()
+                                        }
+                                        childContext.performAndWait{
+                                            do{
+                                                try childContext.save()
+                                            }catch{}
+                                        }
+                                        viewContext.performAndWait {
+                                            do{
+                                                try viewContext.save()
+                                            }catch{}
+                                        }
+                                    }
+                                }
                                 DispatchQueue.main.sync {
                                     reloadListOfFiles()
                                     isFlushing = false
