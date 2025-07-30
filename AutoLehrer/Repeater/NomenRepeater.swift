@@ -13,11 +13,19 @@ struct NomenRepeater: View {
         VStack {
             let pickedNomenHive = Statistics.pickNomenHive(viewContext)
             let nominativ_singular = Nomen.pick_nomenative_singular(pickedNomenHive)
-            Text(nominativ_singular.nomen_DE!)
-                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-            Text(nominativ_singular.nomen_RU!)
-                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-            //Text("Placeholder")
+            Text("Nominative Singlular")
+                .NG_textStyling(.NG_TextStyle_Title, theme: theme)
+            HStack{
+                FlipCard(deutschesSeite: true, deutschesWorte: nominativ_singular.nomen_DE!, russischesWorte: nominativ_singular.nomen_RU!)
+                Image(systemName: "checkmark.square.fill")
+                    .resizable()
+                    .frame(width: 35, height: 35)
+                    .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                Image(systemName: "multiply.square.fill")
+                    .resizable()
+                    .frame(width: 35, height: 35)
+                    .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+            }
             Spacer()
         }
         .frame(maxWidth: .infinity)
