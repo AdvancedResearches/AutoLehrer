@@ -78,8 +78,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_Statistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "pickNomenHive(_:)"
             landmarkType = "7">
          </BreakpointContent>

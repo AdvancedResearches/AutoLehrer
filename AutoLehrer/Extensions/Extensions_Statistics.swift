@@ -19,8 +19,11 @@ extension Statistics{
             let newStatistics = Statistics(context: context)
             newStatistics.relNomen = nomen
             newStatistics.score = 1
-            
+            newStatistics.lastAttempt = Date.now
         }
+        do{
+            try context.save()
+        }catch{}
     }
     public static func set_failure(_ nomen: Nomen){
         guard let context = nomen.managedObjectContext else {
@@ -33,8 +36,11 @@ extension Statistics{
             let newStatistics = Statistics(context: context)
             newStatistics.relNomen = nomen
             newStatistics.score = 0
-            
+            newStatistics.lastAttempt = Date.now
         }
+        do{
+            try context.save()
+        }catch{}
     }
     public static func set_default(_ nomen: Nomen){
         guard let context = nomen.managedObjectContext else {
@@ -47,8 +53,11 @@ extension Statistics{
             let newStatistics = Statistics(context: context)
             newStatistics.relNomen = nomen
             newStatistics.score = 0
-            
+            newStatistics.lastAttempt = Date.now
         }
+        do{
+            try context.save()
+        }catch{}
     }
     public static func get_statistics(_ nomen: Nomen) -> Statistics?{
         guard let context = nomen.managedObjectContext else {
