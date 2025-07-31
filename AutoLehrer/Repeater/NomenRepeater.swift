@@ -11,10 +11,12 @@ struct NomenRepeater: View {
     
     @State var nominativ_singular_correct: Int = 0
     @State var nominativ_singular: Nomen?
+    @State var nominativ_singular_beispiel: Beispiel?
     @State var nominativ_singular_deutschesSeite: Bool = false
     
     @State var genitiv_singular_correct: Int = 0
     @State var genitiv_singular: Nomen?
+    @State var genitiv_singular_beispiel: Beispiel?
     @State var genitiv_singular_deutschesSeite: Bool = false
     
     @State var exercisedWords: Set<NomenHive> = []
@@ -61,52 +63,66 @@ struct NomenRepeater: View {
                     }
                 }
                 if(pickedNomenHive != nil){
-                    if(nominativ_singular != nil){
-                        Text("Nominativ Singlular")
-                            .NG_textStyling(.NG_TextStyle_Title, theme: theme)
-                        Text(genitiv_singular_deutschesSeite ? "Wer? Was?" : "Кто? Что?")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        HStack{
-                            FlipCard(deutschesSeite: $nominativ_singular_deutschesSeite, deutschesWorte: nominativ_singular!.nomen_DE!, russischesWorte: nominativ_singular!.nomen_RU!, result: $nominativ_singular_correct)
-                            Image(systemName: "checkmark.square.fill")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                .onTapGesture {
-                                    nominativ_singular_correct = 1
+                    ScrollView(.vertical){
+                        if(nominativ_singular != nil){
+                            Divider()
+                            Text("Nominativ Singlular")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Text(genitiv_singular_deutschesSeite ? "Wer? Was?" : "Кто? Что?")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            HStack{
+                                if(nominativ_singular_beispiel != nil){
+                                    FlipCard(deutschesSeite: $nominativ_singular_deutschesSeite, deutschesWorte: nominativ_singular!.nomen_DE!, russischesWorte: nominativ_singular!.nomen_RU!, deutschesBeispeil: nominativ_singular_beispiel!.beispiel_DE!, russischesBeispeil: nominativ_singular_beispiel!.beispiel_RU!, result: $nominativ_singular_correct)
+                                }else{
+                                    FlipCard(deutschesSeite: $nominativ_singular_deutschesSeite, deutschesWorte: nominativ_singular!.nomen_DE!, russischesWorte: nominativ_singular!.nomen_RU!, result: $nominativ_singular_correct)
                                 }
-                            Image(systemName: "multiply.square.fill")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                                .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                .onTapGesture {
-                                    nominativ_singular_correct = -1
+                                Image(systemName: "checkmark.square.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                    .onTapGesture {
+                                        nominativ_singular_correct = 1
+                                    }
+                                Image(systemName: "multiply.square.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                    .onTapGesture {
+                                        nominativ_singular_correct = -1
+                                    }
+                            }
+                        }
+                        if(genitiv_singular != nil){
+                            Divider()
+                            Text("Genitiv Singlular")
+                                .NG_textStyling(.NG_TextStyle_Title, theme: theme)
+                            Text(genitiv_singular_deutschesSeite ? "Wessen?" : "Кого? Чего?")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            HStack{
+                                if(genitiv_singular_beispiel != nil){
+                                    FlipCard(deutschesSeite: $genitiv_singular_deutschesSeite, deutschesWorte: genitiv_singular!.nomen_DE!, russischesWorte: genitiv_singular!.nomen_RU!, deutschesBeispeil: genitiv_singular_beispiel!.beispiel_DE!, russischesBeispeil: genitiv_singular_beispiel!.beispiel_RU!, result: $nominativ_singular_correct)
+                                }else{
+                                    FlipCard(deutschesSeite: $genitiv_singular_deutschesSeite, deutschesWorte: genitiv_singular!.nomen_DE!, russischesWorte: genitiv_singular!.nomen_RU!, result: $genitiv_singular_correct)
                                 }
+                                Image(systemName: "checkmark.square.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                    .onTapGesture {
+                                        genitiv_singular_correct = 1
+                                    }
+                                Image(systemName: "multiply.square.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                    .onTapGesture {
+                                        genitiv_singular_correct = -1
+                                    }
+                            }
                         }
                     }
-                    if(genitiv_singular != nil){
-                        Text("Genitiv Singlular")
-                            .NG_textStyling(.NG_TextStyle_Title, theme: theme)
-                        Text(genitiv_singular_deutschesSeite ? "Wessen?" : "Кого? Чего?")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        HStack{
-                            FlipCard(deutschesSeite: $genitiv_singular_deutschesSeite, deutschesWorte: genitiv_singular!.nomen_DE!, russischesWorte: genitiv_singular!.nomen_RU!, result: $genitiv_singular_correct)
-                            Image(systemName: "checkmark.square.fill")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                .onTapGesture {
-                                    genitiv_singular_correct = 1
-                                }
-                            Image(systemName: "multiply.square.fill")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                                .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                .onTapGesture {
-                                    genitiv_singular_correct = -1
-                                }
-                        }
-                    }
+                    .background(.clear)
+                    .scrollIndicators(.hidden)
                 }
                 Spacer()
             }
@@ -133,10 +149,16 @@ struct NomenRepeater: View {
             nominativ_singular = Nomen.pick_nomenativ_singular(pickedNomenHive!)
             nominativ_singular_correct = nominativ_singular != nil ? 0 : 1
             nominativ_singular_deutschesSeite = false
+            if(nominativ_singular != nil){
+                nominativ_singular_beispiel = Nomen.get_beispiel(nominativ_singular!)
+            }
             
             genitiv_singular = Nomen.pick_genitiv_singular(pickedNomenHive!)
             genitiv_singular_correct = genitiv_singular != nil ? 0 : 1
             genitiv_singular_deutschesSeite = false
+            if(genitiv_singular != nil){
+                genitiv_singular_beispiel = Nomen.get_beispiel(genitiv_singular!)
+            }
         }
     }
 }

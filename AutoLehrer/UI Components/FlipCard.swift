@@ -17,6 +17,8 @@ struct FlipCard: View {
     @Binding var deutschesSeite: Bool
     var deutschesWorte: String
     var russischesWorte: String
+    var deutschesBeispeil: String?
+    var russischesBeispeil: String?
     @Binding var result: Int
     
     var body: some View {
@@ -24,9 +26,19 @@ struct FlipCard: View {
             if(deutschesSeite){
                 Text(deutschesWorte)
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                if(deutschesBeispeil != nil){
+                    Text(deutschesBeispeil!)
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        .padding(.leading, 10)
+                }
             }else{
                 Text(russischesWorte)
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                if(russischesBeispeil != nil){
+                    Text(russischesBeispeil!)
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        .padding(.leading, 10)
+                }
             }
         }
         .frame(maxWidth: .infinity)

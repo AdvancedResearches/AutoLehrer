@@ -29,6 +29,17 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "static Nomen.get_beispiel(_:):Extensions_Nomen.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "nomen.relBeispiel as? Set&lt;Beispiel&gt;">
+            </PersistentString>
+            <PersistentString
+               value = "nomen.nomen_DE!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Data_Archival.preset():Data_Archival.swift">
       </ContextState>
    </ContextStates>

@@ -21,4 +21,12 @@ extension Nomen{
         }
         return match
     }
+    public static func get_beispiel(_ nomen: Nomen) -> Beispiel? {
+        guard let beispielSet = nomen.relBeispiel as? Set<Beispiel>, !beispielSet.isEmpty else {
+            return nil
+        }
+
+        // Например, вернуть первый элемент (или можешь выбрать случайный, если хочешь)
+        return beispielSet.randomElement()
+    }
 }
