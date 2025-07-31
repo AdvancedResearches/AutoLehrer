@@ -52,6 +52,8 @@ struct NomenRepeater: View {
                 if(nominativ_singular != nil){
                     Text("Nominativ Singlular")
                         .NG_textStyling(.NG_TextStyle_Title, theme: theme)
+                    Text(genitiv_singular_deutschesSeite ? "Wer? Was?" : "Кто? Что?")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     HStack{
                         FlipCard(deutschesSeite: $nominativ_singular_deutschesSeite, deutschesWorte: nominativ_singular!.nomen_DE!, russischesWorte: nominativ_singular!.nomen_RU!, result: $nominativ_singular_correct)
                         Image(systemName: "checkmark.square.fill")
@@ -73,6 +75,8 @@ struct NomenRepeater: View {
                 if(genitiv_singular != nil){
                     Text("Genitiv Singlular")
                         .NG_textStyling(.NG_TextStyle_Title, theme: theme)
+                    Text(genitiv_singular_deutschesSeite ? "Wessen?" : "Кого? Чего?")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     HStack{
                         FlipCard(deutschesSeite: $genitiv_singular_deutschesSeite, deutschesWorte: genitiv_singular!.nomen_DE!, russischesWorte: genitiv_singular!.nomen_RU!, result: $genitiv_singular_correct)
                         Image(systemName: "checkmark.square.fill")
