@@ -12,6 +12,8 @@ extension Statistics{
         guard let context = nomen.managedObjectContext else {
             return
         }
+        nomen.relNomenHive!.coolDown = 20
+        nomen.relNomenHive!.failed = false
         if let theStatistics = get_statistics(nomen){
             theStatistics.score += 1
             theStatistics.lastAttempt = Date.now
@@ -29,6 +31,8 @@ extension Statistics{
         guard let context = nomen.managedObjectContext else {
             return
         }
+        nomen.relNomenHive!.coolDown = 20
+        nomen.relNomenHive!.failed = true
         if let theStatistics = get_statistics(nomen){
             theStatistics.score = min(0, theStatistics.score - 1)
             theStatistics.lastAttempt = Date.now
@@ -71,7 +75,39 @@ extension Statistics{
         return nil
     }
     public static func pickNomenHive(_ context: NSManagedObjectContext) -> NomenHive{
+        NomenHive.coolDown(context)
+        let coolFailed = NomenHive.get_failedCool(context)
+        if(coolFailed.count > 0){
+            return pickFromRange(coolFailed)
+        }
+        let coolSuccessful = NomenHive.get_successfulCool(context)
+        if(coolSuccessful.count > 0){
+            return pickFromRange(coolSuccessful)
+        }
+        let hotFailed = NomenHive.get_failedHot(context)
+        if(hotFailed.count > 0){
+            return pickFromRange(hotFailed)
+        }
+        let hotSuccessful = NomenHive.get_successfulHot(context)
+        return pickFromRange(hotSuccessful)
+        /*
         let allTheNomenHives = try! context.fetch(NomenHive.fetchRequest()).sorted{$0.nomenFrequencyOrder < $1.nomenFrequencyOrder}
+        var retValue = allTheNomenHives.first!
+        var retScore = nomenHiveUrgency(retValue)
+        print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
+        for theCounter in 1..<allTheNomenHives.count{
+            let theUrgency = nomenHiveUrgency(allTheNomenHives[theCounter])
+            print("Statistics.pickNomenHive: urgency \(theUrgency) for \(allTheNomenHives[theCounter].nomenFrequencyOrder)")
+            if theUrgency > retScore{
+                retValue = allTheNomenHives[theCounter]
+                retScore = theUrgency
+                print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
+            }
+        }
+        return retValue
+         */
+    }
+    public static func pickFromRange(_ allTheNomenHives: [NomenHive]) -> NomenHive{
         var retValue = allTheNomenHives.first!
         var retScore = nomenHiveUrgency(retValue)
         print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
