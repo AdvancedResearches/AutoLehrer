@@ -132,6 +132,30 @@ struct MainMenu: View {
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
                     
+                    VStack(alignment: .leading){
+                        Text("Статистика")
+                            .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
+                        Text("Существительные")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        let nomen_total = Statistics.get_nomen_total(viewContext)
+                        let nomen_confirmed = Statistics.get_nomen_confirmed(viewContext)
+                        let nomen_confirmed_ratio = Double(nomen_confirmed)/Double(nomen_total)*100
+                        let nomen_attempted = Statistics.get_nomen_attempted(viewContext)
+                        let nomen_attempted_ratio = Double(nomen_attempted)/Double(nomen_total)*100
+                        Text("Всего: \(nomen_total)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.leading, 10)
+                        Text("Выучено: \(nomen_confirmed) (\(String(format: "%.1f", nomen_confirmed_ratio))%)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.leading, 10)
+                        Text("Опробовано: \(nomen_attempted) (\(String(format: "%.1f", nomen_attempted_ratio))%)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.leading, 10)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .padding(.horizontal)
+                    
                     VStack{
                         Text("Служебные функции".localized(for: language))
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)

@@ -1,6 +1,9 @@
 import CoreData
 
 extension NomenHive{
+    public static func set_attempted(_ nomenHive: NomenHive){
+        nomenHive.attempted = true
+    }
     public static func coolDown(_ context: NSManagedObjectContext){
         let hotNomenHives: [NomenHive] = try! context.fetch(NomenHive.fetchRequest()).filter{$0.coolDown > 0}
         for theHive in hotNomenHives{

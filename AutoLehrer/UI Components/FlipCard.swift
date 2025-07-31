@@ -25,19 +25,21 @@ struct FlipCard: View {
         VStack {
             if(deutschesSeite){
                 Text(deutschesWorte)
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
                 if(deutschesBeispeil != nil){
-                    Text(deutschesBeispeil!)
+                    Text("\"\(deutschesBeispeil!)\"")
                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         .padding(.leading, 10)
+                    Spacer()
                 }
             }else{
                 Text(russischesWorte)
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
                 if(russischesBeispeil != nil){
-                    Text(russischesBeispeil!)
+                    Text("\"\(russischesBeispeil!)\"")
                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         .padding(.leading, 10)
+                    Spacer()
                 }
             }
         }

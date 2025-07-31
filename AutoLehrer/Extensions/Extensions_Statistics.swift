@@ -8,6 +8,18 @@
 import CoreData
 
 extension Statistics{
+    public static func get_nomen_total(_ context: NSManagedObjectContext) -> Int{
+        let all = try! context.fetch(NomenHive.fetchRequest())
+        return all.count
+    }
+    public static func get_nomen_attempted(_ context: NSManagedObjectContext) -> Int{
+        let all = try! context.fetch(NomenHive.fetchRequest()).filter{$0.attempted}
+        return all.count
+    }
+    public static func get_nomen_confirmed(_ context: NSManagedObjectContext) -> Int{
+        let all = try! context.fetch(NomenHive.fetchRequest()).filter{$0.successCounter > 2}
+        return all.count
+    }
     public static func set_success(_ nomen: Nomen){
         guard let context = nomen.managedObjectContext else {
             return
@@ -94,22 +106,6 @@ extension Statistics{
         }
         let hotSuccessful = NomenHive.get_successfulHot(context)
         return pickFromRange(hotSuccessful)
-        /*
-        let allTheNomenHives = try! context.fetch(NomenHive.fetchRequest()).sorted{$0.nomenFrequencyOrder < $1.nomenFrequencyOrder}
-        var retValue = allTheNomenHives.first!
-        var retScore = nomenHiveUrgency(retValue)
-        print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
-        for theCounter in 1..<allTheNomenHives.count{
-            let theUrgency = nomenHiveUrgency(allTheNomenHives[theCounter])
-            print("Statistics.pickNomenHive: urgency \(theUrgency) for \(allTheNomenHives[theCounter].nomenFrequencyOrder)")
-            if theUrgency > retScore{
-                retValue = allTheNomenHives[theCounter]
-                retScore = theUrgency
-                print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
-            }
-        }
-        return retValue
-         */
     }
     public static func pickFromRange(_ allTheNomenHives: [NomenHive]) -> NomenHive{
         var retValue = allTheNomenHives.first!
