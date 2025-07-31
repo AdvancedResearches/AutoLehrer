@@ -37,9 +37,11 @@ struct NomenRepeater: View {
                 },
                 widthFlood: true
             )
-            HStack{
-                Text("Правильно \(pickedNomenHive!.successCounter) раз подряд")
-                Spacer()
+            if(pickedNomenHive != nil){
+                HStack{
+                    Text("Правильно \(pickedNomenHive!.successCounter) раз подряд")
+                    Spacer()
+                }
             }
             if(pickedNomenHive != nil){
                 if(nominativ_singular != nil){
