@@ -31,6 +31,7 @@
         <attribute name="coolDown" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="nomenFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNomenHive" inverseEntity="Nomen"/>
     </entity>
     <entity name="Numerus" representedClassName="Numerus" syncable="YES" codeGenerationType="class">

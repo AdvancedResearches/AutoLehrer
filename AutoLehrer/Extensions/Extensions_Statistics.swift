@@ -80,9 +80,13 @@ extension Statistics{
         if(coolFailed.count > 0){
             return pickFromRange(coolFailed)
         }
-        let coolSuccessful = NomenHive.get_successfulCool(context)
-        if(coolSuccessful.count > 0){
-            return pickFromRange(coolSuccessful)
+        let coolSuccessfulTop = NomenHive.get_successfulCoolTop(context)
+        if(coolSuccessfulTop.count > 0){
+            return pickFromRange(coolSuccessfulTop)
+        }
+        let coolSuccessfulRest = NomenHive.get_successfulCoolRest(context)
+        if(coolSuccessfulRest.count > 0){
+            return pickFromRange(coolSuccessfulRest)
         }
         let hotFailed = NomenHive.get_failedHot(context)
         if(hotFailed.count > 0){

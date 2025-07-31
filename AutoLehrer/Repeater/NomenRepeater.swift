@@ -7,7 +7,6 @@ struct NomenRepeater: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     
-    @State var nomenHive: NomenHive?
     @State var pickedNomenHive: NomenHive?
     
     @State var nominative_singular_correct: Int = 0
@@ -23,6 +22,17 @@ struct NomenRepeater: View {
                 isHighlighting: .constant(false),
                 isPulsating: .constant(false),
                 action: {
+                    if(nominative_singular_correct == 1){
+                        Statistics.set_success(nominativ_singular!)
+                    }
+                    if(nominative_singular_correct == -1){
+                        Statistics.set_failure(nominativ_singular!)
+                    }
+                    if(nominative_singular_correct == 1){
+                        NomenHive.set_success(pickedNomenHive!)
+                    }else{
+                        NomenHive.set_failure(pickedNomenHive!)
+                    }
                     pickTheWord()
                 },
                 widthFlood: true
@@ -38,7 +48,6 @@ struct NomenRepeater: View {
                             .frame(width: 35, height: 35)
                             .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                             .onTapGesture {
-                                Statistics.set_success(nominativ_singular!)
                                 nominative_singular_correct = 1
                             }
                         Image(systemName: "multiply.square.fill")
@@ -46,7 +55,6 @@ struct NomenRepeater: View {
                             .frame(width: 35, height: 35)
                             .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                             .onTapGesture {
-                                Statistics.set_failure(nominativ_singular!)
                                 nominative_singular_correct = -1
                             }
                     }
