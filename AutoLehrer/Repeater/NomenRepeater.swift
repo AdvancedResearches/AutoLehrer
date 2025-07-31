@@ -24,6 +24,7 @@ struct NomenRepeater: View {
         VStack{
             HStack{
                 Text("Выучено слов \(confirmedWords.count) из \(exercisedWords.count)")
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                 Spacer()
             }
             VStack {
@@ -111,7 +112,6 @@ struct NomenRepeater: View {
             }
             .frame(maxWidth: .infinity)
             .NG_Card(.NG_CardStyle_Regular, theme: theme)
-            
             .onAppear{
                 pickTheWord()
             }
