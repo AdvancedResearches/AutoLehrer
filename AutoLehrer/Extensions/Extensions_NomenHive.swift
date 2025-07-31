@@ -37,10 +37,11 @@ extension NomenHive{
     public static func get_successfulHot(_ context: NSManagedObjectContext) -> [NomenHive]{
         return try! context.fetch(NomenHive.fetchRequest()).filter{$0.coolDown > 0 && !$0.failed}.sorted{$0.nomenFrequencyOrder < $1.nomenFrequencyOrder}
     }
-    public static func set_success(_ nomenHive: NomenHive){
-        guard let context = nomenHive.managedObjectContext else { return }
+    public static func set_success(_ nomenHive: NomenHive) -> Bool{
+        guard let context = nomenHive.managedObjectContext else { return false }
         nomenHive.successCounter += 1
         try! context.save()
+        return nomenHive.successCounter >= 3
     }
     public static func set_failure(_ nomenHive: NomenHive){
         guard let context = nomenHive.managedObjectContext else { return }
