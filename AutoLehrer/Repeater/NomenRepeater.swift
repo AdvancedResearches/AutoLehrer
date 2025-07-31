@@ -111,19 +111,20 @@ struct NomenRepeater: View {
             }
             .frame(maxWidth: .infinity)
             .NG_Card(.NG_CardStyle_Regular, theme: theme)
-            .background(theme.currentTheme.NG_LinearGradient_Background_Page)
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(
-                leading:
-                    BackButton(action: {
-                        dismiss()
-                    }, blinking: false)
-            )
+            
             .onAppear{
                 pickTheWord()
             }
         }
+        .background(theme.currentTheme.NG_LinearGradient_Background_Page)
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarItems(
+            leading:
+                BackButton(action: {
+                    dismiss()
+                }, blinking: false)
+        )
     }
     func pickTheWord() {
         pickedNomenHive = Statistics.pickNomenHive(viewContext)
