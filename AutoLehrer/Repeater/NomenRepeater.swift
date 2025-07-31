@@ -40,6 +40,7 @@ struct NomenRepeater: View {
             if(pickedNomenHive != nil){
                 HStack{
                     Text("Правильно \(pickedNomenHive!.successCounter) раз подряд")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     Spacer()
                 }
             }
