@@ -15,11 +15,13 @@ struct FlipCard: View {
     @EnvironmentObject var theme: ThemeManager
     
     @Binding var deutschesSeite: Bool
+    //@State var deutschesSeite: Bool = false
     var deutschesWorte: String
     var russischesWorte: String
     var deutschesBeispeil: String?
     var russischesBeispeil: String?
     @Binding var result: Int
+    //@State var result: Int = 0
     
     var body: some View {
         VStack {

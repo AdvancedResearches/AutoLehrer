@@ -71,15 +71,22 @@ struct WortRepeater: View {
                                 //let index = wort.firstIndex(where: { $0.id == derWort.id })!
                                 
                                 Divider()
+                                if(WortFormen.get_wortArt_string(pickedWortFormen!) == "Nomen"){
+                                    let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
+                                    Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
+                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
+                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                }
                                 HStack{
-                                    if(WortFormen.get_wortArt_string(pickedWortFormen!) == "Nomen"){
-                                        let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
-                                        Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
-                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                        Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
-                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    }
-                                    
+                                    FlipCard(
+                                        deutschesSeite: $deutschesSeite[index],
+                                        deutschesWorte: derWort.wort_DE!,
+                                        russischesWorte: derWort.wort_RU!,
+                                        deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
+                                        russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
+                                        result: $guessingResult[index]
+                                    )
                                     Image(systemName: "checkmark.square.fill")
                                         .resizable()
                                         .frame(width: 35, height: 35)
