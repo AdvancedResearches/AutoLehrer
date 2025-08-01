@@ -7,50 +7,50 @@ struct NomenRepeater: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     
-    @State var pickedNomenHive: NomenHive?
+    @State var pickedNomenHive: WortHive?
     
     @State var nominativ_singular_correct: Int = 0
-    @State var nominativ_singular: Nomen?
+    @State var nominativ_singular: Wort?
     @State var nominativ_singular_beispiel: Beispiel?
     @State var nominativ_singular_deutschesSeite: Bool = false
     
     @State var genitiv_singular_correct: Int = 0
-    @State var genitiv_singular: Nomen?
+    @State var genitiv_singular: Wort?
     @State var genitiv_singular_beispiel: Beispiel?
     @State var genitiv_singular_deutschesSeite: Bool = false
     
     @State var akkusativ_singular_correct: Int = 0
-    @State var akkusativ_singular: Nomen?
+    @State var akkusativ_singular: Wort?
     @State var akkusativ_singular_beispiel: Beispiel?
     @State var akkusativ_singular_deutschesSeite: Bool = false
     
     @State var dativ_singular_correct: Int = 0
-    @State var dativ_singular: Nomen?
+    @State var dativ_singular: Wort?
     @State var dativ_singular_beispiel: Beispiel?
     @State var dativ_singular_deutschesSeite: Bool = false
     
     @State var nominativ_plural_correct: Int = 0
-    @State var nominativ_plural: Nomen?
+    @State var nominativ_plural: Wort?
     @State var nominativ_plural_beispiel: Beispiel?
     @State var nominativ_plural_deutschesSeite: Bool = false
     
     @State var genitiv_plural_correct: Int = 0
-    @State var genitiv_plural: Nomen?
+    @State var genitiv_plural: Wort?
     @State var genitiv_plural_beispiel: Beispiel?
     @State var genitiv_plural_deutschesSeite: Bool = false
     
     @State var akkusativ_plural_correct: Int = 0
-    @State var akkusativ_plural: Nomen?
+    @State var akkusativ_plural: Wort?
     @State var akkusativ_plural_beispiel: Beispiel?
     @State var akkusativ_plural_deutschesSeite: Bool = false
     
     @State var dativ_plural_correct: Int = 0
-    @State var dativ_plural: Nomen?
+    @State var dativ_plural: Wort?
     @State var dativ_plural_beispiel: Beispiel?
     @State var dativ_plural_deutschesSeite: Bool = false
     
-    @State var exercisedWords: Set<NomenHive> = []
-    @State var confirmedWords: Set<NomenHive> = []
+    @State var exercisedWords: Set<WortHive> = []
+    @State var confirmedWords: Set<WortHive> = []
     
     var body: some View {
         VStack{
@@ -74,14 +74,14 @@ struct NomenRepeater: View {
                             Statistics.set_failure(nominativ_singular!)
                         }
                         if(nominativ_singular != nil ? nominativ_singular_correct == 1 : true && genitiv_singular != nil ? genitiv_singular_correct == 1 : true ){
-                            if(NomenHive.set_success(pickedNomenHive!)){
+                            if(WortHive.set_success(pickedNomenHive!)){
                                 confirmedWords.insert(pickedNomenHive!)
                             }
                         }else{
-                            NomenHive.set_failure(pickedNomenHive!)
+                            WortHive.set_failure(pickedNomenHive!)
                             confirmedWords.remove(pickedNomenHive!)
                         }
-                        NomenHive.set_attempted(pickedNomenHive!)
+                        WortHive.set_attempted(pickedNomenHive!)
                         pickTheWord()
                     },
                     widthFlood: true
