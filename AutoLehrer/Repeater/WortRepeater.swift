@@ -7,55 +7,21 @@ struct NomenRepeater: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     
-    @State var pickedNomenHive: WortHive?
+    @State var pickedWortFormen: WortFormen?
     
-    @State var nominativ_singular_correct: Int = 0
-    @State var nominativ_singular: Wort?
-    @State var nominativ_singular_beispiel: Beispiel?
-    @State var nominativ_singular_deutschesSeite: Bool = false
+    @State var guessingResult: [Int] = []
+    @State var wort: [Wort] = []
+    @State var beispiel: [Beispiel?] = []
+    @State var deutschesSeite: [Bool] = []
+    @State var wortForm: [WortArtFormen] = []
     
-    @State var genitiv_singular_correct: Int = 0
-    @State var genitiv_singular: Wort?
-    @State var genitiv_singular_beispiel: Beispiel?
-    @State var genitiv_singular_deutschesSeite: Bool = false
-    
-    @State var akkusativ_singular_correct: Int = 0
-    @State var akkusativ_singular: Wort?
-    @State var akkusativ_singular_beispiel: Beispiel?
-    @State var akkusativ_singular_deutschesSeite: Bool = false
-    
-    @State var dativ_singular_correct: Int = 0
-    @State var dativ_singular: Wort?
-    @State var dativ_singular_beispiel: Beispiel?
-    @State var dativ_singular_deutschesSeite: Bool = false
-    
-    @State var nominativ_plural_correct: Int = 0
-    @State var nominativ_plural: Wort?
-    @State var nominativ_plural_beispiel: Beispiel?
-    @State var nominativ_plural_deutschesSeite: Bool = false
-    
-    @State var genitiv_plural_correct: Int = 0
-    @State var genitiv_plural: Wort?
-    @State var genitiv_plural_beispiel: Beispiel?
-    @State var genitiv_plural_deutschesSeite: Bool = false
-    
-    @State var akkusativ_plural_correct: Int = 0
-    @State var akkusativ_plural: Wort?
-    @State var akkusativ_plural_beispiel: Beispiel?
-    @State var akkusativ_plural_deutschesSeite: Bool = false
-    
-    @State var dativ_plural_correct: Int = 0
-    @State var dativ_plural: Wort?
-    @State var dativ_plural_beispiel: Beispiel?
-    @State var dativ_plural_deutschesSeite: Bool = false
-    
-    @State var exercisedWords: Set<WortHive> = []
-    @State var confirmedWords: Set<WortHive> = []
+    @State var exercisedWorte: Set<WortFormen> = []
+    @State var confirmedWorte: Set<WortFormen> = []
     
     var body: some View {
         VStack{
             HStack{
-                Text("Выучено слов \(confirmedWords.count) из \(exercisedWords.count)")
+                Text("Выучено слов \(confirmedWorte.count) из \(exercisedWorte.count)")
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                 Spacer()
             }
@@ -67,28 +33,32 @@ struct NomenRepeater: View {
                     isHighlighting: .constant(false),
                     isPulsating: .constant(false),
                     action: {
-                        if(nominativ_singular_correct == 1){
-                            Statistics.set_success(nominativ_singular!)
+                        var successCounter: Int = 0
+                        for theFormCounter in 0..<wort.count{
+                            if(guessingResult[theFormCounter] == 1){
+                                Statistics.set_success(wort[theFormCounter])
+                                successCounter += 1
+                            }
+                            if(guessingResult[theFormCounter] == -1){
+                                Statistics.set_failure(wort[theFormCounter])
+                            }
                         }
-                        if(nominativ_singular_correct == -1){
-                            Statistics.set_failure(nominativ_singular!)
-                        }
-                        if(nominativ_singular != nil ? nominativ_singular_correct == 1 : true && genitiv_singular != nil ? genitiv_singular_correct == 1 : true ){
-                            if(WortHive.set_success(pickedNomenHive!)){
-                                confirmedWords.insert(pickedNomenHive!)
+                        if(successCounter == wort.count){
+                            if(WortFormen.set_success(pickedWortFormen!)){
+                                confirmedWorte.insert(pickedWortFormen!)
                             }
                         }else{
-                            WortHive.set_failure(pickedNomenHive!)
-                            confirmedWords.remove(pickedNomenHive!)
+                            WortFormen.set_failure(pickedWortFormen!)
+                            confirmedWorte.remove(pickedWortFormen!)
                         }
-                        WortHive.set_attempted(pickedNomenHive!)
+                        WortFormen.set_attempted(pickedWortFormen!)
                         pickTheWord()
                     },
                     widthFlood: true
                 )
-                if(pickedNomenHive != nil){
+                if(pickedWortFormen != nil){
                     HStack{
-                        Text("Правильно \(pickedNomenHive!.successCounter) раз подряд")
+                        Text("Правильно \(pickedWortFormen!.successCounter) раз подряд")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         Spacer()
                     }

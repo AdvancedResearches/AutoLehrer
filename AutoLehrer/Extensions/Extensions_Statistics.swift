@@ -8,30 +8,30 @@
 import CoreData
 
 extension Statistics{
-    public static func get_nomen_total(_ context: NSManagedObjectContext) -> Int{
-        let all = try! context.fetch(NomenHive.fetchRequest())
+    public static func get_wort_total(_ context: NSManagedObjectContext, wortArt: WortArt?) -> Int{
+        let all = try! context.fetch(WortHive.fetchRequest())
         return all.count
     }
-    public static func get_nomen_attempted(_ context: NSManagedObjectContext) -> Int{
-        let all = try! context.fetch(NomenHive.fetchRequest()).filter{$0.attempted}
+    public static func get_wort_attempted(_ context: NSManagedObjectContext) -> Int{
+        let all = try! context.fetch(WortHive.fetchRequest()).filter{$0.attempted}
         return all.count
     }
-    public static func get_nomen_confirmed(_ context: NSManagedObjectContext) -> Int{
-        let all = try! context.fetch(NomenHive.fetchRequest()).filter{$0.successCounter > 2}
+    public static func get_wort_confirmed(_ context: NSManagedObjectContext) -> Int{
+        let all = try! context.fetch(WortHive.fetchRequest()).filter{$0.successCounter > 2}
         return all.count
     }
-    public static func set_success(_ nomen: Nomen){
-        guard let context = nomen.managedObjectContext else {
+    public static func set_success(_ wort: Wort){
+        guard let context = wort.managedObjectContext else {
             return
         }
-        nomen.relNomenHive!.coolDown = 20
-        nomen.relNomenHive!.failed = false
-        if let theStatistics = get_statistics(nomen){
+        wort.relWortHive!.coolDown = 20
+        wort.relWortHive!.failed = false
+        if let theStatistics = get_statistics(wort){
             theStatistics.score += 1
             theStatistics.lastAttempt = Date.now
         }else{
             let newStatistics = Statistics(context: context)
-            newStatistics.relNomen = nomen
+            newStatistics.relWort = wort
             newStatistics.score = 1
             newStatistics.lastAttempt = Date.now
         }
@@ -39,18 +39,18 @@ extension Statistics{
             try context.save()
         }catch{}
     }
-    public static func set_failure(_ nomen: Nomen){
-        guard let context = nomen.managedObjectContext else {
+    public static func set_failure(_ wort: Wort){
+        guard let context = wort.managedObjectContext else {
             return
         }
-        nomen.relNomenHive!.coolDown = 20
-        nomen.relNomenHive!.failed = true
-        if let theStatistics = get_statistics(nomen){
+        wort.relWortHive!.coolDown = 20
+        wort.relWortHive!.failed = true
+        if let theStatistics = get_statistics(wort){
             theStatistics.score = min(0, theStatistics.score - 1)
             theStatistics.lastAttempt = Date.now
         }else{
             let newStatistics = Statistics(context: context)
-            newStatistics.relNomen = nomen
+            newStatistics.relWort = wort
             newStatistics.score = 0
             newStatistics.lastAttempt = Date.now
         }
@@ -58,16 +58,16 @@ extension Statistics{
             try context.save()
         }catch{}
     }
-    public static func set_default(_ nomen: Nomen){
-        guard let context = nomen.managedObjectContext else {
+    public static func set_default(_ wort: Wort){
+        guard let context = wort.managedObjectContext else {
             return
         }
-        if let theStatistics = get_statistics(nomen){
+        if let theStatistics = get_statistics(wort){
             theStatistics.score = 0
             theStatistics.lastAttempt = Date.distantPast
         }else{
             let newStatistics = Statistics(context: context)
-            newStatistics.relNomen = nomen
+            newStatistics.relWort = wort
             newStatistics.score = 0
             newStatistics.lastAttempt = Date.distantPast
         }
@@ -75,39 +75,39 @@ extension Statistics{
             try context.save()
         }catch{}
     }
-    public static func get_statistics(_ nomen: Nomen) -> Statistics?{
-        guard let context = nomen.managedObjectContext else {
+    public static func get_statistics(_ wort: Wort) -> Statistics?{
+        guard let context = wort.managedObjectContext else {
             return nil
         }
         do{
-            let theStatistics = try context.fetch(Statistics.fetchRequest()).filter{$0.relNomen == nomen}
+            let theStatistics = try context.fetch(Statistics.fetchRequest()).filter{$0.relWort == wort}
             return theStatistics.first
         }catch{
         }
         return nil
     }
-    public static func pickNomenHive(_ context: NSManagedObjectContext) -> NomenHive{
+    public static func pickNomenHive(_ context: NSManagedObjectContext) -> WortHive{
         NomenHive.coolDown(context)
-        let coolFailed = NomenHive.get_failedCool(context)
+        let coolFailed = WortHive.get_failedCool(context)
         if(coolFailed.count > 0){
             return pickFromRange(coolFailed)
         }
-        let coolSuccessfulTop = NomenHive.get_successfulCoolTop(context)
+        let coolSuccessfulTop = WortHive.get_successfulCoolTop(context)
         if(coolSuccessfulTop.count > 0){
             return pickFromRange(coolSuccessfulTop)
         }
-        let coolSuccessfulRest = NomenHive.get_successfulCoolRest(context)
+        let coolSuccessfulRest = WortHive.get_successfulCoolRest(context)
         if(coolSuccessfulRest.count > 0){
             return pickFromRange(coolSuccessfulRest)
         }
-        let hotFailed = NomenHive.get_failedHot(context)
+        let hotFailed = WortHive.get_failedHot(context)
         if(hotFailed.count > 0){
             return pickFromRange(hotFailed)
         }
-        let hotSuccessful = NomenHive.get_successfulHot(context)
+        let hotSuccessful = WortHive.get_successfulHot(context)
         return pickFromRange(hotSuccessful)
     }
-    public static func pickFromRange(_ allTheNomenHives: [NomenHive]) -> NomenHive{
+    public static func pickFromRange(_ allTheNomenHives: [WortHive]) -> WortHive{
         var retValue = allTheNomenHives.first!
         var retScore = nomenHiveUrgency(retValue)
         print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
@@ -122,22 +122,22 @@ extension Statistics{
         }
         return retValue
     }
-    public static func nomenHiveUrgency(_ nomenHive: NomenHive) -> Float{
+    public static func nomenHiveUrgency(_ wortHive: WortHive) -> Float{
         //print("   Statistics.nomenHiveUrgency: \(nomenHive.nomenFrequencyOrder)")
-        let allTheFormsOfNomen = nomenHive.relNomen?.allObjects as? [Nomen] ?? []
-        let nomenHiveUrgencyMultiplier = Float(1.0 / Float(nomenHive.nomenFrequencyOrder))
+        let allTheFormsOfWort = wortHive.relWort?.allObjects as? [Wort] ?? []
+        let nomenHiveUrgencyMultiplier = Float(1.0 / Float(nomenHive.wortFrequencyOrder))
         //print("   Statistics.nomenHiveUrgency: frequency order: \(nomenHive.nomenFrequencyOrder)")
-        print("   Statistics.nomenHiveUrgency: urgency multiplier: \(Float(1.0 / Float(nomenHive.nomenFrequencyOrder)))")
+        print("   Statistics.nomenHiveUrgency: urgency multiplier: \(Float(1.0 / Float(WortHive.wortFrequencyOrder)))")
         let allTheFormUrgencies: [Float] = allTheFormsOfNomen.map{Statistics.nomenFormScore($0)}
         let maxFormUrgency = Float.maxFromArray(values: allTheFormUrgencies)
         //print("   Statistics.nomenHiveUrgency: max urgency: \(maxFormUrgency)")
         return nomenHiveUrgencyMultiplier*maxFormUrgency
     }
-    public static func nomenFormScore(_ nomen: Nomen) -> Float{
-        print("      Statistics.nomenFormScore: \(nomen.nomen_RU!)-\(nomen.nomen_DE!)")
-        guard let statisticsForNomen: Statistics = Statistics.get_statistics(nomen) else {
+    public static func nomenFormScore(_ wort: Wort) -> Float{
+        print("      Statistics.nomenFormScore: \(wort.wort_RU!)-\(wort.wort_DE!)")
+        guard let statisticsForNomen: Statistics = Statistics.get_statistics(wort) else {
             //print("      Statistics.nomenFormScore: NOT FOUND, SET DEFAULT")
-            Statistics.set_default(nomen)
+            Statistics.set_default(wort)
             let daysSinceLastAttempt = Date.get_offset_inDays(Date.distantPast, Date.now)
             let decay: Double = exp(0.0)
             let timeFactor: Double = log(1.0 + Double(daysSinceLastAttempt))
