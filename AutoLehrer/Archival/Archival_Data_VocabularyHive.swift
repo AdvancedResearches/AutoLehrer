@@ -125,31 +125,31 @@ struct WortFormenItem: Codable{
 }
 
 struct VocabularyHive: Codable{
-    var beispielHive: BeispielHive
+    //var beispielHive: BeispielHive
     var genusHive: GenusHive
     var kasusHive: KasusHive
     var modusHive: ModusHive
     var numerusHive: NumerusHive
     var personHive: PersonHive
     var tempusHive: TempusHive
-    var wortHive: WortHive
+    //var wortHive: WortHive
     var wortArtHive: WortArtHive
-    var wortFormenHive: WortFormenHive
+    //var wortFormenHive: WortFormenHive
 }
 
 struct Archival_Vocabulary{
     static func dump(theContext: NSManagedObjectContext) -> VocabularyHive{
         var retHive = VocabularyHive(
-            beispielHive: BeispielHive(theHive: []),
+            //beispielHive: BeispielHive(theHive: []),
             genusHive: GenusHive(theHive: []),
             kasusHive: KasusHive(theHive: []),
             modusHive: ModusHive(theHive: []),
             numerusHive: NumerusHive(theHive: []),
             personHive: PersonHive(theHive: []),
             tempusHive: TempusHive(theHive: []),
-            wortHive: WortHive(theHive: []),
+            //wortHive: WortHive(theHive: []),
             wortArtHive: WortArtHive(theHive: []),
-            wortFormenHive: WortFormenHive(theHive: [])
+            //wortFormenHive: WortFormenHive(theHive: [])*/
         )
         do{
         }catch{}
@@ -275,7 +275,7 @@ struct Archival_Vocabulary{
                 uploadingWortArt.name_RU = theWortArt.name_RU
                 WortArtDictionary.updateValue(uploadingWortArt, forKey: theWortArt.wortArtKey)
             }
-            
+            /*
             var WortFormenDictionary: [String:WortFormen] = [:]
             for theWortFormen in theData.wortFormenHive.theHive{
                 let uploadingWortFormen = WortFormen(context: theContext)
@@ -309,6 +309,7 @@ struct Archival_Vocabulary{
                 uploadingBeispiel.relWort = WortDictionary[theBeispel.relWort]
                 BeispielDictionary.updateValue(uploadingBeispiel, forKey: theBeispel.beispielKey)
             }
+             */
         }catch{
             return
         }
