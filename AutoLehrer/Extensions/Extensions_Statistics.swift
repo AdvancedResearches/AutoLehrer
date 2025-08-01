@@ -8,24 +8,32 @@
 import CoreData
 
 extension Statistics{
-    public static func get_wort_total(_ context: NSManagedObjectContext, wortArt: WortArt?) -> Int{
-        let all = try! context.fetch(WortHive.fetchRequest())
+    public static func get_wort_total(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
+        let all = try! context.fetch(WortFormen.fetchRequest())
+        if(wortArt != nil){
+            return all.filter{$0.relWortArt == wortArt}.count
+        }
         return all.count
     }
-    public static func get_wort_attempted(_ context: NSManagedObjectContext) -> Int{
-        let all = try! context.fetch(WortHive.fetchRequest()).filter{$0.attempted}
+    public static func get_wort_attempted(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
+        let all = try! context.fetch(WortFormen.fetchRequest()).filter{$0.attempted}
+        if(wortArt != nil){
+            return all.filter{$0.relWortArt == wortArt}.count
+        }
         return all.count
     }
-    public static func get_wort_confirmed(_ context: NSManagedObjectContext) -> Int{
-        let all = try! context.fetch(WortHive.fetchRequest()).filter{$0.successCounter > 2}
+    public static func get_wort_confirmed(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
+        let all = try! context.fetch(WortFormen.fetchRequest()).filter{$0.successCounter > 2}
+        if(wortArt != nil){
+            return all.filter{$0.relWortArt == wortArt}.count
+        }
         return all.count
     }
     public static func set_success(_ wort: Wort){
         guard let context = wort.managedObjectContext else {
             return
         }
-        wort.relWortHive!.coolDown = 20
-        wort.relWortHive!.failed = false
+        
         if let theStatistics = get_statistics(wort){
             theStatistics.score += 1
             theStatistics.lastAttempt = Date.now
@@ -43,8 +51,7 @@ extension Statistics{
         guard let context = wort.managedObjectContext else {
             return
         }
-        wort.relWortHive!.coolDown = 20
-        wort.relWortHive!.failed = true
+        
         if let theStatistics = get_statistics(wort){
             theStatistics.score = min(0, theStatistics.score - 1)
             theStatistics.lastAttempt = Date.now
@@ -86,54 +93,54 @@ extension Statistics{
         }
         return nil
     }
-    public static func pickNomenHive(_ context: NSManagedObjectContext) -> WortHive{
-        NomenHive.coolDown(context)
-        let coolFailed = WortHive.get_failedCool(context)
+    public static func pickWortFormen(_ context: NSManagedObjectContext, wortArt: WortArt) -> WortFormen{
+        WortFormen.coolDown(context, wortArt)
+        let coolFailed = WortFormen.get_failedCool(context, wortArt)
         if(coolFailed.count > 0){
             return pickFromRange(coolFailed)
         }
-        let coolSuccessfulTop = WortHive.get_successfulCoolTop(context)
+        let coolSuccessfulTop = WortFormen.get_successfulCoolTop(context, wortArt)
         if(coolSuccessfulTop.count > 0){
             return pickFromRange(coolSuccessfulTop)
         }
-        let coolSuccessfulRest = WortHive.get_successfulCoolRest(context)
+        let coolSuccessfulRest = WortFormen.get_successfulCoolRest(context, wortArt)
         if(coolSuccessfulRest.count > 0){
             return pickFromRange(coolSuccessfulRest)
         }
-        let hotFailed = WortHive.get_failedHot(context)
+        let hotFailed = WortFormen.get_failedHot(context, wortArt)
         if(hotFailed.count > 0){
             return pickFromRange(hotFailed)
         }
-        let hotSuccessful = WortHive.get_successfulHot(context)
+        let hotSuccessful = WortFormen.get_successfulHot(context, wortArt)
         return pickFromRange(hotSuccessful)
     }
-    public static func pickFromRange(_ allTheNomenHives: [WortHive]) -> WortHive{
-        var retValue = allTheNomenHives.first!
-        var retScore = nomenHiveUrgency(retValue)
-        print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
-        for theCounter in 1..<allTheNomenHives.count{
-            let theUrgency = nomenHiveUrgency(allTheNomenHives[theCounter])
-            print("Statistics.pickNomenHive: urgency \(theUrgency) for \(allTheNomenHives[theCounter].nomenFrequencyOrder)")
+    public static func pickFromRange(_ allTheWortFormen: [WortFormen]) -> WortFormen{
+        var retValue = allTheWortFormen.first!
+        var retScore = wortFormenUrgency(retValue)
+        print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.wortFrequencyOrder)")
+        for theCounter in 1..<allTheWortFormen.count{
+            let theUrgency = wortFormenUrgency(allTheWortFormen[theCounter])
+            print("Statistics.pickNomenHive: urgency \(theUrgency) for \(allTheWortFormen[theCounter].wortFrequencyOrder)")
             if theUrgency > retScore{
-                retValue = allTheNomenHives[theCounter]
+                retValue = allTheWortFormen[theCounter]
                 retScore = theUrgency
-                print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.nomenFrequencyOrder)")
+                print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.wortFrequencyOrder)")
             }
         }
         return retValue
     }
-    public static func nomenHiveUrgency(_ wortHive: WortHive) -> Float{
+    public static func wortFormenUrgency(_ wortFormen: WortFormen) -> Float{
         //print("   Statistics.nomenHiveUrgency: \(nomenHive.nomenFrequencyOrder)")
-        let allTheFormsOfWort = wortHive.relWort?.allObjects as? [Wort] ?? []
-        let nomenHiveUrgencyMultiplier = Float(1.0 / Float(nomenHive.wortFrequencyOrder))
+        let allTheFormsOfWort = wortFormen.relWort?.allObjects as? [Wort] ?? []
+        let wortFormenUrgencyMultiplier = Float(1.0 / Float(wortFormen.wortFrequencyOrder))
         //print("   Statistics.nomenHiveUrgency: frequency order: \(nomenHive.nomenFrequencyOrder)")
-        print("   Statistics.nomenHiveUrgency: urgency multiplier: \(Float(1.0 / Float(WortHive.wortFrequencyOrder)))")
-        let allTheFormUrgencies: [Float] = allTheFormsOfNomen.map{Statistics.nomenFormScore($0)}
-        let maxFormUrgency = Float.maxFromArray(values: allTheFormUrgencies)
+        print("   Statistics.wortFormenUrgency: urgency multiplier: \(Float(1.0 / Float(wortFormen.wortFrequencyOrder)))")
+        let allTheFormenUrgencies: [Float] = allTheFormsOfWort.map{Statistics.wortFormScore($0)}
+        let maxFormUrgency = Float.maxFromArray(values: allTheFormenUrgencies)
         //print("   Statistics.nomenHiveUrgency: max urgency: \(maxFormUrgency)")
-        return nomenHiveUrgencyMultiplier*maxFormUrgency
+        return wortFormenUrgencyMultiplier*maxFormUrgency
     }
-    public static func nomenFormScore(_ wort: Wort) -> Float{
+    public static func wortFormScore(_ wort: Wort) -> Float{
         print("      Statistics.nomenFormScore: \(wort.wort_RU!)-\(wort.wort_DE!)")
         guard let statisticsForNomen: Statistics = Statistics.get_statistics(wort) else {
             //print("      Statistics.nomenFormScore: NOT FOUND, SET DEFAULT")

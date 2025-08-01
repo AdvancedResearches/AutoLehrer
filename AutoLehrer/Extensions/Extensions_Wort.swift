@@ -1,6 +1,36 @@
 import CoreData
 
 extension Wort{
+    public static func get_wortArt_vollString(_ wort: Wort, _ sprache: String) -> String{
+        var retValue: String = ""
+        let wortArt = wort.relWortFormen?.relWortArt ?? nil
+        if(wortArt != nil){
+            if wortArt!.name_DE == "Nomen" {
+                if(sprache == "RU"){
+                    retValue += wort.relKasus!.name_RU! + " " + wort.relTempus!.name_RU!
+                }
+                if(sprache == "DE"){
+                    retValue += wort.relKasus!.name_DE! + " " + wort.relTempus!.name_DE!
+                }
+            }
+        }
+        return retValue
+    }
+    public static func get_wortArt_auxString(_ wort: Wort, _ sprache: String) -> String{
+        var retValue: String = ""
+        let wortArt = wort.relWortFormen?.relWortArt ?? nil
+        if(wortArt != nil){
+            if wortArt!.name_DE == "Nomen" {
+                if(sprache == "RU"){
+                    retValue += wort.relKasus!.fragen_RU!
+                }
+                if(sprache == "DE"){
+                    retValue += wort.relKasus!.fragen_DE!
+                }
+            }
+        }
+        return retValue
+    }
     public static func pick_wort(_ wortForm: WortFormen, genus: Genus?, kasus: Kasus?, modus: Modus?, numerus: Numerus?, person: Person?, tempus: Tempus?) -> Wort?{
         guard let context = wortForm.managedObjectContext else {
             return nil
