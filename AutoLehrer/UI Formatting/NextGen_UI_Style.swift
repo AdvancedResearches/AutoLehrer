@@ -1149,7 +1149,7 @@ struct NG_Sheet_Modifier: ViewModifier {
             .NG_Card(.NG_CardStyle_Regular, theme: theme)
             .padding(.top)
             .padding(.horizontal)
-            .presentationBackground(Color.clear)
+            //.presentationBackground(Color.clear)
             .navigationBarTitleDisplayMode(.inline)
             .interactiveDismissDisabled(true)
             .ignoresSafeArea(.keyboard)

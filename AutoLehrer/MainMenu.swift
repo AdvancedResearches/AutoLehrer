@@ -121,7 +121,7 @@ struct MainMenu: View {
                                     )
                                 }
                             }
-                            .onChange(of: Trainings_isActive){ oldValue, newValue in
+                            .onChange(of: Trainings_isActive){ /*oldValue, */newValue in
                                 if !newValue{
                                     invokeUpdates()
                                 }
@@ -177,7 +177,7 @@ struct MainMenu: View {
                                     )
                                 }
                             }
-                            .onChange(of: Theme_isActive){ oldValue, newValue in
+                            .onChange(of: Theme_isActive){ /*oldValue, */newValue in
                                 if !newValue{
                                     invokeUpdates()
                                 }
@@ -244,7 +244,7 @@ struct MainMenu: View {
                                     )
                                 }
                             }
-                            .onChange(of: Archival_isActive){ oldValue, newValue in
+                            .onChange(of: Archival_isActive){ /*oldValue, */newValue in
                                 if !newValue{
                                     invokeUpdates()
                                 }

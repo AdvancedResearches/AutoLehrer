@@ -3,42 +3,32 @@
     <entity name="Beispiel" representedClassName="Beispiel" syncable="YES" codeGenerationType="class">
         <attribute name="beispiel_DE" optional="YES" attributeType="String"/>
         <attribute name="beispiel_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relBeispiel" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wort" inverseName="relBeispiel" inverseEntity="Wort"/>
     </entity>
     <entity name="Genus" representedClassName="Genus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relGenus" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relGenus" inverseEntity="Wort"/>
     </entity>
     <entity name="Kasus" representedClassName="Kasus" syncable="YES" codeGenerationType="class">
         <attribute name="fragen_DE" optional="YES" attributeType="String"/>
         <attribute name="fragen_RU" optional="YES" attributeType="String"/>
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relKasus" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relKasus" inverseEntity="Wort"/>
     </entity>
-    <entity name="Nomen" representedClassName="Nomen" syncable="YES" codeGenerationType="class">
-        <attribute name="nomen_DE" optional="YES" attributeType="String"/>
-        <attribute name="nomen_RU" optional="YES" attributeType="String"/>
-        <relationship name="relBeispiel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relNomen" inverseEntity="Beispiel"/>
-        <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relNomen" inverseEntity="Genus"/>
-        <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relNomen" inverseEntity="Kasus"/>
-        <relationship name="relNomenHive" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="NomenHive" inverseName="relNomen" inverseEntity="NomenHive"/>
-        <relationship name="relNumerus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Numerus" inverseName="relNomen" inverseEntity="Numerus"/>
-        <relationship name="relStatistics" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Statistics" inverseName="relNomen" inverseEntity="Statistics"/>
-    </entity>
-    <entity name="NomenHive" representedClassName="NomenHive" syncable="YES" codeGenerationType="class">
-        <attribute name="attempted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="coolDown" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="nomenFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNomenHive" inverseEntity="Nomen"/>
+    <entity name="Modus" representedClassName="Modus" syncable="YES" codeGenerationType="class">
+        <attribute name="modus_DE" optional="YES" attributeType="String"/>
+        <attribute name="modus_RU" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Numerus" representedClassName="Numerus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
-        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relNumerus" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relNumerus" inverseEntity="Wort"/>
+    </entity>
+    <entity name="Person" representedClassName="Person" syncable="YES" codeGenerationType="class">
+        <attribute name="person_DE" optional="YES" attributeType="String"/>
+        <attribute name="person_RU" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
         <attribute name="settingName" optional="YES" attributeType="String"/>
@@ -47,6 +37,33 @@
     <entity name="Statistics" representedClassName="Statistics" syncable="YES" codeGenerationType="class">
         <attribute name="lastAttempt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Nomen" inverseName="relStatistics" inverseEntity="Nomen"/>
+        <relationship name="relNomen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wort" inverseName="relStatistics" inverseEntity="Wort"/>
+    </entity>
+    <entity name="Tempus" representedClassName="Tempus" syncable="YES" codeGenerationType="class">
+        <attribute name="tempus_DE" optional="YES" attributeType="String"/>
+        <attribute name="tempus_RU" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Wort" representedClassName="Wort" syncable="YES" codeGenerationType="class">
+        <attribute name="wort_DE" optional="YES" attributeType="String"/>
+        <attribute name="wort_RU" optional="YES" attributeType="String"/>
+        <relationship name="relBeispiel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relNomen" inverseEntity="Beispiel"/>
+        <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relNomen" inverseEntity="Genus"/>
+        <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relNomen" inverseEntity="Kasus"/>
+        <relationship name="relNomenHive" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WortHive" inverseName="relNomen" inverseEntity="WortHive"/>
+        <relationship name="relNumerus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Numerus" inverseName="relNomen" inverseEntity="Numerus"/>
+        <relationship name="relStatistics" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Statistics" inverseName="relNomen" inverseEntity="Statistics"/>
+    </entity>
+    <entity name="WortArt" representedClassName="WortArt" syncable="YES" codeGenerationType="class">
+        <attribute name="art_DE" optional="YES" attributeType="String"/>
+        <attribute name="art_RU" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="WortHive" representedClassName="WortHive" syncable="YES" codeGenerationType="class">
+        <attribute name="attempted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="coolDown" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="knowledgeLevel" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="workFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relNomen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relNomenHive" inverseEntity="Wort"/>
     </entity>
 </model>
