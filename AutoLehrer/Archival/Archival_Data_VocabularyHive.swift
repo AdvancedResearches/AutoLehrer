@@ -125,7 +125,7 @@ struct WortFormenItem: Codable{
 }
 
 struct VocabularyHive: Codable{
-    //var beispielHive: BeispielHive
+    var beispielHive: BeispielHive
     var genusHive: GenusHive
     var kasusHive: KasusHive
     var modusHive: ModusHive
@@ -140,7 +140,7 @@ struct VocabularyHive: Codable{
 struct Archival_Vocabulary{
     static func dump(theContext: NSManagedObjectContext) -> VocabularyHive{
         var retHive = VocabularyHive(
-            //beispielHive: BeispielHive(theHive: []),
+            beispielHive: BeispielHive(theHive: []),
             genusHive: GenusHive(theHive: []),
             kasusHive: KasusHive(theHive: []),
             modusHive: ModusHive(theHive: []),
@@ -300,7 +300,7 @@ struct Archival_Vocabulary{
                 uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                 WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
             }
-            /*
+            
             var BeispielDictionary: [String:Beispiel] = [:]
             for theBeispel in theData.beispielHive.theHive{
                 let uploadingBeispiel = Beispiel(context: theContext)
@@ -309,7 +309,6 @@ struct Archival_Vocabulary{
                 uploadingBeispiel.relWort = WortDictionary[theBeispel.relWort]
                 BeispielDictionary.updateValue(uploadingBeispiel, forKey: theBeispel.beispielKey)
             }
-             */
         }catch{
             return
         }
