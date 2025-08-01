@@ -134,7 +134,7 @@ struct VocabularyHive: Codable{
     var tempusHive: TempusHive
     //var wortHive: WortHive
     var wortArtHive: WortArtHive
-    //var wortFormenHive: WortFormenHive
+    var wortFormenHive: WortFormenHive
 }
 
 struct Archival_Vocabulary{
@@ -149,7 +149,7 @@ struct Archival_Vocabulary{
             tempusHive: TempusHive(theHive: []),
             //wortHive: WortHive(theHive: []),
             wortArtHive: WortArtHive(theHive: []),
-            //wortFormenHive: WortFormenHive(theHive: [])*/
+            wortFormenHive: WortFormenHive(theHive: [])
         )
         do{
         }catch{}
@@ -275,7 +275,7 @@ struct Archival_Vocabulary{
                 uploadingWortArt.name_RU = theWortArt.name_RU
                 WortArtDictionary.updateValue(uploadingWortArt, forKey: theWortArt.wortArtKey)
             }
-            /*
+            
             var WortFormenDictionary: [String:WortFormen] = [:]
             for theWortFormen in theData.wortFormenHive.theHive{
                 let uploadingWortFormen = WortFormen(context: theContext)
@@ -283,7 +283,7 @@ struct Archival_Vocabulary{
                 uploadingWortFormen.relWortArt    = WortArtDictionary[theWortFormen.relWortArt]!
                 WortFormenDictionary.updateValue(uploadingWortFormen, forKey: theWortFormen.wortFormenKey)
             }
-            
+            /*
             var WortDictionary: [String:Wort] = [:]
             for theWort in theData.wortHive.theHive{
                 let uploadingWort = Wort(context: theContext)

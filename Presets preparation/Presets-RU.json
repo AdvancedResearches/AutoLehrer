@@ -29153,28 +29153,28 @@
   ],
   "WortArt": [
     {
-      "art_DE": "Nomen",
-      "art_RU": "Существительное",
+      "name_DE": "Nomen",
+      "name_RU": "Существительное",
       "wortArtKey": "NomenKey"
     },
     {
-      "art_DE": "Verb",
-      "art_RU": "Глагол",
+      "name_DE": "Verb",
+      "name_RU": "Глагол",
       "wortArtKey": "VerbKey"
     },
     {
-      "art_DE": "Adjective",
-      "art_RU": "Прилагательное",
+      "name_DE": "Adjective",
+      "name_RU": "Прилагательное",
       "wortArtKey": "AdjektivKey"
     },
     {
-      "art_DE": "Funktional Wort",
-      "art_RU": "Служебные слова",
+      "name_DE": "Funktional Wort",
+      "name_RU": "Служебные слова",
       "wortArtKey": "FunktionalWortKey"
     },
     {
-      "art_DE": "Phrase",
-      "art_RU": "Фразы",
+      "name_DE": "Phrase",
+      "name_RU": "Фразы",
       "wortArtKey": "PhraseKey"
     }
   ]
