@@ -7,10 +7,10 @@ extension Wort{
         if(wortArt != nil){
             if wortArt!.name_DE == "Nomen" {
                 if(sprache == "RU"){
-                    retValue += wort.relKasus!.name_RU! + " " + wort.relTempus!.name_RU!
+                    retValue += wort.relKasus!.name_RU! + " " + wort.relNumerus!.name_RU!
                 }
                 if(sprache == "DE"){
-                    retValue += wort.relKasus!.name_DE! + " " + wort.relTempus!.name_DE!
+                    retValue += wort.relKasus!.name_DE! + " " + wort.relNumerus!.name_DE!
                 }
             }
         }

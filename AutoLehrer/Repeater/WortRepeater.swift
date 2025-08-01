@@ -71,27 +71,29 @@ struct WortRepeater: View {
                                 //let index = wort.firstIndex(where: { $0.id == derWort.id })!
                                 
                                 Divider()
-                                if(WortFormen.get_wortArt_string(pickedWortFormen!) == "Nomen"){
-                                    let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
-                                    Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
-                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
-                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                }
-                                 
-                                Image(systemName: "checkmark.square.fill")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                .onTapGesture {
-                                    guessingResult[index] = 1
-                                }
-                                Image(systemName: "multiply.square.fill")
-                                .resizable()
-                                .frame(width: 35, height: 35)
-                                .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                .onTapGesture {
-                                    guessingResult[index] = -1
+                                HStack{
+                                    if(WortFormen.get_wortArt_string(pickedWortFormen!) == "Nomen"){
+                                        let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
+                                        Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }
+                                    
+                                    Image(systemName: "checkmark.square.fill")
+                                        .resizable()
+                                        .frame(width: 35, height: 35)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                        .onTapGesture {
+                                            guessingResult[index] = 1
+                                        }
+                                    Image(systemName: "multiply.square.fill")
+                                        .resizable()
+                                        .frame(width: 35, height: 35)
+                                        .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                        .onTapGesture {
+                                            guessingResult[index] = -1
+                                        }
                                 }
                             }
                             
@@ -354,7 +356,7 @@ struct WortRepeater: View {
         guessingResult = []
         wortForm = []
         
-        exercisedWorte.insert(pickedWortFormen!)
+        exercisedWorte.insert(pickedSache)
         
         let wortFormList = WortFormen.get_wortFormenList_furArt(wortArt)
         
