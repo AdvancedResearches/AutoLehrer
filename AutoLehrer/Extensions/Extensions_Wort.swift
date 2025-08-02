@@ -5,6 +5,7 @@ extension Wort{
         var retValue: String = ""
         let wortArt = wort.relWortFormen?.relWortArt ?? nil
         if(wortArt != nil){
+            /*
             if wortArt!.name_DE == "Nomen" {
                 if(sprache == "RU"){
                     retValue += wort.relKasus!.name_RU! + " " + wort.relNumerus!.name_RU!
@@ -13,8 +14,60 @@ extension Wort{
                     retValue += wort.relKasus!.name_DE! + " " + wort.relNumerus!.name_DE!
                 }
             }
+             */
+            if(wortArt!.property_1 != nil){
+                retValue += get_wortProperty_byPropertyName(wort, wortArt!.property_1!, sprache)
+            }
+            if(wortArt!.property_2 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_2!, sprache)
+            }
+            if(wortArt!.property_3 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_3!, sprache)
+            }
+            if(wortArt!.property_4 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_4!, sprache)
+            }
+            if(wortArt!.property_5 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_5!, sprache)
+            }
+            if(wortArt!.property_6 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_6!, sprache)
+            }
+            if(wortArt!.property_7 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_7!, sprache)
+            }
+            if(wortArt!.property_8 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_8!, sprache)
+            }
+            if(wortArt!.property_9 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_9!, sprache)
+            }
+            if(wortArt!.property_10 != nil){
+                retValue += " "+get_wortProperty_byPropertyName(wort, wortArt!.property_10!, sprache)
+            }
         }
         return retValue
+    }
+    public static func get_wortProperty_byPropertyName(_ wort: Wort, _ property: String, _ sprache: String) -> String{
+        if(property == "genus"){
+            return sprache == "DE" ? wort.relGenus!.name_DE! : wort.relGenus!.name_RU!
+        }
+        if(property == "kasus"){
+            return sprache == "DE" ? wort.relKasus!.name_DE! : wort.relKasus!.name_RU!
+        }
+        if(property == "modus"){
+            return sprache == "DE" ? wort.relModus!.name_DE! : wort.relModus!.name_RU!
+        }
+        if(property == "numerus"){
+            return sprache == "DE" ? wort.relNumerus!.name_DE! : wort.relNumerus!.name_RU!
+        }
+        if(property == "person"){
+            return sprache == "DE" ? wort.relPerson!.name_DE! : wort.relPerson!.name_RU!
+        }
+        if(property == "tempus"){
+            return sprache == "DE" ? wort.relTempus!.name_DE! : wort.relTempus!.name_RU!
+        }
+        return ""
     }
     public static func get_wortArt_auxString(_ wort: Wort, _ sprache: String) -> String{
         var retValue: String = ""
@@ -56,88 +109,6 @@ extension Wort{
         }
         return filteredWorten.first
     }
-    /*
-    public static func pick_nomenativ_singular(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Nominativ"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Singular"}.first!
-        guard let nomenSet = nomenHive.relWort as? Set<Wort>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_genitiv_singular(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Genitiv"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Singular"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_akkusativ_singular(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Akkusativ"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Singular"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_dativ_singular(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Dativ"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Singular"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_nomenativ_plural(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Nominativ"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Plural"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_genitiv_plural(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Genitiv"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Plural"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_akkusativ_plural(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Akkusativ"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Plural"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-    public static func pick_dativ_plural(_ wortHive: WortHive) -> Wort?{
-        let context = nomenHive.managedObjectContext!
-        let kasus = try! context.fetch(Kasus.fetchRequest()).filter{$0.name_DE == "Dativ"}.first!
-        let numerus = try! context.fetch(Numerus.fetchRequest()).filter{$0.name_DE == "Plural"}.first!
-        guard let nomenSet = nomenHive.relNomen as? Set<Nomen>,
-              let match = nomenSet.first(where: { $0.relKasus == kasus && $0.relNumerus == numerus }) else {
-            return nil
-        }
-        return match
-    }
-     */
     public static func get_beispiel(_ wort: Wort) -> Beispiel? {
         guard let beispielSet = wort.relBeispiel as? Set<Beispiel>, !beispielSet.isEmpty else {
             return nil
