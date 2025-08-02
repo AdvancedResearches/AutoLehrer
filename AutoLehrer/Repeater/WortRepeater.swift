@@ -365,7 +365,7 @@ struct WortRepeater: View {
         
         exercisedWorte.insert(pickedSache)
         
-        let wortFormList = WortFormen.get_wortFormenList_furArt(wortArt)
+        let wortFormList = Array(WortFormen.get_wortFormenList_furArt(wortArt).prefix(Int(pickedSache.formsToShow)))
         
         wort = []
         beispiel = []

@@ -86,6 +86,14 @@ extension WortFormen{
         wortFormen.successCounter += 1
         wortFormen.coolDown = 20
         wortFormen.failed = false
+        let formsAvailable = wortFormen.relWort?.count ?? 0
+        if(wortFormen.successCounter >= 3){
+            if(wortFormen.formsToShow < formsAvailable){
+                wortFormen.formsToShow += 1
+                wortFormen.successCounter = 0
+                wortFormen.coolDown = 0
+            }
+        }
         try! context.save()
         return wortFormen.successCounter >= 3
     }

@@ -74,7 +74,7 @@
         <attribute name="attempted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="coolDown" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="knowledgeLevel" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="formsToShow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="wortFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relWortFormen" inverseEntity="Wort"/>
