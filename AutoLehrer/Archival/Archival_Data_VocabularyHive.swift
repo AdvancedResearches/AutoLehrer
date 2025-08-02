@@ -112,6 +112,16 @@ struct WortArtItem: Codable{
     var name_DE: String
     var name_RU: String
     var order: Int64
+    var property_1: String?
+    var property_2: String?
+    var property_3: String?
+    var property_4: String?
+    var property_5: String?
+    var property_6: String?
+    var property_7: String?
+    var property_8: String?
+    var property_9: String?
+    var property_10: String?
     var wortArtKey: String
 }
 
@@ -275,6 +285,16 @@ struct Archival_Vocabulary{
                 uploadingWortArt.name_DE = theWortArt.name_DE
                 uploadingWortArt.name_RU = theWortArt.name_RU
                 uploadingWortArt.order = theWortArt.order
+                uploadingWortArt.property_1 = theWortArt.property_1
+                uploadingWortArt.property_2 = theWortArt.property_2
+                uploadingWortArt.property_3 = theWortArt.property_3
+                uploadingWortArt.property_4 = theWortArt.property_4
+                uploadingWortArt.property_5 = theWortArt.property_5
+                uploadingWortArt.property_6 = theWortArt.property_6
+                uploadingWortArt.property_7 = theWortArt.property_7
+                uploadingWortArt.property_8 = theWortArt.property_8
+                uploadingWortArt.property_9 = theWortArt.property_9
+                uploadingWortArt.property_10 = theWortArt.property_10
                 WortArtDictionary.updateValue(uploadingWortArt, forKey: theWortArt.wortArtKey)
             }
             
