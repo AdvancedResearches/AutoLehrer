@@ -91,7 +91,7 @@ extension WortFormen{
             if(wortFormen.formsToShow < formsAvailable){
                 wortFormen.formsToShow += 1
                 wortFormen.successCounter = 0
-                wortFormen.coolDown = 0
+                wortFormen.coolDown = 5
             }
         }
         try! context.save()
