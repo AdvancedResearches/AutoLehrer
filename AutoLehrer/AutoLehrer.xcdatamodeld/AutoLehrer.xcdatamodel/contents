@@ -55,6 +55,7 @@
     <entity name="Wort" representedClassName="Wort" syncable="YES" codeGenerationType="class">
         <attribute name="wort_DE" optional="YES" attributeType="String"/>
         <attribute name="wort_RU" optional="YES" attributeType="String"/>
+        <relationship name="relArtikelArt" optional="YES" maxCount="1" deletionRule="Nullify"/>
         <relationship name="relBeispiel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relWort" inverseEntity="Beispiel"/>
         <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relWort" inverseEntity="Genus"/>
         <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relWort" inverseEntity="Kasus"/>
