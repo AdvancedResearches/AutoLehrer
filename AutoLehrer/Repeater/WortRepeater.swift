@@ -356,6 +356,10 @@ struct WortRepeater: View {
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         
+        if (pickedSache.formsToShow < 1){
+            pickedSache.formsToShow = 1
+        }
+        
         pickedWortFormen = nil
         wort = []
         beispiel = []
