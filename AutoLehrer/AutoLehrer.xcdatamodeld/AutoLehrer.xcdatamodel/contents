@@ -68,6 +68,7 @@
     <entity name="WortArt" representedClassName="WortArt" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
         <attribute name="name_RU" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWortFormen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WortFormen" inverseName="relWortArt" inverseEntity="WortFormen"/>
     </entity>
     <entity name="WortFormen" representedClassName="WortFormen" syncable="YES" codeGenerationType="class">

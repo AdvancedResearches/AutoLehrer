@@ -103,8 +103,29 @@ struct MainMenu: View {
                         Text("Учить".localized(for: language))
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
                         
+                        let wortArten = WortArt.get_alleWortArten(viewContext)
 
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
+                            ForEach(wortArten){ wortArt in
+                                NavigationLink(
+                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme),
+                                    isActive: $Trainings_isActive
+                                ) {
+                                    Group {
+                                        let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
+                                        NG_Button(
+                                            title: wortArt.name_RU!,
+                                            style: .NG_ButtonStyle_Regular,
+                                            isDisabled: .constant(!WortArt.hat_worten(wortArt)),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(false),
+                                            widthFlood: true
+                                        )
+                                    }
+                                }
+                            }
+                            
+                            /*
                             let wortArt = WortArt.get_instance("Nomen", viewContext)
                             if(wortArt != nil){
                                 NavigationLink(
@@ -130,6 +151,7 @@ struct MainMenu: View {
                                 }
                                 .disabled(Trainings_disabled)
                             }
+                            */
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)

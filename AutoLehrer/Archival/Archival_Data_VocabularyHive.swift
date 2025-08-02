@@ -111,6 +111,7 @@ struct WortArtHive: Codable{
 struct WortArtItem: Codable{
     var name_DE: String
     var name_RU: String
+    var order: Int64
     var wortArtKey: String
 }
 
@@ -273,6 +274,7 @@ struct Archival_Vocabulary{
                 let uploadingWortArt = WortArt(context: theContext)
                 uploadingWortArt.name_DE = theWortArt.name_DE
                 uploadingWortArt.name_RU = theWortArt.name_RU
+                uploadingWortArt.order = theWortArt.order
                 WortArtDictionary.updateValue(uploadingWortArt, forKey: theWortArt.wortArtKey)
             }
             

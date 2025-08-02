@@ -24161,27 +24161,32 @@
   {
     "name_DE": "Nomen",
     "name_RU": "Существительное",
-    "wortArtKey": "NomenKey"
+    "wortArtKey": "NomenKey",
+    "order": 1
   },
   {
     "name_DE": "Verb",
     "name_RU": "Глагол",
-    "wortArtKey": "VerbKey"
+    "wortArtKey": "VerbKey",
+    "order": 2
   },
   {
     "name_DE": "Adjective",
     "name_RU": "Прилагательное",
-    "wortArtKey": "AdjektivKey"
+    "wortArtKey": "AdjektivKey",
+    "order": 3
   },
   {
     "name_DE": "Funktional Wort",
     "name_RU": "Служебные слова",
-    "wortArtKey": "FunktionalWortKey"
+    "wortArtKey": "FunktionalWortKey",
+    "order": 4
   },
   {
     "name_DE": "Phrase",
     "name_RU": "Фразы",
-    "wortArtKey": "PhraseKey"
+    "wortArtKey": "PhraseKey",
+    "order": 5
   }
 ]
  },
