@@ -108,8 +108,8 @@ struct MainMenu: View {
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             ForEach(wortArten){ wortArt in
                                 NavigationLink(
-                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme),
-                                    isActive: $Trainings_isActive
+                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme)/*,
+                                    isActive: $Trainings_isActive*/
                                 ) {
                                     Group {
                                         let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
