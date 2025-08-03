@@ -8,21 +8,45 @@
 import CoreData
 
 extension Statistics{
-    public static func get_wort_total(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
+    public static func get_wort_total_atAll(_ context: NSManagedObjectContext) -> Int{
+        let allArten = WortArt.get_alleWortArten(context)
+        var retValue: Int = 0
+        for theArt in allArten{
+            retValue += get_wort_total_byWortArt(context, theArt)
+        }
+        return retValue
+    }
+    public static func get_wort_attempted_atAll(_ context: NSManagedObjectContext) -> Int{
+        let allArten = WortArt.get_alleWortArten(context)
+        var retValue: Int = 0
+        for theArt in allArten{
+            retValue += get_wort_attempted_byWortArt(context, theArt)
+        }
+        return retValue
+    }
+    public static func get_wort_confirmed_atAll(_ context: NSManagedObjectContext) -> Int{
+        let allArten = WortArt.get_alleWortArten(context)
+        var retValue: Int = 0
+        for theArt in allArten{
+            retValue += get_wort_confirmed_byWortArt(context, theArt)
+        }
+        return retValue
+    }
+    public static func get_wort_total_byWortArt(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
         let all = try! context.fetch(WortFormen.fetchRequest())
         if(wortArt != nil){
             return all.filter{$0.relWortArt == wortArt}.count
         }
         return all.count
     }
-    public static func get_wort_attempted(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
+    public static func get_wort_attempted_byWortArt(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
         let all = try! context.fetch(WortFormen.fetchRequest()).filter{$0.attempted}
         if(wortArt != nil){
             return all.filter{$0.relWortArt == wortArt}.count
         }
         return all.count
     }
-    public static func get_wort_confirmed(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
+    public static func get_wort_confirmed_byWortArt(_ context: NSManagedObjectContext, _ wortArt: WortArt?) -> Int{
         let all = try! context.fetch(WortFormen.fetchRequest()).filter{$0.successCounter > 2}
         if(wortArt != nil){
             return all.filter{$0.relWortArt == wortArt}.count
