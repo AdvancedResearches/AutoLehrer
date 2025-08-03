@@ -131,15 +131,33 @@ extension WortFormen{
         guard let context = wortFormen.managedObjectContext else { return false }
         wortFormen.successCounter += 1
         wortFormen.coolDown = 20
-        wortFormen.failed = false
         let formsAvailable = wortFormen.relWort?.count ?? 0
-        if(wortFormen.successCounter >= 3){
-            if(wortFormen.formsToShow < formsAvailable){
-                wortFormen.formsToShow += 1
-                wortFormen.successCounter = 0
-                wortFormen.coolDown = 5
+        if wortFormen.failed{
+            if(wortFormen.successCounter >= 3){
+                if(wortFormen.formsToShow < formsAvailable){
+                    wortFormen.formsToShow += 1
+                    wortFormen.successCounter = 0
+                    wortFormen.coolDown = 5
+                }
+            }
+        }else{
+            if(wortFormen.successCounter == 1){
+                if(wortFormen.formsToShow < formsAvailable){
+                    wortFormen.formsToShow += 1
+                    wortFormen.successCounter = 0
+                    wortFormen.coolDown = 5
+                }
+            }else{
+                if(wortFormen.successCounter >= 3){
+                    if(wortFormen.formsToShow < formsAvailable){
+                        wortFormen.formsToShow += 1
+                        wortFormen.successCounter = 0
+                        wortFormen.coolDown = 5
+                    }
+                }
             }
         }
+        wortFormen.failed = false
         try! context.save()
         return wortFormen.successCounter >= 3
     }
