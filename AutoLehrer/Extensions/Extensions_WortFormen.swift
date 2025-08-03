@@ -1,12 +1,42 @@
 import CoreData
 
 public struct WortArtFormen{
+    var deklination: Deklination?
     var genus: Genus?
     var kasus: Kasus?
+    var komparationsgrad: Komparationsgrad?
     var modus: Modus?
     var numerus: Numerus?
     var person: Person?
     var tempus: Tempus?
+    public func debug_string() -> String{
+        var retValue = ""
+        if deklination != nil {
+            retValue += "deklination=\(deklination!.name_DE!);"
+        }
+        if genus != nil {
+            retValue += "genus=\(genus!.name_DE!);"
+        }
+        if kasus != nil {
+            retValue += "kasus=\(kasus!.name_DE!);"
+        }
+        if komparationsgrad != nil {
+            retValue += "komparationsgrad=\(komparationsgrad!.name_DE!);"
+        }
+        if modus != nil {
+            retValue += "modus=\(modus!.name_DE!);"
+        }
+        if numerus != nil {
+            retValue += "numerus=\(numerus!.name_DE!);"
+        }
+        if person != nil {
+            retValue += "person=\(person!.name_DE!);"
+        }
+        if tempus != nil {
+            retValue += "tempus=\(tempus!.name_DE!);"
+        }
+        return retValue
+    }
 }
 
 extension WortFormen{
@@ -16,6 +46,7 @@ extension WortFormen{
             return []
         }
         var retValue: [WortArtFormen] = []
+        
         if(wortArt.name_DE == "Nomen"){
             for theNumerus in try! context.fetch(Numerus.fetchRequest()).sorted{$0.order < $1.order}{
                 for theKasus in try! context.fetch(Kasus.fetchRequest()).sorted{$0.order < $1.order}{
@@ -34,7 +65,22 @@ extension WortFormen{
                 }
             }
         }
-        if(wortArt.name_DE == "Adjektiv"){
+        if(wortArt.name_DE == "Adjective"){
+            for theDeklination in try! context.fetch(Deklination.fetchRequest()).sorted{$0.order < $1.order}{
+                if(theDeklination.name_DE == "Grundform"){
+                    retValue.append(WortArtFormen(deklination: theDeklination))
+                }else{
+                    for theGenus in try! context.fetch(Genus.fetchRequest()).sorted{$0.order < $1.order}{
+                        for theNumerus in try! context.fetch(Numerus.fetchRequest()).sorted{$0.order < $1.order}{
+                            for theKomparisongrad in try! context.fetch(Komparationsgrad.fetchRequest()).sorted{$0.order < $1.order}{
+                                for theKasus in try! context.fetch(Kasus.fetchRequest()).sorted{$0.order < $1.order}{
+                                    retValue.append(WortArtFormen(deklination: theDeklination, genus: theGenus, kasus: theKasus, komparationsgrad: theKomparisongrad, numerus: theNumerus))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         if(wortArt.name_DE == "FunktionalWort"){
         }

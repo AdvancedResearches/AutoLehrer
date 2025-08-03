@@ -50,5 +50,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "static WortFormen.get_wortFormenList_furArt(_:):Extensions_WortFormen.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "wortArt.name_DE">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

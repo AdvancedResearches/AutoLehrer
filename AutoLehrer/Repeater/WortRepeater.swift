@@ -66,44 +66,40 @@ struct WortRepeater: View {
                     }
                 }
                 if(pickedWortFormen != nil){
-                        ScrollView(.vertical){
-                            ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, derWort in
-                                //let index = wort.firstIndex(where: { $0.id == derWort.id })!
-                                
-                                Divider()
-                                //if(WortFormen.get_wortArt_string(pickedWortFormen!) == "Nomen"){
-                                    let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
-                                    Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
-                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
-                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                //}
-                                HStack{
-                                    FlipCard(
-                                        deutschesSeite: $deutschesSeite[index],
-                                        deutschesWorte: derWort.wort_DE!,
-                                        russischesWorte: derWort.wort_RU!,
-                                        deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
-                                        russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
-                                        result: $guessingResult[index]
-                                    )
-                                    Image(systemName: "checkmark.square.fill")
-                                        .resizable()
-                                        .frame(width: 35, height: 35)
-                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                        .onTapGesture {
-                                            guessingResult[index] = 1
-                                        }
-                                    Image(systemName: "multiply.square.fill")
-                                        .resizable()
-                                        .frame(width: 35, height: 35)
-                                        .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                        .onTapGesture {
-                                            guessingResult[index] = -1
-                                        }
-                                }
+                    ScrollView(.vertical){
+                        ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, derWort in
+                            Divider()
+                            let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
+                            Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            HStack{
+                                FlipCard(
+                                    deutschesSeite: $deutschesSeite[index],
+                                    deutschesWorte: derWort.wort_DE!,
+                                    russischesWorte: derWort.wort_RU!,
+                                    deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
+                                    russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
+                                    result: $guessingResult[index]
+                                )
+                                Image(systemName: "checkmark.square.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                    .onTapGesture {
+                                        guessingResult[index] = 1
+                                    }
+                                Image(systemName: "multiply.square.fill")
+                                    .resizable()
+                                    .frame(width: 35, height: 35)
+                                    .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                                    .onTapGesture {
+                                        guessingResult[index] = -1
+                                    }
                             }
                         }
+                    }
                     .background(.clear)
                     .scrollIndicators(.hidden)
                 }
@@ -147,7 +143,8 @@ struct WortRepeater: View {
         beispiel = []
         
         for theCounter in 0..<wortFormList.count{
-            let wortTest = Wort.pick_wort(pickedSache, genus: wortFormList[theCounter].genus, kasus: wortFormList[theCounter].kasus, modus: wortFormList[theCounter].modus, numerus: wortFormList[theCounter].numerus, person: wortFormList[theCounter].person, tempus: wortFormList[theCounter].tempus)
+            print("picking wort for \(wortFormList[theCounter].debug_string())")
+            let wortTest = Wort.pick_wort(pickedSache, /*genus: wortFormList[theCounter].genus, kasus: wortFormList[theCounter].kasus, modus: wortFormList[theCounter].modus, numerus: wortFormList[theCounter].numerus, person: wortFormList[theCounter].person, tempus: wortFormList[theCounter].tempus*/ wortArtFormen: wortFormList[theCounter])
             if(wortTest != nil){
                 wort.append(wortTest!)
                 beispiel.append(Wort.get_beispiel(wortTest!))

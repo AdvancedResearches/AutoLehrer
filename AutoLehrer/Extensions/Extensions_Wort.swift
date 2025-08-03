@@ -50,22 +50,28 @@ extension Wort{
     }
     public static func get_wortProperty_byPropertyName(_ wort: Wort, _ property: String, _ sprache: String) -> String{
         if(property == "genus"){
-            return sprache == "DE" ? wort.relGenus!.name_DE! : wort.relGenus!.name_RU!
+            return sprache == "DE" ? wort.relGenus?.name_DE! ?? "" : wort.relGenus?.name_RU! ?? ""
         }
         if(property == "kasus"){
-            return sprache == "DE" ? wort.relKasus!.name_DE! : wort.relKasus!.name_RU!
+            return sprache == "DE" ? wort.relKasus?.name_DE! ?? ""  : wort.relKasus?.name_RU! ?? ""
         }
         if(property == "modus"){
-            return sprache == "DE" ? wort.relModus!.name_DE! : wort.relModus!.name_RU!
+            return sprache == "DE" ? wort.relModus?.name_DE! ?? ""  : wort.relModus?.name_RU! ?? ""
         }
         if(property == "numerus"){
-            return sprache == "DE" ? wort.relNumerus!.name_DE! : wort.relNumerus!.name_RU!
+            return sprache == "DE" ? wort.relNumerus?.name_DE! ?? ""  : wort.relNumerus?.name_RU! ?? ""
         }
         if(property == "person"){
-            return sprache == "DE" ? wort.relPerson!.name_DE! : wort.relPerson!.name_RU!
+            return sprache == "DE" ? wort.relPerson?.name_DE! ?? ""  : wort.relPerson?.name_RU! ?? ""
         }
         if(property == "tempus"){
-            return sprache == "DE" ? wort.relTempus!.name_DE! : wort.relTempus!.name_RU!
+            return sprache == "DE" ? wort.relTempus?.name_DE! ?? ""  : wort.relTempus?.name_RU! ?? ""
+        }
+        if(property == "deklination"){
+            return sprache == "DE" ? wort.relDeklination?.name_DE! ?? ""  : wort.relDeklination?.name_RU! ?? ""
+        }
+        if(property == "komparationsgrad"){
+            return sprache == "DE" ? wort.relKomparationsgrad?.name_DE! ?? ""  : wort.relKomparationsgrad?.name_RU! ?? ""
         }
         return ""
     }
@@ -84,28 +90,34 @@ extension Wort{
         }
         return retValue
     }
-    public static func pick_wort(_ wortForm: WortFormen, genus: Genus?, kasus: Kasus?, modus: Modus?, numerus: Numerus?, person: Person?, tempus: Tempus?) -> Wort?{
+    public static func pick_wort(_ wortForm: WortFormen, /*genus: Genus?, kasus: Kasus?, modus: Modus?, numerus: Numerus?, person: Person?, tempus: Tempus?*/wortArtFormen: WortArtFormen) -> Wort?{
         guard let context = wortForm.managedObjectContext else {
             return nil
         }
         var filteredWorten: [Wort] = try! context.fetch(Wort.fetchRequest()).filter{$0.relWortFormen == wortForm}
-        if(genus != nil){
-            filteredWorten = filteredWorten.filter{$0.relGenus == genus!}
+        if(wortArtFormen.deklination != nil){
+            filteredWorten = filteredWorten.filter{$0.relDeklination == wortArtFormen.deklination!}
         }
-        if(kasus != nil){
-            filteredWorten = filteredWorten.filter{$0.relKasus == kasus!}
+        if(wortArtFormen.genus != nil){
+            filteredWorten = filteredWorten.filter{$0.relGenus == wortArtFormen.genus!}
         }
-        if(modus != nil){
-            filteredWorten = filteredWorten.filter{$0.relModus == modus!}
+        if(wortArtFormen.kasus != nil){
+            filteredWorten = filteredWorten.filter{$0.relKasus == wortArtFormen.kasus!}
         }
-        if(numerus != nil){
-            filteredWorten = filteredWorten.filter{$0.relNumerus == numerus!}
+        if(wortArtFormen.komparationsgrad != nil){
+            filteredWorten = filteredWorten.filter{$0.relKomparationsgrad == wortArtFormen.komparationsgrad!}
         }
-        if(person != nil){
-            filteredWorten = filteredWorten.filter{$0.relPerson == person!}
+        if(wortArtFormen.modus != nil){
+            filteredWorten = filteredWorten.filter{$0.relModus == wortArtFormen.modus!}
         }
-        if(tempus != nil){
-            filteredWorten = filteredWorten.filter{$0.relTempus == tempus!}
+        if(wortArtFormen.numerus != nil){
+            filteredWorten = filteredWorten.filter{$0.relNumerus == wortArtFormen.numerus!}
+        }
+        if(wortArtFormen.person != nil){
+            filteredWorten = filteredWorten.filter{$0.relPerson == wortArtFormen.person!}
+        }
+        if(wortArtFormen.tempus != nil){
+            filteredWorten = filteredWorten.filter{$0.relTempus == wortArtFormen.tempus!}
         }
         return filteredWorten.first
     }
