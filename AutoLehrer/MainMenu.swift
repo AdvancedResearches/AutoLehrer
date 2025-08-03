@@ -108,8 +108,7 @@ struct MainMenu: View {
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             ForEach(wortArten){ wortArt in
                                 NavigationLink(
-                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme)/*,
-                                    isActive: $Trainings_isActive*/
+                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme)
                                 ) {
                                     Group {
                                         let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
@@ -124,34 +123,6 @@ struct MainMenu: View {
                                     }
                                 }
                             }
-                            
-                            /*
-                            let wortArt = WortArt.get_instance("Nomen", viewContext)
-                            if(wortArt != nil){
-                                NavigationLink(
-                                    destination: WortRepeater(wortArt: wortArt!).NG_NavigationTitle("Существительные".localized(for: language), theme: theme),
-                                    isActive: $Trainings_isActive
-                                ) {
-                                    Group {
-                                        let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
-                                        NG_Button(
-                                            title: "Существительные".localized(for: language),
-                                            style: .NG_ButtonStyle_Regular,
-                                            isDisabled: .constant(false),
-                                            isHighlighting: .constant(false),
-                                            isPulsating: .constant(false),
-                                            widthFlood: true
-                                        )
-                                    }
-                                }
-                                .onChange(of: Trainings_isActive){ /*oldValue, */newValue in
-                                    if !newValue{
-                                        invokeUpdates()
-                                    }
-                                }
-                                .disabled(Trainings_disabled)
-                            }
-                            */
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
@@ -209,7 +180,7 @@ struct MainMenu: View {
                                     )
                                 }
                             }
-                            .onChange(of: Theme_isActive){ /*oldValue, */newValue in
+                            .onChange(of: Theme_isActive){newValue in
                                 if !newValue{
                                     invokeUpdates()
                                 }
@@ -261,13 +232,13 @@ struct MainMenu: View {
                             }
                             
                             NavigationLink(
-                                destination: ArchivalMenu().NG_NavigationTitle("Archival".localized(for: language), theme: theme),
+                                destination: ArchivalMenu().NG_NavigationTitle("Архив", theme: theme),
                                 isActive: $Archival_isActive
                             ) {
                                 Group {
                                     let state = recommendationModel.buttonStates[.mainmenu_archival] ?? .enabled
                                     NG_Button(
-                                        title: "Archival".localized(for: language),
+                                        title: "Архив",
                                         style: .NG_ButtonStyle_Service,
                                         isDisabled: .constant(state == .disabled),
                                         isHighlighting: .constant(state == .highlighted),
@@ -304,6 +275,7 @@ struct MainMenu: View {
         }
         .onAppear{
             invokeUpdates()
+            reloadPresets()
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
@@ -316,6 +288,19 @@ struct MainMenu: View {
     }
     private func invokeUpdates(){
         recommendationModel.update(for: .MainMenu, in: viewContext)
+    }
+    private func reloadPresets(){
+        let fileDirectory: URL? = Bundle.main.resourceURL
+        if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
+            for fileURL in presetFiles.sorted{$0.lastPathComponent < $1.lastPathComponent} {
+                viewContext.performAndWait{
+                    Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: viewContext).preset()
+                    do{
+                        try viewContext.save()
+                    }catch{}
+                }
+            }
+        }
     }
     private func updateUI(){
         autoCloseWizard = true

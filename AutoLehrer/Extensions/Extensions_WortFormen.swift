@@ -180,4 +180,16 @@ extension WortFormen{
         }
         return ""
     }
+    public static func findOrCreate(in context: NSManagedObjectContext, wortArt: WortArt?, order: Int64) -> WortFormen {
+        var result: WortFormen? = nil
+        do{
+            if(wortArt != nil){
+                result = try context.fetch(WortFormen.fetchRequest()).filter{$0.relWortArt == wortArt && $0.wortFrequencyOrder == order}.first
+            }
+            if result == nil {
+                result = WortFormen(context: context)
+            }
+        }catch{}
+        return result!
+    }
 }

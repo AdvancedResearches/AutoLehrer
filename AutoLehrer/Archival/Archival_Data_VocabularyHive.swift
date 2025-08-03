@@ -269,11 +269,11 @@ struct Archival_Vocabulary{
     static func preset_1_0_0_0(theContext: NSManagedObjectContext, theData: VocabularyHive){
         do{
             //flush
-            flush(theContext: theContext, totalFlush: false)
+            //flush(theContext: theContext, totalFlush: false)
             
             var DeklinationDictionary: [String:Deklination] = [:]
             for theDeklination in theData.deklinationHive.theHive{
-                let uploadingDeklination = Deklination(context: theContext)
+                let uploadingDeklination = Deklination.findOrCreate(in: theContext, withName_DE: theDeklination.name_DE)//Deklination(context: theContext)
                 uploadingDeklination.name_DE = theDeklination.name_DE
                 uploadingDeklination.name_RU = theDeklination.name_RU
                 uploadingDeklination.order = theDeklination.order
@@ -282,7 +282,7 @@ struct Archival_Vocabulary{
              
             var GenusDictionary: [String:Genus] = [:]
             for theGenus in theData.genusHive.theHive{
-                let uploadingGenus = Genus(context: theContext)
+                let uploadingGenus = Genus.findOrCreate(in: theContext, withName_DE: theGenus.name_DE)//Genus(context: theContext)
                 uploadingGenus.name_DE = theGenus.name_DE
                 uploadingGenus.name_RU = theGenus.name_RU
                 uploadingGenus.order = theGenus.order
@@ -291,7 +291,7 @@ struct Archival_Vocabulary{
             
             var KasusDictionary: [String:Kasus] = [:]
             for theKasus in theData.kasusHive.theHive{
-                let uploadingKasus = Kasus(context: theContext)
+                let uploadingKasus = Kasus.findOrCreate(in: theContext, withName_DE: theKasus.name_DE)//Kasus(context: theContext)
                 uploadingKasus.name_DE = theKasus.name_DE
                 uploadingKasus.name_RU = theKasus.name_RU
                 uploadingKasus.fragen_DE = theKasus.fragen_DE
@@ -302,7 +302,7 @@ struct Archival_Vocabulary{
 
             var KomparationsgradDictionary: [String:Komparationsgrad] = [:]
             for theKomparationsgrad in theData.komparationsgradHive.theHive{
-                let uploadingKomparationsgrad = Komparationsgrad(context: theContext)
+                let uploadingKomparationsgrad = Komparationsgrad.findOrCreate(in: theContext, withName_DE: theKomparationsgrad.name_DE)//Komparationsgrad(context: theContext)
                 uploadingKomparationsgrad.name_DE = theKomparationsgrad.name_DE
                 uploadingKomparationsgrad.name_RU = theKomparationsgrad.name_RU
                 uploadingKomparationsgrad.order = theKomparationsgrad.order
@@ -311,7 +311,7 @@ struct Archival_Vocabulary{
 
             var ModusDictionary: [String:Modus] = [:]
             for theModus in theData.modusHive.theHive{
-                let uploadingModus = Modus(context: theContext)
+                let uploadingModus = Modus.findOrCreate(in: theContext, withName_DE: theModus.name_DE)//Modus(context: theContext)
                 uploadingModus.name_DE = theModus.name_DE
                 uploadingModus.name_RU = theModus.name_RU
                 uploadingModus.order = theModus.order
@@ -320,7 +320,7 @@ struct Archival_Vocabulary{
             
             var NumerusDictionary: [String:Numerus] = [:]
             for theNumerus in theData.numerusHive.theHive{
-                let uploadingNumerus = Numerus(context: theContext)
+                let uploadingNumerus = Numerus.findOrCreate(in: theContext, withName_DE: theNumerus.name_DE)//Numerus(context: theContext)
                 uploadingNumerus.name_DE = theNumerus.name_DE
                 uploadingNumerus.name_RU = theNumerus.name_RU
                 uploadingNumerus.order = theNumerus.order
@@ -329,7 +329,7 @@ struct Archival_Vocabulary{
             
             var PersonDictionary: [String:Person] = [:]
             for thePerson in theData.personHive.theHive{
-                let uploadingPerson = Person(context: theContext)
+                let uploadingPerson = Person.findOrCreate(in: theContext, withName_DE: thePerson.name_DE)//Person(context: theContext)
                 uploadingPerson.name_DE = thePerson.name_DE
                 uploadingPerson.name_RU = thePerson.name_RU
                 uploadingPerson.order = thePerson.order
@@ -338,7 +338,7 @@ struct Archival_Vocabulary{
             
             var TempusDictionary: [String:Tempus] = [:]
             for theTempus in theData.tempusHive.theHive{
-                let uploadingTempus = Tempus(context: theContext)
+                let uploadingTempus = Tempus.findOrCreate(in: theContext, withName_DE: theTempus.name_DE)//Tempus(context: theContext)
                 uploadingTempus.name_DE = theTempus.name_DE
                 uploadingTempus.name_RU = theTempus.name_RU
                 uploadingTempus.order = theTempus.order
@@ -347,7 +347,7 @@ struct Archival_Vocabulary{
             
             var WortArtDictionary: [String:WortArt] = [:]
             for theWortArt in theData.wortArtHive.theHive{
-                let uploadingWortArt = WortArt(context: theContext)
+                let uploadingWortArt = WortArt.findOrCreate(in: theContext, withName_DE: theWortArt.name_DE)//WortArt(context: theContext)
                 uploadingWortArt.name_DE = theWortArt.name_DE
                 uploadingWortArt.name_RU = theWortArt.name_RU
                 uploadingWortArt.order = theWortArt.order
@@ -366,7 +366,7 @@ struct Archival_Vocabulary{
             
             var WortFormenDictionary: [String:WortFormen] = [:]
             for theWortFormen in theData.wortFormenHive.theHive{
-                let uploadingWortFormen = WortFormen(context: theContext)
+                let uploadingWortFormen = WortFormen.findOrCreate(in: theContext, wortArt: WortArtDictionary[theWortFormen.relWortArt], order: theWortFormen.wortFrequencyOrder)//WortFormen(context: theContext)
                 uploadingWortFormen.wortFrequencyOrder = theWortFormen.wortFrequencyOrder
                 uploadingWortFormen.relWortArt    = WortArtDictionary[theWortFormen.relWortArt]!
                 WortFormenDictionary.updateValue(uploadingWortFormen, forKey: theWortFormen.wortFormenKey)
@@ -374,7 +374,16 @@ struct Archival_Vocabulary{
             
             var WortDictionary: [String:Wort] = [:]
             for theWort in theData.wortHive.theHive{
-                let uploadingWort = Wort(context: theContext)
+                let uploadingWort = Wort.findOrCreate(in: theContext, wortFormen: WortFormenDictionary[theWort.relWortFormen]!, wortArtFormen: WortArtFormen(
+                        deklination: DeklinationDictionary[theWort.relDeklination ?? "NIL"],
+                        genus: GenusDictionary[theWort.relGenus ?? "NIL"],
+                        kasus: KasusDictionary[theWort.relKasus ?? "NIL"],
+                        komparationsgrad: KomparationsgradDictionary[theWort.relKomparationsgrad ?? "NIL"],
+                        modus: ModusDictionary[theWort.relModus ?? "NIL"],
+                        numerus: NumerusDictionary[theWort.relNumerus ?? "NIL"],
+                        person: PersonDictionary[theWort.relPerson ?? "NIL"],
+                        tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
+                    ))//Wort(context: theContext)
                 uploadingWort.wort_DE = theWort.wort_DE
                 uploadingWort.wort_RU = theWort.wort_RU
 
@@ -393,7 +402,7 @@ struct Archival_Vocabulary{
             
             var BeispielDictionary: [String:Beispiel] = [:]
             for theBeispel in theData.beispielHive.theHive{
-                let uploadingBeispiel = Beispiel(context: theContext)
+                let uploadingBeispiel = Beispiel.findOrCreate(in: theContext, withName_DE: theBeispel.beispiel_DE)//Beispiel(context: theContext)
                 uploadingBeispiel.beispiel_DE = theBeispel.beispiel_DE
                 uploadingBeispiel.beispiel_RU = theBeispel.beispiel_RU
                 uploadingBeispiel.relWort = WortDictionary[theBeispel.relWort]

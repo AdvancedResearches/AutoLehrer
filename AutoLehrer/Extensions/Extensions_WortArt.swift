@@ -25,4 +25,14 @@ extension WortArt{
         }catch{}
         return []
     }
+    public static func findOrCreate(in context: NSManagedObjectContext, withName_DE name_DE: String) -> WortArt {
+        var result: WortArt? = nil
+        do{
+            result = try context.fetch(WortArt.fetchRequest()).filter{$0.name_DE == name_DE}.first
+            if result == nil {
+                result = WortArt(context: context)
+            }
+        }catch{}
+        return result!
+    }
 }

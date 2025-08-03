@@ -90,6 +90,34 @@ extension Wort{
         }
         return retValue
     }
+    public static func filter(worte: [Wort], wortArtFormen: WortArtFormen) -> [Wort]{
+        var filteredWorten: [Wort] = worte
+        if(wortArtFormen.deklination != nil){
+            filteredWorten = filteredWorten.filter{$0.relDeklination == wortArtFormen.deklination!}
+        }
+        if(wortArtFormen.genus != nil){
+            filteredWorten = filteredWorten.filter{$0.relGenus == wortArtFormen.genus!}
+        }
+        if(wortArtFormen.kasus != nil){
+            filteredWorten = filteredWorten.filter{$0.relKasus == wortArtFormen.kasus!}
+        }
+        if(wortArtFormen.komparationsgrad != nil){
+            filteredWorten = filteredWorten.filter{$0.relKomparationsgrad == wortArtFormen.komparationsgrad!}
+        }
+        if(wortArtFormen.modus != nil){
+            filteredWorten = filteredWorten.filter{$0.relModus == wortArtFormen.modus!}
+        }
+        if(wortArtFormen.numerus != nil){
+            filteredWorten = filteredWorten.filter{$0.relNumerus == wortArtFormen.numerus!}
+        }
+        if(wortArtFormen.person != nil){
+            filteredWorten = filteredWorten.filter{$0.relPerson == wortArtFormen.person!}
+        }
+        if(wortArtFormen.tempus != nil){
+            filteredWorten = filteredWorten.filter{$0.relTempus == wortArtFormen.tempus!}
+        }
+        return filteredWorten
+    }
     public static func pick_wort(_ wortForm: WortFormen, /*genus: Genus?, kasus: Kasus?, modus: Modus?, numerus: Numerus?, person: Person?, tempus: Tempus?*/wortArtFormen: WortArtFormen) -> Wort?{
         guard let context = wortForm.managedObjectContext else {
             return nil
@@ -128,5 +156,18 @@ extension Wort{
 
         // Например, вернуть первый элемент (или можешь выбрать случайный, если хочешь)
         return beispielSet.randomElement()
+    }
+    public static func findOrCreate(in context: NSManagedObjectContext, wortFormen: WortFormen?, wortArtFormen: WortArtFormen) -> Wort {
+        var result: Wort? = nil
+        do{
+            if(wortFormen != nil){
+                let setOf = try context.fetch(Wort.fetchRequest()).filter{$0.relWortFormen == wortFormen}
+                result = filter(worte: setOf, wortArtFormen: wortArtFormen).first
+            }
+            if result == nil {
+                result = Wort(context: context)
+            }
+        }catch{}
+        return result!
     }
 }

@@ -38,10 +38,6 @@ struct AppWizardView: View {
                         }
                     }
                 }
-                /*
-                .onChange(of: recommendationModel.recommendation){ oldValue, newValue in
-                }
-                */
             }else{
                 content
                 .NG_Card(.NG_CardStyle_AppWizard, theme: theme)

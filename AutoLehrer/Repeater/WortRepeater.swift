@@ -68,7 +68,7 @@ struct WortRepeater: View {
                     }
                 }
                 if(pickedWortFormen != nil){
-                    ScrollView(.vertical){
+                    ScrollView(.vertical, showsIndicators: true){
                         ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, derWort in
                             Divider()
                             let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
@@ -105,7 +105,6 @@ struct WortRepeater: View {
                         }
                     }
                     .background(.clear)
-                    .scrollIndicators(.hidden)
                 }
                 Spacer()
             }
