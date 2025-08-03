@@ -143,7 +143,7 @@ struct WortRepeater: View {
         beispiel = []
         
         for theCounter in 0..<wortFormList.count{
-            print("picking wort for \(wortFormList[theCounter].debug_string())")
+            //print("picking wort for \(wortFormList[theCounter].debug_string())")
             let wortTest = Wort.pick_wort(pickedSache, /*genus: wortFormList[theCounter].genus, kasus: wortFormList[theCounter].kasus, modus: wortFormList[theCounter].modus, numerus: wortFormList[theCounter].numerus, person: wortFormList[theCounter].person, tempus: wortFormList[theCounter].tempus*/ wortArtFormen: wortFormList[theCounter])
             if(wortTest != nil){
                 wort.append(wortTest!)

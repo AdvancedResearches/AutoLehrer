@@ -82,7 +82,10 @@ extension WortFormen{
                 }
             }
         }
-        if(wortArt.name_DE == "FunktionalWort"){
+        if(wortArt.name_DE == "Funktional Wort"){
+            for theDeklination in try! context.fetch(Deklination.fetchRequest()).sorted{$0.order < $1.order}{
+                retValue.append(WortArtFormen(deklination: theDeklination))
+            }
         }
         if(wortArt.name_DE == "Phrase"){
         }

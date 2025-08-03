@@ -44693,6 +44693,756 @@
       "relTempus": null,
       "wortKey": "einvielesErlebnissachlichGenusnominativeKasusAdjektiveOrder50singularNumerusGemischte DeklinationKeyPositivKomparationsGrad",
       "order": null
+    },
+    {
+      "wort_DE": "und",
+      "wort_RU": "и",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder1",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "undFunkWortOrder1GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "oder",
+      "wort_RU": "или",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder2",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "oderFunkWortOrder2GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "aber",
+      "wort_RU": "но",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder3",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "aberFunkWortOrder3GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "dass",
+      "wort_RU": "что",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder4",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "dassFunkWortOrder4GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "weil",
+      "wort_RU": "потому что",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder5",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "weilFunkWortOrder5GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "wenn",
+      "wort_RU": "если / когда",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder6",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "wennFunkWortOrder6GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "wie",
+      "wort_RU": "как",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder7",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "wieFunkWortOrder7GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "was",
+      "wort_RU": "что",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder8",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "wasFunkWortOrder8GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "wer",
+      "wort_RU": "кто",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder9",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "werFunkWortOrder9GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "wo",
+      "wort_RU": "где",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder10",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "woFunkWortOrder10GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "warum",
+      "wort_RU": "почему",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder11",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "warumFunkWortOrder11GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "wann",
+      "wort_RU": "когда",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder12",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "wannFunkWortOrder12GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "welche",
+      "wort_RU": "какой / которая / какие",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder13",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "welcheFunkWortOrder13GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "ob",
+      "wort_RU": "ли",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder14",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "obFunkWortOrder14GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "doch",
+      "wort_RU": "всё же",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder15",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "dochFunkWortOrder15GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "also",
+      "wort_RU": "итак",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder16",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "alsoFunkWortOrder16GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "denn",
+      "wort_RU": "потому что",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder17",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "dennFunkWortOrder17GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "damit",
+      "wort_RU": "чтобы",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder18",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "damitFunkWortOrder18GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "deshalb",
+      "wort_RU": "поэтому",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder19",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "deshalbFunkWortOrder19GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "trotzdem",
+      "wort_RU": "несмотря на это",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder20",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "trotzdemFunkWortOrder20GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "sowie",
+      "wort_RU": "а также",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder21",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "sowieFunkWortOrder21GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "sobald",
+      "wort_RU": "как только",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder22",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "sobaldFunkWortOrder22GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "sogar",
+      "wort_RU": "даже",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder23",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "sogarFunkWortOrder23GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "sondern",
+      "wort_RU": "а",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder24",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "sondernFunkWortOrder24GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "dann",
+      "wort_RU": "затем",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder25",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "dannFunkWortOrder25GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "da",
+      "wort_RU": "там / так как",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder26",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "daFunkWortOrder26GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "zwar",
+      "wort_RU": "хотя",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder27",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "zwarFunkWortOrder27GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "jedoch",
+      "wort_RU": "однако",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder28",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "jedochFunkWortOrder28GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "obwohl",
+      "wort_RU": "хотя",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder29",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "obwohlFunkWortOrder29GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "während",
+      "wort_RU": "в то время как",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder30",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "währendFunkWortOrder30GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "insofern",
+      "wort_RU": "поскольку",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder31",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "insofernFunkWortOrder31GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "indem",
+      "wort_RU": "посредством того что",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder32",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "indemFunkWortOrder32GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "weder",
+      "wort_RU": "ни",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder33",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "wederFunkWortOrder33GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "entweder",
+      "wort_RU": "или… или",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder34",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "entwederFunkWortOrder34GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "bevor",
+      "wort_RU": "прежде чем",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder35",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "bevorFunkWortOrder35GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "nachdem",
+      "wort_RU": "после того как",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder36",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "nachdemFunkWortOrder36GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "seit",
+      "wort_RU": "с тех пор как",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder37",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "seitFunkWortOrder37GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "bis",
+      "wort_RU": "до",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder38",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "bisFunkWortOrder38GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "über",
+      "wort_RU": "через / по",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder39",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "überFunkWortOrder39GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "für",
+      "wort_RU": "для",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder40",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "fürFunkWortOrder40GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "gegen",
+      "wort_RU": "против",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder41",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "gegenFunkWortOrder41GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "ohne",
+      "wort_RU": "без",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder42",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "ohneFunkWortOrder42GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "um",
+      "wort_RU": "чтобы",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder43",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "umFunkWortOrder43GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "mit",
+      "wort_RU": "с",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder44",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "mitFunkWortOrder44GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "von",
+      "wort_RU": "от",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder45",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "vonFunkWortOrder45GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "an",
+      "wort_RU": "на",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder46",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "anFunkWortOrder46GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "aus",
+      "wort_RU": "из",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder47",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "ausFunkWortOrder47GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "bei",
+      "wort_RU": "у",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder48",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "beiFunkWortOrder48GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "nach",
+      "wort_RU": "после",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder49",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "nachFunkWortOrder49GrundformKey",
+      "order": null
+    },
+    {
+      "wort_DE": "zu",
+      "wort_RU": "к / на",
+      "relDeklination": "GrundformKey",
+      "relGenus": "",
+      "relKasus": null,
+      "relKomparationsgrad": null,
+      "relModus": null,
+      "relWortFormen": "FunkWortOrder50",
+      "relNumerus": null,
+      "relPerson": null,
+      "relTempus": null,
+      "wortKey": "zuFunkWortOrder50GrundformKey",
+      "order": null
     }
   ],
   "WortFormen": [
@@ -50195,6 +50945,256 @@
       "wortFrequencyOrder": 50,
       "wortFormenKey": "AdjektiveOrder50",
       "relWortArt": "AdjektivKey"
+    },
+    {
+      "wortFrequencyOrder": 1,
+      "wortFormenKey": "FunkWortOrder1",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 2,
+      "wortFormenKey": "FunkWortOrder2",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 3,
+      "wortFormenKey": "FunkWortOrder3",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 4,
+      "wortFormenKey": "FunkWortOrder4",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 5,
+      "wortFormenKey": "FunkWortOrder5",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 6,
+      "wortFormenKey": "FunkWortOrder6",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 7,
+      "wortFormenKey": "FunkWortOrder7",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 8,
+      "wortFormenKey": "FunkWortOrder8",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 9,
+      "wortFormenKey": "FunkWortOrder9",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 10,
+      "wortFormenKey": "FunkWortOrder10",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 11,
+      "wortFormenKey": "FunkWortOrder11",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 12,
+      "wortFormenKey": "FunkWortOrder12",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 13,
+      "wortFormenKey": "FunkWortOrder13",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 14,
+      "wortFormenKey": "FunkWortOrder14",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 15,
+      "wortFormenKey": "FunkWortOrder15",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 16,
+      "wortFormenKey": "FunkWortOrder16",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 17,
+      "wortFormenKey": "FunkWortOrder17",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 18,
+      "wortFormenKey": "FunkWortOrder18",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 19,
+      "wortFormenKey": "FunkWortOrder19",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 20,
+      "wortFormenKey": "FunkWortOrder20",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 21,
+      "wortFormenKey": "FunkWortOrder21",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 22,
+      "wortFormenKey": "FunkWortOrder22",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 23,
+      "wortFormenKey": "FunkWortOrder23",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 24,
+      "wortFormenKey": "FunkWortOrder24",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 25,
+      "wortFormenKey": "FunkWortOrder25",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 26,
+      "wortFormenKey": "FunkWortOrder26",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 27,
+      "wortFormenKey": "FunkWortOrder27",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 28,
+      "wortFormenKey": "FunkWortOrder28",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 29,
+      "wortFormenKey": "FunkWortOrder29",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 30,
+      "wortFormenKey": "FunkWortOrder30",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 31,
+      "wortFormenKey": "FunkWortOrder31",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 32,
+      "wortFormenKey": "FunkWortOrder32",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 33,
+      "wortFormenKey": "FunkWortOrder33",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 34,
+      "wortFormenKey": "FunkWortOrder34",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 35,
+      "wortFormenKey": "FunkWortOrder35",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 36,
+      "wortFormenKey": "FunkWortOrder36",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 37,
+      "wortFormenKey": "FunkWortOrder37",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 38,
+      "wortFormenKey": "FunkWortOrder38",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 39,
+      "wortFormenKey": "FunkWortOrder39",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 40,
+      "wortFormenKey": "FunkWortOrder40",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 41,
+      "wortFormenKey": "FunkWortOrder41",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 42,
+      "wortFormenKey": "FunkWortOrder42",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 43,
+      "wortFormenKey": "FunkWortOrder43",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 44,
+      "wortFormenKey": "FunkWortOrder44",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 45,
+      "wortFormenKey": "FunkWortOrder45",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 46,
+      "wortFormenKey": "FunkWortOrder46",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 47,
+      "wortFormenKey": "FunkWortOrder47",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 48,
+      "wortFormenKey": "FunkWortOrder48",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 49,
+      "wortFormenKey": "FunkWortOrder49",
+      "relWortArt": "FunktionalWortKey"
+    },
+    {
+      "wortFrequencyOrder": 50,
+      "wortFormenKey": "FunkWortOrder50",
+      "relWortArt": "FunktionalWortKey"
     }
   ],
   "WortArt": [
@@ -50251,7 +51251,7 @@
       "name_RU": "Служебные слова",
       "wortArtKey": "FunktionalWortKey",
       "order": 4,
-      "property_1": null,
+      "property_1": "deklination",
       "property_2": null,
       "property_3": null,
       "property_4": null,
