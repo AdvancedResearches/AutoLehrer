@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24E263" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788.4" systemVersion="24G84" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Beispiel" representedClassName="Beispiel" syncable="YES" codeGenerationType="class">
         <attribute name="beispiel_DE" optional="YES" attributeType="String"/>
         <attribute name="beispiel_RU" optional="YES" attributeType="String"/>
         <relationship name="relWort" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wort" inverseName="relBeispiel" inverseEntity="Wort"/>
+    </entity>
+    <entity name="Deklination" representedClassName="Deklination" syncable="YES" codeGenerationType="class">
+        <attribute name="name_DE" optional="YES" attributeType="String"/>
+        <attribute name="name_RU" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relDeklination" inverseEntity="Wort"/>
     </entity>
     <entity name="Genus" representedClassName="Genus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
@@ -18,6 +24,12 @@
         <attribute name="name_RU" optional="YES" attributeType="String"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relKasus" inverseEntity="Wort"/>
+    </entity>
+    <entity name="Komparationsgrad" representedClassName="Komparationsgrad" syncable="YES" codeGenerationType="class">
+        <attribute name="name_DE" optional="YES" attributeType="String"/>
+        <attribute name="name_RU" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relKomparationsgrad" inverseEntity="Wort"/>
     </entity>
     <entity name="Modus" representedClassName="Modus" syncable="YES" codeGenerationType="class">
         <attribute name="name_DE" optional="YES" attributeType="String"/>
@@ -55,10 +67,11 @@
     <entity name="Wort" representedClassName="Wort" syncable="YES" codeGenerationType="class">
         <attribute name="wort_DE" optional="YES" attributeType="String"/>
         <attribute name="wort_RU" optional="YES" attributeType="String"/>
-        <relationship name="relArtikelArt" optional="YES" maxCount="1" deletionRule="Nullify"/>
         <relationship name="relBeispiel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relWort" inverseEntity="Beispiel"/>
+        <relationship name="relDeklination" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deklination" inverseName="relWort" inverseEntity="Deklination"/>
         <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relWort" inverseEntity="Genus"/>
         <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relWort" inverseEntity="Kasus"/>
+        <relationship name="relKomparationsgrad" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Komparationsgrad" inverseName="relWort" inverseEntity="Komparationsgrad"/>
         <relationship name="relModus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Modus" inverseName="relWort" inverseEntity="Modus"/>
         <relationship name="relNumerus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Numerus" inverseName="relWort" inverseEntity="Numerus"/>
         <relationship name="relPerson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="relWort" inverseEntity="Person"/>
