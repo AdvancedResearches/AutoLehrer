@@ -130,15 +130,15 @@ struct WortItem: Codable{
      */
     var wort_DE: String
     var wort_RU: String
-    //var relDeklination: String?
-    //var relGenus: String?
-    //var relKasus: String?
-    //var relKomparationsgrad: String?
-    //var relModus: String?
-    //var relNumerus: String?
-    //var relPerson: String?
-    //var relTempus: String?
-    //var relWortFormen: String
+    var relDeklination: String?
+    var relGenus: String?
+    var relKasus: String?
+    var relKomparationsgrad: String?
+    var relModus: String?
+    var relNumerus: String?
+    var relPerson: String?
+    var relTempus: String?
+    var relWortFormen: String
     var wortKey: String
 }
 
@@ -183,7 +183,7 @@ struct VocabularyHive: Codable{
     var numerusHive: NumerusHive
     var personHive: PersonHive
     var tempusHive: TempusHive
-    //var wortHive: WortHive
+    var wortHive: WortHive
     var wortArtHive: WortArtHive
     var wortFormenHive: WortFormenHive
 }
@@ -200,7 +200,7 @@ struct Archival_Vocabulary{
             numerusHive: NumerusHive(theHive: []),
             personHive: PersonHive(theHive: []),
             tempusHive: TempusHive(theHive: []),
-            //wortHive: WortHive(theHive: []),
+            wortHive: WortHive(theHive: []),
             wortArtHive: WortArtHive(theHive: []),
             wortFormenHive: WortFormenHive(theHive: [])
         )
