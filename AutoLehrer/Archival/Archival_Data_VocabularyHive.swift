@@ -300,16 +300,14 @@ struct Archival_Vocabulary{
                 KasusDictionary.updateValue(uploadingKasus, forKey: theKasus.kasusKey)
             }
 
-            /*
             var KomparationsgradDictionary: [String:Komparationsgrad] = [:]
             for theKomparationsgrad in theData.komparationsgradHive.theHive{
                 let uploadingKomparationsgrad = Komparationsgrad(context: theContext)
                 uploadingKomparationsgrad.name_DE = theKomparationsgrad.name_DE
                 uploadingKomparationsgrad.name_RU = theKomparationsgrad.name_RU
                 uploadingKomparationsgrad.order = theKomparationsgrad.order
-                KomparationsgradDictionary.updateValue(uploadingKomparationsgrad, forKey: theKomparationsgrad.kompatationsgradKey)
+                KomparationsgradDictionary.updateValue(uploadingKomparationsgrad, forKey: theKomparationsgrad.komparationsgradKey)
             }
-             */
 
             var ModusDictionary: [String:Modus] = [:]
             for theModus in theData.modusHive.theHive{
@@ -374,17 +372,16 @@ struct Archival_Vocabulary{
                 WortFormenDictionary.updateValue(uploadingWortFormen, forKey: theWortFormen.wortFormenKey)
             }
             
-            /*
             var WortDictionary: [String:Wort] = [:]
             for theWort in theData.wortHive.theHive{
                 let uploadingWort = Wort(context: theContext)
                 uploadingWort.wort_DE = theWort.wort_DE
                 uploadingWort.wort_RU = theWort.wort_RU
 
-                //uploadingWort.relDeklination        = DeklinationDictionary[theWort.relDeklination ?? "NIL"]
+                uploadingWort.relDeklination        = DeklinationDictionary[theWort.relDeklination ?? "NIL"]
                 uploadingWort.relGenus              = GenusDictionary[theWort.relGenus ?? "NIL"]
                 uploadingWort.relKasus              = KasusDictionary[theWort.relKasus ?? "NIL"]
-                //uploadingWort.relKomparationsgrad   = KomparationsgradDictionary[theWort.relKomparationsgrad ?? "NIL"]
+                uploadingWort.relKomparationsgrad   = KomparationsgradDictionary[theWort.relKomparationsgrad ?? "NIL"]
                 uploadingWort.relModus              = ModusDictionary[theWort.relModus ?? "NIL"]
                 uploadingWort.relNumerus            = NumerusDictionary[theWort.relNumerus ?? "NIL"]
                 uploadingWort.relPerson             = PersonDictionary[theWort.relPerson ?? "NIL"]
@@ -393,9 +390,7 @@ struct Archival_Vocabulary{
                 uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                 WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
             }
-            */
             
-            /*
             var BeispielDictionary: [String:Beispiel] = [:]
             for theBeispel in theData.beispielHive.theHive{
                 let uploadingBeispiel = Beispiel(context: theContext)
@@ -404,7 +399,6 @@ struct Archival_Vocabulary{
                 uploadingBeispiel.relWort = WortDictionary[theBeispel.relWort]
                 BeispielDictionary.updateValue(uploadingBeispiel, forKey: theBeispel.beispielKey)
             }
-             */
         }catch{
             return
         }

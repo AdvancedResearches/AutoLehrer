@@ -37205,7 +37205,7 @@
   },
   {
     "wort_DE": "großer Hund",
-    "wort_RU": null,
+    "wort_RU": "большой пёс",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37220,7 +37220,7 @@
   },
   {
     "wort_DE": "guter Wein",
-    "wort_RU": null,
+    "wort_RU": "хорошее вино",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37235,7 +37235,7 @@
   },
   {
     "wort_DE": "neuer Computer",
-    "wort_RU": null,
+    "wort_RU": "новый компьютер",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37250,7 +37250,7 @@
   },
   {
     "wort_DE": "ganzer Tag",
-    "wort_RU": null,
+    "wort_RU": "целый день",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37265,7 +37265,7 @@
   },
   {
     "wort_DE": "erster Schultag",
-    "wort_RU": null,
+    "wort_RU": "первый школьный день",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37280,7 +37280,7 @@
   },
   {
     "wort_DE": "langer Weg",
-    "wort_RU": null,
+    "wort_RU": "длинный путь",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37295,7 +37295,7 @@
   },
   {
     "wort_DE": "weniger Platz",
-    "wort_RU": null,
+    "wort_RU": "меньшее пространство",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37310,7 +37310,7 @@
   },
   {
     "wort_DE": "kleiner Tisch",
-    "wort_RU": null,
+    "wort_RU": "маленький стол",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37325,7 +37325,7 @@
   },
   {
     "wort_DE": "deutscher Text",
-    "wort_RU": null,
+    "wort_RU": "немецкий текст",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37340,7 +37340,7 @@
   },
   {
     "wort_DE": "hoher Turm",
-    "wort_RU": null,
+    "wort_RU": "высокая башня",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37355,7 +37355,7 @@
   },
   {
     "wort_DE": "einfacher Plan",
-    "wort_RU": null,
+    "wort_RU": "простой план",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37370,7 +37370,7 @@
   },
   {
     "wort_DE": "alter Mann",
-    "wort_RU": null,
+    "wort_RU": "пожилой мужчина",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37385,7 +37385,7 @@
   },
   {
     "wort_DE": "gleicher Name",
-    "wort_RU": null,
+    "wort_RU": "одинаковое имя",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37400,7 +37400,7 @@
   },
   {
     "wort_DE": "wichtiger Grund",
-    "wort_RU": null,
+    "wort_RU": "важная причина",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37415,7 +37415,7 @@
   },
   {
     "wort_DE": "letzter Versuch",
-    "wort_RU": null,
+    "wort_RU": "последняя попытка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37430,7 +37430,7 @@
   },
   {
     "wort_DE": "eigener Wunsch",
-    "wort_RU": null,
+    "wort_RU": "собственное желание",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37445,7 +37445,7 @@
   },
   {
     "wort_DE": "genauer Zeitpunkt",
-    "wort_RU": null,
+    "wort_RU": "точный момент",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37460,7 +37460,7 @@
   },
   {
     "wort_DE": "später Termin",
-    "wort_RU": null,
+    "wort_RU": "поздний приём (термин)",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37475,7 +37475,7 @@
   },
   {
     "wort_DE": "kurzer Brief",
-    "wort_RU": null,
+    "wort_RU": "короткое письмо",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37490,7 +37490,7 @@
   },
   {
     "wort_DE": "richtiger Moment",
-    "wort_RU": null,
+    "wort_RU": "верный момент",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37505,7 +37505,7 @@
   },
   {
     "wort_DE": "starker Wind",
-    "wort_RU": null,
+    "wort_RU": "сильный ветер",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37520,7 +37520,7 @@
   },
   {
     "wort_DE": "weiterer Schritt",
-    "wort_RU": null,
+    "wort_RU": "дополнительный шаг",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37535,7 +37535,7 @@
   },
   {
     "wort_DE": "junger Lehrer",
-    "wort_RU": null,
+    "wort_RU": "молодой преподаватель",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37550,7 +37550,7 @@
   },
   {
     "wort_DE": "schneller Zug",
-    "wort_RU": null,
+    "wort_RU": "быстрый поезд",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37565,7 +37565,7 @@
   },
   {
     "wort_DE": "weiter Horizont",
-    "wort_RU": null,
+    "wort_RU": "широкий горизонт",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37580,7 +37580,7 @@
   },
   {
     "wort_DE": "nächster Tag",
-    "wort_RU": null,
+    "wort_RU": "следующий день",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37595,7 +37595,7 @@
   },
   {
     "wort_DE": "klarer Himmel",
-    "wort_RU": null,
+    "wort_RU": "ясное небо",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37610,7 +37610,7 @@
   },
   {
     "wort_DE": "verschiedener Ansatz",
-    "wort_RU": null,
+    "wort_RU": "разный подход",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37625,7 +37625,7 @@
   },
   {
     "wort_DE": "schwerer Koffer",
-    "wort_RU": null,
+    "wort_RU": "тяжёлый чемодан",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37640,7 +37640,7 @@
   },
   {
     "wort_DE": "sicherer Ort",
-    "wort_RU": null,
+    "wort_RU": "безопасное место",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37655,7 +37655,7 @@
   },
   {
     "wort_DE": "bestimmter Artikel",
-    "wort_RU": null,
+    "wort_RU": "определённый артикль",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37670,7 +37670,7 @@
   },
   {
     "wort_DE": "freier Platz",
-    "wort_RU": null,
+    "wort_RU": "свободное место",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37685,7 +37685,7 @@
   },
   {
     "wort_DE": "leichter Text",
-    "wort_RU": null,
+    "wort_RU": "лёгкий текст",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37700,7 +37700,7 @@
   },
   {
     "wort_DE": "bekannter Autor",
-    "wort_RU": null,
+    "wort_RU": "известный автор",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37715,7 +37715,7 @@
   },
   {
     "wort_DE": "schlechter Film",
-    "wort_RU": null,
+    "wort_RU": "плохой фильм",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37730,7 +37730,7 @@
   },
   {
     "wort_DE": "einziger Weg",
-    "wort_RU": null,
+    "wort_RU": "единственный путь",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37745,7 +37745,7 @@
   },
   {
     "wort_DE": "offener Brief",
-    "wort_RU": null,
+    "wort_RU": "открытое письмо",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37760,7 +37760,7 @@
   },
   {
     "wort_DE": "voller Korb",
-    "wort_RU": null,
+    "wort_RU": "полная корзина",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37775,7 +37775,7 @@
   },
   {
     "wort_DE": "tiefer See",
-    "wort_RU": null,
+    "wort_RU": "глубокое озеро",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37790,7 +37790,7 @@
   },
   {
     "wort_DE": "möglicher Ausweg",
-    "wort_RU": null,
+    "wort_RU": "возможный выход",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37805,7 +37805,7 @@
   },
   {
     "wort_DE": "schöner Tag",
-    "wort_RU": null,
+    "wort_RU": "прекрасный день",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37820,7 +37820,7 @@
   },
   {
     "wort_DE": "falscher Name",
-    "wort_RU": null,
+    "wort_RU": "неверное имя",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37835,7 +37835,7 @@
   },
   {
     "wort_DE": "langsamer Rhythmus",
-    "wort_RU": null,
+    "wort_RU": "медленный ритм",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37850,7 +37850,7 @@
   },
   {
     "wort_DE": "schwieriger Fall",
-    "wort_RU": null,
+    "wort_RU": "трудный случай",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37865,7 +37865,7 @@
   },
   {
     "wort_DE": "enger Raum",
-    "wort_RU": null,
+    "wort_RU": "тесное помещение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37880,7 +37880,7 @@
   },
   {
     "wort_DE": "normaler Mensch",
-    "wort_RU": null,
+    "wort_RU": "нормальный человек",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37895,7 +37895,7 @@
   },
   {
     "wort_DE": "früher Flug",
-    "wort_RU": null,
+    "wort_RU": "ранний рейс",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37910,7 +37910,7 @@
   },
   {
     "wort_DE": "echter Freund",
-    "wort_RU": null,
+    "wort_RU": "настоящий друг",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37925,7 +37925,7 @@
   },
   {
     "wort_DE": "runder Tisch",
-    "wort_RU": null,
+    "wort_RU": "круглый стол",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37940,7 +37940,7 @@
   },
   {
     "wort_DE": "vieler Besucher",
-    "wort_RU": null,
+    "wort_RU": "многочисленный посетитель",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37955,7 +37955,7 @@
   },
   {
     "wort_DE": "der große Hund",
-    "wort_RU": null,
+    "wort_RU": "тот большой пёс",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37970,7 +37970,7 @@
   },
   {
     "wort_DE": "der gute Wein",
-    "wort_RU": null,
+    "wort_RU": "тот хороший виноград",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -37985,7 +37985,7 @@
   },
   {
     "wort_DE": "der neue Computer",
-    "wort_RU": null,
+    "wort_RU": "тот новый компьютер",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38000,7 +38000,7 @@
   },
   {
     "wort_DE": "der ganze Tag",
-    "wort_RU": null,
+    "wort_RU": "тот целый день",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38015,7 +38015,7 @@
   },
   {
     "wort_DE": "der erste Schultag",
-    "wort_RU": null,
+    "wort_RU": "тот первый школьный день",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38030,7 +38030,7 @@
   },
   {
     "wort_DE": "der lange Weg",
-    "wort_RU": null,
+    "wort_RU": "тот длинный путь",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38045,7 +38045,7 @@
   },
   {
     "wort_DE": "der wenige Platz",
-    "wort_RU": null,
+    "wort_RU": "то маленькое пространство",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38060,7 +38060,7 @@
   },
   {
     "wort_DE": "der kleine Tisch",
-    "wort_RU": null,
+    "wort_RU": "тот маленький стол",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38075,7 +38075,7 @@
   },
   {
     "wort_DE": "der deutsche Text",
-    "wort_RU": null,
+    "wort_RU": "тот немецкий текст",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38090,7 +38090,7 @@
   },
   {
     "wort_DE": "der hohe Turm",
-    "wort_RU": null,
+    "wort_RU": "та высокая башня",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38105,7 +38105,7 @@
   },
   {
     "wort_DE": "der einfache Plan",
-    "wort_RU": null,
+    "wort_RU": "тот простой план",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38120,7 +38120,7 @@
   },
   {
     "wort_DE": "der alte Mann",
-    "wort_RU": null,
+    "wort_RU": "тот старый мужчина",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38135,7 +38135,7 @@
   },
   {
     "wort_DE": "der gleiche Name",
-    "wort_RU": null,
+    "wort_RU": "то же имя",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38150,7 +38150,7 @@
   },
   {
     "wort_DE": "der wichtige Grund",
-    "wort_RU": null,
+    "wort_RU": "та важная причина",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38165,7 +38165,7 @@
   },
   {
     "wort_DE": "der letzte Versuch",
-    "wort_RU": null,
+    "wort_RU": "та последняя попытка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38180,7 +38180,7 @@
   },
   {
     "wort_DE": "der eigene Wunsch",
-    "wort_RU": null,
+    "wort_RU": "то собственное желание",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38195,7 +38195,7 @@
   },
   {
     "wort_DE": "der genaue Zeitpunkt",
-    "wort_RU": null,
+    "wort_RU": "тот точный момент",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38210,7 +38210,7 @@
   },
   {
     "wort_DE": "der späte Termin",
-    "wort_RU": null,
+    "wort_RU": "тот поздний приём (термин)",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38225,7 +38225,7 @@
   },
   {
     "wort_DE": "der kurze Brief",
-    "wort_RU": null,
+    "wort_RU": "то короткое письмо",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38240,7 +38240,7 @@
   },
   {
     "wort_DE": "der richtige Moment",
-    "wort_RU": null,
+    "wort_RU": "тот верный момент",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38255,7 +38255,7 @@
   },
   {
     "wort_DE": "der starke Wind",
-    "wort_RU": null,
+    "wort_RU": "тот сильный ветер",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38270,7 +38270,7 @@
   },
   {
     "wort_DE": "der weitere Schritt",
-    "wort_RU": null,
+    "wort_RU": "тот следующий шаг",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38285,7 +38285,7 @@
   },
   {
     "wort_DE": "der junge Lehrer",
-    "wort_RU": null,
+    "wort_RU": "тот молодой преподаватель",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38300,7 +38300,7 @@
   },
   {
     "wort_DE": "der schnelle Zug",
-    "wort_RU": null,
+    "wort_RU": "тот быстрый поезд",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38315,7 +38315,7 @@
   },
   {
     "wort_DE": "der weite Horizont",
-    "wort_RU": null,
+    "wort_RU": "тот широкий горизонт",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38330,7 +38330,7 @@
   },
   {
     "wort_DE": "der nächste Tag",
-    "wort_RU": null,
+    "wort_RU": "тот следующий день",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38345,7 +38345,7 @@
   },
   {
     "wort_DE": "der klare Himmel",
-    "wort_RU": null,
+    "wort_RU": "то ясное небо",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38360,7 +38360,7 @@
   },
   {
     "wort_DE": "der verschiedene Ansatz",
-    "wort_RU": null,
+    "wort_RU": "тот разный подход",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38375,7 +38375,7 @@
   },
   {
     "wort_DE": "der schwere Koffer",
-    "wort_RU": null,
+    "wort_RU": "тот тяжёлый чемодан",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38390,7 +38390,7 @@
   },
   {
     "wort_DE": "der sichere Ort",
-    "wort_RU": null,
+    "wort_RU": "то безопасное место",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38405,7 +38405,7 @@
   },
   {
     "wort_DE": "der bestimmte Artikel",
-    "wort_RU": null,
+    "wort_RU": "тот определённый артикль",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38420,7 +38420,7 @@
   },
   {
     "wort_DE": "der freie Platz",
-    "wort_RU": null,
+    "wort_RU": "то свободное место",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38435,7 +38435,7 @@
   },
   {
     "wort_DE": "der leichte Text",
-    "wort_RU": null,
+    "wort_RU": "тот лёгкий текст",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38450,7 +38450,7 @@
   },
   {
     "wort_DE": "der bekannte Autor",
-    "wort_RU": null,
+    "wort_RU": "тот известный автор",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38465,7 +38465,7 @@
   },
   {
     "wort_DE": "der schlechte Film",
-    "wort_RU": null,
+    "wort_RU": "тот плохой фильм",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38480,7 +38480,7 @@
   },
   {
     "wort_DE": "der einzige Weg",
-    "wort_RU": null,
+    "wort_RU": "тот единственный путь",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38495,7 +38495,7 @@
   },
   {
     "wort_DE": "der offene Brief",
-    "wort_RU": null,
+    "wort_RU": "то открытое письмо",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38510,7 +38510,7 @@
   },
   {
     "wort_DE": "der volle Korb",
-    "wort_RU": null,
+    "wort_RU": "та полная корзина",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38525,7 +38525,7 @@
   },
   {
     "wort_DE": "der tiefe See",
-    "wort_RU": null,
+    "wort_RU": "то глубокое озеро",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38540,7 +38540,7 @@
   },
   {
     "wort_DE": "der mögliche Ausweg",
-    "wort_RU": null,
+    "wort_RU": "тот возможный выход",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38555,7 +38555,7 @@
   },
   {
     "wort_DE": "der schöne Tag",
-    "wort_RU": null,
+    "wort_RU": "тот красивый день",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38570,7 +38570,7 @@
   },
   {
     "wort_DE": "der falsche Name",
-    "wort_RU": null,
+    "wort_RU": "то неправильное имя",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38585,7 +38585,7 @@
   },
   {
     "wort_DE": "der langsame Rhythmus",
-    "wort_RU": null,
+    "wort_RU": "тот медленный ритм",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38600,7 +38600,7 @@
   },
   {
     "wort_DE": "der schwierige Fall",
-    "wort_RU": null,
+    "wort_RU": "тот трудный случай",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38615,7 +38615,7 @@
   },
   {
     "wort_DE": "der enge Raum",
-    "wort_RU": null,
+    "wort_RU": "то тесное помещение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38630,7 +38630,7 @@
   },
   {
     "wort_DE": "der normale Mensch",
-    "wort_RU": null,
+    "wort_RU": "тот обычный человек",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38645,7 +38645,7 @@
   },
   {
     "wort_DE": "der frühe Flug",
-    "wort_RU": null,
+    "wort_RU": "тот ранний рейс",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38660,7 +38660,7 @@
   },
   {
     "wort_DE": "der echte Freund",
-    "wort_RU": null,
+    "wort_RU": "тот настоящий друг",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38675,7 +38675,7 @@
   },
   {
     "wort_DE": "der runde Tisch",
-    "wort_RU": null,
+    "wort_RU": "тот круглый стол",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38690,7 +38690,7 @@
   },
   {
     "wort_DE": "der viele Besucher",
-    "wort_RU": null,
+    "wort_RU": "тот многочисленный посетитель",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38705,7 +38705,7 @@
   },
   {
     "wort_DE": "ein großer Hund",
-    "wort_RU": null,
+    "wort_RU": "один большой пёс",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38720,7 +38720,7 @@
   },
   {
     "wort_DE": "ein guter Wein",
-    "wort_RU": null,
+    "wort_RU": "один хороший виноград",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38735,7 +38735,7 @@
   },
   {
     "wort_DE": "ein neuer Computer",
-    "wort_RU": null,
+    "wort_RU": "один новый компьютер",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38750,7 +38750,7 @@
   },
   {
     "wort_DE": "ein ganzer Tag",
-    "wort_RU": null,
+    "wort_RU": "один целый день",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38765,7 +38765,7 @@
   },
   {
     "wort_DE": "ein erster Schultag",
-    "wort_RU": null,
+    "wort_RU": "один первый школьный день",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38780,7 +38780,7 @@
   },
   {
     "wort_DE": "ein langer Weg",
-    "wort_RU": null,
+    "wort_RU": "один длинный путь",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38795,7 +38795,7 @@
   },
   {
     "wort_DE": "ein weniger Platz",
-    "wort_RU": null,
+    "wort_RU": "одно меньшее пространство",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38810,7 +38810,7 @@
   },
   {
     "wort_DE": "ein kleiner Tisch",
-    "wort_RU": null,
+    "wort_RU": "один маленький стол",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38825,7 +38825,7 @@
   },
   {
     "wort_DE": "ein deutscher Text",
-    "wort_RU": null,
+    "wort_RU": "один немецкий текст",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38840,7 +38840,7 @@
   },
   {
     "wort_DE": "ein hoher Turm",
-    "wort_RU": null,
+    "wort_RU": "одна высокая башня",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38855,7 +38855,7 @@
   },
   {
     "wort_DE": "ein einfacher Plan",
-    "wort_RU": null,
+    "wort_RU": "один простой план",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38870,7 +38870,7 @@
   },
   {
     "wort_DE": "ein alter Mann",
-    "wort_RU": null,
+    "wort_RU": "один пожилой мужчина",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38885,7 +38885,7 @@
   },
   {
     "wort_DE": "ein gleicher Name",
-    "wort_RU": null,
+    "wort_RU": "одно одинаковое имя",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38900,7 +38900,7 @@
   },
   {
     "wort_DE": "ein wichtiger Grund",
-    "wort_RU": null,
+    "wort_RU": "одна важная причина",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38915,7 +38915,7 @@
   },
   {
     "wort_DE": "ein letzter Versuch",
-    "wort_RU": null,
+    "wort_RU": "одна последняя попытка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38930,7 +38930,7 @@
   },
   {
     "wort_DE": "ein eigener Wunsch",
-    "wort_RU": null,
+    "wort_RU": "одно собственное желание",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38945,7 +38945,7 @@
   },
   {
     "wort_DE": "ein genauer Zeitpunkt",
-    "wort_RU": null,
+    "wort_RU": "один точный момент",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38960,7 +38960,7 @@
   },
   {
     "wort_DE": "ein später Termin",
-    "wort_RU": null,
+    "wort_RU": "один поздний термин",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38975,7 +38975,7 @@
   },
   {
     "wort_DE": "ein kurzer Brief",
-    "wort_RU": null,
+    "wort_RU": "одно короткое письмо",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -38990,7 +38990,7 @@
   },
   {
     "wort_DE": "ein richtiger Moment",
-    "wort_RU": null,
+    "wort_RU": "один правильный момент",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39005,7 +39005,7 @@
   },
   {
     "wort_DE": "ein starker Wind",
-    "wort_RU": null,
+    "wort_RU": "один сильный ветер",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39020,7 +39020,7 @@
   },
   {
     "wort_DE": "ein weiterer Schritt",
-    "wort_RU": null,
+    "wort_RU": "один следующий шаг",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39035,7 +39035,7 @@
   },
   {
     "wort_DE": "ein junger Lehrer",
-    "wort_RU": null,
+    "wort_RU": "один молодой учитель",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39050,7 +39050,7 @@
   },
   {
     "wort_DE": "ein schneller Zug",
-    "wort_RU": null,
+    "wort_RU": "один быстрый поезд",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39065,7 +39065,7 @@
   },
   {
     "wort_DE": "ein weiter Horizont",
-    "wort_RU": null,
+    "wort_RU": "один широкий горизонт",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39080,7 +39080,7 @@
   },
   {
     "wort_DE": "ein nächster Tag",
-    "wort_RU": null,
+    "wort_RU": "один следующий день",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39095,7 +39095,7 @@
   },
   {
     "wort_DE": "ein klarer Himmel",
-    "wort_RU": null,
+    "wort_RU": "одно ясное небо",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39110,7 +39110,7 @@
   },
   {
     "wort_DE": "ein verschiedener Ansatz",
-    "wort_RU": null,
+    "wort_RU": "один различный подход",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39125,7 +39125,7 @@
   },
   {
     "wort_DE": "ein schwerer Koffer",
-    "wort_RU": null,
+    "wort_RU": "один тяжёлый чемодан",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39140,7 +39140,7 @@
   },
   {
     "wort_DE": "ein sicherer Ort",
-    "wort_RU": null,
+    "wort_RU": "одно безопасное место",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39155,7 +39155,7 @@
   },
   {
     "wort_DE": "ein bestimmter Artikel",
-    "wort_RU": null,
+    "wort_RU": "один определённый артикль",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39170,7 +39170,7 @@
   },
   {
     "wort_DE": "ein freier Platz",
-    "wort_RU": null,
+    "wort_RU": "одно свободное место",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39185,7 +39185,7 @@
   },
   {
     "wort_DE": "ein leichter Text",
-    "wort_RU": null,
+    "wort_RU": "один лёгкий текст",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39200,7 +39200,7 @@
   },
   {
     "wort_DE": "ein bekannter Autor",
-    "wort_RU": null,
+    "wort_RU": "один известный автор",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39215,7 +39215,7 @@
   },
   {
     "wort_DE": "ein schlechter Film",
-    "wort_RU": null,
+    "wort_RU": "один плохой фильм",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39230,7 +39230,7 @@
   },
   {
     "wort_DE": "ein einziger Weg",
-    "wort_RU": null,
+    "wort_RU": "один единственный путь",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39245,7 +39245,7 @@
   },
   {
     "wort_DE": "ein offener Brief",
-    "wort_RU": null,
+    "wort_RU": "одно открытое письмо",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39260,7 +39260,7 @@
   },
   {
     "wort_DE": "ein voller Korb",
-    "wort_RU": null,
+    "wort_RU": "одна полная корзина",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39275,7 +39275,7 @@
   },
   {
     "wort_DE": "ein tiefer See",
-    "wort_RU": null,
+    "wort_RU": "одно глубокое озеро",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39290,7 +39290,7 @@
   },
   {
     "wort_DE": "ein möglicher Ausweg",
-    "wort_RU": null,
+    "wort_RU": "один возможный выход",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39305,7 +39305,7 @@
   },
   {
     "wort_DE": "ein schöner Tag",
-    "wort_RU": null,
+    "wort_RU": "один красивый день",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39320,7 +39320,7 @@
   },
   {
     "wort_DE": "ein falscher Name",
-    "wort_RU": null,
+    "wort_RU": "одно неправильное имя",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39335,7 +39335,7 @@
   },
   {
     "wort_DE": "ein langsamer Rhythmus",
-    "wort_RU": null,
+    "wort_RU": "один медленный ритм",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39350,7 +39350,7 @@
   },
   {
     "wort_DE": "ein schwieriger Fall",
-    "wort_RU": null,
+    "wort_RU": "один трудный случай",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39365,7 +39365,7 @@
   },
   {
     "wort_DE": "ein enger Raum",
-    "wort_RU": null,
+    "wort_RU": "одно тесное помещение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39380,7 +39380,7 @@
   },
   {
     "wort_DE": "ein normaler Mensch",
-    "wort_RU": null,
+    "wort_RU": "один нормальный человек",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39395,7 +39395,7 @@
   },
   {
     "wort_DE": "ein früher Flug",
-    "wort_RU": null,
+    "wort_RU": "один ранний рейс",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39410,7 +39410,7 @@
   },
   {
     "wort_DE": "ein echter Freund",
-    "wort_RU": null,
+    "wort_RU": "один настоящий друг",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39425,7 +39425,7 @@
   },
   {
     "wort_DE": "ein runder Tisch",
-    "wort_RU": null,
+    "wort_RU": "один круглый стол",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39440,7 +39440,7 @@
   },
   {
     "wort_DE": "ein vieler Besucher",
-    "wort_RU": null,
+    "wort_RU": "один многочисленный посетитель",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "mannlichGenus",
     "relKasus": "nominativeKasus",
@@ -39455,7 +39455,7 @@
   },
   {
     "wort_DE": "große Katze",
-    "wort_RU": null,
+    "wort_RU": "большая кошка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39470,7 +39470,7 @@
   },
   {
     "wort_DE": "gute Idee",
-    "wort_RU": null,
+    "wort_RU": "хорошая идея",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39485,7 +39485,7 @@
   },
   {
     "wort_DE": "neue Lampe",
-    "wort_RU": null,
+    "wort_RU": "новая лампа",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39500,7 +39500,7 @@
   },
   {
     "wort_DE": "ganze Woche",
-    "wort_RU": null,
+    "wort_RU": "целая неделя",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39515,7 +39515,7 @@
   },
   {
     "wort_DE": "erste Stunde",
-    "wort_RU": null,
+    "wort_RU": "первый час",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39530,7 +39530,7 @@
   },
   {
     "wort_DE": "lange Straße",
-    "wort_RU": null,
+    "wort_RU": "длинная улица",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39545,7 +39545,7 @@
   },
   {
     "wort_DE": "wenige Hoffnung",
-    "wort_RU": null,
+    "wort_RU": "малая надежда",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39560,7 +39560,7 @@
   },
   {
     "wort_DE": "kleine Tasche",
-    "wort_RU": null,
+    "wort_RU": "маленькая сумка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39575,7 +39575,7 @@
   },
   {
     "wort_DE": "deutsche Sprache",
-    "wort_RU": null,
+    "wort_RU": "немецкий язык",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39590,7 +39590,7 @@
   },
   {
     "wort_DE": "hohe Mauer",
-    "wort_RU": null,
+    "wort_RU": "высокая стена",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39605,7 +39605,7 @@
   },
   {
     "wort_DE": "einfache Frage",
-    "wort_RU": null,
+    "wort_RU": "простой вопрос",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39620,7 +39620,7 @@
   },
   {
     "wort_DE": "alte Frau",
-    "wort_RU": null,
+    "wort_RU": "пожилая женщина",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39635,7 +39635,7 @@
   },
   {
     "wort_DE": "gleiche Meinung",
-    "wort_RU": null,
+    "wort_RU": "та же точка зрения",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39650,7 +39650,7 @@
   },
   {
     "wort_DE": "wichtige Sache",
-    "wort_RU": null,
+    "wort_RU": "важная вещь",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39665,7 +39665,7 @@
   },
   {
     "wort_DE": "letzte Chance",
-    "wort_RU": null,
+    "wort_RU": "последний шанс",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39680,7 +39680,7 @@
   },
   {
     "wort_DE": "eigene Wahl",
-    "wort_RU": null,
+    "wort_RU": "собственный выбор",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39695,7 +39695,7 @@
   },
   {
     "wort_DE": "genaue Zeit",
-    "wort_RU": null,
+    "wort_RU": "точное время",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39710,7 +39710,7 @@
   },
   {
     "wort_DE": "späte Antwort",
-    "wort_RU": null,
+    "wort_RU": "поздний ответ",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39725,7 +39725,7 @@
   },
   {
     "wort_DE": "kurze Pause",
-    "wort_RU": null,
+    "wort_RU": "короткая пауза",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39740,7 +39740,7 @@
   },
   {
     "wort_DE": "richtige Lösung",
-    "wort_RU": null,
+    "wort_RU": "верное решение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39755,7 +39755,7 @@
   },
   {
     "wort_DE": "starke Kraft",
-    "wort_RU": null,
+    "wort_RU": "сильная сила",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39770,7 +39770,7 @@
   },
   {
     "wort_DE": "weitere Frage",
-    "wort_RU": null,
+    "wort_RU": "дополнительный вопрос",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39785,7 +39785,7 @@
   },
   {
     "wort_DE": "junge Lehrerin",
-    "wort_RU": null,
+    "wort_RU": "молодая учительница",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39800,7 +39800,7 @@
   },
   {
     "wort_DE": "schnelle Hilfe",
-    "wort_RU": null,
+    "wort_RU": "быстрая помощь",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39815,7 +39815,7 @@
   },
   {
     "wort_DE": "weite Reise",
-    "wort_RU": null,
+    "wort_RU": "далёкое путешествие",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39830,7 +39830,7 @@
   },
   {
     "wort_DE": "nächste Seite",
-    "wort_RU": null,
+    "wort_RU": "следующая страница",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39845,7 +39845,7 @@
   },
   {
     "wort_DE": "klare Sicht",
-    "wort_RU": null,
+    "wort_RU": "ясный обзор",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39860,7 +39860,7 @@
   },
   {
     "wort_DE": "verschiedene Idee",
-    "wort_RU": null,
+    "wort_RU": "разная идея",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39875,7 +39875,7 @@
   },
   {
     "wort_DE": "schwere Tasche",
-    "wort_RU": null,
+    "wort_RU": "тяжёлая сумка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39890,7 +39890,7 @@
   },
   {
     "wort_DE": "sichere Zone",
-    "wort_RU": null,
+    "wort_RU": "безопасная зона",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39905,7 +39905,7 @@
   },
   {
     "wort_DE": "bestimmte Regel",
-    "wort_RU": null,
+    "wort_RU": "определённое правило",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39920,7 +39920,7 @@
   },
   {
     "wort_DE": "freie Fläche",
-    "wort_RU": null,
+    "wort_RU": "свободная площадь",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39935,7 +39935,7 @@
   },
   {
     "wort_DE": "leichte Übung",
-    "wort_RU": null,
+    "wort_RU": "лёгкое упражнение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39950,7 +39950,7 @@
   },
   {
     "wort_DE": "bekannte Person",
-    "wort_RU": null,
+    "wort_RU": "известная персона",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39965,7 +39965,7 @@
   },
   {
     "wort_DE": "schlechte Laune",
-    "wort_RU": null,
+    "wort_RU": "плохое настроение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39980,7 +39980,7 @@
   },
   {
     "wort_DE": "einzige Chance",
-    "wort_RU": null,
+    "wort_RU": "единственный шанс",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -39995,7 +39995,7 @@
   },
   {
     "wort_DE": "offene Tür",
-    "wort_RU": null,
+    "wort_RU": "открытая дверь",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40010,7 +40010,7 @@
   },
   {
     "wort_DE": "volle Flasche",
-    "wort_RU": null,
+    "wort_RU": "полная бутылка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40025,7 +40025,7 @@
   },
   {
     "wort_DE": "tiefe Bedeutung",
-    "wort_RU": null,
+    "wort_RU": "глубокий смысл",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40040,7 +40040,7 @@
   },
   {
     "wort_DE": "mögliche Lösung",
-    "wort_RU": null,
+    "wort_RU": "возможное решение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40055,7 +40055,7 @@
   },
   {
     "wort_DE": "schöne Blume",
-    "wort_RU": null,
+    "wort_RU": "красивая цветок",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40070,7 +40070,7 @@
   },
   {
     "wort_DE": "falsche Antwort",
-    "wort_RU": null,
+    "wort_RU": "неправильный ответ",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40085,7 +40085,7 @@
   },
   {
     "wort_DE": "langsame Musik",
-    "wort_RU": null,
+    "wort_RU": "медленная музыка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40100,7 +40100,7 @@
   },
   {
     "wort_DE": "schwierige Aufgabe",
-    "wort_RU": null,
+    "wort_RU": "трудная задача",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40115,7 +40115,7 @@
   },
   {
     "wort_DE": "enge Gasse",
-    "wort_RU": null,
+    "wort_RU": "тесный переулок",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40130,7 +40130,7 @@
   },
   {
     "wort_DE": "normale Reaktion",
-    "wort_RU": null,
+    "wort_RU": "нормальная реакция",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40145,7 +40145,7 @@
   },
   {
     "wort_DE": "frühe Phase",
-    "wort_RU": null,
+    "wort_RU": "ранняя стадия",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40160,7 +40160,7 @@
   },
   {
     "wort_DE": "echte Freundin",
-    "wort_RU": null,
+    "wort_RU": "настоящая подруга",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40175,7 +40175,7 @@
   },
   {
     "wort_DE": "runde Scheibe",
-    "wort_RU": null,
+    "wort_RU": "круглый диск",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40190,7 +40190,7 @@
   },
   {
     "wort_DE": "viele Stimmen",
-    "wort_RU": null,
+    "wort_RU": "много голосов",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40205,7 +40205,7 @@
   },
   {
     "wort_DE": "die große Katze",
-    "wort_RU": null,
+    "wort_RU": "та большая кошка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40220,7 +40220,7 @@
   },
   {
     "wort_DE": "die gute Idee",
-    "wort_RU": null,
+    "wort_RU": "та хорошая идея",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40235,7 +40235,7 @@
   },
   {
     "wort_DE": "die neue Lampe",
-    "wort_RU": null,
+    "wort_RU": "та новая лампа",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40250,7 +40250,7 @@
   },
   {
     "wort_DE": "die ganze Woche",
-    "wort_RU": null,
+    "wort_RU": "та целая неделя",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40265,7 +40265,7 @@
   },
   {
     "wort_DE": "die erste Stunde",
-    "wort_RU": null,
+    "wort_RU": "тот первый урок",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40280,7 +40280,7 @@
   },
   {
     "wort_DE": "die lange Straße",
-    "wort_RU": null,
+    "wort_RU": "та длинная улица",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40295,7 +40295,7 @@
   },
   {
     "wort_DE": "die wenige Hoffnung",
-    "wort_RU": null,
+    "wort_RU": "та малая надежда",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40310,7 +40310,7 @@
   },
   {
     "wort_DE": "die kleine Tasche",
-    "wort_RU": null,
+    "wort_RU": "та маленькая сумка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40325,7 +40325,7 @@
   },
   {
     "wort_DE": "die deutsche Sprache",
-    "wort_RU": null,
+    "wort_RU": "тот немецкий язык",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40340,7 +40340,7 @@
   },
   {
     "wort_DE": "die hohe Mauer",
-    "wort_RU": null,
+    "wort_RU": "та высокая стена",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40355,7 +40355,7 @@
   },
   {
     "wort_DE": "die einfache Frage",
-    "wort_RU": null,
+    "wort_RU": "тот простой вопрос",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40370,7 +40370,7 @@
   },
   {
     "wort_DE": "die alte Frau",
-    "wort_RU": null,
+    "wort_RU": "та старая женщина",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40385,7 +40385,7 @@
   },
   {
     "wort_DE": "die gleiche Meinung",
-    "wort_RU": null,
+    "wort_RU": "та же точка зрения",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40400,7 +40400,7 @@
   },
   {
     "wort_DE": "die wichtige Sache",
-    "wort_RU": null,
+    "wort_RU": "та важная вещь",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40415,7 +40415,7 @@
   },
   {
     "wort_DE": "die letzte Chance",
-    "wort_RU": null,
+    "wort_RU": "тот последний шанс",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40430,7 +40430,7 @@
   },
   {
     "wort_DE": "die eigene Wahl",
-    "wort_RU": null,
+    "wort_RU": "тот собственный выбор",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40445,7 +40445,7 @@
   },
   {
     "wort_DE": "die genaue Zeit",
-    "wort_RU": null,
+    "wort_RU": "то точное время",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40460,7 +40460,7 @@
   },
   {
     "wort_DE": "die späte Antwort",
-    "wort_RU": null,
+    "wort_RU": "тот поздний ответ",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40475,7 +40475,7 @@
   },
   {
     "wort_DE": "die kurze Pause",
-    "wort_RU": null,
+    "wort_RU": "та короткая пауза",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40490,7 +40490,7 @@
   },
   {
     "wort_DE": "die richtige Lösung",
-    "wort_RU": null,
+    "wort_RU": "то верное решение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40505,7 +40505,7 @@
   },
   {
     "wort_DE": "die starke Kraft",
-    "wort_RU": null,
+    "wort_RU": "та сильная сила",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40520,7 +40520,7 @@
   },
   {
     "wort_DE": "die weitere Frage",
-    "wort_RU": null,
+    "wort_RU": "тот дополнительный вопрос",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40535,7 +40535,7 @@
   },
   {
     "wort_DE": "die junge Lehrerin",
-    "wort_RU": null,
+    "wort_RU": "та молодая учительница",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40550,7 +40550,7 @@
   },
   {
     "wort_DE": "die schnelle Hilfe",
-    "wort_RU": null,
+    "wort_RU": "та быстрая помощь",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40565,7 +40565,7 @@
   },
   {
     "wort_DE": "die weite Reise",
-    "wort_RU": null,
+    "wort_RU": "то далёкое путешествие",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40580,7 +40580,7 @@
   },
   {
     "wort_DE": "die nächste Seite",
-    "wort_RU": null,
+    "wort_RU": "та следующая страница",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40595,7 +40595,7 @@
   },
   {
     "wort_DE": "die klare Sicht",
-    "wort_RU": null,
+    "wort_RU": "тот ясный обзор",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40610,7 +40610,7 @@
   },
   {
     "wort_DE": "die verschiedene Idee",
-    "wort_RU": null,
+    "wort_RU": "та разная идея",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40625,7 +40625,7 @@
   },
   {
     "wort_DE": "die schwere Tasche",
-    "wort_RU": null,
+    "wort_RU": "та тяжёлая сумка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40640,7 +40640,7 @@
   },
   {
     "wort_DE": "die sichere Zone",
-    "wort_RU": null,
+    "wort_RU": "та безопасная зона",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40655,7 +40655,7 @@
   },
   {
     "wort_DE": "die bestimmte Regel",
-    "wort_RU": null,
+    "wort_RU": "то определённое правило",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40670,7 +40670,7 @@
   },
   {
     "wort_DE": "die freie Fläche",
-    "wort_RU": null,
+    "wort_RU": "та свободная площадь",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40685,7 +40685,7 @@
   },
   {
     "wort_DE": "die leichte Übung",
-    "wort_RU": null,
+    "wort_RU": "то лёгкое упражнение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40700,7 +40700,7 @@
   },
   {
     "wort_DE": "die bekannte Person",
-    "wort_RU": null,
+    "wort_RU": "та известная персона",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40715,7 +40715,7 @@
   },
   {
     "wort_DE": "die schlechte Laune",
-    "wort_RU": null,
+    "wort_RU": "то плохое настроение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40730,7 +40730,7 @@
   },
   {
     "wort_DE": "die einzige Chance",
-    "wort_RU": null,
+    "wort_RU": "тот единственный шанс",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40745,7 +40745,7 @@
   },
   {
     "wort_DE": "die offene Tür",
-    "wort_RU": null,
+    "wort_RU": "та открытая дверь",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40760,7 +40760,7 @@
   },
   {
     "wort_DE": "die volle Flasche",
-    "wort_RU": null,
+    "wort_RU": "та полная бутылка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40775,7 +40775,7 @@
   },
   {
     "wort_DE": "die tiefe Bedeutung",
-    "wort_RU": null,
+    "wort_RU": "тот глубокий смысл",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40790,7 +40790,7 @@
   },
   {
     "wort_DE": "die mögliche Lösung",
-    "wort_RU": null,
+    "wort_RU": "то возможное решение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40805,7 +40805,7 @@
   },
   {
     "wort_DE": "die schöne Blume",
-    "wort_RU": null,
+    "wort_RU": "тот красивый цветок",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40820,7 +40820,7 @@
   },
   {
     "wort_DE": "die falsche Antwort",
-    "wort_RU": null,
+    "wort_RU": "тот неправильный ответ",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40835,7 +40835,7 @@
   },
   {
     "wort_DE": "die langsame Musik",
-    "wort_RU": null,
+    "wort_RU": "та медленная музыка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40850,7 +40850,7 @@
   },
   {
     "wort_DE": "die schwierige Aufgabe",
-    "wort_RU": null,
+    "wort_RU": "та трудная задача",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40865,7 +40865,7 @@
   },
   {
     "wort_DE": "die enge Gasse",
-    "wort_RU": null,
+    "wort_RU": "тот узкий переулок",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40880,7 +40880,7 @@
   },
   {
     "wort_DE": "die normale Reaktion",
-    "wort_RU": null,
+    "wort_RU": "та нормальная реакция",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40895,7 +40895,7 @@
   },
   {
     "wort_DE": "die frühe Phase",
-    "wort_RU": null,
+    "wort_RU": "та ранняя фаза",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40910,7 +40910,7 @@
   },
   {
     "wort_DE": "die echte Freundin",
-    "wort_RU": null,
+    "wort_RU": "та настоящая подруга",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40925,7 +40925,7 @@
   },
   {
     "wort_DE": "die runde Scheibe",
-    "wort_RU": null,
+    "wort_RU": "та круглая шайба",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40940,7 +40940,7 @@
   },
   {
     "wort_DE": "die viele Stimmen",
-    "wort_RU": null,
+    "wort_RU": "те многочисленные голоса",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40955,7 +40955,7 @@
   },
   {
     "wort_DE": "eine große Katze",
-    "wort_RU": null,
+    "wort_RU": "одна большая кошка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40970,7 +40970,7 @@
   },
   {
     "wort_DE": "eine gute Idee",
-    "wort_RU": null,
+    "wort_RU": "одна хорошая идея",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -40985,7 +40985,7 @@
   },
   {
     "wort_DE": "eine neue Lampe",
-    "wort_RU": null,
+    "wort_RU": "одна новая лампа",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41000,7 +41000,7 @@
   },
   {
     "wort_DE": "eine ganze Woche",
-    "wort_RU": null,
+    "wort_RU": "одна целая неделя",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41015,7 +41015,7 @@
   },
   {
     "wort_DE": "eine erste Stunde",
-    "wort_RU": null,
+    "wort_RU": "один первый урок",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41030,7 +41030,7 @@
   },
   {
     "wort_DE": "eine lange Straße",
-    "wort_RU": null,
+    "wort_RU": "одна длинная улица",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41045,7 +41045,7 @@
   },
   {
     "wort_DE": "eine wenige Hoffnung",
-    "wort_RU": null,
+    "wort_RU": "одна малая надежда",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41060,7 +41060,7 @@
   },
   {
     "wort_DE": "eine kleine Tasche",
-    "wort_RU": null,
+    "wort_RU": "одна маленькая сумка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41075,7 +41075,7 @@
   },
   {
     "wort_DE": "eine deutsche Sprache",
-    "wort_RU": null,
+    "wort_RU": "один немецкий язык",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41090,7 +41090,7 @@
   },
   {
     "wort_DE": "eine hohe Mauer",
-    "wort_RU": null,
+    "wort_RU": "одна высокая стена",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41105,7 +41105,7 @@
   },
   {
     "wort_DE": "eine einfache Frage",
-    "wort_RU": null,
+    "wort_RU": "один простой вопрос",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41120,7 +41120,7 @@
   },
   {
     "wort_DE": "eine alte Frau",
-    "wort_RU": null,
+    "wort_RU": "одна старая женщина",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41135,7 +41135,7 @@
   },
   {
     "wort_DE": "eine gleiche Meinung",
-    "wort_RU": null,
+    "wort_RU": "одно одинаковое мнение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41150,7 +41150,7 @@
   },
   {
     "wort_DE": "eine wichtige Sache",
-    "wort_RU": null,
+    "wort_RU": "одна важная вещь",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41165,7 +41165,7 @@
   },
   {
     "wort_DE": "eine letzte Chance",
-    "wort_RU": null,
+    "wort_RU": "один последний шанс",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41180,7 +41180,7 @@
   },
   {
     "wort_DE": "eine eigene Wahl",
-    "wort_RU": null,
+    "wort_RU": "один собственный выбор",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41195,7 +41195,7 @@
   },
   {
     "wort_DE": "eine genaue Zeit",
-    "wort_RU": null,
+    "wort_RU": "одно точное время",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41210,7 +41210,7 @@
   },
   {
     "wort_DE": "eine späte Antwort",
-    "wort_RU": null,
+    "wort_RU": "один поздний ответ",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41225,7 +41225,7 @@
   },
   {
     "wort_DE": "eine kurze Pause",
-    "wort_RU": null,
+    "wort_RU": "одна короткая пауза",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41240,7 +41240,7 @@
   },
   {
     "wort_DE": "eine richtige Lösung",
-    "wort_RU": null,
+    "wort_RU": "одно правильное решение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41255,7 +41255,7 @@
   },
   {
     "wort_DE": "eine starke Kraft",
-    "wort_RU": null,
+    "wort_RU": "одна сильная сила",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41270,7 +41270,7 @@
   },
   {
     "wort_DE": "eine weitere Frage",
-    "wort_RU": null,
+    "wort_RU": "один дополнительный вопрос",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41285,7 +41285,7 @@
   },
   {
     "wort_DE": "eine junge Lehrerin",
-    "wort_RU": null,
+    "wort_RU": "одна молодая учительница",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41300,7 +41300,7 @@
   },
   {
     "wort_DE": "eine schnelle Hilfe",
-    "wort_RU": null,
+    "wort_RU": "одна быстрая помощь",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41315,7 +41315,7 @@
   },
   {
     "wort_DE": "eine weite Reise",
-    "wort_RU": null,
+    "wort_RU": "одно далёкое путешествие",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41330,7 +41330,7 @@
   },
   {
     "wort_DE": "eine nächste Seite",
-    "wort_RU": null,
+    "wort_RU": "одна следующая страница",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41345,7 +41345,7 @@
   },
   {
     "wort_DE": "eine klare Sicht",
-    "wort_RU": null,
+    "wort_RU": "один ясный обзор",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41360,7 +41360,7 @@
   },
   {
     "wort_DE": "eine verschiedene Idee",
-    "wort_RU": null,
+    "wort_RU": "одна различная идея",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41375,7 +41375,7 @@
   },
   {
     "wort_DE": "eine schwere Tasche",
-    "wort_RU": null,
+    "wort_RU": "одна тяжёлая сумка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41390,7 +41390,7 @@
   },
   {
     "wort_DE": "eine sichere Zone",
-    "wort_RU": null,
+    "wort_RU": "одна безопасная зона",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41405,7 +41405,7 @@
   },
   {
     "wort_DE": "eine bestimmte Regel",
-    "wort_RU": null,
+    "wort_RU": "одно определённое правило",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41420,7 +41420,7 @@
   },
   {
     "wort_DE": "eine freie Fläche",
-    "wort_RU": null,
+    "wort_RU": "одна свободная площадь",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41435,7 +41435,7 @@
   },
   {
     "wort_DE": "eine leichte Übung",
-    "wort_RU": null,
+    "wort_RU": "одно лёгкое упражнение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41450,7 +41450,7 @@
   },
   {
     "wort_DE": "eine bekannte Person",
-    "wort_RU": null,
+    "wort_RU": "одна известная личность",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41465,7 +41465,7 @@
   },
   {
     "wort_DE": "eine schlechte Laune",
-    "wort_RU": null,
+    "wort_RU": "одно плохое настроение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41480,7 +41480,7 @@
   },
   {
     "wort_DE": "eine einzige Chance",
-    "wort_RU": null,
+    "wort_RU": "один единственный шанс",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41495,7 +41495,7 @@
   },
   {
     "wort_DE": "eine offene Tür",
-    "wort_RU": null,
+    "wort_RU": "одна открытая дверь",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41510,7 +41510,7 @@
   },
   {
     "wort_DE": "eine volle Flasche",
-    "wort_RU": null,
+    "wort_RU": "одна полная бутылка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41525,7 +41525,7 @@
   },
   {
     "wort_DE": "eine tiefe Bedeutung",
-    "wort_RU": null,
+    "wort_RU": "одно глубокое значение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41540,7 +41540,7 @@
   },
   {
     "wort_DE": "eine mögliche Lösung",
-    "wort_RU": null,
+    "wort_RU": "одно возможное решение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41555,7 +41555,7 @@
   },
   {
     "wort_DE": "eine schöne Blume",
-    "wort_RU": null,
+    "wort_RU": "один красивый цветок",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41570,7 +41570,7 @@
   },
   {
     "wort_DE": "eine falsche Antwort",
-    "wort_RU": null,
+    "wort_RU": "один неправильный ответ",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41585,7 +41585,7 @@
   },
   {
     "wort_DE": "eine langsame Musik",
-    "wort_RU": null,
+    "wort_RU": "одна медленная музыка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41600,7 +41600,7 @@
   },
   {
     "wort_DE": "eine schwierige Aufgabe",
-    "wort_RU": null,
+    "wort_RU": "одна трудная задача",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41615,7 +41615,7 @@
   },
   {
     "wort_DE": "eine enge Gasse",
-    "wort_RU": null,
+    "wort_RU": "один узкий переулок",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41630,7 +41630,7 @@
   },
   {
     "wort_DE": "eine normale Reaktion",
-    "wort_RU": null,
+    "wort_RU": "одна нормальная реакция",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41645,7 +41645,7 @@
   },
   {
     "wort_DE": "eine frühe Phase",
-    "wort_RU": null,
+    "wort_RU": "одна ранняя стадия",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41660,7 +41660,7 @@
   },
   {
     "wort_DE": "eine echte Freundin",
-    "wort_RU": null,
+    "wort_RU": "одна настоящая подруга",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41675,7 +41675,7 @@
   },
   {
     "wort_DE": "eine runde Scheibe",
-    "wort_RU": null,
+    "wort_RU": "одна круглая шайба",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41690,7 +41690,7 @@
   },
   {
     "wort_DE": "eine viele Stimmen",
-    "wort_RU": null,
+    "wort_RU": "одни многочисленные голоса",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "weiblichGenus",
     "relKasus": "nominativeKasus",
@@ -41705,7 +41705,7 @@
   },
   {
     "wort_DE": "groß",
-    "wort_RU": null,
+    "wort_RU": "большой",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41720,7 +41720,7 @@
   },
   {
     "wort_DE": "gut",
-    "wort_RU": null,
+    "wort_RU": "хороший",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41735,7 +41735,7 @@
   },
   {
     "wort_DE": "neu",
-    "wort_RU": null,
+    "wort_RU": "новый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41750,7 +41750,7 @@
   },
   {
     "wort_DE": "ganz",
-    "wort_RU": null,
+    "wort_RU": "целый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41765,7 +41765,7 @@
   },
   {
     "wort_DE": "erst",
-    "wort_RU": null,
+    "wort_RU": "первый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41780,7 +41780,7 @@
   },
   {
     "wort_DE": "lang",
-    "wort_RU": null,
+    "wort_RU": "длинный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41795,7 +41795,7 @@
   },
   {
     "wort_DE": "wenig",
-    "wort_RU": null,
+    "wort_RU": "малый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41810,7 +41810,7 @@
   },
   {
     "wort_DE": "klein",
-    "wort_RU": null,
+    "wort_RU": "маленький",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41825,7 +41825,7 @@
   },
   {
     "wort_DE": "deutsch",
-    "wort_RU": null,
+    "wort_RU": "немецкий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41840,7 +41840,7 @@
   },
   {
     "wort_DE": "hoch",
-    "wort_RU": null,
+    "wort_RU": "высокий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41855,7 +41855,7 @@
   },
   {
     "wort_DE": "einfach",
-    "wort_RU": null,
+    "wort_RU": "простой",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41870,7 +41870,7 @@
   },
   {
     "wort_DE": "alt",
-    "wort_RU": null,
+    "wort_RU": "старый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41885,7 +41885,7 @@
   },
   {
     "wort_DE": "gleich",
-    "wort_RU": null,
+    "wort_RU": "одинаковый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41900,7 +41900,7 @@
   },
   {
     "wort_DE": "wichtig",
-    "wort_RU": null,
+    "wort_RU": "важный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41915,7 +41915,7 @@
   },
   {
     "wort_DE": "letzt",
-    "wort_RU": null,
+    "wort_RU": "последний",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41930,7 +41930,7 @@
   },
   {
     "wort_DE": "eigen",
-    "wort_RU": null,
+    "wort_RU": "собственный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41945,7 +41945,7 @@
   },
   {
     "wort_DE": "genau",
-    "wort_RU": null,
+    "wort_RU": "точный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41960,7 +41960,7 @@
   },
   {
     "wort_DE": "spät",
-    "wort_RU": null,
+    "wort_RU": "поздний",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41975,7 +41975,7 @@
   },
   {
     "wort_DE": "kurz",
-    "wort_RU": null,
+    "wort_RU": "короткий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -41990,7 +41990,7 @@
   },
   {
     "wort_DE": "richtig",
-    "wort_RU": null,
+    "wort_RU": "правильный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42005,7 +42005,7 @@
   },
   {
     "wort_DE": "stark",
-    "wort_RU": null,
+    "wort_RU": "сильный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42020,7 +42020,7 @@
   },
   {
     "wort_DE": "weiter",
-    "wort_RU": null,
+    "wort_RU": "дальнейший / дополнительный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42035,7 +42035,7 @@
   },
   {
     "wort_DE": "jung",
-    "wort_RU": null,
+    "wort_RU": "молодой",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42050,7 +42050,7 @@
   },
   {
     "wort_DE": "schnell",
-    "wort_RU": null,
+    "wort_RU": "быстрый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42065,7 +42065,7 @@
   },
   {
     "wort_DE": "weit",
-    "wort_RU": null,
+    "wort_RU": "широкий / далёкий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42080,7 +42080,7 @@
   },
   {
     "wort_DE": "nächst",
-    "wort_RU": null,
+    "wort_RU": "следующий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42095,7 +42095,7 @@
   },
   {
     "wort_DE": "klar",
-    "wort_RU": null,
+    "wort_RU": "ясный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42110,7 +42110,7 @@
   },
   {
     "wort_DE": "verschieden",
-    "wort_RU": null,
+    "wort_RU": "разный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42125,7 +42125,7 @@
   },
   {
     "wort_DE": "schwer",
-    "wort_RU": null,
+    "wort_RU": "тяжёлый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42140,7 +42140,7 @@
   },
   {
     "wort_DE": "sicher",
-    "wort_RU": null,
+    "wort_RU": "безопасный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42155,7 +42155,7 @@
   },
   {
     "wort_DE": "bestimmt",
-    "wort_RU": null,
+    "wort_RU": "определённый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42170,7 +42170,7 @@
   },
   {
     "wort_DE": "frei",
-    "wort_RU": null,
+    "wort_RU": "свободный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42185,7 +42185,7 @@
   },
   {
     "wort_DE": "leicht",
-    "wort_RU": null,
+    "wort_RU": "лёгкий (по весу или уровню)",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42200,7 +42200,7 @@
   },
   {
     "wort_DE": "bekannt",
-    "wort_RU": null,
+    "wort_RU": "известный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42215,7 +42215,7 @@
   },
   {
     "wort_DE": "schlecht",
-    "wort_RU": null,
+    "wort_RU": "плохой",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42230,7 +42230,7 @@
   },
   {
     "wort_DE": "einzig",
-    "wort_RU": null,
+    "wort_RU": "единственный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42245,7 +42245,7 @@
   },
   {
     "wort_DE": "offen",
-    "wort_RU": null,
+    "wort_RU": "открытый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42260,7 +42260,7 @@
   },
   {
     "wort_DE": "voll",
-    "wort_RU": null,
+    "wort_RU": "полный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42275,7 +42275,7 @@
   },
   {
     "wort_DE": "tief",
-    "wort_RU": null,
+    "wort_RU": "глубокий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42290,7 +42290,7 @@
   },
   {
     "wort_DE": "möglich",
-    "wort_RU": null,
+    "wort_RU": "возможный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42305,7 +42305,7 @@
   },
   {
     "wort_DE": "schön",
-    "wort_RU": null,
+    "wort_RU": "красивый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42320,7 +42320,7 @@
   },
   {
     "wort_DE": "falsch",
-    "wort_RU": null,
+    "wort_RU": "неправильный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42335,7 +42335,7 @@
   },
   {
     "wort_DE": "langsam",
-    "wort_RU": null,
+    "wort_RU": "медленный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42350,7 +42350,7 @@
   },
   {
     "wort_DE": "schwierig",
-    "wort_RU": null,
+    "wort_RU": "трудный / сложный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42365,7 +42365,7 @@
   },
   {
     "wort_DE": "eng",
-    "wort_RU": null,
+    "wort_RU": "тесный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42380,7 +42380,7 @@
   },
   {
     "wort_DE": "normal",
-    "wort_RU": null,
+    "wort_RU": "нормальный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42395,7 +42395,7 @@
   },
   {
     "wort_DE": "früh",
-    "wort_RU": null,
+    "wort_RU": "ранний",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42410,7 +42410,7 @@
   },
   {
     "wort_DE": "echt",
-    "wort_RU": null,
+    "wort_RU": "настоящий",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42425,7 +42425,7 @@
   },
   {
     "wort_DE": "rund",
-    "wort_RU": null,
+    "wort_RU": "круглый",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42440,7 +42440,7 @@
   },
   {
     "wort_DE": "viel",
-    "wort_RU": null,
+    "wort_RU": "многочисленный / обильный",
     "relDeklination": "GrundformKey",
     "relGenus": "",
     "relKasus": null,
@@ -42455,7 +42455,7 @@
   },
   {
     "wort_DE": "großes Haus",
-    "wort_RU": null,
+    "wort_RU": "большой дом",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42470,7 +42470,7 @@
   },
   {
     "wort_DE": "gutes Buch",
-    "wort_RU": null,
+    "wort_RU": "хорошая книга",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42485,7 +42485,7 @@
   },
   {
     "wort_DE": "neues Auto",
-    "wort_RU": null,
+    "wort_RU": "новая машина",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42500,7 +42500,7 @@
   },
   {
     "wort_DE": "ganzes Jahr",
-    "wort_RU": null,
+    "wort_RU": "целый год",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42515,7 +42515,7 @@
   },
   {
     "wort_DE": "erstes Kapitel",
-    "wort_RU": null,
+    "wort_RU": "первый раздел",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42530,7 +42530,7 @@
   },
   {
     "wort_DE": "langes Gespräch",
-    "wort_RU": null,
+    "wort_RU": "длинная беседа",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42545,7 +42545,7 @@
   },
   {
     "wort_DE": "weniges Wissen",
-    "wort_RU": null,
+    "wort_RU": "мало знаний",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42560,7 +42560,7 @@
   },
   {
     "wort_DE": "kleines Kind",
-    "wort_RU": null,
+    "wort_RU": "маленький ребёнок",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42575,7 +42575,7 @@
   },
   {
     "wort_DE": "deutsches Wort",
-    "wort_RU": null,
+    "wort_RU": "немецкое слово",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42590,7 +42590,7 @@
   },
   {
     "wort_DE": "hohes Gebäude",
-    "wort_RU": null,
+    "wort_RU": "высокое здание",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42605,7 +42605,7 @@
   },
   {
     "wort_DE": "einfaches Spiel",
-    "wort_RU": null,
+    "wort_RU": "простая игра",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42620,7 +42620,7 @@
   },
   {
     "wort_DE": "altes Foto",
-    "wort_RU": null,
+    "wort_RU": "старое фото",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42635,7 +42635,7 @@
   },
   {
     "wort_DE": "gleiches Problem",
-    "wort_RU": null,
+    "wort_RU": "одинаковая проблема",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42650,7 +42650,7 @@
   },
   {
     "wort_DE": "wichtiges Thema",
-    "wort_RU": null,
+    "wort_RU": "важная тема",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42665,7 +42665,7 @@
   },
   {
     "wort_DE": "letztes Treffen",
-    "wort_RU": null,
+    "wort_RU": "последняя встреча",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42680,7 +42680,7 @@
   },
   {
     "wort_DE": "eigenes Zimmer",
-    "wort_RU": null,
+    "wort_RU": "собственная комната",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42695,7 +42695,7 @@
   },
   {
     "wort_DE": "genaues Datum",
-    "wort_RU": null,
+    "wort_RU": "точная дата",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42710,7 +42710,7 @@
   },
   {
     "wort_DE": "spätes Frühstück",
-    "wort_RU": null,
+    "wort_RU": "поздний завтрак",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42725,7 +42725,7 @@
   },
   {
     "wort_DE": "kurzes Video",
-    "wort_RU": null,
+    "wort_RU": "короткое видео",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42740,7 +42740,7 @@
   },
   {
     "wort_DE": "richtiges Ergebnis",
-    "wort_RU": null,
+    "wort_RU": "правильный результат",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42755,7 +42755,7 @@
   },
   {
     "wort_DE": "starkes Signal",
-    "wort_RU": null,
+    "wort_RU": "сильный сигнал",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42770,7 +42770,7 @@
   },
   {
     "wort_DE": "weiteres Beispiel",
-    "wort_RU": null,
+    "wort_RU": "дополнительный пример",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42785,7 +42785,7 @@
   },
   {
     "wort_DE": "junges Paar",
-    "wort_RU": null,
+    "wort_RU": "молодая пара",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42800,7 +42800,7 @@
   },
   {
     "wort_DE": "schnelles Internet",
-    "wort_RU": null,
+    "wort_RU": "быстрый интернет",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42815,7 +42815,7 @@
   },
   {
     "wort_DE": "weites Land",
-    "wort_RU": null,
+    "wort_RU": "широкая страна",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42830,7 +42830,7 @@
   },
   {
     "wort_DE": "nächstes Mal",
-    "wort_RU": null,
+    "wort_RU": "следующий раз",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42845,7 +42845,7 @@
   },
   {
     "wort_DE": "klares Zeichen",
-    "wort_RU": null,
+    "wort_RU": "ясный знак",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42860,7 +42860,7 @@
   },
   {
     "wort_DE": "verschiedenes Material",
-    "wort_RU": null,
+    "wort_RU": "разный материал",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42875,7 +42875,7 @@
   },
   {
     "wort_DE": "schweres Paket",
-    "wort_RU": null,
+    "wort_RU": "тяжёлая посылка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42890,7 +42890,7 @@
   },
   {
     "wort_DE": "sicheres System",
-    "wort_RU": null,
+    "wort_RU": "надёжная система",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42905,7 +42905,7 @@
   },
   {
     "wort_DE": "bestimmtes Ziel",
-    "wort_RU": null,
+    "wort_RU": "определённая цель",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42920,7 +42920,7 @@
   },
   {
     "wort_DE": "freies Zimmer",
-    "wort_RU": null,
+    "wort_RU": "свободная комната",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42935,7 +42935,7 @@
   },
   {
     "wort_DE": "leichtes Spiel",
-    "wort_RU": null,
+    "wort_RU": "лёгкая игра",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42950,7 +42950,7 @@
   },
   {
     "wort_DE": "bekanntes Gesicht",
-    "wort_RU": null,
+    "wort_RU": "известное лицо",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42965,7 +42965,7 @@
   },
   {
     "wort_DE": "schlechtes Wetter",
-    "wort_RU": null,
+    "wort_RU": "плохая погода",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42980,7 +42980,7 @@
   },
   {
     "wort_DE": "einziges Mittel",
-    "wort_RU": null,
+    "wort_RU": "единственное средство",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -42995,7 +42995,7 @@
   },
   {
     "wort_DE": "offenes Fenster",
-    "wort_RU": null,
+    "wort_RU": "открытое окно",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43010,7 +43010,7 @@
   },
   {
     "wort_DE": "volles Glas",
-    "wort_RU": null,
+    "wort_RU": "полный стакан",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43025,7 +43025,7 @@
   },
   {
     "wort_DE": "tiefes Wasser",
-    "wort_RU": null,
+    "wort_RU": "глубокая вода",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43040,7 +43040,7 @@
   },
   {
     "wort_DE": "mögliches Szenario",
-    "wort_RU": null,
+    "wort_RU": "возможный сценарий",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43055,7 +43055,7 @@
   },
   {
     "wort_DE": "schönes Bild",
-    "wort_RU": null,
+    "wort_RU": "красивое изображение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43070,7 +43070,7 @@
   },
   {
     "wort_DE": "falsches Argument",
-    "wort_RU": null,
+    "wort_RU": "неверный аргумент",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43085,7 +43085,7 @@
   },
   {
     "wort_DE": "langsames Lied",
-    "wort_RU": null,
+    "wort_RU": "медленная песня",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43100,7 +43100,7 @@
   },
   {
     "wort_DE": "schwieriges Rätsel",
-    "wort_RU": null,
+    "wort_RU": "сложная загадка",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43115,7 +43115,7 @@
   },
   {
     "wort_DE": "enges Loch",
-    "wort_RU": null,
+    "wort_RU": "тесная дыра",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43130,7 +43130,7 @@
   },
   {
     "wort_DE": "normales Verhalten",
-    "wort_RU": null,
+    "wort_RU": "нормальное поведение",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43145,7 +43145,7 @@
   },
   {
     "wort_DE": "frühes Signal",
-    "wort_RU": null,
+    "wort_RU": "ранний сигнал",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43160,7 +43160,7 @@
   },
   {
     "wort_DE": "echtes Gefühl",
-    "wort_RU": null,
+    "wort_RU": "настоящее чувство",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43175,7 +43175,7 @@
   },
   {
     "wort_DE": "rundes Rad",
-    "wort_RU": null,
+    "wort_RU": "круглое колесо",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43190,7 +43190,7 @@
   },
   {
     "wort_DE": "vieles Erlebnis",
-    "wort_RU": null,
+    "wort_RU": "много впечатлений",
     "relDeklination": "Starke DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43205,7 +43205,7 @@
   },
   {
     "wort_DE": "das große Haus",
-    "wort_RU": null,
+    "wort_RU": "этот большой дом",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43220,7 +43220,7 @@
   },
   {
     "wort_DE": "das gute Buch",
-    "wort_RU": null,
+    "wort_RU": "эта хорошая книга",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43235,7 +43235,7 @@
   },
   {
     "wort_DE": "das neue Auto",
-    "wort_RU": null,
+    "wort_RU": "эта новая машина",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43250,7 +43250,7 @@
   },
   {
     "wort_DE": "das ganze Jahr",
-    "wort_RU": null,
+    "wort_RU": "этот целый год",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43265,7 +43265,7 @@
   },
   {
     "wort_DE": "das erste Kapitel",
-    "wort_RU": null,
+    "wort_RU": "эта первая глава",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43280,7 +43280,7 @@
   },
   {
     "wort_DE": "das lange Gespräch",
-    "wort_RU": null,
+    "wort_RU": "этот длинный разговор",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43295,7 +43295,7 @@
   },
   {
     "wort_DE": "das wenige Wissen",
-    "wort_RU": null,
+    "wort_RU": "эти немногочисленные знания",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43310,7 +43310,7 @@
   },
   {
     "wort_DE": "das kleine Kind",
-    "wort_RU": null,
+    "wort_RU": "этот маленький ребёнок",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43325,7 +43325,7 @@
   },
   {
     "wort_DE": "das deutsche Wort",
-    "wort_RU": null,
+    "wort_RU": "это немецкое слово",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43340,7 +43340,7 @@
   },
   {
     "wort_DE": "das hohe Gebäude",
-    "wort_RU": null,
+    "wort_RU": "это высокое здание",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43355,7 +43355,7 @@
   },
   {
     "wort_DE": "das einfache Spiel",
-    "wort_RU": null,
+    "wort_RU": "эта простая игра",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43370,7 +43370,7 @@
   },
   {
     "wort_DE": "das alte Foto",
-    "wort_RU": null,
+    "wort_RU": "это старое фото",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43385,7 +43385,7 @@
   },
   {
     "wort_DE": "das gleiche Problem",
-    "wort_RU": null,
+    "wort_RU": "эта одинаковая проблема",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43400,7 +43400,7 @@
   },
   {
     "wort_DE": "das wichtige Thema",
-    "wort_RU": null,
+    "wort_RU": "эта важная тема",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43415,7 +43415,7 @@
   },
   {
     "wort_DE": "das letzte Treffen",
-    "wort_RU": null,
+    "wort_RU": "эта последняя встреча",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43430,7 +43430,7 @@
   },
   {
     "wort_DE": "das eigene Zimmer",
-    "wort_RU": null,
+    "wort_RU": "эта собственная комната",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43445,7 +43445,7 @@
   },
   {
     "wort_DE": "das genaue Datum",
-    "wort_RU": null,
+    "wort_RU": "эта точная дата",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43460,7 +43460,7 @@
   },
   {
     "wort_DE": "das späte Frühstück",
-    "wort_RU": null,
+    "wort_RU": "этот поздний завтрак",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43475,7 +43475,7 @@
   },
   {
     "wort_DE": "das kurze Video",
-    "wort_RU": null,
+    "wort_RU": "это короткое видео",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43490,7 +43490,7 @@
   },
   {
     "wort_DE": "das richtige Ergebnis",
-    "wort_RU": null,
+    "wort_RU": "этот правильный результат",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43505,7 +43505,7 @@
   },
   {
     "wort_DE": "das starke Signal",
-    "wort_RU": null,
+    "wort_RU": "этот сильный сигнал",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43520,7 +43520,7 @@
   },
   {
     "wort_DE": "das weitere Beispiel",
-    "wort_RU": null,
+    "wort_RU": "этот дополнительный пример",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43535,7 +43535,7 @@
   },
   {
     "wort_DE": "das junge Paar",
-    "wort_RU": null,
+    "wort_RU": "эта молодая пара",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43550,7 +43550,7 @@
   },
   {
     "wort_DE": "das schnelle Internet",
-    "wort_RU": null,
+    "wort_RU": "этот быстрый интернет",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43565,7 +43565,7 @@
   },
   {
     "wort_DE": "das weite Land",
-    "wort_RU": null,
+    "wort_RU": "эта широкая страна",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43580,7 +43580,7 @@
   },
   {
     "wort_DE": "das nächste Mal",
-    "wort_RU": null,
+    "wort_RU": "этот следующий раз",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43595,7 +43595,7 @@
   },
   {
     "wort_DE": "das klare Zeichen",
-    "wort_RU": null,
+    "wort_RU": "этот ясный знак",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43610,7 +43610,7 @@
   },
   {
     "wort_DE": "das verschiedene Material",
-    "wort_RU": null,
+    "wort_RU": "этот разный материал",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43625,7 +43625,7 @@
   },
   {
     "wort_DE": "das schwere Paket",
-    "wort_RU": null,
+    "wort_RU": "эта тяжёлая посылка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43640,7 +43640,7 @@
   },
   {
     "wort_DE": "das sichere System",
-    "wort_RU": null,
+    "wort_RU": "эта безопасная система",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43655,7 +43655,7 @@
   },
   {
     "wort_DE": "das bestimmte Ziel",
-    "wort_RU": null,
+    "wort_RU": "эта определённая цель",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43670,7 +43670,7 @@
   },
   {
     "wort_DE": "das freie Zimmer",
-    "wort_RU": null,
+    "wort_RU": "эта свободная комната",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43685,7 +43685,7 @@
   },
   {
     "wort_DE": "das leichte Spiel",
-    "wort_RU": null,
+    "wort_RU": "эта лёгкая игра",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43700,7 +43700,7 @@
   },
   {
     "wort_DE": "das bekannte Gesicht",
-    "wort_RU": null,
+    "wort_RU": "это известное лицо",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43715,7 +43715,7 @@
   },
   {
     "wort_DE": "das schlechte Wetter",
-    "wort_RU": null,
+    "wort_RU": "эта плохая погода",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43730,7 +43730,7 @@
   },
   {
     "wort_DE": "das einzige Mittel",
-    "wort_RU": null,
+    "wort_RU": "это единственное средство",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43745,7 +43745,7 @@
   },
   {
     "wort_DE": "das offene Fenster",
-    "wort_RU": null,
+    "wort_RU": "это открытое окно",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43760,7 +43760,7 @@
   },
   {
     "wort_DE": "das volle Glas",
-    "wort_RU": null,
+    "wort_RU": "этот полный стакан",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43775,7 +43775,7 @@
   },
   {
     "wort_DE": "das tiefe Wasser",
-    "wort_RU": null,
+    "wort_RU": "эта глубокая вода",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43790,7 +43790,7 @@
   },
   {
     "wort_DE": "das mögliche Szenario",
-    "wort_RU": null,
+    "wort_RU": "этот возможный сценарий",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43805,7 +43805,7 @@
   },
   {
     "wort_DE": "das schöne Bild",
-    "wort_RU": null,
+    "wort_RU": "это красивое изображение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43820,7 +43820,7 @@
   },
   {
     "wort_DE": "das falsche Argument",
-    "wort_RU": null,
+    "wort_RU": "этот ложный аргумент",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43835,7 +43835,7 @@
   },
   {
     "wort_DE": "das langsame Lied",
-    "wort_RU": null,
+    "wort_RU": "эта медленная песня",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43850,7 +43850,7 @@
   },
   {
     "wort_DE": "das schwierige Rätsel",
-    "wort_RU": null,
+    "wort_RU": "эта трудная загадка",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43865,7 +43865,7 @@
   },
   {
     "wort_DE": "das enge Loch",
-    "wort_RU": null,
+    "wort_RU": "эта узкая дыра",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43880,7 +43880,7 @@
   },
   {
     "wort_DE": "das normale Verhalten",
-    "wort_RU": null,
+    "wort_RU": "это нормальное поведение",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43895,7 +43895,7 @@
   },
   {
     "wort_DE": "das frühe Signal",
-    "wort_RU": null,
+    "wort_RU": "этот ранний сигнал",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43910,7 +43910,7 @@
   },
   {
     "wort_DE": "das echte Gefühl",
-    "wort_RU": null,
+    "wort_RU": "это настоящее чувство",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43925,7 +43925,7 @@
   },
   {
     "wort_DE": "das runde Rad",
-    "wort_RU": null,
+    "wort_RU": "это круглое колесо",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43940,7 +43940,7 @@
   },
   {
     "wort_DE": "das viele Erlebnis",
-    "wort_RU": null,
+    "wort_RU": "это множество впечатлений",
     "relDeklination": "Schwache DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43955,7 +43955,7 @@
   },
   {
     "wort_DE": "ein großes Haus",
-    "wort_RU": null,
+    "wort_RU": "один большой дом",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43970,7 +43970,7 @@
   },
   {
     "wort_DE": "ein gutes Buch",
-    "wort_RU": null,
+    "wort_RU": "одна хорошая книга",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -43985,7 +43985,7 @@
   },
   {
     "wort_DE": "ein neues Auto",
-    "wort_RU": null,
+    "wort_RU": "одно новое авто",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44000,7 +44000,7 @@
   },
   {
     "wort_DE": "ein ganzes Jahr",
-    "wort_RU": null,
+    "wort_RU": "один целый год",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44015,7 +44015,7 @@
   },
   {
     "wort_DE": "ein erstes Kapitel",
-    "wort_RU": null,
+    "wort_RU": "одна первая глава",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44030,7 +44030,7 @@
   },
   {
     "wort_DE": "ein langes Gespräch",
-    "wort_RU": null,
+    "wort_RU": "один длинный разговор",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44045,7 +44045,7 @@
   },
   {
     "wort_DE": "ein weniges Wissen",
-    "wort_RU": null,
+    "wort_RU": "немного знаний",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44060,7 +44060,7 @@
   },
   {
     "wort_DE": "ein kleines Kind",
-    "wort_RU": null,
+    "wort_RU": "один маленький ребёнок",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44075,7 +44075,7 @@
   },
   {
     "wort_DE": "ein deutsches Wort",
-    "wort_RU": null,
+    "wort_RU": "одно немецкое слово",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44090,7 +44090,7 @@
   },
   {
     "wort_DE": "ein hohes Gebäude",
-    "wort_RU": null,
+    "wort_RU": "одно высокое здание",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44105,7 +44105,7 @@
   },
   {
     "wort_DE": "ein einfaches Spiel",
-    "wort_RU": null,
+    "wort_RU": "одна простая игра",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44120,7 +44120,7 @@
   },
   {
     "wort_DE": "ein altes Foto",
-    "wort_RU": null,
+    "wort_RU": "одно старое фото",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44135,7 +44135,7 @@
   },
   {
     "wort_DE": "ein gleiches Problem",
-    "wort_RU": null,
+    "wort_RU": "одна одинаковая проблема",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44150,7 +44150,7 @@
   },
   {
     "wort_DE": "ein wichtiges Thema",
-    "wort_RU": null,
+    "wort_RU": "одна важная тема",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44165,7 +44165,7 @@
   },
   {
     "wort_DE": "ein letztes Treffen",
-    "wort_RU": null,
+    "wort_RU": "одна последняя встреча",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44180,7 +44180,7 @@
   },
   {
     "wort_DE": "ein eigenes Zimmer",
-    "wort_RU": null,
+    "wort_RU": "одна собственная комната",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44195,7 +44195,7 @@
   },
   {
     "wort_DE": "ein genaues Datum",
-    "wort_RU": null,
+    "wort_RU": "одна точная дата",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44210,7 +44210,7 @@
   },
   {
     "wort_DE": "ein spätes Frühstück",
-    "wort_RU": null,
+    "wort_RU": "один поздний завтрак",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44225,7 +44225,7 @@
   },
   {
     "wort_DE": "ein kurzes Video",
-    "wort_RU": null,
+    "wort_RU": "одно короткое видео",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44240,7 +44240,7 @@
   },
   {
     "wort_DE": "ein richtiges Ergebnis",
-    "wort_RU": null,
+    "wort_RU": "один правильный результат",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44255,7 +44255,7 @@
   },
   {
     "wort_DE": "ein starkes Signal",
-    "wort_RU": null,
+    "wort_RU": "один сильный сигнал",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44270,7 +44270,7 @@
   },
   {
     "wort_DE": "ein weiteres Beispiel",
-    "wort_RU": null,
+    "wort_RU": "один дополнительный пример",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44285,7 +44285,7 @@
   },
   {
     "wort_DE": "ein junges Paar",
-    "wort_RU": null,
+    "wort_RU": "одна молодая пара",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44300,7 +44300,7 @@
   },
   {
     "wort_DE": "ein schnelles Internet",
-    "wort_RU": null,
+    "wort_RU": "один быстрый интернет",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44315,7 +44315,7 @@
   },
   {
     "wort_DE": "ein weites Land",
-    "wort_RU": null,
+    "wort_RU": "одна обширная страна",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44330,7 +44330,7 @@
   },
   {
     "wort_DE": "ein nächstes Mal",
-    "wort_RU": null,
+    "wort_RU": "один следующий раз",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44345,7 +44345,7 @@
   },
   {
     "wort_DE": "ein klares Zeichen",
-    "wort_RU": null,
+    "wort_RU": "один ясный знак",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44360,7 +44360,7 @@
   },
   {
     "wort_DE": "ein verschiedenes Material",
-    "wort_RU": null,
+    "wort_RU": "один разный материал",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44375,7 +44375,7 @@
   },
   {
     "wort_DE": "ein schweres Paket",
-    "wort_RU": null,
+    "wort_RU": "одна тяжёлая посылка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44390,7 +44390,7 @@
   },
   {
     "wort_DE": "ein sicheres System",
-    "wort_RU": null,
+    "wort_RU": "одна безопасная система",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44405,7 +44405,7 @@
   },
   {
     "wort_DE": "ein bestimmtes Ziel",
-    "wort_RU": null,
+    "wort_RU": "одна определённая цель",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44420,7 +44420,7 @@
   },
   {
     "wort_DE": "ein freies Zimmer",
-    "wort_RU": null,
+    "wort_RU": "одна свободная комната",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44435,7 +44435,7 @@
   },
   {
     "wort_DE": "ein leichtes Spiel",
-    "wort_RU": null,
+    "wort_RU": "одна лёгкая игра",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44450,7 +44450,7 @@
   },
   {
     "wort_DE": "ein bekanntes Gesicht",
-    "wort_RU": null,
+    "wort_RU": "одно знакомое лицо",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44465,7 +44465,7 @@
   },
   {
     "wort_DE": "ein schlechtes Wetter",
-    "wort_RU": null,
+    "wort_RU": "одна плохая погода",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44480,7 +44480,7 @@
   },
   {
     "wort_DE": "ein einziges Mittel",
-    "wort_RU": null,
+    "wort_RU": "одно единственное средство",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44495,7 +44495,7 @@
   },
   {
     "wort_DE": "ein offenes Fenster",
-    "wort_RU": null,
+    "wort_RU": "одно открытое окно",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44510,7 +44510,7 @@
   },
   {
     "wort_DE": "ein volles Glas",
-    "wort_RU": null,
+    "wort_RU": "один полный стакан",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44525,7 +44525,7 @@
   },
   {
     "wort_DE": "ein tiefes Wasser",
-    "wort_RU": null,
+    "wort_RU": "одна глубокая вода",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44540,7 +44540,7 @@
   },
   {
     "wort_DE": "ein mögliches Szenario",
-    "wort_RU": null,
+    "wort_RU": "один возможный сценарий",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44555,7 +44555,7 @@
   },
   {
     "wort_DE": "ein schönes Bild",
-    "wort_RU": null,
+    "wort_RU": "одно красивое изображение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44570,7 +44570,7 @@
   },
   {
     "wort_DE": "ein falsches Argument",
-    "wort_RU": null,
+    "wort_RU": "один ложный аргумент",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44585,7 +44585,7 @@
   },
   {
     "wort_DE": "ein langsames Lied",
-    "wort_RU": null,
+    "wort_RU": "одна медленная песня",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44600,7 +44600,7 @@
   },
   {
     "wort_DE": "ein schwieriges Rätsel",
-    "wort_RU": null,
+    "wort_RU": "одна сложная загадка",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44615,7 +44615,7 @@
   },
   {
     "wort_DE": "ein enges Loch",
-    "wort_RU": null,
+    "wort_RU": "одно узкое отверстие",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44630,7 +44630,7 @@
   },
   {
     "wort_DE": "ein normales Verhalten",
-    "wort_RU": null,
+    "wort_RU": "одно нормальное поведение",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44645,7 +44645,7 @@
   },
   {
     "wort_DE": "ein frühes Signal",
-    "wort_RU": null,
+    "wort_RU": "один ранний сигнал",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44660,7 +44660,7 @@
   },
   {
     "wort_DE": "ein echtes Gefühl",
-    "wort_RU": null,
+    "wort_RU": "одно настоящее чувство",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44675,7 +44675,7 @@
   },
   {
     "wort_DE": "ein rundes Rad",
-    "wort_RU": null,
+    "wort_RU": "одно круглое колесо",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
@@ -44690,7 +44690,7 @@
   },
   {
     "wort_DE": "ein vieles Erlebnis",
-    "wort_RU": null,
+    "wort_RU": "одно множество впечатлений",
     "relDeklination": "Gemischte DeklinationKey",
     "relGenus": "sachlichGenus",
     "relKasus": "nominativeKasus",
