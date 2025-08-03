@@ -20,6 +20,8 @@ struct WortRepeater: View {
     @State var exercisedWorte: Set<WortFormen> = []
     @State var confirmedWorte: Set<WortFormen> = []
     
+    @State var readyToMoveOne: Bool = false
+    
     var body: some View {
         VStack{
             HStack{
@@ -32,7 +34,7 @@ struct WortRepeater: View {
                     title: "Дальше".localized(for: language),
                     style: .NG_ButtonStyle_Service,
                     isDisabled: .constant(false),
-                    isHighlighting: .constant(false),
+                    isHighlighting: $readyToMoveOne,
                     isPulsating: .constant(false),
                     action: {
                         var successCounter: Int = 0
@@ -89,6 +91,7 @@ struct WortRepeater: View {
                                     .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                                     .onTapGesture {
                                         guessingResult[index] = 1
+                                        readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
                                     }
                                 Image(systemName: "multiply.square.fill")
                                     .resizable()
@@ -96,6 +99,7 @@ struct WortRepeater: View {
                                     .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                                     .onTapGesture {
                                         guessingResult[index] = -1
+                                        readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
                                     }
                             }
                         }
@@ -154,6 +158,7 @@ struct WortRepeater: View {
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
+        readyToMoveOne = false
         pickedWortFormen = pickedSache
     }
 }
