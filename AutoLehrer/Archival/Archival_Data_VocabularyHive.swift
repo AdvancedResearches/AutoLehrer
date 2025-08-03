@@ -55,14 +55,14 @@ struct KasusItem: Codable{
 }
 
 struct KompatationsgradHive: Codable{
-    var theHive: [KompatationsgradItem]
+    var theHive: [KomparationsgradItem]
 }
 
-struct KompatationsgradItem: Codable{
+struct KomparationsgradItem: Codable{
     var name_DE: String
     var name_RU: String
     var order: Int64
-    var kompatationsgradKey: String
+    var komparationsgradKey: String
 }
 
 struct ModusHive: Codable{
@@ -114,17 +114,31 @@ struct WortHive: Codable{
 }
 
 struct WortItem: Codable{
+    /*
+     "wort_DE": "eine/die Zeit",
+     "wort_RU": "время  ",
+     "relDeklination": null,
+     "relGenus": "weiblichGenus",
+     "relKasus": "nominativeKasus",
+     "relKomparationsgrad": null,
+     "relModus": null,
+     "relWortFormen": "NomenOrder1",
+     "relNumerus": "singularNumerus",
+     "relPerson": null,
+     "relTempus": null,
+     "wortKey": "eine/dieZeitweiblichGenusnominativeKasusNomenOrder1singularNumerus",
+     */
     var wort_DE: String
     var wort_RU: String
     //var relDeklination: String?
-    var relGenus: String?
-    var relKasus: String?
+    //var relGenus: String?
+    //var relKasus: String?
     //var relKomparationsgrad: String?
-    var relModus: String?
-    var relNumerus: String?
-    var relPerson: String?
-    var relTempus: String?
-    var relWortFormen: String
+    //var relModus: String?
+    //var relNumerus: String?
+    //var relPerson: String?
+    //var relTempus: String?
+    //var relWortFormen: String
     var wortKey: String
 }
 
@@ -160,7 +174,7 @@ struct WortFormenItem: Codable{
 }
 
 struct VocabularyHive: Codable{
-    //var beispielHive: BeispielHive
+    var beispielHive: BeispielHive
     var deklinationHive: DeklinationHive
     var genusHive: GenusHive
     var kasusHive: KasusHive
@@ -177,7 +191,7 @@ struct VocabularyHive: Codable{
 struct Archival_Vocabulary{
     static func dump(theContext: NSManagedObjectContext) -> VocabularyHive{
         var retHive = VocabularyHive(
-            //beispielHive: BeispielHive(theHive: []),
+            beispielHive: BeispielHive(theHive: []),
             deklinationHive: DeklinationHive(theHive: []),
             genusHive: GenusHive(theHive: []),
             kasusHive: KasusHive(theHive: []),
@@ -286,6 +300,7 @@ struct Archival_Vocabulary{
                 KasusDictionary.updateValue(uploadingKasus, forKey: theKasus.kasusKey)
             }
 
+            /*
             var KomparationsgradDictionary: [String:Komparationsgrad] = [:]
             for theKomparationsgrad in theData.komparationsgradHive.theHive{
                 let uploadingKomparationsgrad = Komparationsgrad(context: theContext)
@@ -294,6 +309,7 @@ struct Archival_Vocabulary{
                 uploadingKomparationsgrad.order = theKomparationsgrad.order
                 KomparationsgradDictionary.updateValue(uploadingKomparationsgrad, forKey: theKomparationsgrad.kompatationsgradKey)
             }
+             */
 
             var ModusDictionary: [String:Modus] = [:]
             for theModus in theData.modusHive.theHive{
