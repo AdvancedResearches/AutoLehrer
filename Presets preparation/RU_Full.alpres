@@ -45452,6 +45452,756 @@
     "relTempus": null,
     "wortKey": "zuFunkWortOrder50GrundformKey",
     "order": null
+  },
+  {
+    "wort_DE": "Wie geht’s?",
+    "wort_RU": "Как дела?",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder1",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Wiegeht’s?PhraseOrder1GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Alles klar.",
+    "wort_RU": "Всё ясно.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder2",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Allesklar.PhraseOrder2GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Kein Problem.",
+    "wort_RU": "Без проблем.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder3",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "KeinProblem.PhraseOrder3GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich weiß nicht.",
+    "wort_RU": "Я не знаю.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder4",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichweißnicht.PhraseOrder4GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Auf Wiedersehen.",
+    "wort_RU": "До свидания.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder5",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "AufWiedersehen.PhraseOrder5GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Gute Nacht.",
+    "wort_RU": "Спокойной ночи.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder6",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "GuteNacht.PhraseOrder6GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Schönen Tag noch.",
+    "wort_RU": "Хорошего дня.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder7",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "SchönenTagnoch.PhraseOrder7GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Vielen Dank.",
+    "wort_RU": "Большое спасибо.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder8",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "VielenDank.PhraseOrder8GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Bitte schön.",
+    "wort_RU": "Пожалуйста.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder9",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Bitteschön.PhraseOrder9GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Entschuldigung.",
+    "wort_RU": "Извините.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder10",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Entschuldigung.PhraseOrder10GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Es tut mir leid.",
+    "wort_RU": "Мне жаль.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder11",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Estutmirleid.PhraseOrder11GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich verstehe.",
+    "wort_RU": "Я понимаю.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder12",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichverstehe.PhraseOrder12GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich habe keine Ahnung.",
+    "wort_RU": "Понятия не имею.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder13",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "IchhabekeineAhnung.PhraseOrder13GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Was machst du?",
+    "wort_RU": "Что ты делаешь?",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder14",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Wasmachstdu?PhraseOrder14GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Was ist los?",
+    "wort_RU": "Что случилось?",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder15",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Wasistlos?PhraseOrder15GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Keine Ahnung.",
+    "wort_RU": "Без понятия.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder16",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "KeineAhnung.PhraseOrder16GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Bis später.",
+    "wort_RU": "До скорого.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder17",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Bisspäter.PhraseOrder17GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Bis bald.",
+    "wort_RU": "До встречи.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder18",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Bisbald.PhraseOrder18GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Viel Glück!",
+    "wort_RU": "Удачи!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder19",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "VielGlück!PhraseOrder19GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich liebe dich.",
+    "wort_RU": "Я тебя люблю.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder20",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichliebedich.PhraseOrder20GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Mach’s gut!",
+    "wort_RU": "Счастливо!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder21",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Mach’sgut!PhraseOrder21GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin müde.",
+    "wort_RU": "Я устал(а).",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder22",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbinmüde.PhraseOrder22GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin hungrig.",
+    "wort_RU": "Я голоден / голодна.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder23",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbinhungrig.PhraseOrder23GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin durstig.",
+    "wort_RU": "Я хочу пить.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder24",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbindurstig.PhraseOrder24GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin krank.",
+    "wort_RU": "Я болен / больна.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder25",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbinkrank.PhraseOrder25GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Was soll das?",
+    "wort_RU": "Что это значит? / Это что ещё такое?",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder26",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Wassolldas?PhraseOrder26GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich habe keine Zeit.",
+    "wort_RU": "У меня нет времени.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder27",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "IchhabekeineZeit.PhraseOrder27GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Mal sehen.",
+    "wort_RU": "Посмотрим.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder28",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Malsehen.PhraseOrder28GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Stimmt genau!",
+    "wort_RU": "Точно!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder29",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Stimmtgenau!PhraseOrder29GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin dabei.",
+    "wort_RU": "Я с вами.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder30",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbindabei.PhraseOrder30GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Na klar!",
+    "wort_RU": "Конечно!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder31",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Naklar!PhraseOrder31GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Auf keinen Fall!",
+    "wort_RU": "Ни за что!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder32",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "AufkeinenFall!PhraseOrder32GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Natürlich.",
+    "wort_RU": "Естественно.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder33",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Natürlich.PhraseOrder33GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Echt jetzt?",
+    "wort_RU": "Серьёзно?",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder34",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Echtjetzt?PhraseOrder34GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Das ist mir egal.",
+    "wort_RU": "Мне всё равно.",
+    "relDeklination": "GrundformKey",
+    "relGenus": null,
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder35",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Dasistmiregal.PhraseOrder35GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin fertig.",
+    "wort_RU": "Я закончил(а).",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder36",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbinfertig.PhraseOrder36GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Schon gut.",
+    "wort_RU": "Всё нормально.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder37",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Schongut.PhraseOrder37GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Keine Sorge.",
+    "wort_RU": "Не переживай.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder38",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "KeineSorge.PhraseOrder38GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich freue mich.",
+    "wort_RU": "Я рад(а).",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder39",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichfreuemich.PhraseOrder39GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Viel Spaß!",
+    "wort_RU": "Хорошо повеселиться!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder40",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "VielSpaß!PhraseOrder40GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Alles Gute!",
+    "wort_RU": "Всего хорошего!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder41",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "AllesGute!PhraseOrder41GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ganz genau.",
+    "wort_RU": "Совершенно верно.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder42",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ganzgenau.PhraseOrder42GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Was meinst du?",
+    "wort_RU": "Что ты имеешь в виду?",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder43",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Wasmeinstdu?PhraseOrder43GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Nicht schlecht.",
+    "wort_RU": "Неплохо.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder44",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Nichtschlecht.PhraseOrder44GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "So ist es.",
+    "wort_RU": "Вот именно.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder45",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Soistes.PhraseOrder45GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich hoffe es.",
+    "wort_RU": "Надеюсь.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder46",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichhoffees.PhraseOrder46GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Lass uns gehen.",
+    "wort_RU": "Пойдём.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder47",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Lassunsgehen.PhraseOrder47GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich komme gleich.",
+    "wort_RU": "Я сейчас приду.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder48",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichkommegleich.PhraseOrder48GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Ich bin unterwegs.",
+    "wort_RU": "Я уже в пути.",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder49",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Ichbinunterwegs.PhraseOrder49GrundformKey",
+    "order": null
+  },
+  {
+    "wort_DE": "Auf geht’s!",
+    "wort_RU": "Вперёд!",
+    "relDeklination": "GrundformKey",
+    "relGenus": "",
+    "relKasus": null,
+    "relKomparationsgrad": null,
+    "relModus": null,
+    "relWortFormen": "PhraseOrder50",
+    "relNumerus": null,
+    "relPerson": null,
+    "relTempus": null,
+    "wortKey": "Aufgeht’s!PhraseOrder50GrundformKey",
+    "order": null
   }
 ]
  },
@@ -45525,7 +46275,7 @@
     "name_RU": "Фразы",
     "wortArtKey": "PhraseKey",
     "order": 5,
-    "property_1": null,
+    "property_1": "deklination",
     "property_2": null,
     "property_3": null,
     "property_4": null,
@@ -51288,6 +52038,256 @@
     "wortFrequencyOrder": 50,
     "wortFormenKey": "FunkWortOrder50",
     "relWortArt": "FunktionalWortKey"
+  },
+  {
+    "wortFrequencyOrder": 1,
+    "wortFormenKey": "PhraseOrder1",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 2,
+    "wortFormenKey": "PhraseOrder2",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 3,
+    "wortFormenKey": "PhraseOrder3",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 4,
+    "wortFormenKey": "PhraseOrder4",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 5,
+    "wortFormenKey": "PhraseOrder5",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 6,
+    "wortFormenKey": "PhraseOrder6",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 7,
+    "wortFormenKey": "PhraseOrder7",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 8,
+    "wortFormenKey": "PhraseOrder8",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 9,
+    "wortFormenKey": "PhraseOrder9",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 10,
+    "wortFormenKey": "PhraseOrder10",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 11,
+    "wortFormenKey": "PhraseOrder11",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 12,
+    "wortFormenKey": "PhraseOrder12",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 13,
+    "wortFormenKey": "PhraseOrder13",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 14,
+    "wortFormenKey": "PhraseOrder14",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 15,
+    "wortFormenKey": "PhraseOrder15",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 16,
+    "wortFormenKey": "PhraseOrder16",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 17,
+    "wortFormenKey": "PhraseOrder17",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 18,
+    "wortFormenKey": "PhraseOrder18",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 19,
+    "wortFormenKey": "PhraseOrder19",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 20,
+    "wortFormenKey": "PhraseOrder20",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 21,
+    "wortFormenKey": "PhraseOrder21",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 22,
+    "wortFormenKey": "PhraseOrder22",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 23,
+    "wortFormenKey": "PhraseOrder23",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 24,
+    "wortFormenKey": "PhraseOrder24",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 25,
+    "wortFormenKey": "PhraseOrder25",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 26,
+    "wortFormenKey": "PhraseOrder26",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 27,
+    "wortFormenKey": "PhraseOrder27",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 28,
+    "wortFormenKey": "PhraseOrder28",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 29,
+    "wortFormenKey": "PhraseOrder29",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 30,
+    "wortFormenKey": "PhraseOrder30",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 31,
+    "wortFormenKey": "PhraseOrder31",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 32,
+    "wortFormenKey": "PhraseOrder32",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 33,
+    "wortFormenKey": "PhraseOrder33",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 34,
+    "wortFormenKey": "PhraseOrder34",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 35,
+    "wortFormenKey": "PhraseOrder35",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 36,
+    "wortFormenKey": "PhraseOrder36",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 37,
+    "wortFormenKey": "PhraseOrder37",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 38,
+    "wortFormenKey": "PhraseOrder38",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 39,
+    "wortFormenKey": "PhraseOrder39",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 40,
+    "wortFormenKey": "PhraseOrder40",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 41,
+    "wortFormenKey": "PhraseOrder41",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 42,
+    "wortFormenKey": "PhraseOrder42",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 43,
+    "wortFormenKey": "PhraseOrder43",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 44,
+    "wortFormenKey": "PhraseOrder44",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 45,
+    "wortFormenKey": "PhraseOrder45",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 46,
+    "wortFormenKey": "PhraseOrder46",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 47,
+    "wortFormenKey": "PhraseOrder47",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 48,
+    "wortFormenKey": "PhraseOrder48",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 49,
+    "wortFormenKey": "PhraseOrder49",
+    "relWortArt": "PhraseKey"
+  },
+  {
+    "wortFrequencyOrder": 50,
+    "wortFormenKey": "PhraseOrder50",
+    "relWortArt": "PhraseKey"
   }
 ]
  }

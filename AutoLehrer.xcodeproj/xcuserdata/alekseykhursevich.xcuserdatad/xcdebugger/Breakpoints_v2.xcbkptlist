@@ -418,36 +418,6 @@
             endingLineNumber = "97"
             landmarkName = "Wort"
             landmarkType = "21">
-            <Locations>
-               <Location
-                  uuid = "D87C8B99-3F76-47E2-8484-98F1D8710758 - 1c803ef915613bcf"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static AutoLehrer.Wort.pick_wort(_: AutoLehrer.WortFormen, wortArtFormen: AutoLehrer.WortArtFormen) -&gt; Swift.Optional&lt;AutoLehrer.Wort&gt;"
-                  moduleName = "AutoLehrer.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alekseykhursevich/Development/AutoLehrer/AutoLehrer/AutoLehrer/Extensions/Extensions_Wort.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97">
-               </Location>
-               <Location
-                  uuid = "D87C8B99-3F76-47E2-8484-98F1D8710758 - b903c7ede4c364de"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (AutoLehrer.Wort) -&gt; Swift.Bool in static AutoLehrer.Wort.pick_wort(_: AutoLehrer.WortFormen, wortArtFormen: AutoLehrer.WortArtFormen) -&gt; Swift.Optional&lt;AutoLehrer.Wort&gt;"
-                  moduleName = "AutoLehrer.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alekseykhursevich/Development/AutoLehrer/AutoLehrer/AutoLehrer/Extensions/Extensions_Wort.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "97"
-                  endingLineNumber = "97">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

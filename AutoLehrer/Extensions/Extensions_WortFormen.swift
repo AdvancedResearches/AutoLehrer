@@ -88,6 +88,9 @@ extension WortFormen{
             }
         }
         if(wortArt.name_DE == "Phrase"){
+            for theDeklination in try! context.fetch(Deklination.fetchRequest()).sorted{$0.order < $1.order}{
+                retValue.append(WortArtFormen(deklination: theDeklination))
+            }
         }
         return retValue
     }
