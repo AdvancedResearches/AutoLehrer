@@ -107,13 +107,18 @@ struct MainMenu: View {
 
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             ForEach(wortArten){ wortArt in
+                                let wortArt_total = Statistics.get_wort_total_byWortArt(viewContext, wortArt)
+                                let wortArt_confirmed = Statistics.get_wort_confirmed_byWortArt(viewContext, wortArt)
+                                let wortArt_confirmed_ratio = Double(wortArt_confirmed)/Double(wortArt_total)*100
+                                let wortArt_attempted = Statistics.get_wort_attempted_byWortArt(viewContext, wortArt)
+                                let wortArt_attempted_ratio = Double(wortArt_attempted)/Double(wortArt_total)*100
                                 NavigationLink(
                                     destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme)
                                 ) {
                                     Group {
                                         let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
                                         NG_Button(
-                                            title: wortArt.name_RU!,
+                                            title: wortArt.name_RU!+"("+String(wortArt_confirmed)+"/"+String(format: "%.1f", wortArt_confirmed_ratio)+"%)",
                                             style: .NG_ButtonStyle_Regular,
                                             isDisabled: .constant(!WortArt.hat_worten(wortArt)),
                                             isHighlighting: .constant(false),
@@ -131,18 +136,18 @@ struct MainMenu: View {
                     VStack(alignment: .leading){
                         Text("Статистика")
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
-                        let nomen_total = Statistics.get_wort_total_atAll(viewContext)
-                        let nomen_confirmed = Statistics.get_wort_confirmed_atAll(viewContext)
-                        let nomen_confirmed_ratio = Double(nomen_confirmed)/Double(nomen_total)*100
-                        let nomen_attempted = Statistics.get_wort_attempted_atAll(viewContext)
-                        let nomen_attempted_ratio = Double(nomen_attempted)/Double(nomen_total)*100
-                        Text("Всего: \(nomen_total)")
+                        let alles_total = Statistics.get_wort_total_atAll(viewContext)
+                        let alles_confirmed = Statistics.get_wort_confirmed_atAll(viewContext)
+                        let alles_confirmed_ratio = Double(alles_confirmed)/Double(alles_total)*100
+                        let alles_attempted = Statistics.get_wort_attempted_atAll(viewContext)
+                        let alles_attempted_ratio = Double(alles_attempted)/Double(alles_total)*100
+                        Text("Всего: \(alles_total)")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
-                        Text("Выучено: \(nomen_confirmed) (\(String(format: "%.1f", nomen_confirmed_ratio))%)")
+                        Text("Выучено: \(alles_confirmed) (\(String(format: "%.1f", alles_confirmed_ratio))%)")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
-                        Text("Опробовано: \(nomen_attempted) (\(String(format: "%.1f", nomen_attempted_ratio))%)")
+                        Text("Опробовано: \(alles_attempted) (\(String(format: "%.1f", alles_attempted_ratio))%)")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
                     }
