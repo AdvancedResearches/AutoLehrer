@@ -22,6 +22,8 @@ struct WortRepeater: View {
     
     @State var readyToMoveOne: Bool = false
     
+    @State var runningWort: Int = 0
+    
     var body: some View {
         VStack{
             HStack{
@@ -69,39 +71,8 @@ struct WortRepeater: View {
                 }
                 if(pickedWortFormen != nil){
                     ScrollView(.vertical, showsIndicators: true){
-                        ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, derWort in
-                            Divider()
-                            let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
-                            Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            HStack{
-                                FlipCard(
-                                    deutschesSeite: $deutschesSeite[index],
-                                    deutschesWorte: derWort.wort_DE!,
-                                    russischesWorte: derWort.wort_RU!,
-                                    deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
-                                    russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
-                                    result: $guessingResult[index]
-                                )
-                                Image(systemName: "checkmark.square.fill")
-                                    .resizable()
-                                    .frame(width: 35, height: 35)
-                                    .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                    .onTapGesture {
-                                        guessingResult[index] = 1
-                                        readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
-                                    }
-                                Image(systemName: "multiply.square.fill")
-                                    .resizable()
-                                    .frame(width: 35, height: 35)
-                                    .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                                    .onTapGesture {
-                                        guessingResult[index] = -1
-                                        readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
-                                    }
-                            }
+                        ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
+                            dasWortSektion(dasWort: dasWort, index: index, running: 0)
                         }
                     }
                     .background(.clear)
@@ -123,6 +94,54 @@ struct WortRepeater: View {
                     dismiss()
                 }, blinking: false)
         )
+    }
+    
+    private func dasWortSektion(dasWort: Wort, index: Int, running: Int) -> some View {
+        let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
+        return Group{
+            Divider()
+            VStack{
+            Text(Wort.get_wortArt_vollString(wort[index], spracheWahlen))
+                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+            Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
+                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                HStack{
+                    FlipCard(
+                        deutschesSeite: $deutschesSeite[index],
+                        deutschesWorte: dasWort.wort_DE!,
+                        russischesWorte: dasWort.wort_RU!,
+                        deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
+                        russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
+                        result: $guessingResult[index]
+                    )
+                    Image(systemName: "checkmark.square.fill")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        .onTapGesture {
+                            if(guessingResult[index] == 0){
+                                runningWort += 1
+                            }
+                            guessingResult[index] = 1
+                            readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
+                        }
+                    Image(systemName: "multiply.square.fill")
+                        .resizable()
+                        .frame(width: 35, height: 35)
+                        .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        .onTapGesture {
+                            if(guessingResult[index] == 0){
+                                runningWort += 1
+                            }
+                            guessingResult[index] = -1
+                            readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
+                        }
+                }
+            }
+            .if(index == runningWort){ view in
+                view.NG_Card(.NG_CardStyle_Regular, theme: theme)
+            }
+        }
     }
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
@@ -158,6 +177,7 @@ struct WortRepeater: View {
         deutschesSeite = Array(repeating: false, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOne = false
+        runningWort = 0
         pickedWortFormen = pickedSache
     }
 }
