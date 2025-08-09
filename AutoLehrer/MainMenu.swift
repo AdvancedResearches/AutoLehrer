@@ -85,6 +85,12 @@ struct MainMenu: View {
     @State private var previousWizardRecommendation: RecommendationModel.RecommendationType = .none
     @State private var autoCloseWizard: Bool = false
     
+    @State private var wortArten: [WortArt] = []
+    @State private var repeater_isActive: [WortArt: Bool] = [:]
+    
+    @State private var wortArtenStatsRedraw: Int = 0
+    @State private var totalStatsRedraw: Int = 1000
+    
     init(){
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.green
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
@@ -102,8 +108,6 @@ struct MainMenu: View {
                     VStack{
                         Text("Учить".localized(for: language))
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
-                        
-                        let wortArten = WortArt.get_alleWortArten(viewContext)
 
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             ForEach(wortArten){ wortArt in
@@ -113,7 +117,14 @@ struct MainMenu: View {
                                 let wortArt_attempted = Statistics.get_wort_attempted_byWortArt(viewContext, wortArt)
                                 let wortArt_attempted_ratio = Double(wortArt_attempted)/Double(wortArt_total)*100
                                 NavigationLink(
-                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme)
+                                    destination: WortRepeater(wortArt: wortArt).NG_NavigationTitle(wortArt.name_RU!, theme: theme),
+                                    isActive: Binding(
+                                        get: {
+                                            return repeater_isActive[wortArt] ?? false
+                                        },
+                                        set: { value in
+                                            repeater_isActive.updateValue(value, forKey: wortArt)
+                                    })
                                 ) {
                                     Group {
                                         let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
@@ -127,8 +138,13 @@ struct MainMenu: View {
                                         )
                                     }
                                 }
+                                .onChange(of: repeater_isActive[wortArt]){ newValue in
+                                    wortArtenStatsRedraw += 1
+                                    totalStatsRedraw += 1
+                                }
                             }
                         }
+                        .id(wortArtenStatsRedraw)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -154,6 +170,7 @@ struct MainMenu: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
+                    .id(totalStatsRedraw)
                     
                     VStack{
                         Text("Служебные функции".localized(for: language))
@@ -246,6 +263,8 @@ struct MainMenu: View {
                             .onChange(of: Archival_isActive){ /*oldValue, */newValue in
                                 if !newValue{
                                     invokeUpdates()
+                                    wortArtenStatsRedraw += 1
+                                    totalStatsRedraw += 1
                                 }
                             }
                             .disabled(Archival_disabled)
@@ -284,6 +303,8 @@ struct MainMenu: View {
     }
     private func invokeUpdates(){
         recommendationModel.update(for: .MainMenu, in: viewContext)
+        wortArten = WortArt.get_alleWortArten(viewContext)
+        repeater_isActive.removeAll()
     }
     private func reloadPresets(){
         let fileDirectory: URL? = Bundle.main.resourceURL
