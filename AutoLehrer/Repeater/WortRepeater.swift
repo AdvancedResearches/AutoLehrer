@@ -70,12 +70,20 @@ struct WortRepeater: View {
                     }
                 }
                 if(pickedWortFormen != nil){
-                    ScrollView(.vertical, showsIndicators: true){
-                        ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
-                            dasWortSektion(dasWort: dasWort, index: index, running: 0)
+                    ScrollViewReader { proxy in
+                        ScrollView(.vertical, showsIndicators: true){
+                            ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
+                                dasWortSektion(dasWort: dasWort, index: index)
+                                    .id(index)
+                            }
+                        }
+                        .background(.clear)
+                        .onChange(of: runningWort) { newValue in
+                            withAnimation {
+                                proxy.scrollTo(newValue, anchor: .center) // или .top, если надо к началу
+                            }
                         }
                     }
-                    .background(.clear)
                 }
                 Spacer()
             }
@@ -96,7 +104,7 @@ struct WortRepeater: View {
         )
     }
     
-    private func dasWortSektion(dasWort: Wort, index: Int, running: Int) -> some View {
+    private func dasWortSektion(dasWort: Wort, index: Int) -> some View {
         let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
         return Group{
             Divider()
