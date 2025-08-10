@@ -279,6 +279,12 @@ struct Archival_Vocabulary{
                 uploadingDeklination.order = theDeklination.order
                 DeklinationDictionary.updateValue(uploadingDeklination, forKey: theDeklination.deklinationKey)
             }
+            let existingDeklinations: [Deklination] = try theContext.fetch(Deklination.fetchRequest())
+            for theExistingDeklination in existingDeklinations{
+                if(!DeklinationDictionary.values.contains(theExistingDeklination)){
+                    theContext.delete(theExistingDeklination)
+                }
+            }
              
             var GenusDictionary: [String:Genus] = [:]
             for theGenus in theData.genusHive.theHive{
@@ -287,6 +293,12 @@ struct Archival_Vocabulary{
                 uploadingGenus.name_RU = theGenus.name_RU
                 uploadingGenus.order = theGenus.order
                 GenusDictionary.updateValue(uploadingGenus, forKey: theGenus.genusKey)
+            }
+            let existingGenus: [Genus] = try theContext.fetch(Genus.fetchRequest())
+            for theExistingGenus in existingGenus{
+                if(!GenusDictionary.values.contains(theExistingGenus)){
+                    theContext.delete(theExistingGenus)
+                }
             }
             
             var KasusDictionary: [String:Kasus] = [:]
@@ -299,6 +311,12 @@ struct Archival_Vocabulary{
                 uploadingKasus.order = theKasus.order
                 KasusDictionary.updateValue(uploadingKasus, forKey: theKasus.kasusKey)
             }
+            let existingKasus: [Kasus] = try theContext.fetch(Kasus.fetchRequest())
+            for theExistingKasus in existingKasus{
+                if(!KasusDictionary.values.contains(theExistingKasus)){
+                    theContext.delete(theExistingKasus)
+                }
+            }
 
             var KomparationsgradDictionary: [String:Komparationsgrad] = [:]
             for theKomparationsgrad in theData.komparationsgradHive.theHive{
@@ -307,6 +325,12 @@ struct Archival_Vocabulary{
                 uploadingKomparationsgrad.name_RU = theKomparationsgrad.name_RU
                 uploadingKomparationsgrad.order = theKomparationsgrad.order
                 KomparationsgradDictionary.updateValue(uploadingKomparationsgrad, forKey: theKomparationsgrad.komparationsgradKey)
+            }
+            let existingKomparationsgrad: [Komparationsgrad] = try theContext.fetch(Komparationsgrad.fetchRequest())
+            for theExistingKomparationsgrad in existingKomparationsgrad{
+                if(!KomparationsgradDictionary.values.contains(theExistingKomparationsgrad)){
+                    theContext.delete(theExistingKomparationsgrad)
+                }
             }
 
             var ModusDictionary: [String:Modus] = [:]
@@ -317,6 +341,12 @@ struct Archival_Vocabulary{
                 uploadingModus.order = theModus.order
                 ModusDictionary.updateValue(uploadingModus, forKey: theModus.modusKey)
             }
+            let existingModus: [Modus] = try theContext.fetch(Modus.fetchRequest())
+            for theExistingModus in existingModus{
+                if(!ModusDictionary.values.contains(theExistingModus)){
+                    theContext.delete(theExistingModus)
+                }
+            }
             
             var NumerusDictionary: [String:Numerus] = [:]
             for theNumerus in theData.numerusHive.theHive{
@@ -325,6 +355,12 @@ struct Archival_Vocabulary{
                 uploadingNumerus.name_RU = theNumerus.name_RU
                 uploadingNumerus.order = theNumerus.order
                 NumerusDictionary.updateValue(uploadingNumerus, forKey: theNumerus.numerusKey)
+            }
+            let existingNumerus: [Numerus] = try theContext.fetch(Numerus.fetchRequest())
+            for theExistingNumerus in existingNumerus{
+                if(!NumerusDictionary.values.contains(theExistingNumerus)){
+                    theContext.delete(theExistingNumerus)
+                }
             }
             
             var PersonDictionary: [String:Person] = [:]
@@ -335,6 +371,12 @@ struct Archival_Vocabulary{
                 uploadingPerson.order = thePerson.order
                 PersonDictionary.updateValue(uploadingPerson, forKey: thePerson.personKey)
             }
+            let existingPerson: [Person] = try theContext.fetch(Person.fetchRequest())
+            for theExistingPerson in existingPerson{
+                if(!PersonDictionary.values.contains(theExistingPerson)){
+                    theContext.delete(theExistingPerson)
+                }
+            }
             
             var TempusDictionary: [String:Tempus] = [:]
             for theTempus in theData.tempusHive.theHive{
@@ -343,6 +385,12 @@ struct Archival_Vocabulary{
                 uploadingTempus.name_RU = theTempus.name_RU
                 uploadingTempus.order = theTempus.order
                 TempusDictionary.updateValue(uploadingTempus, forKey: theTempus.tempusKey)
+            }
+            let existingTempus: [Tempus] = try theContext.fetch(Tempus.fetchRequest())
+            for theExistingTempus in existingTempus{
+                if(!TempusDictionary.values.contains(theExistingTempus)){
+                    theContext.delete(theExistingTempus)
+                }
             }
             
             var WortArtDictionary: [String:WortArt] = [:]
@@ -363,6 +411,12 @@ struct Archival_Vocabulary{
                 uploadingWortArt.property_10 = theWortArt.property_10
                 WortArtDictionary.updateValue(uploadingWortArt, forKey: theWortArt.wortArtKey)
             }
+            let existingWortArt: [WortArt] = try theContext.fetch(WortArt.fetchRequest())
+            for theExistingWortArt in existingWortArt{
+                if(!WortArtDictionary.values.contains(theExistingWortArt)){
+                    theContext.delete(theExistingWortArt)
+                }
+            }
             
             var WortFormenDictionary: [String:WortFormen] = [:]
             for theWortFormen in theData.wortFormenHive.theHive{
@@ -370,6 +424,12 @@ struct Archival_Vocabulary{
                 uploadingWortFormen.wortFrequencyOrder = theWortFormen.wortFrequencyOrder
                 uploadingWortFormen.relWortArt    = WortArtDictionary[theWortFormen.relWortArt]!
                 WortFormenDictionary.updateValue(uploadingWortFormen, forKey: theWortFormen.wortFormenKey)
+            }
+            let existingWortFormen: [WortFormen] = try theContext.fetch(WortFormen.fetchRequest())
+            for theExistingWortFormen in existingWortFormen{
+                if(!WortFormenDictionary.values.contains(theExistingWortFormen)){
+                    theContext.delete(theExistingWortFormen)
+                }
             }
             
             var WortDictionary: [String:Wort] = [:]
@@ -399,6 +459,12 @@ struct Archival_Vocabulary{
                 uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                 WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
             }
+            let existingWort: [Wort] = try theContext.fetch(Wort.fetchRequest())
+            for theExistingWort in existingWort{
+                if(!WortDictionary.values.contains(theExistingWort)){
+                    theContext.delete(theExistingWort)
+                }
+            }
             
             var BeispielDictionary: [String:Beispiel] = [:]
             for theBeispel in theData.beispielHive.theHive{
@@ -407,6 +473,12 @@ struct Archival_Vocabulary{
                 uploadingBeispiel.beispiel_RU = theBeispel.beispiel_RU
                 uploadingBeispiel.relWort = WortDictionary[theBeispel.relWort]
                 BeispielDictionary.updateValue(uploadingBeispiel, forKey: theBeispel.beispielKey)
+            }
+            let existingBeispiel: [Beispiel] = try theContext.fetch(Beispiel.fetchRequest())
+            for theExistingBeispliel in existingBeispiel{
+                if(!BeispielDictionary.values.contains(theExistingBeispliel)){
+                    theContext.delete(theExistingBeispliel)
+                }
             }
         }catch{
             return
