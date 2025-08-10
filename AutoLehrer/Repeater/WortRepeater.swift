@@ -24,6 +24,8 @@ struct WortRepeater: View {
     
     @State var runningWort: Int = 0
     
+    @State private var blur: CGFloat = 0
+    
     var body: some View {
         VStack{
             HStack{
@@ -63,6 +65,9 @@ struct WortRepeater: View {
                             }
                             WortFormen.set_attempted(pickedWortFormen!)
                             pickTheWord()
+                        }else{
+                            withAnimation(.easeInOut(duration: 0.12)) { blur = 6 }
+                            withAnimation(.easeOut(duration: 0.88).delay(0.12)) { blur = 0 }
                         }
                     },
                     widthFlood: true
@@ -182,6 +187,7 @@ struct WortRepeater: View {
             }
             .if(isCurrent){ view in
                 view.NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .blur(radius: blur)
             }
         }
     }
