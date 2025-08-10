@@ -138,7 +138,8 @@ struct WortRepeater: View {
                         russischesWorte: dasWort.wort_RU!,
                         deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
                         russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
-                        result: $guessingResult[index]
+                        result: $guessingResult[index],
+                        condensed: !isCurrent
                     )
                     .onChange(of: deutschesSeite[index]){ value in
                         flippedSeite[index] = true

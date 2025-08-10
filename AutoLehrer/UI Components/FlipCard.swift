@@ -15,33 +15,40 @@ struct FlipCard: View {
     @EnvironmentObject var theme: ThemeManager
     
     @Binding var deutschesSeite: Bool
-    //@State var deutschesSeite: Bool = false
     var deutschesWorte: String
     var russischesWorte: String
     var deutschesBeispeil: String?
     var russischesBeispeil: String?
     @Binding var result: Int
-    //@State var result: Int = 0
+    var condensed: Bool = true
     
     var body: some View {
         VStack {
             if(deutschesSeite){
                 Text(deutschesWorte)
                     .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
+                    .padding(.top, condensed ? 0 : 10)
+                    .if(deutschesBeispeil == nil){ view in
+                            view.padding(.bottom, condensed ? 0 : 10)
+                    }
                 if(deutschesBeispeil != nil){
                     Text("\"\(deutschesBeispeil!)\"")
                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         .padding(.leading, 10)
-                    Spacer()
+                        .padding(.bottom, condensed ? 0 : 10)
                 }
             }else{
                 Text(russischesWorte)
                     .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
+                    .padding(.top, condensed ? 0 : 10)
+                    .if(russischesBeispeil == nil){ view in
+                            view.padding(.bottom, condensed ? 0 : 10)
+                    }
                 if(russischesBeispeil != nil){
                     Text("\"\(russischesBeispeil!)\"")
                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         .padding(.leading, 10)
-                    Spacer()
+                        .padding(.bottom, condensed ? 0 : 10)
                 }
             }
         }
