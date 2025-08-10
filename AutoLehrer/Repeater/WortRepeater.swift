@@ -16,6 +16,7 @@ struct WortRepeater: View {
     @State var beispiel: [Beispiel?] = []
     @State var deutschesSeite: [Bool] = []
     @State var flippedSeite: [Bool] = []
+    @State var flipScaleRatio: [CGFloat] = []
     @State var wortForm: [WortArtFormen] = []
     
     @State var exercisedWorte: Set<WortFormen> = []
@@ -141,6 +142,7 @@ struct WortRepeater: View {
                         result: $guessingResult[index],
                         condensed: !isCurrent
                     )
+                    .scaleEffect(flipScaleRatio[index])
                     .onChange(of: deutschesSeite[index]){ value in
                         flippedSeite[index] = true
                     }
@@ -216,6 +218,21 @@ struct WortRepeater: View {
                 view.NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .scaleEffect(scaleRatio)
             }
+            .if(!flippedSeite[index] && isCurrent){ view in
+                view.onAppear{
+                    print("Initiate flipping for index \(index)")
+                    withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
+                    withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.3).delay(1.0)) { flipScaleRatio[index] = 1.04 }
+                    withAnimation(.easeOut(duration: 0.7).delay(1.3)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.3).delay(2.0)) { flipScaleRatio[index] = 1.06 }
+                    withAnimation(.easeOut(duration: 0.7).delay(2.3)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.3).delay(3.0)) { flipScaleRatio[index] = 1.08 }
+                    withAnimation(.easeOut(duration: 0.7).delay(3.3)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.3).delay(4.0)) { flipScaleRatio[index] = 1.1 }
+                    withAnimation(.easeOut(duration: 0.7).delay(4.3)) { flipScaleRatio[index] = 1 }
+                }
+            }
         }
     }
     func pickTheWord() {
@@ -250,6 +267,7 @@ struct WortRepeater: View {
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         flippedSeite = Array(repeating: false, count: wort.count)
+        flipScaleRatio = Array(repeating: 1, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOn = false
         runningWort = 0
