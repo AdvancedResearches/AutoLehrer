@@ -994,10 +994,17 @@ struct NG_Button: View {
         }
     }
     
+    @State private var blur: CGFloat = 0
+    @State private var hapticTrigger = false
+    
     var body: some View {
         if let action = action {
             Button(action: {
-                
+                if(isDisabled){
+                    hapticTrigger.toggle() // iOS 17+: .sensoryFeedback(.error, trigger:)
+                    withAnimation(.easeInOut(duration: 0.12)) { blur = 6 }
+                    withAnimation(.easeOut(duration: 0.88).delay(0.12)) { blur = 0 }
+                }
                 action()
             }) {
                 if(textScroll){
@@ -1013,6 +1020,8 @@ struct NG_Button: View {
                     Text(title)
                 }
             }
+            .blur(radius: blur)
+            .sensoryFeedback(.error, trigger: hapticTrigger)
             .buttonStyle(
                 NG_Color_ButtonStyle_ButtonStyle(
                     backgroundGradient: backgroundGradient,
