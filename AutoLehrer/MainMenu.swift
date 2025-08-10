@@ -149,6 +149,7 @@ struct MainMenu: View {
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
                     
+                    
                     VStack(alignment: .leading){
                         Text("Статистика")
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
