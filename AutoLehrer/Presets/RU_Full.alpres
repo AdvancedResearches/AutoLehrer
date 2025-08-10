@@ -6999,6 +6999,356 @@
     "relWort": "NomenOrder1000weiblichGenusnominativeKasussingularNumerus",
     "beispielKey": "NomenOrder1000weiblichGenusnominativeKasussingularNumerusbeispielKey",
     "order": 1000
+  },
+  {
+    "beispiel_DE": "Er hat das Fenster geöffnet und sofort frische Luft gespürt.",
+    "beispiel_RU": "Он открыл окно и сразу почувствовал свежий воздух.",
+    "relWort": "FunkWortOrder1GrundformKey",
+    "beispielKey": "FunkWortOrder1GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Willst du jetzt losgehen oder noch zehn Minuten warten?",
+    "beispiel_RU": "Хочешь сейчас пойти или подождать ещё десять минут?",
+    "relWort": "FunkWortOrder2GrundformKey",
+    "beispielKey": "FunkWortOrder2GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Es ist ein kleines Dorf, aber es hat eine große Bibliothek.",
+    "beispiel_RU": "Это маленькая деревня, но в ней есть большая библиотека.",
+    "relWort": "FunkWortOrder3GrundformKey",
+    "beispielKey": "FunkWortOrder3GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Sie hat vergessen, dass heute ihr Geburtstag ist.",
+    "beispiel_RU": "Она забыла, что сегодня её день рождения.",
+    "relWort": "FunkWortOrder4GrundformKey",
+    "beispielKey": "FunkWortOrder4GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich trage eine Jacke, weil es draußen windig ist.",
+    "beispiel_RU": "Я надела куртку, потому что на улице ветрено.",
+    "relWort": "FunkWortOrder5GrundformKey",
+    "beispielKey": "FunkWortOrder5GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich werde froh sein, wenn du mir schreibst.",
+    "beispiel_RU": "Я буду рада, если ты мне напишешь.",
+    "relWort": "FunkWortOrder6GrundformKey",
+    "beispielKey": "FunkWortOrder6GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Er bewegt sich leise, wie eine Katze.",
+    "beispiel_RU": "Он двигается тихо, как кошка.",
+    "relWort": "FunkWortOrder7GrundformKey",
+    "beispielKey": "FunkWortOrder7GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Sag mir bitte, was dich so beunruhigt.",
+    "beispiel_RU": "Скажи мне, что тебя так тревожит.",
+    "relWort": "FunkWortOrder8GrundformKey",
+    "beispielKey": "FunkWortOrder8GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich möchte wissen, wer hinter dieser Idee steckt.",
+    "beispiel_RU": "Я хочу знать, кто стоит за этой идеей.",
+    "relWort": "FunkWortOrder9GrundformKey",
+    "beispielKey": "FunkWortOrder9GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Niemand wusste, wo er in der Nacht geblieben war.",
+    "beispiel_RU": "Никто не знал, где он был ночью.",
+    "relWort": "FunkWortOrder10GrundformKey",
+    "beispielKey": "FunkWortOrder10GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Er konnte nicht erklären, warum er gelacht hat.",
+    "beispiel_RU": "Он не смог объяснить, почему смеялся.",
+    "relWort": "FunkWortOrder11GrundformKey",
+    "beispielKey": "FunkWortOrder11GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Sag mir, wann du die Wahrheit erfahren hast.",
+    "beispiel_RU": "Скажи мне, когда ты узнал правду.",
+    "relWort": "FunkWortOrder12GrundformKey",
+    "beispielKey": "FunkWortOrder12GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich frage mich, welche Entscheidung du treffen wirst.",
+    "beispiel_RU": "Мне интересно, какое решение ты примешь.",
+    "relWort": "FunkWortOrder13GrundformKey",
+    "beispielKey": "FunkWortOrder13GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Sie zweifelt, ob er rechtzeitig kommt.",
+    "beispiel_RU": "Она сомневается, придёт ли он вовремя.",
+    "relWort": "FunkWortOrder14GrundformKey",
+    "beispielKey": "FunkWortOrder14GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Die Straße war gesperrt, doch wir fanden einen anderen Weg.",
+    "beispiel_RU": "Дорога была перекрыта, всё же мы нашли другой путь.",
+    "relWort": "FunkWortOrder15GrundformKey",
+    "beispielKey": "FunkWortOrder15GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Es gibt keinen Grund zu warten, also beginnen wir jetzt.",
+    "beispiel_RU": "Нет причины ждать, итак начнём сейчас.",
+    "relWort": "FunkWortOrder16GrundformKey",
+    "beispielKey": "FunkWortOrder16GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Gehen wir hinein, denn es wird kalt.",
+    "beispiel_RU": "Давай войдём, потому что холодает.",
+    "relWort": "FunkWortOrder17GrundformKey",
+    "beispielKey": "FunkWortOrder17GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Er schloss das Fenster, damit der Rauch nicht hereinkommt.",
+    "beispiel_RU": "Он закрыл окно, чтобы дым не проник внутрь.",
+    "relWort": "FunkWortOrder18GrundformKey",
+    "beispielKey": "FunkWortOrder18GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Die Brücke ist kaputt, deshalb müssen wir einen Umweg machen.",
+    "beispiel_RU": "Мост сломан, поэтому нам придётся сделать крюк.",
+    "relWort": "FunkWortOrder19GrundformKey",
+    "beispielKey": "FunkWortOrder19GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Der Berg war steil, trotzdem stieg sie bis zum Gipfel.",
+    "beispiel_RU": "Гора была крутой, несмотря на это, она поднялась на вершину.",
+    "relWort": "FunkWortOrder20GrundformKey",
+    "beispielKey": "FunkWortOrder20GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Das Paket enthält Kleidung sowie Schuhe.",
+    "beispiel_RU": "Пакет содержит одежду, а также обувь.",
+    "relWort": "FunkWortOrder21GrundformKey",
+    "beispielKey": "FunkWortOrder21GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich melde mich, sobald ich angekommen bin.",
+    "beispiel_RU": "Я напишу тебе, как только приеду.",
+    "relWort": "FunkWortOrder22GrundformKey",
+    "beispielKey": "FunkWortOrder22GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Er kann mehrere Instrumente spielen, sogar die Harfe.",
+    "beispiel_RU": "Он умеет играть на нескольких инструментах, даже на арфе.",
+    "relWort": "FunkWortOrder23GrundformKey",
+    "beispielKey": "FunkWortOrder23GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Das ist kein Fehler, sondern Absicht.",
+    "beispiel_RU": "Это не ошибка, а намерение.",
+    "relWort": "FunkWortOrder24GrundformKey",
+    "beispielKey": "FunkWortOrder24GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Wir müssen zuerst bezahlen, dann können wir gehen.",
+    "beispiel_RU": "Сначала надо заплатить, затем можно будет уйти.",
+    "relWort": "FunkWortOrder25GrundformKey",
+    "beispielKey": "FunkWortOrder25GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich bleibe zu Hause, da ich mich nicht wohlfühle.",
+    "beispiel_RU": "Я останусь дома, так как плохо себя чувствую.",
+    "relWort": "FunkWortOrder26GrundformKey",
+    "beispielKey": "FunkWortOrder26GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Er ist zwar jung, aber sehr erfahren.",
+    "beispiel_RU": "Он хотя и молод, но очень опытен.",
+    "relWort": "FunkWortOrder27GrundformKey",
+    "beispielKey": "FunkWortOrder27GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Das Angebot ist gut, jedoch zeitlich begrenzt.",
+    "beispiel_RU": "Предложение хорошее, однако ограничено по времени.",
+    "relWort": "FunkWortOrder28GrundformKey",
+    "beispielKey": "FunkWortOrder28GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Obwohl ich müde war, konnte ich nicht einschlafen.",
+    "beispiel_RU": "Хотя я устала, не смогла уснуть.",
+    "relWort": "FunkWortOrder29GrundformKey",
+    "beispielKey": "FunkWortOrder29GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Während sie kochte, hat er den Tisch gedeckt.",
+    "beispiel_RU": "В то время как она готовила, он накрыл на стол.",
+    "relWort": "FunkWortOrder30GrundformKey",
+    "beispielKey": "FunkWortOrder30GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich stimme zu, insofern du die Regeln einhältst.",
+    "beispiel_RU": "Я согласна, поскольку ты соблюдаешь правила.",
+    "relWort": "FunkWortOrder31GrundformKey",
+    "beispielKey": "FunkWortOrder31GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Sie beeindruckte alle, indem sie ruhig blieb.",
+    "beispiel_RU": "Она впечатлила всех, посредством того что осталась спокойной.",
+    "relWort": "FunkWortOrder32GrundformKey",
+    "beispielKey": "FunkWortOrder32GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Er ist weder freundlich noch hilfsbereit.",
+    "beispiel_RU": "Он ни дружелюбный, ни готовый помочь.",
+    "relWort": "FunkWortOrder33GrundformKey",
+    "beispielKey": "FunkWortOrder33GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Wir fahren entweder mit dem Zug oder mit dem Auto.",
+    "beispiel_RU": "Мы поедем или на поезде, или на машине.",
+    "relWort": "FunkWortOrder34GrundformKey",
+    "beispielKey": "FunkWortOrder34GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Denk nach, bevor du antwortest.",
+    "beispiel_RU": "Подумай, прежде чем ответить.",
+    "relWort": "FunkWortOrder35GrundformKey",
+    "beispielKey": "FunkWortOrder35GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Nachdem er die Tür geschlossen hatte, hörte er ein Geräusch.",
+    "beispiel_RU": "После того как он закрыл дверь, он услышал шум.",
+    "relWort": "FunkWortOrder36GrundformKey",
+    "beispielKey": "FunkWortOrder36GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich habe ihn nicht gesehen, seit er umgezogen ist.",
+    "beispiel_RU": "Я его не видела, с тех пор как он переехал.",
+    "relWort": "FunkWortOrder37GrundformKey",
+    "beispielKey": "FunkWortOrder37GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich bleibe hier, bis du zurückkommst.",
+    "beispiel_RU": "Я останусь здесь, пока ты не вернёшься.",
+    "relWort": "FunkWortOrder38GrundformKey",
+    "beispielKey": "FunkWortOrder38GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Wir haben lange über deine Idee diskutiert.",
+    "beispiel_RU": "Мы долго говорили о твоей идее.",
+    "relWort": "FunkWortOrder39GrundformKey",
+    "beispielKey": "FunkWortOrder39GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Dieses Buch ist für Anfänger geeignet.",
+    "beispiel_RU": "Эта книга подходит для начинающих.",
+    "relWort": "FunkWortOrder40GrundformKey",
+    "beispielKey": "FunkWortOrder40GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Die Mannschaft spielt heute gegen den Meister.",
+    "beispiel_RU": "Команда играет сегодня против чемпиона.",
+    "relWort": "FunkWortOrder41GrundformKey",
+    "beispielKey": "FunkWortOrder41GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Geh nicht ohne Jacke raus.",
+    "beispiel_RU": "Не выходи без куртки.",
+    "relWort": "FunkWortOrder42GrundformKey",
+    "beispielKey": "FunkWortOrder42GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Wir treffen uns morgen, um die Details zu besprechen.",
+    "beispiel_RU": "Мы встретимся завтра, чтобы обсудить детали.",
+    "relWort": "FunkWortOrder43GrundformKey",
+    "beispielKey": "FunkWortOrder43GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Sie kam mit einem breiten Lächeln ins Zimmer.",
+    "beispiel_RU": "Она вошла в комнату с широкой улыбкой.",
+    "relWort": "FunkWortOrder44GrundformKey",
+    "beispielKey": "FunkWortOrder44GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Dieses Lied ist von meinem Lieblingssänger.",
+    "beispiel_RU": "Эта песня от моего любимого певца.",
+    "relWort": "FunkWortOrder45GrundformKey",
+    "beispielKey": "FunkWortOrder45GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Das Poster hängt an der Tür.",
+    "beispiel_RU": "Постер висит на двери.",
+    "relWort": "FunkWortOrder46GrundformKey",
+    "beispielKey": "FunkWortOrder46GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Die Möbel sind aus Holz gefertigt.",
+    "beispiel_RU": "Мебель сделана из дерева.",
+    "relWort": "FunkWortOrder47GrundformKey",
+    "beispielKey": "FunkWortOrder47GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich habe meinen Schlüssel bei meinem Freund gelassen.",
+    "beispiel_RU": "Я оставила ключ у друга.",
+    "relWort": "FunkWortOrder48GrundformKey",
+    "beispielKey": "FunkWortOrder48GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Nach langer Diskussion haben wir uns entschieden.",
+    "beispiel_RU": "После долгого обсуждения мы приняли решение.",
+    "relWort": "FunkWortOrder49GrundformKey",
+    "beispielKey": "FunkWortOrder49GrundformKeybeispielKey",
+    "order": null
+  },
+  {
+    "beispiel_DE": "Ich fahre morgen zu meinen Großeltern.",
+    "beispiel_RU": "Я поеду завтра к своим бабушке и дедушке.",
+    "relWort": "FunkWortOrder50GrundformKey",
+    "beispielKey": "FunkWortOrder50GrundformKeybeispielKey",
+    "order": null
   }
 ]
  },
