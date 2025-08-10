@@ -996,7 +996,10 @@ struct NG_Button: View {
     
     var body: some View {
         if let action = action {
-            Button(action: action) {
+            Button(action: {
+                
+                action()
+            }) {
                 if(textScroll){
                     ScrollView(.horizontal){
                         HStack {
