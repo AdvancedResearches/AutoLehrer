@@ -20,7 +20,7 @@ struct WortRepeater: View {
     @State var exercisedWorte: Set<WortFormen> = []
     @State var confirmedWorte: Set<WortFormen> = []
     
-    @State var readyToMoveOne: Bool = false
+    @State var readyToMoveOn: Bool = false
     
     @State var runningWort: Int = 0
     
@@ -35,30 +35,35 @@ struct WortRepeater: View {
                 NG_Button(
                     title: "Дальше".localized(for: language),
                     style: .NG_ButtonStyle_Service,
-                    isDisabled: .constant(false),
-                    isHighlighting: $readyToMoveOne,
+                    isDisabled: .init(
+                        get: { !readyToMoveOn },
+                        set: { readyToMoveOn = !$0 }
+                    ),
+                    isHighlighting: .constant(false),
                     isPulsating: .constant(false),
                     action: {
-                        var successCounter: Int = 0
-                        for theFormCounter in 0..<wort.count{
-                            if(guessingResult[theFormCounter] == 1){
-                                Statistics.set_success(wort[theFormCounter])
-                                successCounter += 1
+                        if(readyToMoveOn){
+                            var successCounter: Int = 0
+                            for theFormCounter in 0..<wort.count{
+                                if(guessingResult[theFormCounter] == 1){
+                                    Statistics.set_success(wort[theFormCounter])
+                                    successCounter += 1
+                                }
+                                if(guessingResult[theFormCounter] == -1){
+                                    Statistics.set_failure(wort[theFormCounter])
+                                }
                             }
-                            if(guessingResult[theFormCounter] == -1){
-                                Statistics.set_failure(wort[theFormCounter])
+                            if(successCounter == wort.count){
+                                if(WortFormen.set_success(pickedWortFormen!)){
+                                    confirmedWorte.insert(pickedWortFormen!)
+                                }
+                            }else{
+                                WortFormen.set_failure(pickedWortFormen!)
+                                confirmedWorte.remove(pickedWortFormen!)
                             }
+                            WortFormen.set_attempted(pickedWortFormen!)
+                            pickTheWord()
                         }
-                        if(successCounter == wort.count){
-                            if(WortFormen.set_success(pickedWortFormen!)){
-                                confirmedWorte.insert(pickedWortFormen!)
-                            }
-                        }else{
-                            WortFormen.set_failure(pickedWortFormen!)
-                            confirmedWorte.remove(pickedWortFormen!)
-                        }
-                        WortFormen.set_attempted(pickedWortFormen!)
-                        pickTheWord()
                     },
                     widthFlood: true
                 )
@@ -131,7 +136,7 @@ struct WortRepeater: View {
                                 runningWort += 1
                             }
                             guessingResult[index] = 1
-                            readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
+                            readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                         }
                     Image(systemName: "multiply.square.fill")
                         .resizable()
@@ -142,7 +147,7 @@ struct WortRepeater: View {
                                 runningWort += 1
                             }
                             guessingResult[index] = -1
-                            readyToMoveOne = guessingResult.allSatisfy { $0 != 0}
+                            readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                         }
                 }
             }
@@ -184,7 +189,7 @@ struct WortRepeater: View {
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
-        readyToMoveOne = false
+        readyToMoveOn = false
         runningWort = 0
         pickedWortFormen = pickedSache
     }

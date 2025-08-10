@@ -1029,7 +1029,6 @@ struct NG_Button: View {
                 view
                     .shadow(color: shadowColor!, radius: 8, x: 3, y: 4)
             }
-            //.NG_Pulsating(pulsation: $isPulsating)
             .if(isPulsating){ view in
                 view.modifier(NG_Pulsation_Modifier(pulsating: .constant(true), baseScale: .constant(1.00), bigScale: .constant( massivePulse ? 1.2 : 1.05)))
             }
@@ -1057,7 +1056,6 @@ struct NG_Button: View {
                     view
                         .shadow(color: shadowColor!, radius: 8, x: 3, y: 4)
                 }
-            //.NG_Pulsating(pulsation: $isPulsating)
             .if(isPulsating){ view in
                 view.modifier(NG_Pulsation_Modifier(pulsating: .constant(true), baseScale: .constant(1.00), bigScale: .constant( massivePulse ? 1.2 : 1.05)))
             }
