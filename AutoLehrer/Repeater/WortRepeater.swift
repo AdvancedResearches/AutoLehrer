@@ -25,6 +25,7 @@ struct WortRepeater: View {
     @State var runningWort: Int = 0
     
     @State private var blur: CGFloat = 0
+    @State private var scaleRatio: CGFloat = 1
     
     var body: some View {
         VStack{
@@ -66,8 +67,21 @@ struct WortRepeater: View {
                             WortFormen.set_attempted(pickedWortFormen!)
                             pickTheWord()
                         }else{
-                            withAnimation(.easeInOut(duration: 0.12)) { blur = 6 }
-                            withAnimation(.easeOut(duration: 0.88).delay(0.12)) { blur = 0 }
+                            /*
+                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
+                            withAnimation(.easeOut(duration: 0.1).delay(0.12)) { blur = 0 }
+                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
+                            withAnimation(.easeOut(duration: 0.1).delay(0.12)) { blur = 0 }
+                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
+                            withAnimation(.easeOut(duration: 0.5).delay(0.12)) { blur = 0 }
+                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
+                             */
+                            withAnimation(.easeInOut(duration: 0.1)) { scaleRatio = 1.1 }
+                            withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                            withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                            withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                            withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                            withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
                         }
                     },
                     widthFlood: true
@@ -187,7 +201,8 @@ struct WortRepeater: View {
             }
             .if(isCurrent){ view in
                 view.NG_Card(.NG_CardStyle_Regular, theme: theme)
-                    .blur(radius: blur)
+                    //.blur(radius: blur)
+                    .scaleEffect(scaleRatio)
             }
         }
     }
