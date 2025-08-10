@@ -40,7 +40,7 @@ struct WortRepeater: View {
                         set: { readyToMoveOn = !$0 }
                     ),
                     isHighlighting: .constant(false),
-                    isPulsating: .constant(false),
+                    isPulsating: .constant(readyToMoveOn),
                     action: {
                         if(readyToMoveOn){
                             var successCounter: Int = 0
@@ -111,6 +111,8 @@ struct WortRepeater: View {
     
     private func dasWortSektion(dasWort: Wort, index: Int) -> some View {
         let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
+        let hasPassed = index < runningWort
+        let isCurrent = index == runningWort
         return Group{
             Divider()
             VStack{
@@ -127,31 +129,58 @@ struct WortRepeater: View {
                         russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
                         result: $guessingResult[index]
                     )
-                    Image(systemName: "checkmark.square.fill")
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        .onTapGesture {
+                    if(!isCurrent){
+                        Image(systemName: "checkmark.square.fill")
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .NG_iconStyling(hasPassed ? .NG_IconStyle_Green : .NG_IconStyle_Disabled, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            .onTapGesture {
+                                if(hasPassed){
+                                    if(guessingResult[index] == 0){
+                                        runningWort += 1
+                                    }
+                                    guessingResult[index] = 1
+                                    readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                }
+                            }
+                        Image(systemName: "multiply.square.fill")
+                            .resizable()
+                            .frame(width: 35, height: 35)
+                            .NG_iconStyling(hasPassed ? .NG_IconStyle_Red : .NG_IconStyle_Disabled, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            .onTapGesture {
+                                if(hasPassed){
+                                    if(guessingResult[index] == 0){
+                                        runningWort += 1
+                                    }
+                                    guessingResult[index] = -1
+                                    readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                }
+                            }
+                    }
+                }
+                if(isCurrent){
+                    HStack{
+                        Spacer()
+                        NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
                             if(guessingResult[index] == 0){
                                 runningWort += 1
                             }
                             guessingResult[index] = 1
                             readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
-                        }
-                    Image(systemName: "multiply.square.fill")
-                        .resizable()
-                        .frame(width: 35, height: 35)
-                        .NG_iconStyling(.NG_IconStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        .onTapGesture {
+                        })
+                        Spacer()
+                        NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
                             if(guessingResult[index] == 0){
                                 runningWort += 1
                             }
                             guessingResult[index] = -1
                             readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
-                        }
+                        })
+                        Spacer()
+                    }
                 }
             }
-            .if(index == runningWort){ view in
+            .if(isCurrent){ view in
                 view.NG_Card(.NG_CardStyle_Regular, theme: theme)
             }
         }
