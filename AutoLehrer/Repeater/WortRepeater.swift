@@ -16,6 +16,7 @@ struct WortRepeater: View {
     @State var beispiel: [Beispiel?] = []
     @State var deutschesSeite: [Bool] = []
     @State var flippedSeite: [Bool] = []
+    @State var missedGuess: [Bool] = []
     @State var flipScaleRatio: [CGFloat] = []
     @State var wortForm: [WortArtFormen] = []
     
@@ -180,13 +181,12 @@ struct WortRepeater: View {
                         Spacer()
                         NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: Binding(
                             get: {
-                                !flippedSeite[index]
+                                !flippedSeite[index] || missedGuess[index]
                             },
                             set: { value in
-                                flippedSeite[index] = !value
                             }
                         ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                            if(flippedSeite[index]){
+                            if(flippedSeite[index] && !missedGuess[index]){
                                 if(guessingResult[index] == 0){
                                     runningWort += 1
                                 }
@@ -223,14 +223,21 @@ struct WortRepeater: View {
                     print("Initiate flipping for index \(index)")
                     withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
                     withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.3).delay(1.0)) { flipScaleRatio[index] = 1.04 }
-                    withAnimation(.easeOut(duration: 0.7).delay(1.3)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.3).delay(2.0)) { flipScaleRatio[index] = 1.06 }
-                    withAnimation(.easeOut(duration: 0.7).delay(2.3)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.3).delay(3.0)) { flipScaleRatio[index] = 1.08 }
-                    withAnimation(.easeOut(duration: 0.7).delay(3.3)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.3).delay(4.0)) { flipScaleRatio[index] = 1.1 }
-                    withAnimation(.easeOut(duration: 0.7).delay(4.3)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.25).delay(1.0)) { flipScaleRatio[index] = 1.04 }
+                    withAnimation(.easeOut(duration: 0.75).delay(1.25)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.2).delay(2.0)) { flipScaleRatio[index] = 1.06 }
+                    withAnimation(.easeOut(duration: 0.8).delay(2.2)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.15).delay(3.0)) { flipScaleRatio[index] = 1.08 }
+                    withAnimation(.easeOut(duration: 0.85).delay(3.15)) { flipScaleRatio[index] = 1 }
+                    withAnimation(.easeOut(duration: 0.1).delay(4.0)) { flipScaleRatio[index] = 1.1 }
+                    withAnimation(.easeOut(duration: 0.9).delay(4.1)) { flipScaleRatio[index] = 1 }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        if(!flippedSeite[index]){
+                            deutschesSeite[index] = true
+                            flippedSeite[index] = true
+                            missedGuess[index] = true
+                        }
+                    }
                 }
             }
         }
@@ -267,6 +274,7 @@ struct WortRepeater: View {
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         flippedSeite = Array(repeating: false, count: wort.count)
+        missedGuess = Array(repeating: false, count: wort.count)
         flipScaleRatio = Array(repeating: 1, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOn = false
