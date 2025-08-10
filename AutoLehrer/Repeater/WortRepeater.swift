@@ -15,6 +15,7 @@ struct WortRepeater: View {
     @State var wort: [Wort] = []
     @State var beispiel: [Beispiel?] = []
     @State var deutschesSeite: [Bool] = []
+    @State var flippedSeite: [Bool] = []
     @State var wortForm: [WortArtFormen] = []
     
     @State var exercisedWorte: Set<WortFormen> = []
@@ -67,15 +68,6 @@ struct WortRepeater: View {
                             WortFormen.set_attempted(pickedWortFormen!)
                             pickTheWord()
                         }else{
-                            /*
-                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
-                            withAnimation(.easeOut(duration: 0.1).delay(0.12)) { blur = 0 }
-                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
-                            withAnimation(.easeOut(duration: 0.1).delay(0.12)) { blur = 0 }
-                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
-                            withAnimation(.easeOut(duration: 0.5).delay(0.12)) { blur = 0 }
-                            withAnimation(.easeInOut(duration: 0.1)) { blur = 6 }
-                             */
                             withAnimation(.easeInOut(duration: 0.1)) { scaleRatio = 1.1 }
                             withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
                             withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
@@ -148,6 +140,9 @@ struct WortRepeater: View {
                         russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
                         result: $guessingResult[index]
                     )
+                    .onChange(of: deutschesSeite[index]){ value in
+                        flippedSeite[index] = true
+                    }
                     if(!isCurrent){
                         Image(systemName: "checkmark.square.fill")
                             .resizable()
@@ -180,28 +175,44 @@ struct WortRepeater: View {
                 if(isCurrent){
                     HStack{
                         Spacer()
-                        NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                            if(guessingResult[index] == 0){
-                                runningWort += 1
+                        NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: Binding(
+                            get: {
+                                !flippedSeite[index]
+                            },
+                            set: { value in
+                                flippedSeite[index] = !value
                             }
-                            guessingResult[index] = 1
-                            readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
-                        })
-                        Spacer()
-                        NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                            if(guessingResult[index] == 0){
-                                runningWort += 1
+                        ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                            if(flippedSeite[index]){
+                                if(guessingResult[index] == 0){
+                                    runningWort += 1
+                                }
+                                guessingResult[index] = 1
+                                readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                             }
-                            guessingResult[index] = -1
-                            readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
-                        })
+                        }, widthFlood: true)
+                        NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(
+                            get: {
+                                !flippedSeite[index]
+                            },
+                            set: { value in
+                                flippedSeite[index] = !value
+                            }
+                        ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                            if(flippedSeite[index]){
+                                if(guessingResult[index] == 0){
+                                    runningWort += 1
+                                }
+                                guessingResult[index] = -1
+                                readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                            }
+                        }, widthFlood: true)
                         Spacer()
                     }
                 }
             }
             .if(isCurrent){ view in
                 view.NG_Card(.NG_CardStyle_Regular, theme: theme)
-                    //.blur(radius: blur)
                     .scaleEffect(scaleRatio)
             }
         }
@@ -228,8 +239,7 @@ struct WortRepeater: View {
         beispiel = []
         
         for theCounter in 0..<wortFormList.count{
-            //print("picking wort for \(wortFormList[theCounter].debug_string())")
-            let wortTest = Wort.pick_wort(pickedSache, /*genus: wortFormList[theCounter].genus, kasus: wortFormList[theCounter].kasus, modus: wortFormList[theCounter].modus, numerus: wortFormList[theCounter].numerus, person: wortFormList[theCounter].person, tempus: wortFormList[theCounter].tempus*/ wortArtFormen: wortFormList[theCounter])
+            let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
             if(wortTest != nil){
                 wort.append(wortTest!)
                 beispiel.append(Wort.get_beispiel(wortTest!))
@@ -238,6 +248,7 @@ struct WortRepeater: View {
         }
         
         deutschesSeite = Array(repeating: false, count: wort.count)
+        flippedSeite = Array(repeating: false, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOn = false
         runningWort = 0
