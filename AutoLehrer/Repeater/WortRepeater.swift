@@ -30,6 +30,8 @@ struct WortRepeater: View {
     @State private var blur: CGFloat = 0
     @State private var scaleRatio: CGFloat = 1
     
+    @State var attemptCounter: Int = 0
+    
     var body: some View {
         VStack{
             HStack{
@@ -49,6 +51,7 @@ struct WortRepeater: View {
                     isPulsating: .constant(readyToMoveOn),
                     action: {
                         if(readyToMoveOn){
+                            attemptCounter += 1
                             var successCounter: Int = 0
                             for theFormCounter in 0..<wort.count{
                                 if(guessingResult[theFormCounter] == 1){
@@ -70,7 +73,7 @@ struct WortRepeater: View {
                             WortFormen.set_attempted(pickedWortFormen!)
                             pickTheWord()
                         }else{
-                            withAnimation(.easeInOut(duration: 0.1)) { scaleRatio = 1.1 }
+                            withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
                             withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
                             withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
                             withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
@@ -220,6 +223,7 @@ struct WortRepeater: View {
             }
             .if(!flippedSeite[index] && isCurrent){ view in
                 view.onAppear{
+                    let thisCertainCounter = attemptCounter
                     print("Initiate flipping for index \(index)")
                     withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
                     withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
@@ -232,10 +236,12 @@ struct WortRepeater: View {
                     withAnimation(.easeOut(duration: 0.1).delay(4.0)) { flipScaleRatio[index] = 1.1 }
                     withAnimation(.easeOut(duration: 0.9).delay(4.1)) { flipScaleRatio[index] = 1 }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        if(!flippedSeite[index]){
-                            deutschesSeite[index] = true
-                            flippedSeite[index] = true
-                            missedGuess[index] = true
+                        if(attemptCounter == thisCertainCounter){
+                            if(!flippedSeite[index]){
+                                deutschesSeite[index] = true
+                                flippedSeite[index] = true
+                                missedGuess[index] = true
+                            }
                         }
                     }
                 }
@@ -253,6 +259,9 @@ struct WortRepeater: View {
         wort = []
         beispiel = []
         deutschesSeite = []
+        flippedSeite = []
+        missedGuess = []
+        flipScaleRatio = []
         guessingResult = []
         wortForm = []
         
