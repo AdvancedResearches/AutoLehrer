@@ -101,6 +101,7 @@
         <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="formsToShow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="urgencyCache" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="wortFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relWortFormen" inverseEntity="Wort"/>
         <relationship name="relWortArt" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WortArt" inverseName="relWortFormen" inverseEntity="WortArt"/>

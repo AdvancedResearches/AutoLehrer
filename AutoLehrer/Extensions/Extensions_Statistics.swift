@@ -118,50 +118,60 @@ extension Statistics{
         return nil
     }
     public static func pickWortFormen(_ context: NSManagedObjectContext, wortArt: WortArt) -> WortFormen{
+        let startTime = Date().timeIntervalSince1970 * 1000
         WortFormen.coolDown(context, wortArt)
         let coolFailed = WortFormen.get_failedCool(context, wortArt)
         if(coolFailed.count > 0){
+            let endTime = Date().timeIntervalSince1970 * 1000
+            let diffMs = endTime - startTime
+            print("Statistics.pickWortFormen: duration coolFailed \(diffMs) ms")
             return pickFromRange(coolFailed)
         }
         let coolSuccessfulTop = WortFormen.get_successfulCoolTop(context, wortArt)
         if(coolSuccessfulTop.count > 0){
+            let endTime = Date().timeIntervalSince1970 * 1000
+            let diffMs = endTime - startTime
+            print("Statistics.pickWortFormen: duration coolSuccessfulTop \(diffMs) ms")
             return pickFromRange(coolSuccessfulTop)
         }
         let coolSuccessfulRest = WortFormen.get_successfulCoolRest(context, wortArt)
         if(coolSuccessfulRest.count > 0){
+            let endTime = Date().timeIntervalSince1970 * 1000
+            let diffMs = endTime - startTime
+            print("Statistics.pickWortFormen: duration coolSuccessfulRest \(diffMs) ms")
             return pickFromRange(coolSuccessfulRest)
         }
         let hotFailed = WortFormen.get_failedHot(context, wortArt)
         if(hotFailed.count > 0){
+            let endTime = Date().timeIntervalSince1970 * 1000
+            let diffMs = endTime - startTime
+            print("Statistics.pickWortFormen: duration hotFailed \(diffMs) ms")
             return pickFromRange(hotFailed)
         }
         let hotSuccessful = WortFormen.get_successfulHot(context, wortArt)
+        let endTime = Date().timeIntervalSince1970 * 1000
+        let diffMs = endTime - startTime
+        print("Statistics.pickWortFormen: duration hotSuccessful \(diffMs) ms")
         return pickFromRange(hotSuccessful)
     }
     public static func pickFromRange(_ allTheWortFormen: [WortFormen]) -> WortFormen{
         var retValue = allTheWortFormen.first!
         var retScore = wortFormenUrgency(retValue)
-        print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.wortFrequencyOrder)")
         for theCounter in 1..<allTheWortFormen.count{
             let theUrgency = wortFormenUrgency(allTheWortFormen[theCounter])
-            print("Statistics.pickNomenHive: urgency \(theUrgency) for \(allTheWortFormen[theCounter].wortFrequencyOrder)")
             if theUrgency > retScore{
                 retValue = allTheWortFormen[theCounter]
                 retScore = theUrgency
-                print("Statistics.pickNomenHive: SET urgency \(retScore) for return \(retValue.wortFrequencyOrder)")
             }
         }
         return retValue
     }
     public static func wortFormenUrgency(_ wortFormen: WortFormen) -> Float{
-        //print("   Statistics.nomenHiveUrgency: \(nomenHive.nomenFrequencyOrder)")
         let allTheFormsOfWort = wortFormen.relWort?.allObjects as? [Wort] ?? []
         let wortFormenUrgencyMultiplier = Float(1.0 / Float(wortFormen.wortFrequencyOrder))
-        //print("   Statistics.nomenHiveUrgency: frequency order: \(nomenHive.nomenFrequencyOrder)")
         print("   Statistics.wortFormenUrgency: urgency multiplier: \(Float(1.0 / Float(wortFormen.wortFrequencyOrder)))")
         let allTheFormenUrgencies: [Float] = allTheFormsOfWort.map{Statistics.wortFormScore($0)}
         let maxFormUrgency = Float.maxFromArray(values: allTheFormenUrgencies)
-        //print("   Statistics.nomenHiveUrgency: max urgency: \(maxFormUrgency)")
         return wortFormenUrgencyMultiplier*maxFormUrgency
     }
     public static func wortFormScore(_ wort: Wort) -> Float{

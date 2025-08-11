@@ -270,6 +270,7 @@ struct Archival_Vocabulary{
         do{
             //flush
             //flush(theContext: theContext, totalFlush: false)
+            print("Start preset_1_0_0_0: Start")
             
             var DeklinationDictionary: [String:Deklination] = [:]
             for theDeklination in theData.deklinationHive.theHive{
@@ -285,6 +286,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingDeklination)
                 }
             }
+            print("Start preset_1_0_0_0: Deklination loaded")
              
             var GenusDictionary: [String:Genus] = [:]
             for theGenus in theData.genusHive.theHive{
@@ -300,6 +302,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingGenus)
                 }
             }
+            print("Start preset_1_0_0_0: Genus loaded")
             
             var KasusDictionary: [String:Kasus] = [:]
             for theKasus in theData.kasusHive.theHive{
@@ -317,6 +320,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingKasus)
                 }
             }
+            print("Start preset_1_0_0_0: Kasus loaded")
 
             var KomparationsgradDictionary: [String:Komparationsgrad] = [:]
             for theKomparationsgrad in theData.komparationsgradHive.theHive{
@@ -332,6 +336,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingKomparationsgrad)
                 }
             }
+            print("Start preset_1_0_0_0: Komparationsgrad loaded")
 
             var ModusDictionary: [String:Modus] = [:]
             for theModus in theData.modusHive.theHive{
@@ -347,6 +352,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingModus)
                 }
             }
+            print("Start preset_1_0_0_0: Modus loaded")
             
             var NumerusDictionary: [String:Numerus] = [:]
             for theNumerus in theData.numerusHive.theHive{
@@ -362,6 +368,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingNumerus)
                 }
             }
+            print("Start preset_1_0_0_0: Numerus loaded")
             
             var PersonDictionary: [String:Person] = [:]
             for thePerson in theData.personHive.theHive{
@@ -377,6 +384,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingPerson)
                 }
             }
+            print("Start preset_1_0_0_0: Person loaded")
             
             var TempusDictionary: [String:Tempus] = [:]
             for theTempus in theData.tempusHive.theHive{
@@ -392,6 +400,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingTempus)
                 }
             }
+            print("Start preset_1_0_0_0: Tempus loaded")
             
             var WortArtDictionary: [String:WortArt] = [:]
             for theWortArt in theData.wortArtHive.theHive{
@@ -417,6 +426,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingWortArt)
                 }
             }
+            print("Start preset_1_0_0_0: WortArt loaded")
             
             var WortFormenDictionary: [String:WortFormen] = [:]
             for theWortFormen in theData.wortFormenHive.theHive{
@@ -431,6 +441,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingWortFormen)
                 }
             }
+            print("Start preset_1_0_0_0: WortFormen loaded")
             
             var WortDictionary: [String:Wort] = [:]
             for theWort in theData.wortHive.theHive{
@@ -443,7 +454,7 @@ struct Archival_Vocabulary{
                         numerus: NumerusDictionary[theWort.relNumerus ?? "NIL"],
                         person: PersonDictionary[theWort.relPerson ?? "NIL"],
                         tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
-                    ))//Wort(context: theContext)
+                    ))
                 uploadingWort.wort_DE = theWort.wort_DE
                 uploadingWort.wort_RU = theWort.wort_RU
 
@@ -458,13 +469,17 @@ struct Archival_Vocabulary{
                 
                 uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                 WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
+                
+                print("Start preset_1_0_0_0: new Wort \(uploadingWort.wort_DE) loaded")
             }
+            print("Start preset_1_0_0_0: new Wort loaded")
             let existingWort: [Wort] = try theContext.fetch(Wort.fetchRequest())
             for theExistingWort in existingWort{
                 if(!WortDictionary.values.contains(theExistingWort)){
                     theContext.delete(theExistingWort)
                 }
             }
+            print("Start preset_1_0_0_0: Wort loaded")
             
             var BeispielDictionary: [String:Beispiel] = [:]
             for theBeispel in theData.beispielHive.theHive{
@@ -480,6 +495,7 @@ struct Archival_Vocabulary{
                     theContext.delete(theExistingBeispliel)
                 }
             }
+            print("Start preset_1_0_0_0: Beispiel loaded")
         }catch{
             return
         }
