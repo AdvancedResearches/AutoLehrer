@@ -71,6 +71,7 @@ struct WortRepeater: View {
                                 confirmedWorte.remove(pickedWortFormen!)
                             }
                             WortFormen.set_attempted(pickedWortFormen!)
+                            Statistics.wortFormenUrgency(pickedWortFormen!)
                             pickTheWord()
                         }else{
                             withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }

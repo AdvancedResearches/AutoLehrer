@@ -167,12 +167,19 @@ extension Statistics{
         return retValue
     }
     public static func wortFormenUrgency(_ wortFormen: WortFormen) -> Float{
-        let allTheFormsOfWort = wortFormen.relWort?.allObjects as? [Wort] ?? []
-        let wortFormenUrgencyMultiplier = Float(1.0 / Float(wortFormen.wortFrequencyOrder))
-        print("   Statistics.wortFormenUrgency: urgency multiplier: \(Float(1.0 / Float(wortFormen.wortFrequencyOrder)))")
-        let allTheFormenUrgencies: [Float] = allTheFormsOfWort.map{Statistics.wortFormScore($0)}
-        let maxFormUrgency = Float.maxFromArray(values: allTheFormenUrgencies)
-        return wortFormenUrgencyMultiplier*maxFormUrgency
+        let cachedUrgency = wortFormen.urgencyCache
+        if(cachedUrgency == -10000){
+            let allTheFormsFomWort = wortFormen.relWort?.allObjects as? [Wort] ?? []
+            let wortFormenUrgencyMultiplier = Float(1.0 / Float(wortFormen.wortFrequencyOrder))
+            print("   Statistics.wortFormenUrgency: urgency multiplier: \(Float(1.0 / Float(wortFormen.wortFrequencyOrder)))")
+            let allTheFormenUrgencies: [Float] = allTheFormsFomWort.map{Statistics.wortFormScore($0)}
+            let maxFormUrgency = Float.maxFromArray(values: allTheFormenUrgencies)
+            let theUrgency = wortFormenUrgencyMultiplier*maxFormUrgency
+            wortFormen.urgencyCache = theUrgency
+            return theUrgency
+        }else{
+            return cachedUrgency
+        }
     }
     public static func wortFormScore(_ wort: Wort) -> Float{
         print("      Statistics.nomenFormScore: \(wort.wort_RU!)-\(wort.wort_DE!)")
