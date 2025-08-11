@@ -3,7 +3,6 @@ import SwiftUI
 struct LaunchScreen: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
-    @EnvironmentObject var presetsProgress: PresetsProgressOO
     var body: some View {
         ZStack {
             theme.currentTheme.NG_LinearGradient_Background_Page.ignoresSafeArea() // Теперь фон на весь экран
@@ -21,7 +20,6 @@ struct LaunchScreen: View {
                 Text("Запускается...")
                     .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                     .padding(10)
-                Text(presetsProgress.text)
             }
         }
     }
