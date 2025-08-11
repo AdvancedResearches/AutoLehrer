@@ -290,7 +290,7 @@ struct MainMenu: View {
         }
         .onAppear{
             invokeUpdates()
-            reloadPresets()
+            //reloadPresets()
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
