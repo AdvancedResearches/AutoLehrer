@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+class PresetsProgressOO: ObservableObject {
+    @Published var text: String = "Запускаемся..."
+}
+
 @main
 struct AutoLehrerApp: App {
     let persistenceController = PersistenceController.shared
@@ -15,6 +19,7 @@ struct AutoLehrerApp: App {
     
     @StateObject private var theme: ThemeManager
     @StateObject private var recommendationModel = RecommendationModel()
+    @StateObject private var presetsProgress = PresetsProgressOO()
     
     init() {
         let context = PersistenceController.shared.container.viewContext
@@ -29,6 +34,7 @@ struct AutoLehrerApp: App {
                     .environment(\.appLanguage, Settings.getLocale(in: persistenceController.container.viewContext))
                     .environmentObject(theme)
                     .environmentObject(recommendationModel)
+                    .environmentObject(presetsProgress)
             }else{
                 LaunchScreen()
                     .environmentObject(theme)

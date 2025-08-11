@@ -3,6 +3,7 @@ import SwiftUI
 struct LaunchScreen: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
+    @EnvironmentObject var presetsProgress: PresetsProgressOO
     var body: some View {
         ZStack {
             theme.currentTheme.NG_LinearGradient_Background_Page.ignoresSafeArea() // Теперь фон на весь экран
@@ -17,16 +18,11 @@ struct LaunchScreen: View {
                 Text("Cards RU-DE") // Текст загрузки
                     .NG_textStyling(.NG_TextStyle_Title, theme: theme)
                     .padding(10)
-                Text("Запускается...".localized(for: language))
+                Text("Запускается...")
                     .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                     .padding(10)
+                Text(presetsProgress.text)
             }
         }
-    }
-}
-
-struct LaunchScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LaunchScreen()
     }
 }
