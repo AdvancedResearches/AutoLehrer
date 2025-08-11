@@ -9,6 +9,19 @@ import Foundation
 import CoreData
 import SwiftUI
 
+@MainActor
+final class PresetsProgressOO: ObservableObject {
+    @Published var text: String = "Обновление базы слов..."
+    @Published var fraction: Double = 0.0   // 0.0–1.0, если захочешь прогресс-бар
+    @Published var completed: Bool = false
+
+    func reset() {
+        text = "Обновление базы слов..."
+        fraction = 0.0
+        completed = false
+    }
+}
+
 struct MasterHive: Codable{
     var version: String?
     var theVocabularyHive: VocabularyHive?
