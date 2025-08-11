@@ -15,6 +15,7 @@ struct ArchivalMenu: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     @EnvironmentObject var recommendationModel: RecommendationModel
+    @EnvironmentObject var presetsProgress: PresetsProgressOO
     
     @State var listOfFiles: [String] = []
     @State var reloadInvokation: Int = 0
@@ -230,7 +231,7 @@ struct ArchivalMenu: View {
                                 if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
                                     for fileURL in presetFiles.sorted{$0.lastPathComponent < $1.lastPathComponent} {
                                         childContext.performAndWait{
-                                            Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: childContext).preset()
+                                            Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: childContext).preset(progress: presetsProgress)
                                         }
                                         childContext.performAndWait{
                                             do{

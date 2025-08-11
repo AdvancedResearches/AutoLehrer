@@ -89,7 +89,7 @@ struct Data_Archival{
         return restored
     }
     
-    func preset() -> Bool {
+    func preset(progress: PresetsProgressOO) -> Bool {
         var restored: Bool = false
         do{
             let data = try Data(contentsOf: theFile)

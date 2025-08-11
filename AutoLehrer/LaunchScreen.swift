@@ -27,8 +27,10 @@ struct LaunchScreen: View {
                     .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                     .padding(10)
                 
-                ProgressView(value: presetsProgress.fraction) // ← если захочешь прогресс-бар
-                    .padding(.horizontal, 32)
+                if(!presetsProgress.completed){
+                    ProgressView(value: presetsProgress.fraction) // ← если захочешь прогресс-бар
+                        .padding(.horizontal, 32)
+                }
             }
         }
     }

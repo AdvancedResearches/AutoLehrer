@@ -58,14 +58,11 @@ struct AutoLehrerApp: App {
         let fileDirectory: URL? = Bundle.main.resourceURL
         if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
             for fileURL in presetFiles.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
-                presetsProgress.text = "Загружаем \(fileURL.lastPathComponent)..."
-                
-                // performAndWait — блокирует текущий поток, поэтому оборачиваем в Task
                 await persistenceController.container.viewContext.perform {
                     Data_Archival(
                         theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent),
                         theContext: persistenceController.container.viewContext
-                    ).preset()
+                    ).preset(progress: presetsProgress)
                     
                     do {
                         try persistenceController.container.viewContext.save()
@@ -75,7 +72,6 @@ struct AutoLehrerApp: App {
                 }
             }
         }
-
         presetsProgress.text = "Обновление базы слов закончено!"
     }
 }

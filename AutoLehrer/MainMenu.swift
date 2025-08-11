@@ -12,6 +12,7 @@ struct MainMenu: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.scenePhase) private var scenePhase
     @EnvironmentObject var theme: ThemeManager
+    @EnvironmentObject var presetsProgress: PresetsProgressOO
     @EnvironmentObject var recommendationModel: RecommendationModel
     @AppStorage("appLanguage") var language: String = "ru"
     
@@ -311,7 +312,7 @@ struct MainMenu: View {
         if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
             for fileURL in presetFiles.sorted{$0.lastPathComponent < $1.lastPathComponent} {
                 viewContext.performAndWait{
-                    Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: viewContext).preset()
+                    Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: viewContext).preset(progress: presetsProgress)
                     do{
                         try viewContext.save()
                     }catch{}
