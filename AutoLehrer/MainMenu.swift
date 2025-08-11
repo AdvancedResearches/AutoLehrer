@@ -307,19 +307,6 @@ struct MainMenu: View {
         wortArten = WortArt.get_alleWortArten(viewContext)
         repeater_isActive.removeAll()
     }
-    private func reloadPresets(){
-        let fileDirectory: URL? = Bundle.main.resourceURL
-        if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
-            for fileURL in presetFiles.sorted{$0.lastPathComponent < $1.lastPathComponent} {
-                viewContext.performAndWait{
-                    Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: viewContext).preset(progress: presetsProgress)
-                    do{
-                        try viewContext.save()
-                    }catch{}
-                }
-            }
-        }
-    }
     private func updateUI(){
         autoCloseWizard = true
         appwizardPopupEnabled = true

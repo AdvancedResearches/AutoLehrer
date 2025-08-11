@@ -18,8 +18,8 @@ struct AutoLehrerApp: App {
     @StateObject private var presetsProgress = PresetsProgressOO()
     
     init() {
-        let context = PersistenceController.shared.container.viewContext
-        _theme = StateObject(wrappedValue: ThemeManager(context: context))
+        let ctx = PersistenceController.shared.container.viewContext
+        _theme = StateObject(wrappedValue: ThemeManager(context: ctx))
     }
     
     var body: some Scene {
@@ -36,42 +36,51 @@ struct AutoLehrerApp: App {
                     .environmentObject(theme)
                     .environmentObject(presetsProgress)
                     .task {
-                        // Запускаем загрузку прямо на лонч-скрине
-                        await presetLoad()
-                        isActive = true // переход только после окончания загрузки
+                        await presetLoad()   // ждём тут
+                        isActive = true
                     }
-                    /*
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            isActive = true // Через 2 сек. показываем главный экран
-                        }
-                    }
-                     */
             }
         }
     }
     
-    @MainActor
-    func presetLoad() async {
-        presetsProgress.text = "Начато обновление базы слов..."
+    // Запускаем импорт на фоновом MOC, UI обновляем через MainActor
+        func presetLoad() async {
+            presetsProgress.reset()
+            presetsProgress.text = "Начато обновление базы слов…"
 
-        let fileDirectory: URL? = Bundle.main.resourceURL
-        if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
-            for fileURL in presetFiles.sorted(by: { $0.lastPathComponent < $1.lastPathComponent }) {
-                await persistenceController.container.viewContext.perform {
-                    Data_Archival(
-                        theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent),
-                        theContext: persistenceController.container.viewContext
-                    ).preset(progress: presetsProgress)
-                    
-                    do {
-                        try persistenceController.container.viewContext.save()
-                    } catch {
-                        print("Ошибка сохранения: \(error.localizedDescription)")
+            let bg = persistenceController.container.newBackgroundContext()
+
+            guard
+                let dir = Bundle.main.resourceURL,
+                let files = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil)
+            else {
+                presetsProgress.text = "Файлы пресетов не найдены"
+                presetsProgress.completed = true
+                return
+            }
+
+            let sorted = files.sorted { $0.lastPathComponent < $1.lastPathComponent }
+            let total = max(sorted.count, 1)
+
+            for (i, url) in sorted.enumerated() {
+                let fileURL = dir.appendingPathComponent(url.lastPathComponent)
+
+                do {
+                    try await bg.perform {
+                        let ok = Data_Archival(theFile: fileURL, theContext: bg)
+                            .preset(progress: presetsProgress, index: i + 1, total: total)
+                        if ok { try? bg.save() }
+                    }
+                } catch {
+                    // perform может кинуть, если MOC умер — логируем и идём дальше
+                    Task { @MainActor in
+                        presetsProgress.text = "Ошибка: \(url.lastPathComponent)"
                     }
                 }
             }
+
+            presetsProgress.text = "Обновление базы слов закончено!"
+            presetsProgress.fraction = 1
+            presetsProgress.completed = true
         }
-        presetsProgress.text = "Обновление базы слов закончено!"
-    }
 }

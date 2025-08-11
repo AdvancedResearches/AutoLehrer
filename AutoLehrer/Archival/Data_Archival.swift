@@ -12,7 +12,7 @@ import SwiftUI
 @MainActor
 final class PresetsProgressOO: ObservableObject {
     @Published var text: String = "Обновление базы слов..."
-    @Published var fraction: Double = 0.0   // 0.0–1.0, если захочешь прогресс-бар
+    @Published var fraction: Double = 0.0
     @Published var completed: Bool = false
 
     func reset() {
@@ -89,24 +89,42 @@ struct Data_Archival{
         return restored
     }
     
-    func preset(progress: PresetsProgressOO) -> Bool {
-        var restored: Bool = false
-        do{
+    // без @MainActor! работа идёт на очереди theContext
+    func preset(progress: PresetsProgressOO, index: Int, total: Int) -> Bool {
+        Task { @MainActor in
+            progress.text = "Читаем \(theFile.lastPathComponent) (\(index)/\(total))"
+            progress.fraction = Double(index - 1) / Double(total)
+        }
+        
+        var restored = false
+        do {
             let data = try Data(contentsOf: theFile)
+            let decoded = try JSONDecoder().decode(MasterHive.self, from: data)
             
-            //split
-            let decodedData = try JSONDecoder().decode(MasterHive.self, from: data)
-            let version = decodedData.version
-            
-            if(version == "1.0.0.0"){
-                if(decodedData.theVocabularyHive != nil){
-                    Archival_Vocabulary.preset_1_0_0_0(theContext: theContext, theData: decodedData.theVocabularyHive!)
+            if decoded.version == "1.0.0.0" {
+                if let vocab = decoded.theVocabularyHive {
+                    Archival_Vocabulary.preset_1_0_0_0(
+                        theContext: theContext,
+                        theData: vocab,
+                        progress: progress
+                    )
+                }
+                // при необходимости: настройки
+                if let settings = decoded.theSettingsHive {
+                    // Archival_Settings.preset_1_0_0_0(theContext: theContext, theData: settings, progress: progress)
+                    _ = settings
                 }
                 restored = true
             }
-            try theContext.save()
         } catch {
-            print("Failed to recover from preset: \(error.localizedDescription)")
+            Task { @MainActor in
+                progress.text = "Ошибка при \(theFile.lastPathComponent)"
+            }
+        }
+        
+        Task { @MainActor in
+            progress.text = "\(theFile.lastPathComponent) загружен (\(index)/\(total))"
+            progress.fraction = Double(index) / Double(total)
         }
         return restored
     }

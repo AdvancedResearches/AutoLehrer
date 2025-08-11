@@ -231,7 +231,7 @@ struct ArchivalMenu: View {
                                 if let presetFiles = Bundle.main.urls(forResourcesWithExtension: "alpres", subdirectory: nil) {
                                     for fileURL in presetFiles.sorted{$0.lastPathComponent < $1.lastPathComponent} {
                                         childContext.performAndWait{
-                                            Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: childContext).preset(progress: presetsProgress)
+                                            Data_Archival(theFile: fileDirectory!.appendingPathComponent(fileURL.lastPathComponent), theContext: childContext).preset(progress: presetsProgress, index: 1, total: 1)
                                         }
                                         childContext.performAndWait{
                                             do{

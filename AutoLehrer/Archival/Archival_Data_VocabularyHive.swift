@@ -266,11 +266,17 @@ struct Archival_Vocabulary{
         }
     }
     
-    static func preset_1_0_0_0(theContext: NSManagedObjectContext, theData: VocabularyHive){
+    static func preset_1_0_0_0(
+            theContext: NSManagedObjectContext,
+            theData: VocabularyHive,
+            progress: PresetsProgressOO
+        ) {
         do{
             //flush
             //flush(theContext: theContext, totalFlush: false)
             print("Start preset_1_0_0_0: Start")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения…" }
             
             var DeklinationDictionary: [String:Deklination] = [:]
             for theDeklination in theData.deklinationHive.theHive{
@@ -287,6 +293,9 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Deklination loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода..." }
+            
              
             var GenusDictionary: [String:Genus] = [:]
             for theGenus in theData.genusHive.theHive{
@@ -303,6 +312,8 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Genus loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи..." }
             
             var KasusDictionary: [String:Kasus] = [:]
             for theKasus in theData.kasusHive.theHive{
@@ -321,6 +332,8 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Kasus loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени..." }
 
             var KomparationsgradDictionary: [String:Komparationsgrad] = [:]
             for theKomparationsgrad in theData.komparationsgradHive.theHive{
@@ -337,6 +350,8 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Komparationsgrad loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность..." }
 
             var ModusDictionary: [String:Modus] = [:]
             for theModus in theData.modusHive.theHive{
@@ -354,6 +369,8 @@ struct Archival_Vocabulary{
             }
             print("Start preset_1_0_0_0: Modus loaded")
             
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа..." }
+            
             var NumerusDictionary: [String:Numerus] = [:]
             for theNumerus in theData.numerusHive.theHive{
                 let uploadingNumerus = Numerus.findOrCreate(in: theContext, withName_DE: theNumerus.name_DE)//Numerus(context: theContext)
@@ -369,6 +386,8 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Numerus loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица..." }
             
             var PersonDictionary: [String:Person] = [:]
             for thePerson in theData.personHive.theHive{
@@ -386,6 +405,8 @@ struct Archival_Vocabulary{
             }
             print("Start preset_1_0_0_0: Person loaded")
             
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена..." }
+            
             var TempusDictionary: [String:Tempus] = [:]
             for theTempus in theData.tempusHive.theHive{
                 let uploadingTempus = Tempus.findOrCreate(in: theContext, withName_DE: theTempus.name_DE)//Tempus(context: theContext)
@@ -401,6 +422,8 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Tempus loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова..." }
             
             var WortArtDictionary: [String:WortArt] = [:]
             for theWortArt in theData.wortArtHive.theHive{
@@ -428,6 +451,8 @@ struct Archival_Vocabulary{
             }
             print("Start preset_1_0_0_0: WortArt loaded")
             
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов..." }
+            
             var WortFormenDictionary: [String:WortFormen] = [:]
             for theWortFormen in theData.wortFormenHive.theHive{
                 let uploadingWortFormen = WortFormen.findOrCreate(in: theContext, wortArt: WortArtDictionary[theWortFormen.relWortArt], order: theWortFormen.wortFrequencyOrder)//WortFormen(context: theContext)
@@ -443,6 +468,10 @@ struct Archival_Vocabulary{
             }
             print("Start preset_1_0_0_0: WortFormen loaded")
             
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов..." }
+            
+            let fullCount = theData.wortHive.theHive.count
+            var runningCounter = 0
             var WortDictionary: [String:Wort] = [:]
             for theWort in theData.wortHive.theHive{
                 let uploadingWort = Wort.findOrCreate(in: theContext, wortFormen: WortFormenDictionary[theWort.relWortFormen]!, wortArtFormen: WortArtFormen(
@@ -471,6 +500,9 @@ struct Archival_Vocabulary{
                 WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
                 
                 print("Start preset_1_0_0_0: new Wort \(uploadingWort.wort_DE) loaded")
+                runningCounter += 1
+                
+                Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
             }
             print("Start preset_1_0_0_0: new Wort loaded")
             let existingWort: [Wort] = try theContext.fetch(Wort.fetchRequest())
@@ -480,6 +512,8 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Wort loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов...ЗАВЕРШЕНО\nИмпорт: Примеры..." }
             
             var BeispielDictionary: [String:Beispiel] = [:]
             for theBeispel in theData.beispielHive.theHive{
@@ -496,6 +530,9 @@ struct Archival_Vocabulary{
                 }
             }
             print("Start preset_1_0_0_0: Beispiel loaded")
+            
+            Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов...ЗАВЕРШЕНО\nИмпорт: Примеры...ЗАВЕРШЕНО"
+                progress.completed = true}
         }catch{
             return
         }
