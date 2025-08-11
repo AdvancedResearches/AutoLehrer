@@ -192,4 +192,15 @@ extension WortFormen{
         }catch{}
         return result!
     }
+    public static func isComplete(_ wortFormen: WortFormen) -> Bool{
+        let alleWorteCount = wortFormen.relWort?.allObjects.count ?? 0
+        let successCounter = wortFormen.successCounter
+        let formenZuzeigen = wortFormen.formsToShow
+        if(successCounter > 2){
+            if(formenZuzeigen >= alleWorteCount){
+                return true
+            }
+        }
+        return false
+    }
 }

@@ -9,6 +9,20 @@ import Foundation
 import CoreData
 
 extension Settings {
+    static func getLastLoadedVersion(in context: NSManagedObjectContext) -> Int64 {
+        if let lastLoadedVersionString = getValue(for: "lastLoadedVersion", in: context) {
+            let lastLoadedVersion = Int64(lastLoadedVersionString)!
+            return lastLoadedVersion
+        } else {
+            setLastLoadedVersion(0, in: context)
+            return 0
+        }
+    }
+    static func setLastLoadedVersion(_ value: Int64, in context: NSManagedObjectContext){
+        setValue(String(value), for: "lastLoadedVersion", in: context)
+    }
+    
+    
     static func getGender(in context: NSManagedObjectContext) -> String {
         if let gender = getValue(for: "gender", in: context) {
             return gender
