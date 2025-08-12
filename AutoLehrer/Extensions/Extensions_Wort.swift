@@ -5,16 +5,6 @@ extension Wort{
         var retValue: String = ""
         let wortArt = wort.relWortFormen?.relWortArt ?? nil
         if(wortArt != nil){
-            /*
-            if wortArt!.name_DE == "Nomen" {
-                if(sprache == "RU"){
-                    retValue += wort.relKasus!.name_RU! + " " + wort.relNumerus!.name_RU!
-                }
-                if(sprache == "DE"){
-                    retValue += wort.relKasus!.name_DE! + " " + wort.relNumerus!.name_DE!
-                }
-            }
-             */
             if(wortArt!.property_1 != nil){
                 retValue += get_wortProperty_byPropertyName(wort, wortArt!.property_1!, sprache)
             }
@@ -118,7 +108,7 @@ extension Wort{
         }
         return filteredWorten
     }
-    public static func pick_wort(_ wortForm: WortFormen, /*genus: Genus?, kasus: Kasus?, modus: Modus?, numerus: Numerus?, person: Person?, tempus: Tempus?*/wortArtFormen: WortArtFormen) -> Wort?{
+    public static func pick_wort(_ wortForm: WortFormen, wortArtFormen: WortArtFormen) -> Wort?{
         guard let context = wortForm.managedObjectContext else {
             return nil
         }

@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Data_Archival.preset():Data_Archival.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static Statistics.pickWortFormen(_:wortArt:):Extensions_Statistics.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "wortArt.name_DE!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static Nomen.get_beispiel(_:):Extensions_Nomen.swift">
          <PersistentStrings>
             <PersistentString
@@ -10,6 +21,22 @@
             </PersistentString>
             <PersistentString
                value = "nomen.nomen_DE!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WortFormen.get_wortFormenList_furArt(_:):Extensions_WortFormen.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "wortArt.name_DE">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "static WortFormen.set_success(_:):Extensions_WortFormen.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "wortFormen.successCounter">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -40,23 +67,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Data_Archival.preset():Data_Archival.swift">
-      </ContextState>
-      <ContextState
-         contextName = "static Statistics.pickWortFormen(_:wortArt:):Extensions_Statistics.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "wortArt.name_DE!">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static WortFormen.get_wortFormenList_furArt(_:):Extensions_WortFormen.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "wortArt.name_DE">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "static Archival_Vocabulary.preset_1_0_0_0(theContext:theData:progress:):Archival_Data_VocabularyHive.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

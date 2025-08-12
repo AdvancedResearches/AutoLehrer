@@ -62,16 +62,24 @@ struct WortRepeater: View {
                                     Statistics.set_failure(wort[theFormCounter])
                                 }
                             }
+                            
                             if(successCounter == wort.count){
+                                print("Bevor commit as successful for \(pickedWortFormen!)")
                                 if(WortFormen.set_success(pickedWortFormen!)){
                                     confirmedWorte.insert(pickedWortFormen!)
+                                    print("Passed for next level commit")
+                                }else{
+                                    print("Stazed same level commit")
                                 }
+                                print("Nach commit as successful for \(pickedWortFormen!)")
                             }else{
                                 WortFormen.set_failure(pickedWortFormen!)
                                 confirmedWorte.remove(pickedWortFormen!)
+                                print("Commit as failed for \(pickedWortFormen!)")
                             }
                             WortFormen.set_attempted(pickedWortFormen!)
                             Statistics.wortFormenUrgency(pickedWortFormen!)
+                            
                             pickTheWord()
                         }else{
                             withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
@@ -251,6 +259,7 @@ struct WortRepeater: View {
     }
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
+        print("WortRepeater.pickTheWord(): \(pickedSache)")
         
         if (pickedSache.formsToShow < 1){
             pickedSache.formsToShow = 1
@@ -273,6 +282,9 @@ struct WortRepeater: View {
         wort = []
         beispiel = []
         
+        print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
+        print("WortRepeater.pickTheWord(): wortFormList.count: \(wortFormList.count)")
+        
         for theCounter in 0..<wortFormList.count{
             let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
             if(wortTest != nil){
@@ -281,6 +293,8 @@ struct WortRepeater: View {
                 wortForm.append(wortFormList[theCounter])
             }
         }
+        
+        print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         flippedSeite = Array(repeating: false, count: wort.count)

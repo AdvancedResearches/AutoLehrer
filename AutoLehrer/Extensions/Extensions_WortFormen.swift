@@ -40,7 +40,6 @@ public struct WortArtFormen{
 }
 
 extension WortFormen{
-    
     public static func get_wortFormenList_furArt(_ wortArt: WortArt) -> [WortArtFormen]{
         guard let context = wortArt.managedObjectContext else {
             return []
