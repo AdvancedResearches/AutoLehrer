@@ -1,5 +1,6 @@
 import CoreData
 
+
 extension Wort{
     public static func get_wortArt_vollString(_ wort: Wort, _ sprache: String) -> String{
         var retValue: String = ""
