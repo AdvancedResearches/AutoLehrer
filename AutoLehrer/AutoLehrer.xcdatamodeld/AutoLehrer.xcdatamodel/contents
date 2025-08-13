@@ -17,6 +17,12 @@
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relGenus" inverseEntity="Wort"/>
     </entity>
+    <entity name="Hoflichkeiten" representedClassName="Hoflichkeiten" syncable="YES" codeGenerationType="class">
+        <attribute name="name_DE" optional="YES" attributeType="String"/>
+        <attribute name="name_RU" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relHoflichkeiten" inverseEntity="Wort"/>
+    </entity>
     <entity name="Kasus" representedClassName="Kasus" syncable="YES" codeGenerationType="class">
         <attribute name="fragen_DE" optional="YES" attributeType="String"/>
         <attribute name="fragen_RU" optional="YES" attributeType="String"/>
@@ -70,6 +76,7 @@
         <relationship name="relBeispiel" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Beispiel" inverseName="relWort" inverseEntity="Beispiel"/>
         <relationship name="relDeklination" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Deklination" inverseName="relWort" inverseEntity="Deklination"/>
         <relationship name="relGenus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Genus" inverseName="relWort" inverseEntity="Genus"/>
+        <relationship name="relHoflichkeiten" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Hoflichkeiten" inverseName="relWort" inverseEntity="Hoflichkeiten"/>
         <relationship name="relKasus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Kasus" inverseName="relWort" inverseEntity="Kasus"/>
         <relationship name="relKomparationsgrad" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Komparationsgrad" inverseName="relWort" inverseEntity="Komparationsgrad"/>
         <relationship name="relModus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Modus" inverseName="relWort" inverseEntity="Modus"/>
