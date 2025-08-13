@@ -64,18 +64,18 @@ struct WortRepeater: View {
                             }
                             
                             if(successCounter == wort.count){
-                                print("Bevor commit as successful for \(pickedWortFormen!)")
+                                //print("Bevor commit as successful for \(pickedWortFormen!)")
                                 if(WortFormen.set_success(pickedWortFormen!)){
                                     confirmedWorte.insert(pickedWortFormen!)
-                                    print("Passed for next level commit")
+                                    //print("Passed for next level commit")
                                 }else{
-                                    print("Stazed same level commit")
+                                    //print("Stazed same level commit")
                                 }
-                                print("Nach commit as successful for \(pickedWortFormen!)")
+                                //print("Nach commit as successful for \(pickedWortFormen!)")
                             }else{
                                 WortFormen.set_failure(pickedWortFormen!)
                                 confirmedWorte.remove(pickedWortFormen!)
-                                print("Commit as failed for \(pickedWortFormen!)")
+                                //print("Commit as failed for \(pickedWortFormen!)")
                             }
                             WortFormen.set_attempted(pickedWortFormen!)
                             Statistics.wortFormenUrgency(pickedWortFormen!)
@@ -259,7 +259,7 @@ struct WortRepeater: View {
     }
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
-        print("WortRepeater.pickTheWord(): \(pickedSache)")
+        print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
         
         if (pickedSache.formsToShow < 1){
             pickedSache.formsToShow = 1
@@ -277,7 +277,7 @@ struct WortRepeater: View {
         
         exercisedWorte.insert(pickedSache)
         
-        let wortFormList = Array(WortFormen.get_wortFormenList_furArt(wortArt).prefix(Int(pickedSache.formsToShow)))
+        let wortFormList = WortFormen.get_wortFormenList_furArt(wortArt)
         
         wort = []
         beispiel = []
@@ -285,12 +285,20 @@ struct WortRepeater: View {
         print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
         print("WortRepeater.pickTheWord(): wortFormList.count: \(wortFormList.count)")
         
+        var appendedCount = 0
+        
         for theCounter in 0..<wortFormList.count{
-            let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
-            if(wortTest != nil){
-                wort.append(wortTest!)
-                beispiel.append(Wort.get_beispiel(wortTest!))
-                wortForm.append(wortFormList[theCounter])
+            if(appendedCount < pickedSache.formsToShow){
+                let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
+                if(wortTest != nil){
+                    wort.append(wortTest!)
+                    beispiel.append(Wort.get_beispiel(wortTest!))
+                    wortForm.append(wortFormList[theCounter])
+                    print("!!!!!! WortRepeater.pickTheWort: succeeded to find \(wortFormList[theCounter].debug_string()) for \(pickedSache)")
+                    appendedCount += 1
+                }else{
+                    print("?????? WortRepeater.pickTheWort: failed to find \(wortFormList[theCounter].debug_string()) for \(pickedSache)")
+                }
             }
         }
         
