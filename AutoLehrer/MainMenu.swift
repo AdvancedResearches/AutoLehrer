@@ -285,7 +285,7 @@ struct MainMenu: View {
                         .zIndex(1)
                 }
             }
-            .NG_NavigationTitle("Cards Ru-DE", theme: theme)
+            .NG_NavigationTitle("Карточки - немецкий", theme: theme)
             .background(theme.currentTheme.NG_LinearGradient_Background_Page)
             .navigationBarBackButtonHidden(true)
         }
