@@ -3,6 +3,7 @@ import CoreData
 public struct WortArtFormen{
     var deklination: Deklination?
     var genus: Genus?
+    var hoflichkeiten: Hoflichkeiten?
     var kasus: Kasus?
     var komparationsgrad: Komparationsgrad?
     var modus: Modus?
@@ -16,6 +17,9 @@ public struct WortArtFormen{
         }
         if genus != nil {
             retValue += "genus=\(genus!.name_DE!);"
+        }
+        if hoflichkeiten != nil {
+            retValue += "hoflichkeiten=\(hoflichkeiten!.name_DE!);"
         }
         if kasus != nil {
             retValue += "kasus=\(kasus!.name_DE!);"

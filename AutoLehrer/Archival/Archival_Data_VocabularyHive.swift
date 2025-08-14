@@ -8,6 +8,17 @@
 import Foundation
 import CoreData
 
+struct HoflichkeitenHive: Codable{
+    var theHive: [HoflichkeitenItem]
+}
+
+struct HoflichkeitenItem: Codable{
+    var name_DE: String
+    var name_RU: String
+    var order: Int64
+    var hoflichkeitenKey: String
+}
+
 struct VersionHive: Codable{
     var theHive: [VersionItem]
 }
@@ -140,6 +151,7 @@ struct WortItem: Codable{
     var wort_RU: String
     var relDeklination: String?
     var relGenus: String?
+    var relHoflichkeiten: String?
     var relKasus: String?
     var relKomparationsgrad: String?
     var relModus: String?
@@ -185,6 +197,7 @@ struct VocabularyHive: Codable{
     var beispielHive: BeispielHive
     var deklinationHive: DeklinationHive
     var genusHive: GenusHive
+    var hoflichkeitenHive: HoflichkeitenHive
     var kasusHive: KasusHive
     var komparationsgradHive: KompatationsgradHive
     var modusHive: ModusHive
@@ -203,6 +216,7 @@ struct Archival_Vocabulary{
             beispielHive: BeispielHive(theHive: []),
             deklinationHive: DeklinationHive(theHive: []),
             genusHive: GenusHive(theHive: []),
+            hoflichkeitenHive: HoflichkeitenHive(theHive: []),
             kasusHive: KasusHive(theHive: []),
             komparationsgradHive: KompatationsgradHive(theHive: []),
             modusHive: ModusHive(theHive: []),
@@ -240,6 +254,9 @@ struct Archival_Vocabulary{
             for theGenus in try theContext.fetch(Genus.fetchRequest()){
                 theContext.delete(theGenus)
             }
+            for theHoflichkeiten in try theContext.fetch(Hoflichkeiten.fetchRequest()){
+                theContext.delete(theHoflichkeiten)
+            }
             for theKasus in try theContext.fetch(Kasus.fetchRequest()){
                 theContext.delete(theKasus)
             }
@@ -269,7 +286,6 @@ struct Archival_Vocabulary{
     
     static func restore_1_0_0_0(theContext: NSManagedObjectContext, theData: VocabularyHive){
         do{
-            //flush
             flush(theContext: theContext, totalFlush: false)
         }catch{
             return
@@ -282,12 +298,10 @@ struct Archival_Vocabulary{
             progress: PresetsProgressOO
         ) {
         do{
-            
             var fullCount = 0
             var runningCounter = 0
-            
-            //flush
-            //flush(theContext: theContext, totalFlush: false)
+            var statusMessage: String = "Обновление базы слов..."
+
             print("Start preset_1_0_0_0: Start")
             
             var shallBeLoaded = false
@@ -301,7 +315,8 @@ struct Archival_Vocabulary{
             
             if(shallBeLoaded){
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения…" }
+                statusMessage += "\n   Склонения…"
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.deklinationHive.theHive.count
@@ -327,7 +342,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Deklination loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Рода..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.genusHive.theHive.count
@@ -353,7 +369,35 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Genus loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Вежливое обращение..."
+                Task { @MainActor in progress.text = statusMessage }
+                
+                runningCounter = 0
+                fullCount = theData.hoflichkeitenHive.theHive.count
+                var HoflichketienDictionary: [String:Hoflichkeiten] = [:]
+                for theHoflichkeiten in theData.hoflichkeitenHive.theHive{
+                    let uploadingHoflichkeiten = Hoflichkeiten.findOrCreate(in: theContext, withName_DE: theHoflichkeiten.name_DE)//Genus(context: theContext)
+                    uploadingHoflichkeiten.name_DE = theHoflichkeiten.name_DE
+                    uploadingHoflichkeiten.name_RU = theHoflichkeiten.name_RU
+                    uploadingHoflichkeiten.order = theHoflichkeiten.order
+                    HoflichketienDictionary.updateValue(uploadingHoflichkeiten, forKey: theHoflichkeiten.hoflichkeitenKey)
+                    runningCounter += 1
+                    Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
+                }
+                let existingHoflichkeiten: [Hoflichkeiten] = try theContext.fetch(Hoflichkeiten.fetchRequest())
+                runningCounter = 0
+                fullCount = existingGenus.count
+                for theExistingHoflichkeiten in existingHoflichkeiten{
+                    if(!HoflichketienDictionary.values.contains(theExistingHoflichkeiten)){
+                        theContext.delete(theExistingHoflichkeiten)
+                    }
+                    runningCounter += 1
+                    Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
+                }
+                print("Start preset_1_0_0_0: Genus loaded")
+                
+                statusMessage += "ЗАВЕРШЕНО\n   Падежи..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.kasusHive.theHive.count
@@ -381,7 +425,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Kasus loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Сравнительные степени..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.komparationsgradHive.theHive.count
@@ -407,7 +452,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Komparationsgrad loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Модальность..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.modusHive.theHive.count
@@ -433,7 +479,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Modus loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Числа..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.numerusHive.theHive.count
@@ -459,7 +506,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Numerus loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Лица..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.personHive.theHive.count
@@ -485,7 +533,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Person loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Времена..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.tempusHive.theHive.count
@@ -511,7 +560,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Tempus loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Слова..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.wortArtHive.theHive.count
@@ -547,7 +597,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: WortArt loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Формы слов..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.wortFormenHive.theHive.count
@@ -572,7 +623,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: WortFormen loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Варианты форм слов..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.wortHive.theHive.count
@@ -581,6 +633,7 @@ struct Archival_Vocabulary{
                     let uploadingWort = Wort.findOrCreate(in: theContext, wortFormen: WortFormenDictionary[theWort.relWortFormen]!, wortArtFormen: WortArtFormen(
                         deklination: DeklinationDictionary[theWort.relDeklination ?? "NIL"],
                         genus: GenusDictionary[theWort.relGenus ?? "NIL"],
+                        hoflichkeiten: HoflichketienDictionary[theWort.relHoflichkeiten ?? "NIL"],
                         kasus: KasusDictionary[theWort.relKasus ?? "NIL"],
                         komparationsgrad: KomparationsgradDictionary[theWort.relKomparationsgrad ?? "NIL"],
                         modus: ModusDictionary[theWort.relModus ?? "NIL"],
@@ -599,6 +652,7 @@ struct Archival_Vocabulary{
                     uploadingWort.relNumerus            = NumerusDictionary[theWort.relNumerus ?? "NIL"]
                     uploadingWort.relPerson             = PersonDictionary[theWort.relPerson ?? "NIL"]
                     uploadingWort.relTempus             = TempusDictionary[theWort.relTempus ?? "NIL"]
+                    uploadingWort.relHoflichkeiten      = HoflichketienDictionary[theWort.relHoflichkeiten ?? "NIL"]
                     
                     uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                     WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
@@ -621,7 +675,8 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Wort loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов...ЗАВЕРШЕНО\nИмпорт: Примеры..." }
+                statusMessage += "ЗАВЕРШЕНО\n   Примеры..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = theData.beispielHive.theHive.count
@@ -647,20 +702,22 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Beispiel loaded")
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов...ЗАВЕРШЕНО\nИмпорт: Примеры...ЗАВЕРШЕНО\nПересчёт заученного..." }
+                statusMessage += "ЗАВЕРШЕНО\nПересчёт заученного..."
+                Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
                 fullCount = WortFormenDictionary.keys.count
                 for theWortFormKey in WortFormenDictionary.keys{
                     let theWortForm = WortFormenDictionary[theWortFormKey]!
                     if(!WortFormen.isComplete(theWortForm)){
-                        theWortForm.successCounter = max(2, theWortForm.successCounter)
+                        theWortForm.successCounter = min(2, theWortForm.successCounter)
                     }
                     runningCounter += 1
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
                 
-                Task { @MainActor in progress.text = "Обновление базы слов...\nИмпорт: склонения… ЗАВЕРШЕНО\nИмпорт: рода...ЗАВЕРШЕНО\nИмпорт: Падежи...ЗАВЕРШЕНО\nИмпорт: Сравнительные степени...ЗАВЕРШЕНО\nИмпорт: Модальность...ЗАВЕРШЕНО\nИмпорт: Числа...ЗАВЕРШЕНО\nИмпорт: Лица...ЗАВЕРШЕНО\nИмпорт: Времена...ЗАВЕРШЕНО\nИмпорт: Слова...ЗАВЕРШЕНО\nИмпорт: Формы слов...ЗАВЕРШЕНО\nИмпорт: Изменения слов...ЗАВЕРШЕНО\nИмпорт: Примеры...ЗАВЕРШЕНО\nПересчёт заученного...ЗАВЕРШЕНО"
+                statusMessage += "ЗАВЕРШЕНО"
+                Task { @MainActor in progress.text = statusMessage
                     progress.completed = true}
                 
                 Settings.setLastLoadedVersion(presetVersion, in: theContext)
