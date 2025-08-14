@@ -277,13 +277,13 @@ struct WortRepeater: View {
         
         exercisedWorte.insert(pickedSache)
         
-        let wortFormList = WortFormen.get_wortFormenList_furArt(wortArt)
+        //let wortFormList = WortFormen.get_wortFormenList_furArt(wortArt)
         
         wort = []
         beispiel = []
         
         print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
-        print("WortRepeater.pickTheWord(): wortFormList.count: \(wortFormList.count)")
+        //print("WortRepeater.pickTheWord(): wortFormList.count: \(wortFormList.count)")
         
         var appendedCount = 0
         

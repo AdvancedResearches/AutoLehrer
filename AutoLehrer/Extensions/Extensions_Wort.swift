@@ -138,7 +138,7 @@ extension Wort{
             }
             retValue = sortedWorte.map{$0.dasWort}
         }
-        if(wortArt.name_DE == "Adjektive"){
+        if(wortArt.name_DE == "Adjective"){
             sortedWorte = sortedWorte.sorted {
                 (($0.deklinationOrder), ($0.genusOrder), ($0.numerusOrder), ($0.komparationsgradOrder), ($0.kasusOrder)) <
                 (($1.deklinationOrder), ($1.genusOrder), ($1.numerusOrder), ($1.komparationsgradOrder), ($1.kasusOrder))
