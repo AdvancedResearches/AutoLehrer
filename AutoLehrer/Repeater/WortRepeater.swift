@@ -18,6 +18,7 @@ struct WortRepeater: View {
     @State var flippedSeite: [Bool] = []
     @State var missedGuess: [Bool] = []
     @State var flipScaleRatio: [CGFloat] = []
+    @State var flipShakingRatio: [CGFloat] = []
     @State var wortForm: [WortArtFormen] = []
     
     @State var exercisedWorte: Set<WortFormen> = []
@@ -156,6 +157,7 @@ struct WortRepeater: View {
                         condensed: !isCurrent
                     )
                     .scaleEffect(flipScaleRatio[index])
+                    .scaleEffect(flipShakingRatio[index])
                     .onChange(of: deutschesSeite[index]){ value in
                         flippedSeite[index] = true
                     }
@@ -204,6 +206,19 @@ struct WortRepeater: View {
                                 }
                                 guessingResult[index] = 1
                                 readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                            }else{
+                                if(!flippedSeite[index]){
+                                    withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.05)) { flipShakingRatio[index] = 0.95 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.1)) { flipShakingRatio[index] = 1.05 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.15)) { flipShakingRatio[index] = 0.95 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.2)) { flipShakingRatio[index] = 1.05 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.25)) { flipShakingRatio[index] = 0.95 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.3)) { flipShakingRatio[index] = 1.05 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.35)) { flipShakingRatio[index] = 0.95 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.4)) { flipShakingRatio[index] = 1.05 }
+                                    withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
+                                }
                             }
                         }, widthFlood: true)
                         NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(
@@ -220,6 +235,17 @@ struct WortRepeater: View {
                                 }
                                 guessingResult[index] = -1
                                 readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                            }else{
+                                withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.05)) { flipShakingRatio[index] = 0.95 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.1)) { flipShakingRatio[index] = 1.05 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.15)) { flipShakingRatio[index] = 0.95 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.2)) { flipShakingRatio[index] = 1.05 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.25)) { flipShakingRatio[index] = 0.95 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.3)) { flipShakingRatio[index] = 1.05 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.35)) { flipShakingRatio[index] = 0.95 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.4)) { flipShakingRatio[index] = 1.05 }
+                                withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                             }
                         }, widthFlood: true)
                         Spacer()
@@ -324,6 +350,7 @@ struct WortRepeater: View {
         flippedSeite = Array(repeating: false, count: wort.count)
         missedGuess = Array(repeating: false, count: wort.count)
         flipScaleRatio = Array(repeating: 1, count: wort.count)
+        flipShakingRatio = Array(repeating: 1, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOn = false
         runningWort = 0
