@@ -289,7 +289,20 @@ struct WortRepeater: View {
         
         var theCounter = 0
         
+        var alleWorteFurSache = pickedSache.relWort?.allObjects as! [Wort] ?? []
+        
+        var sortedWorte = Wort.Worte_sort(alleWorteFurSache, pickedSache.relWortArt!)
+        
+        var topWorte: [Wort] = Array(sortedWorte.prefix(Int(pickedSache.formsToShow)))
+        
+        for theCounter in 0..<topWorte.count{
+            wort.append(topWorte[theCounter])
+            beispiel.append(Wort.get_beispiel(topWorte[theCounter]))
+            wortForm.append(WortArtFormen.fromWort(topWorte[theCounter]))
+        }
+        
         //for theCounter in 0..<wortFormList.count{
+        /*
         while (appendedCount < pickedSache.formsToShow && theCounter < wortFormList.count){
                 let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
                 if(wortTest != nil){
@@ -303,6 +316,7 @@ struct WortRepeater: View {
                 }
             theCounter += 1
         }
+         */
         
         print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
         

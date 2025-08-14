@@ -1,5 +1,41 @@
 import CoreData
 
+public struct WortSorting{
+    var deklinationOrder: Int
+    var genusOrder: Int
+    var hoflichkeitenOrder: Int
+    var kasusOrder: Int
+    var komparationsgradOrder: Int
+    var modusOrder: Int
+    var numerusOrder: Int
+    var personOrder: Int
+    var pronomenartOrder: Int
+    var tempusOrder: Int
+    var dasWort: Wort
+    public static func fromWort(_ wort: Wort) -> WortSorting {
+        return WortSorting(
+            deklinationOrder: Int(wort.relDeklination?.order ?? 1000),
+            genusOrder: Int(wort.relGenus?.order ?? 10000),
+            hoflichkeitenOrder: Int(wort.relHoflichkeiten?.order ?? 1000),
+            kasusOrder: Int(wort.relKasus?.order ?? 10000),
+            komparationsgradOrder: Int(wort.relKomparationsgrad?.order ?? 1000),
+            modusOrder: Int(wort.relModus?.order ?? 1000),
+            numerusOrder: Int(wort.relNumerus?.order ?? 1000),
+            personOrder: Int(wort.relPerson?.order ?? 1000),
+            pronomenartOrder: Int(wort.relPronomenart?.order ?? 1000),
+            tempusOrder: Int(wort.relTempus?.order ?? 1000),
+            dasWort: wort
+        )
+    }
+    public static func fromWortArray(_ worte: [Wort]) -> [WortSorting] {
+        var retValue: [WortSorting] = []
+        for theCounter in 0..<worte.count {
+            retValue.append(WortSorting.fromWort(worte[theCounter]))
+        }
+        return retValue
+    }
+}
+
 public struct WortArtFormen{
     var deklination: Deklination?
     var genus: Genus?
@@ -11,6 +47,20 @@ public struct WortArtFormen{
     var person: Person?
     var pronomenart: Pronomenart?
     var tempus: Tempus?
+    public static func fromWort(_ wort: Wort) -> WortArtFormen {
+        return WortArtFormen(
+            deklination: wort.relDeklination,
+            genus: wort.relGenus,
+            hoflichkeiten: wort.relHoflichkeiten,
+            kasus: wort.relKasus,
+            komparationsgrad: wort.relKomparationsgrad,
+            modus: wort.relModus,
+            numerus: wort.relNumerus,
+            person: wort.relPerson,
+            pronomenart: wort.relPronomenart,
+            tempus: wort.relTempus
+        )
+    }
     public func debug_string() -> String{
         var retValue = ""
         if deklination != nil {

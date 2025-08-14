@@ -121,6 +121,48 @@ extension Wort{
         }
         return filteredWorten
     }
+    public static func Worte_sort(_ worte: [Wort], _ wortArt: WortArt) -> [Wort]{
+        var retValue: [Wort] = []
+        var sortedWorte: [WortSorting] = WortSorting.fromWortArray(worte)
+        if(wortArt.name_DE == "Nomen"){
+            sortedWorte = sortedWorte.sorted {
+                (($0.numerusOrder), ($0.kasusOrder)) <
+                (($1.numerusOrder), ($1.kasusOrder))
+            }
+            retValue = sortedWorte.map{$0.dasWort}
+        }
+        if(wortArt.name_DE == "Verb"){
+            sortedWorte = sortedWorte.sorted {
+                (($0.modusOrder), ($0.tempusOrder), ($0.numerusOrder), ($0.personOrder)) <
+                (($1.modusOrder), ($1.tempusOrder), ($1.numerusOrder), ($1.personOrder))
+            }
+            retValue = sortedWorte.map{$0.dasWort}
+        }
+        if(wortArt.name_DE == "Adjektive"){
+            sortedWorte = sortedWorte.sorted {
+                (($0.deklinationOrder), ($0.genusOrder), ($0.numerusOrder), ($0.komparationsgradOrder), ($0.kasusOrder)) <
+                (($1.deklinationOrder), ($1.genusOrder), ($1.numerusOrder), ($1.komparationsgradOrder), ($1.kasusOrder))
+            }
+            retValue = sortedWorte.map{$0.dasWort}
+        }
+        if(wortArt.name_DE == "Funktional Wort"){
+            sortedWorte = sortedWorte.sorted {
+                let a6 = ($0.deklinationOrder, $0.genusOrder, $0.numerusOrder, $0.hoflichkeitenOrder, $0.personOrder, $0.pronomenartOrder)
+                let b6 = ($1.deklinationOrder, $1.genusOrder, $1.numerusOrder, $1.hoflichkeitenOrder, $1.personOrder, $1.pronomenartOrder)
+                if a6 != b6 { return a6 < b6 }
+                return $0.kasusOrder < $1.kasusOrder
+            }
+            retValue = sortedWorte.map{$0.dasWort}
+        }
+        if(wortArt.name_DE == "Phrase"){
+            sortedWorte = sortedWorte.sorted {
+                (($0.deklinationOrder)) <
+                (($1.deklinationOrder))
+            }
+            retValue = sortedWorte.map{$0.dasWort}
+        }
+        return retValue
+    }
     public static func pick_wort(_ wortForm: WortFormen, wortArtFormen: WortArtFormen) -> Wort?{
         guard let context = wortForm.managedObjectContext else {
             return nil
