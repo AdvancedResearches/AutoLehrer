@@ -8,6 +8,17 @@
 import Foundation
 import CoreData
 
+struct PronomentartHive: Codable{
+    var theHive: [HoflichkeitenItem]
+}
+
+struct PronomentartItem: Codable{
+    var name_DE: String
+    var name_RU: String
+    var order: Int64
+    var pronomenartKey: String
+}
+
 struct HoflichkeitenHive: Codable{
     var theHive: [HoflichkeitenItem]
 }
