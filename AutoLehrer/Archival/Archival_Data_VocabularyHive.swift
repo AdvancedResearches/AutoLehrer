@@ -8,11 +8,11 @@
 import Foundation
 import CoreData
 
-struct PronomentartHive: Codable{
-    var theHive: [HoflichkeitenItem]
+struct PronomenartHive: Codable{
+    var theHive: [PronomenartItem]
 }
 
-struct PronomentartItem: Codable{
+struct PronomenartItem: Codable{
     var name_DE: String
     var name_RU: String
     var order: Int64
@@ -168,6 +168,7 @@ struct WortItem: Codable{
     var relModus: String?
     var relNumerus: String?
     var relPerson: String?
+    var relPronomenart: String?
     var relTempus: String?
     var relWortFormen: String
     var wortKey: String
@@ -214,6 +215,7 @@ struct VocabularyHive: Codable{
     var modusHive: ModusHive
     var numerusHive: NumerusHive
     var personHive: PersonHive
+    var pronomenartHive: PronomenartHive
     var tempusHive: TempusHive
     var versionHive: VersionHive
     var wortHive: WortHive
@@ -233,6 +235,7 @@ struct Archival_Vocabulary{
             modusHive: ModusHive(theHive: []),
             numerusHive: NumerusHive(theHive: []),
             personHive: PersonHive(theHive: []),
+            pronomenartHive: PronomenartHive(theHive: []),
             tempusHive: TempusHive(theHive: []),
             versionHive: VersionHive(theHive: []),
             wortHive: WortHive(theHive: []),
@@ -282,6 +285,9 @@ struct Archival_Vocabulary{
             }
             for thePerson in try theContext.fetch(Person.fetchRequest()){
                 theContext.delete(thePerson)
+            }
+            for thePronomenart in try theContext.fetch(Pronomenart.fetchRequest()){
+                theContext.delete(thePronomenart)
             }
             for theTempus in try theContext.fetch(Tempus.fetchRequest()){
                 theContext.delete(theTempus)
@@ -543,6 +549,32 @@ struct Archival_Vocabulary{
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
                 print("Start preset_1_0_0_0: Person loaded")
+                
+                statusMessage += "ЗАВЕРШЕНО\n   Разряды местоимений..."
+                Task { @MainActor in progress.text = statusMessage }
+                
+                runningCounter = 0
+                fullCount = theData.pronomenartHive.theHive.count
+                var PronomenartDictionary: [String:Pronomenart] = [:]
+                for thePronomentart in theData.pronomenartHive.theHive{
+                    let uploadingPronomentart = Pronomenart.findOrCreate(in: theContext, withName_DE: thePronomentart.name_DE)//Person(context: theContext)
+                    uploadingPronomentart.name_DE = thePronomentart.name_DE
+                    uploadingPronomentart.name_RU = thePronomentart.name_RU
+                    uploadingPronomentart.order = thePronomentart.order
+                    PronomenartDictionary.updateValue(uploadingPronomentart, forKey: thePronomentart.pronomenartKey)
+                    runningCounter += 1
+                    Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
+                }
+                let existingPronomenart: [Pronomenart] = try theContext.fetch(Pronomenart.fetchRequest())
+                runningCounter = 0
+                fullCount = existingPronomenart.count
+                for theExistingPronomenart in existingPronomenart{
+                    if(!PronomenartDictionary.values.contains(theExistingPronomenart)){
+                        theContext.delete(theExistingPronomenart)
+                    }
+                    runningCounter += 1
+                    Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
+                }
                 
                 statusMessage += "ЗАВЕРШЕНО\n   Времена..."
                 Task { @MainActor in progress.text = statusMessage }

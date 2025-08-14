@@ -9,6 +9,7 @@ public struct WortArtFormen{
     var modus: Modus?
     var numerus: Numerus?
     var person: Person?
+    var pronomenart: Pronomenart?
     var tempus: Tempus?
     public func debug_string() -> String{
         var retValue = ""
@@ -35,6 +36,9 @@ public struct WortArtFormen{
         }
         if person != nil {
             retValue += "person=\(person!.name_DE!);"
+        }
+        if pronomenart != nil {
+            retValue += "pronomenart=\(pronomenart!.name_DE!);"
         }
         if tempus != nil {
             retValue += "tempus=\(tempus!.name_DE!);"

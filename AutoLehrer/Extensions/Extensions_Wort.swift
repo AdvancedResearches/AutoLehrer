@@ -43,6 +43,9 @@ extension Wort{
         if(property == "genus"){
             return sprache == "DE" ? wort.relGenus?.name_DE! ?? "" : wort.relGenus?.name_RU! ?? ""
         }
+        if(property == "hoflichkeiten"){
+            return sprache == "DE" ? wort.relHoflichkeiten?.name_DE! ?? ""  : wort.relHoflichkeiten?.name_RU! ?? ""
+        }
         if(property == "kasus"){
             return sprache == "DE" ? wort.relKasus?.name_DE! ?? ""  : wort.relKasus?.name_RU! ?? ""
         }
@@ -54,6 +57,9 @@ extension Wort{
         }
         if(property == "person"){
             return sprache == "DE" ? wort.relPerson?.name_DE! ?? ""  : wort.relPerson?.name_RU! ?? ""
+        }
+        if(property == "pronomenart"){
+            return sprache == "DE" ? wort.relPronomenart?.name_DE! ?? ""  : wort.relPronomenart?.name_RU! ?? ""
         }
         if(property == "tempus"){
             return sprache == "DE" ? wort.relTempus?.name_DE! ?? ""  : wort.relTempus?.name_RU! ?? ""
@@ -81,7 +87,7 @@ extension Wort{
         }
         return retValue
     }
-    public static func filter(worte: [Wort], wortArtFormen: WortArtFormen) -> [Wort]{
+    public static func Wort_filter(worte: [Wort], wortArtFormen: WortArtFormen) -> [Wort]{
         var filteredWorten: [Wort] = worte
         if(wortArtFormen.deklination != nil){
             filteredWorten = filteredWorten.filter{$0.relDeklination == wortArtFormen.deklination!}
@@ -108,6 +114,9 @@ extension Wort{
             filteredWorten = filteredWorten.filter{$0.relTempus == wortArtFormen.tempus!}
         }
         if(wortArtFormen.hoflichkeiten != nil){
+            filteredWorten = filteredWorten.filter{$0.relHoflichkeiten == wortArtFormen.hoflichkeiten!}
+        }
+        if(wortArtFormen.pronomenart != nil){
             filteredWorten = filteredWorten.filter{$0.relHoflichkeiten == wortArtFormen.hoflichkeiten!}
         }
         return filteredWorten
@@ -156,7 +165,7 @@ extension Wort{
         do{
             if(wortFormen != nil){
                 let setOf = try context.fetch(Wort.fetchRequest()).filter{$0.relWortFormen == wortFormen}
-                result = filter(worte: setOf, wortArtFormen: wortArtFormen).first
+                result = Wort_filter(worte: setOf, wortArtFormen: wortArtFormen).first
             }
             if result == nil {
                 result = Wort(context: context)

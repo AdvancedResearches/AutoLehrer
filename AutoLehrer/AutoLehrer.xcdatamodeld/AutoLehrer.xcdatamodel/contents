@@ -55,6 +55,12 @@
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relPerson" inverseEntity="Wort"/>
     </entity>
+    <entity name="Pronomenart" representedClassName="Pronomenart" syncable="YES" codeGenerationType="class">
+        <attribute name="name_DE" optional="YES" attributeType="String"/>
+        <attribute name="name_RU" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relPronomenart" inverseEntity="Wort"/>
+    </entity>
     <entity name="Settings" representedClassName="Settings" syncable="YES" codeGenerationType="class">
         <attribute name="settingName" optional="YES" attributeType="String"/>
         <attribute name="settingValue" optional="YES" attributeType="String"/>
@@ -82,6 +88,7 @@
         <relationship name="relModus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Modus" inverseName="relWort" inverseEntity="Modus"/>
         <relationship name="relNumerus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Numerus" inverseName="relWort" inverseEntity="Numerus"/>
         <relationship name="relPerson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="relWort" inverseEntity="Person"/>
+        <relationship name="relPronomenart" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pronomenart" inverseName="relWort" inverseEntity="Pronomenart"/>
         <relationship name="relStatistics" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Statistics" inverseName="relWort" inverseEntity="Statistics"/>
         <relationship name="relTempus" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tempus" inverseName="relWort" inverseEntity="Tempus"/>
         <relationship name="relWortFormen" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WortFormen" inverseName="relWort" inverseEntity="WortFormen"/>
