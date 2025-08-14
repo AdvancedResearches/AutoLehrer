@@ -287,19 +287,21 @@ struct WortRepeater: View {
         
         var appendedCount = 0
         
-        for theCounter in 0..<wortFormList.count{
-            if(appendedCount < pickedSache.formsToShow){
+        var theCounter = 0
+        
+        //for theCounter in 0..<wortFormList.count{
+        while (appendedCount < pickedSache.formsToShow && theCounter < wortFormList.count){
                 let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
                 if(wortTest != nil){
                     wort.append(wortTest!)
                     beispiel.append(Wort.get_beispiel(wortTest!))
                     wortForm.append(wortFormList[theCounter])
-                    print("!!!!!! WortRepeater.pickTheWort: succeeded to find \(wortFormList[theCounter].debug_string()) for \(pickedSache)")
+                    print("!!!!!! WortRepeater.pickTheWort: succeeded to find \(wortFormList[theCounter].debug_string()) for \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
                     appendedCount += 1
                 }else{
-                    print("?????? WortRepeater.pickTheWort: failed to find \(wortFormList[theCounter].debug_string()) for \(pickedSache)")
+                    print("?????? WortRepeater.pickTheWort: failed to find \(wortFormList[theCounter].debug_string()) for \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
                 }
-            }
+            theCounter += 1
         }
         
         print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")

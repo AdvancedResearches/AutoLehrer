@@ -91,11 +91,6 @@ extension WortFormen{
         }
         if(wortArt.name_DE == "Funktional Wort"){
             for theDeklination in try! context.fetch(Deklination.fetchRequest()).sorted{$0.order < $1.order}{
-                retValue.append(WortArtFormen(deklination: theDeklination))
-            }
-        }
-        if(wortArt.name_DE == "Phrase"){
-            for theDeklination in try! context.fetch(Deklination.fetchRequest()).sorted{$0.order < $1.order}{
                 for theGenus in try! context.fetch(Genus.fetchRequest()).sorted{$0.order < $1.order}{
                     for theNumerus in try! context.fetch(Numerus.fetchRequest()).sorted{$0.order < $1.order}{
                         for theHoflichkeit in try! context.fetch(Hoflichkeiten.fetchRequest()).sorted{$0.order < $1.order}{
@@ -121,6 +116,11 @@ extension WortFormen{
                         }
                     }
                 }
+            }
+        }
+        if(wortArt.name_DE == "Phrase"){
+            for theDeklination in try! context.fetch(Deklination.fetchRequest()).sorted{$0.order < $1.order}{
+                retValue.append(WortArtFormen(deklination: theDeklination))
             }
         }
         return retValue
