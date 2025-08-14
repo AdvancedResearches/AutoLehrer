@@ -107,6 +107,9 @@ extension Wort{
         if(wortArtFormen.tempus != nil){
             filteredWorten = filteredWorten.filter{$0.relTempus == wortArtFormen.tempus!}
         }
+        if(wortArtFormen.hoflichkeiten != nil){
+            filteredWorten = filteredWorten.filter{$0.relHoflichkeiten == wortArtFormen.hoflichkeiten!}
+        }
         return filteredWorten
     }
     public static func pick_wort(_ wortForm: WortFormen, wortArtFormen: WortArtFormen) -> Wort?{
