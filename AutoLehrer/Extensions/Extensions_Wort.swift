@@ -118,7 +118,7 @@ extension Wort{
             filteredWorten = filteredWorten.filter{$0.relHoflichkeiten == wortArtFormen.hoflichkeiten!}
         }
         if(wortArtFormen.pronomenart != nil){
-            filteredWorten = filteredWorten.filter{$0.relHoflichkeiten == wortArtFormen.hoflichkeiten!}
+            filteredWorten = filteredWorten.filter{$0.relPronomenart == wortArtFormen.pronomenart!}
         }
         return filteredWorten
     }

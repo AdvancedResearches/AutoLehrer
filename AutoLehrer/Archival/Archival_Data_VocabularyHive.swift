@@ -679,6 +679,7 @@ struct Archival_Vocabulary{
                         modus: ModusDictionary[theWort.relModus ?? "NIL"],
                         numerus: NumerusDictionary[theWort.relNumerus ?? "NIL"],
                         person: PersonDictionary[theWort.relPerson ?? "NIL"],
+                        pronomenart: PronomenartDictionary[theWort.relPronomenart ?? "NIL"],
                         tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
                     ))
                     uploadingWort.wort_DE = theWort.wort_DE
@@ -693,6 +694,7 @@ struct Archival_Vocabulary{
                     uploadingWort.relPerson             = PersonDictionary[theWort.relPerson ?? "NIL"]
                     uploadingWort.relTempus             = TempusDictionary[theWort.relTempus ?? "NIL"]
                     uploadingWort.relHoflichkeiten      = HoflichketienDictionary[theWort.relHoflichkeiten ?? "NIL"]
+                    uploadingWort.relPronomenart        = PronomenartDictionary[theWort.relPronomenart ?? "NIL"]
                     
                     uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                     
@@ -729,8 +731,8 @@ struct Archival_Vocabulary{
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
                 //print("Start preset_1_0_0_0: Wort loaded")
-                print("Start preset_1_0_0_0: \(pronomensFormsLoaded.count) pronomens forms uploaded")
-                print("Start preset_1_0_0_0: \(pronomensFormsRemoved.count) pronomens forms removed")
+                print("Start preset_1_0_0_0: FINALLY \(pronomensFormsLoaded.count) pronomens forms uploaded")
+                print("Start preset_1_0_0_0: FINALLY \(pronomensFormsRemoved.count) pronomens forms removed")
                 
                 boundToPronomens = ""
                 for thePronomen in pronomensLoaded{
