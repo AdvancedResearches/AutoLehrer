@@ -163,10 +163,8 @@ extension Wort{
         }
         if(wortArt.name_DE == "Pronomen"){
             sortedWorte = sortedWorte.sorted {
-                let a6 = ($0.deklinationOrder, $0.genusOrder, $0.numerusOrder, $0.hoflichkeitenOrder, $0.personOrder, $0.pronomenartOrder)
-                let b6 = ($1.deklinationOrder, $1.genusOrder, $1.numerusOrder, $1.hoflichkeitenOrder, $1.personOrder, $1.pronomenartOrder)
-                if a6 != b6 { return a6 < b6 }
-                return $0.kasusOrder < $1.kasusOrder
+                (($0.pronomenartOrder), ($0.hoflichkeitenOrder), ($0.personOrder), ($0.numerusOrder), ($0.kasusOrder)) <
+                (($1.pronomenartOrder), ($1.hoflichkeitenOrder), ($1.personOrder), ($1.numerusOrder), ($1.kasusOrder))
             }
             retValue = sortedWorte.map{$0.dasWort}
         }

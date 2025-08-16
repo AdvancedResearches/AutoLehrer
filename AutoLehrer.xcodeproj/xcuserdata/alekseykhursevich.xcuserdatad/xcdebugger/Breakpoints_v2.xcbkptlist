@@ -366,9 +366,9 @@
             filePath = "AutoLehrer/Extensions/Extensions_Wort.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "pick_wort(_:wortArtFormen:)"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "Worte_sort(_:_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -382,8 +382,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_Wort.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "pick_wort(_:wortArtFormen:)"
             landmarkType = "7">
          </BreakpointContent>
