@@ -6,6 +6,7 @@ extension Wort{
         var retValue: String = ""
         let wortArt = wort.relWortFormen?.relWortArt ?? nil
         if(wortArt != nil){
+            //(($0.pronomenartOrder), ($0.hoflichkeitenOrder), ($0.personOrder), ($0.numerusOrder), ($0.kasusOrder))
             if(wortArt!.property_1 != nil){
                 retValue += get_wortProperty_byPropertyName(wort, wortArt!.property_1!, sprache)
             }

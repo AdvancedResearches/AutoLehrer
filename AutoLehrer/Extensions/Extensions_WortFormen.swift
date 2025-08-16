@@ -148,18 +148,6 @@ extension WortFormen{
                                 for thePronomenart in try! context.fetch(Pronomenart.fetchRequest()).sorted{$0.order < $1.order}{
                                     for theKasus in try! context.fetch(Kasus.fetchRequest()).sorted{$0.order < $1.order}{
                                         retValue.append(WortArtFormen(deklination: theDeklination, genus: theGenus, hoflichkeiten: theHoflichkeit, kasus: theKasus, numerus: theNumerus, person: thePerson, pronomenart: thePronomenart))
-                                                                      /*
-                                                                       var deklination: Deklination?
-                                                                       var genus: Genus?
-                                                                       var hoflichkeiten: Hoflichkeiten?
-                                                                       var kasus: Kasus?
-                                                                       var komparationsgrad: Komparationsgrad?
-                                                                       var modus: Modus?
-                                                                       var numerus: Numerus?
-                                                                       var person: Person?
-                                                                       var pronomenart: Pronomenart?
-                                                                       var tempus: Tempus?
-                                                                       */
                                     }
                                 }
                             }

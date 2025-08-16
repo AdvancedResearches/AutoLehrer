@@ -54,6 +54,7 @@ struct WortRepeater: View {
                         if(readyToMoveOn){
                             attemptCounter += 1
                             var successCounter: Int = 0
+                            
                             for theFormCounter in 0..<wort.count{
                                 if(guessingResult[theFormCounter] == 1){
                                     Statistics.set_success(wort[theFormCounter])
@@ -65,19 +66,14 @@ struct WortRepeater: View {
                             }
                             
                             if(successCounter == wort.count){
-                                //print("Bevor commit as successful for \(pickedWortFormen!)")
                                 if(WortFormen.set_success(pickedWortFormen!)){
                                     confirmedWorte.insert(pickedWortFormen!)
-                                    //print("Passed for next level commit")
-                                }else{
-                                    //print("Stazed same level commit")
                                 }
-                                //print("Nach commit as successful for \(pickedWortFormen!)")
                             }else{
                                 WortFormen.set_failure(pickedWortFormen!)
                                 confirmedWorte.remove(pickedWortFormen!)
-                                //print("Commit as failed for \(pickedWortFormen!)")
                             }
+                            
                             WortFormen.set_attempted(pickedWortFormen!)
                             Statistics.wortFormenUrgency(pickedWortFormen!)
                             
@@ -111,7 +107,7 @@ struct WortRepeater: View {
                         .background(.clear)
                         .onChange(of: runningWort) { newValue in
                             withAnimation {
-                                proxy.scrollTo(newValue, anchor: .center) // или .top, если надо к началу
+                                proxy.scrollTo(newValue, anchor: .center)
                             }
                         }
                     }
@@ -303,13 +299,10 @@ struct WortRepeater: View {
         
         exercisedWorte.insert(pickedSache)
         
-        //let wortFormList = WortFormen.get_wortFormenList_furArt(wortArt)
-        
         wort = []
         beispiel = []
         
         print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
-        //print("WortRepeater.pickTheWord(): wortFormList.count: \(wortFormList.count)")
         
         var appendedCount = 0
         
@@ -326,23 +319,6 @@ struct WortRepeater: View {
             beispiel.append(Wort.get_beispiel(topWorte[theCounter]))
             wortForm.append(WortArtFormen.fromWort(topWorte[theCounter]))
         }
-        
-        //for theCounter in 0..<wortFormList.count{
-        /*
-        while (appendedCount < pickedSache.formsToShow && theCounter < wortFormList.count){
-                let wortTest = Wort.pick_wort(pickedSache, wortArtFormen: wortFormList[theCounter])
-                if(wortTest != nil){
-                    wort.append(wortTest!)
-                    beispiel.append(Wort.get_beispiel(wortTest!))
-                    wortForm.append(wortFormList[theCounter])
-                    print("!!!!!! WortRepeater.pickTheWort: succeeded to find \(wortFormList[theCounter].debug_string()) for \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
-                    appendedCount += 1
-                }else{
-                    print("?????? WortRepeater.pickTheWort: failed to find \(wortFormList[theCounter].debug_string()) for \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
-                }
-            theCounter += 1
-        }
-         */
         
         print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
         
