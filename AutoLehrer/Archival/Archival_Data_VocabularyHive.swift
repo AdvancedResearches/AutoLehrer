@@ -144,20 +144,6 @@ struct WortHive: Codable{
 }
 
 struct WortItem: Codable{
-    /*
-     "wort_DE": "eine/die Zeit",
-     "wort_RU": "время  ",
-     "relDeklination": null,
-     "relGenus": "weiblichGenus",
-     "relKasus": "nominativeKasus",
-     "relKomparationsgrad": null,
-     "relModus": null,
-     "relWortFormen": "NomenOrder1",
-     "relNumerus": "singularNumerus",
-     "relPerson": null,
-     "relTempus": null,
-     "wortKey": "eine/dieZeitweiblichGenusnominativeKasusNomenOrder1singularNumerus",
-     */
     var wort_DE: String
     var wort_RU: String
     var relDeklination: String?
@@ -603,7 +589,7 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: Tempus loaded")
                 
-                statusMessage += "ЗАВЕРШЕНО\n   Слова..."
+                statusMessage += "ЗАВЕРШЕНО\n   Виды слов..."
                 Task { @MainActor in progress.text = statusMessage }
                 
                 runningCounter = 0
@@ -640,16 +626,22 @@ struct Archival_Vocabulary{
                 }
                 print("Start preset_1_0_0_0: WortArt loaded")
                 
-                statusMessage += "ЗАВЕРШЕНО\n   Формы слов..."
+                statusMessage += "ЗАВЕРШЕНО\n   Слова..."
                 Task { @MainActor in progress.text = statusMessage }
+                
+                var pronomensLoaded: [WortFormen] = []
+                var pronomensRemoved: [WortFormen] = []
                 
                 runningCounter = 0
                 fullCount = theData.wortFormenHive.theHive.count
                 var WortFormenDictionary: [String:WortFormen] = [:]
                 for theWortFormen in theData.wortFormenHive.theHive{
-                    let uploadingWortFormen = WortFormen.findOrCreate(in: theContext, wortArt: WortArtDictionary[theWortFormen.relWortArt], order: theWortFormen.wortFrequencyOrder)//WortFormen(context: theContext)
+                    let uploadingWortFormen = WortFormen.findOrCreate(in: theContext, wortArt: WortArtDictionary[theWortFormen.relWortArt], order: theWortFormen.wortFrequencyOrder)
                     uploadingWortFormen.wortFrequencyOrder = theWortFormen.wortFrequencyOrder
                     uploadingWortFormen.relWortArt    = WortArtDictionary[theWortFormen.relWortArt]!
+                    if(uploadingWortFormen.relWortArt!.name_DE == "Pronomen"){
+                        pronomensLoaded.append(uploadingWortFormen)
+                    }
                     WortFormenDictionary.updateValue(uploadingWortFormen, forKey: theWortFormen.wortFormenKey)
                     runningCounter += 1
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
@@ -665,9 +657,14 @@ struct Archival_Vocabulary{
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
                 print("Start preset_1_0_0_0: WortFormen loaded")
+                print("Start preset_1_0_0_0: \(pronomensLoaded.count) pronomens uploaded")
                 
-                statusMessage += "ЗАВЕРШЕНО\n   Варианты форм слов..."
+                statusMessage += "ЗАВЕРШЕНО\n   Формы слов..."
                 Task { @MainActor in progress.text = statusMessage }
+                
+                var pronomensFormsLoaded: [Wort] = []
+                var pronomensFormsRemoved: [Wort] = []
+                var boundToPronomens: String = ""
                 
                 runningCounter = 0
                 fullCount = theData.wortHive.theHive.count
@@ -698,25 +695,49 @@ struct Archival_Vocabulary{
                     uploadingWort.relHoflichkeiten      = HoflichketienDictionary[theWort.relHoflichkeiten ?? "NIL"]
                     
                     uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
+                    
+                    if let relForm = uploadingWort.relWortFormen,
+                       pronomensLoaded.contains(relForm) {
+                        pronomensFormsLoaded.append(uploadingWort)
+                        boundToPronomens = ""
+                        for thePronomen in pronomensLoaded{
+                            boundToPronomens += "[\(thePronomen.wortFrequencyOrder)]=\(thePronomen.relWort?.count ?? 0)|"
+                        }
+                        
+                        print("Start preset_1_0_0_0: \(boundToPronomens) fur \(Wort.debug_string(uploadingWort))")
+                    }
+                    
                     WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
                     
-                    print("Start preset_1_0_0_0: new Wort \(uploadingWort.wort_DE) loaded")
+                    //print("Start preset_1_0_0_0: new Wort \(uploadingWort.wort_DE) loaded")
                     
                     runningCounter += 1
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
-                print("Start preset_1_0_0_0: new Wort loaded")
+                //print("Start preset_1_0_0_0: new Wort loaded")
                 let existingWort: [Wort] = try theContext.fetch(Wort.fetchRequest())
                 runningCounter = 0
                 fullCount = existingWort.count
                 for theExistingWort in existingWort{
                     if(!WortDictionary.values.contains(theExistingWort)){
+                        if pronomensFormsLoaded.contains(theExistingWort) {
+                            pronomensFormsRemoved.append(theExistingWort)
+                        }
                         theContext.delete(theExistingWort)
                     }
                     runningCounter += 1
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
-                print("Start preset_1_0_0_0: Wort loaded")
+                //print("Start preset_1_0_0_0: Wort loaded")
+                print("Start preset_1_0_0_0: \(pronomensFormsLoaded.count) pronomens forms uploaded")
+                print("Start preset_1_0_0_0: \(pronomensFormsRemoved.count) pronomens forms removed")
+                
+                boundToPronomens = ""
+                for thePronomen in pronomensLoaded{
+                    boundToPronomens += "[\(thePronomen.wortFrequencyOrder)]=\(thePronomen.relWort?.count ?? 0)|"
+                }
+                
+                print("Start preset_1_0_0_0: \(boundToPronomens)")
                 
                 statusMessage += "ЗАВЕРШЕНО\n   Примеры..."
                 Task { @MainActor in progress.text = statusMessage }

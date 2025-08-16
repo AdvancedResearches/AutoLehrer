@@ -223,4 +223,51 @@ extension Wort{
         }catch{}
         return result!
     }
+    public static func debug_string(_ wort: Wort) -> String{
+        var retValue: String = wort.wort_DE!
+        retValue += " \(wort.relWortFormen!.relWortArt!.name_DE!)-\(wort.relWortFormen!.wortFrequencyOrder)"
+        /*
+         relDeklination
+         relGenus
+         relHoflichkeiten
+         relKasus
+         relKomparationsgrad
+         relModus
+         relNumerus
+         relPerson
+         relPronomenart
+         relTempus
+         */
+        if(wort.relDeklination != nil){
+            retValue += " [relDeklination:\(wort.relDeklination!.name_DE!)]"
+        }
+        if(wort.relGenus != nil){
+            retValue += " [relGenus:\(wort.relGenus!.name_DE!)]"
+        }
+        if(wort.relHoflichkeiten != nil){
+            retValue += " [relHoflichkeiten:\(wort.relHoflichkeiten!.name_DE!)]"
+        }
+        if(wort.relKasus != nil){
+            retValue += " [relKasus:\(wort.relKasus!.name_DE!)]"
+        }
+        if(wort.relKomparationsgrad != nil){
+            retValue += " [relKomparationsgrad:\(wort.relKomparationsgrad!.name_DE!)]"
+        }
+        if(wort.relModus != nil){
+            retValue += " [relModus:\(wort.relModus!.name_DE!)]"
+        }
+        if(wort.relNumerus != nil){
+            retValue += " [relNumerus:\(wort.relNumerus!.name_DE!)]"
+        }
+        if(wort.relPerson != nil){
+            retValue += " [relPerson:\(wort.relPerson!.name_DE!)]"
+        }
+        if(wort.relPronomenart != nil){
+            retValue += " [relPronomenart:\(wort.relPronomenart!.name_DE!)]"
+        }
+        if(wort.relTempus != nil){
+            retValue += " [relTempus:\(wort.relTempus!.name_DE!)]"
+        }
+        return retValue
+    }
 }
