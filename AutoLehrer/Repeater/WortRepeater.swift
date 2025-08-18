@@ -224,6 +224,9 @@ struct WortRepeater: View {
                                 }
                             }
                         }, widthFlood: true)
+                        .if(!flippedSeite[index]){ view in
+                            view.opacity(0.2)
+                        }
                         NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(
                             get: {
                                 !flippedSeite[index]
@@ -251,12 +254,15 @@ struct WortRepeater: View {
                                 withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                             }
                         }, widthFlood: true)
+                        .if(!flippedSeite[index]){ view in
+                            view.opacity(0.2)
+                        }
                         Spacer()
                     }
                 }
             }
             .if(isCurrent){ view in
-                view.NG_Card(.NG_CardStyle_Regular, theme: theme)
+                view.NG_Card(.NG_CardStyle_Regular, noShadow: true, theme: theme)
                     .scaleEffect(scaleRatio)
             }
             .if(!flippedSeite[index] && isCurrent){ view in
