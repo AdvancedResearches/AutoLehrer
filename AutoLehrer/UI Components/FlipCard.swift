@@ -54,7 +54,7 @@ struct FlipCard: View {
                 if(deutschesSeite){
                     Text(deutschesWorte)
                         .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
-                        .padding(.top, condensed ? 0 : 10)
+                        //.padding(.top, condensed ? 0 : 10)
                         .if(deutschesBeispeil == nil){ view in
                             view.padding(.bottom, condensed ? 0 : 10)
                         }
@@ -67,7 +67,7 @@ struct FlipCard: View {
                 }else{
                     Text(russischesWorte)
                         .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
-                        .padding(.top, condensed ? 0 : 10)
+                        //.padding(.top, condensed ? 0 : 10)
                         .if(russischesBeispeil == nil){ view in
                             view.padding(.bottom, condensed ? 0 : 10)
                         }
