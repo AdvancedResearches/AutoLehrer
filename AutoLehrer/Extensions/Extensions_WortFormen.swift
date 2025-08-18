@@ -98,8 +98,10 @@ public struct WortArtFormen{
 }
 
 extension WortFormen{
-    public static let successCoolDown: Int64 = 11
-    public static let failCoolDown: Int64 = 6
+    public static let successCoolDown: Int64 = 21
+    public static let successCoolDownFastTrack: Int64 = 2
+    public static let failCoolDown: Int64 = 11
+    public static let failCoolDownFastTrack: Int64 = 11
     public static func get_wortFormenList_furArt(_ wortArt: WortArt) -> [WortArtFormen]{
         guard let context = wortArt.managedObjectContext else {
             return []
@@ -220,7 +222,7 @@ extension WortFormen{
                 if(wortFormen.formsToShow < formsAvailable){
                     wortFormen.formsToShow += 1
                     wortFormen.successCounter = 0
-                    wortFormen.coolDown = 5
+                    wortFormen.coolDown = WortFormen.successCoolDown
                 }
             }
         }else{
@@ -228,14 +230,14 @@ extension WortFormen{
                 if(wortFormen.formsToShow < formsAvailable){
                     wortFormen.formsToShow += 1
                     wortFormen.successCounter = 0
-                    wortFormen.coolDown = 5
+                    wortFormen.coolDown = WortFormen.successCoolDownFastTrack
                 }
             }else{
                 if(wortFormen.successCounter >= 3){
                     if(wortFormen.formsToShow < formsAvailable){
                         wortFormen.formsToShow += 1
                         wortFormen.successCounter = 0
-                        wortFormen.coolDown = 5
+                        wortFormen.coolDown = WortFormen.successCoolDown
                     }
                 }
             }
