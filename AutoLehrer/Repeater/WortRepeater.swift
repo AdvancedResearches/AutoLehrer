@@ -93,6 +93,9 @@ struct WortRepeater: View {
                     },
                     widthFlood: true
                 )
+                .if(!readyToMoveOn){ view in
+                    view.opacity(0.2)
+                }
                 if(pickedWortFormen != nil){
                     HStack{
                         Text("Правильно \(pickedWortFormen!.successCounter) раз подряд")
@@ -157,14 +160,18 @@ struct WortRepeater: View {
                         condensed: !isCurrent,
                         elapsedTime: $flipTotal[index],
                         passedTime: $flipPassed[index],
-                        completed: $flipCompleted[index]
-                    )
+                        completed: $flipCompleted[index],
+                        notStarted: Binding(get: {
+                            return !isCurrent && !hasPassed
+                        }, set: { value in}
+                                           )
+                )
                     .scaleEffect(flipScaleRatio[index])
                     .scaleEffect(flipShakingRatio[index])
                     .onChange(of: deutschesSeite[index]){ value in
                         flippedSeite[index] = true
                     }
-                    if(!isCurrent){
+                    if(/*!isCurrent*/hasPassed){
                         Image(systemName: "checkmark.square.fill")
                             .resizable()
                             .frame(width: 35, height: 35)
@@ -224,7 +231,7 @@ struct WortRepeater: View {
                                 }
                             }
                         }, widthFlood: true)
-                        .if(!flippedSeite[index]){ view in
+                        .if((!flippedSeite[index])||(missedGuess[index])){ view in
                             view.opacity(0.2)
                         }
                         NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(

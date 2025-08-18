@@ -24,6 +24,7 @@ struct FlipCard: View {
     @Binding var elapsedTime: Double
     @Binding var passedTime: Double
     @Binding var completed: Bool
+    @Binding var notStarted: Bool
     
     private var secondsLabel: String { "сек." }
     private var remainingTimeString: String {
@@ -85,7 +86,7 @@ struct FlipCard: View {
                 }
             }
             .frame(maxWidth: .infinity)
-            .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0, theme: theme)
+            .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0 || notStarted, theme: theme)
             .onTapGesture {
                 deutschesSeite.toggle()
             }
