@@ -98,6 +98,8 @@ public struct WortArtFormen{
 }
 
 extension WortFormen{
+    public static let successCoolDown: Int64 = 11
+    public static let failCoolDown: Int64 = 6
     public static func get_wortFormenList_furArt(_ wortArt: WortArt) -> [WortArtFormen]{
         guard let context = wortArt.managedObjectContext else {
             return []
@@ -196,16 +198,22 @@ extension WortFormen{
         
         return rest + allTheRest
     }
-    public static func get_failedHot(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
-        return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
+    public static func get_failedHot_notRecent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
+        return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown < (WortFormen.failCoolDown - 3) && $0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
     }
-    public static func get_successfulHot(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
-        return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
+    public static func get_successfulHot_notRecent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
+        return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown < (WortFormen.successCoolDown - 3) && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
+    }
+    public static func get_failedHot_recent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
+        return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown >= (WortFormen.failCoolDown - 3) && $0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
+    }
+    public static func get_successfulHot_recent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
+        return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown >= (WortFormen.successCoolDown - 3) && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
     }
     public static func set_success(_ wortFormen: WortFormen) -> Bool{
         guard let context = wortFormen.managedObjectContext else { return false }
         wortFormen.successCounter += 1
-        wortFormen.coolDown = 20
+        wortFormen.coolDown = WortFormen.successCoolDown
         let formsAvailable = wortFormen.relWort?.count ?? 0
         if wortFormen.failed{
             if(wortFormen.successCounter >= 3){
@@ -239,7 +247,7 @@ extension WortFormen{
     public static func set_failure(_ wortFormen: WortFormen){
         guard let context = wortFormen.managedObjectContext else { return }
         wortFormen.successCounter = 0
-        wortFormen.coolDown = 20
+        wortFormen.coolDown = WortFormen.failCoolDown
         wortFormen.failed = true
         try! context.save()
     }

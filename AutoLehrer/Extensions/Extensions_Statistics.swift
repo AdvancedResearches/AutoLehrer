@@ -123,7 +123,34 @@ extension Statistics{
         
         let alleWortformen: [WortFormen] = wortArt.relWortFormen?.allObjects  as! [WortFormen] ?? []
         print("Statistics.pickWortFormen: for wortArt \(wortArt.name_DE!)")
-        for theWortForm in alleWortformen.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+        
+        print("Statistics.pickWortFormen:       FAILED COOLED DOWN")
+        for theWortForm in alleWortformen.filter{$0.failed && $0.coolDown == 0}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+            print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
+        }
+        
+        print("Statistics.pickWortFormen:       SUCCEEDED COOLED DOWN")
+        for theWortForm in alleWortformen.filter{!$0.failed && $0.coolDown == 0}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+            print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
+        }
+        
+        print("Statistics.pickWortFormen:       FAILED HOT NOT RECENT 3")
+        for theWortForm in alleWortformen.filter{$0.failed && $0.coolDown < (WortFormen.failCoolDown - 3)}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+            print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
+        }
+        
+        print("Statistics.pickWortFormen:       SUCCEEDED HOT NOT RECENT 3")
+        for theWortForm in alleWortformen.filter{!$0.failed && $0.coolDown < (WortFormen.successCoolDown - 3)}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+            print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
+        }
+        
+        print("Statistics.pickWortFormen:       FAILED HOT RECENT 3")
+        for theWortForm in alleWortformen.filter{$0.failed && $0.coolDown >= (WortFormen.failCoolDown - 3)}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+            print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
+        }
+        
+        print("Statistics.pickWortFormen:       SUCCEEDED HOT RECENT 3")
+        for theWortForm in alleWortformen.filter{!$0.failed && $0.coolDown >= (WortFormen.successCoolDown - 3)}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
             print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
         }
         
@@ -154,20 +181,38 @@ extension Statistics{
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
         }
-        let hotFailed = WortFormen.get_failedHot(context, wortArt)
-        if(hotFailed.count > 0){
+        let hotFailedNotRecent3 = WortFormen.get_failedHot_notRecent3(context, wortArt)
+        if(hotFailedNotRecent3.count > 0){
             let endTime = Date().timeIntervalSince1970 * 1000
             let diffMs = endTime - startTime
-            print("Statistics.pickWortFormen: duration hotFailed \(diffMs) ms")
-            let pickedWortFormen: WortFormen = pickFromRange(hotFailed)
+            print("Statistics.pickWortFormen: duration hotFailedNotRecent3 \(diffMs) ms")
+            let pickedWortFormen: WortFormen = pickFromRange(hotFailedNotRecent3)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
         }
-        let hotSuccessful = WortFormen.get_successfulHot(context, wortArt)
+        let hotSuccessfulNotRecent3 = WortFormen.get_successfulHot_notRecent3(context, wortArt)
+        if(hotSuccessfulNotRecent3.count > 0){
+            let endTime = Date().timeIntervalSince1970 * 1000
+            let diffMs = endTime - startTime
+            print("Statistics.pickWortFormen: duration hotFailedNotRecent3 \(diffMs) ms")
+            let pickedWortFormen: WortFormen = pickFromRange(hotFailedNotRecent3)
+            print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+            return pickedWortFormen
+        }
+        let hotFailedRecent3 = WortFormen.get_failedHot_recent3(context, wortArt)
+        if(hotFailedRecent3.count > 0){
+            let endTime = Date().timeIntervalSince1970 * 1000
+            let diffMs = endTime - startTime
+            print("Statistics.pickWortFormen: duration hotFailedRecent3 \(diffMs) ms")
+            let pickedWortFormen: WortFormen = pickFromRange(hotFailedRecent3)
+            print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+            return pickedWortFormen
+        }
+        let hotSuccessfulRecent3 = WortFormen.get_successfulHot_recent3(context, wortArt)
         let endTime = Date().timeIntervalSince1970 * 1000
         let diffMs = endTime - startTime
-        print("Statistics.pickWortFormen: duration hotSuccessful \(diffMs) ms")
-        let pickedWortFormen: WortFormen = pickFromRange(hotSuccessful)
+        print("Statistics.pickWortFormen: duration hotSuccessfulRecent3 \(diffMs) ms")
+        let pickedWortFormen: WortFormen = pickFromRange(hotSuccessfulRecent3)
         print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
         return pickedWortFormen
     }
