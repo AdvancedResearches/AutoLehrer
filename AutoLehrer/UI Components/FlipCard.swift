@@ -25,8 +25,6 @@ struct FlipCard: View {
     @Binding var passedTime: Double
     @Binding var completed: Bool
     
-    @State var wasNotFlipped: Bool = false
-    
     private var secondsLabel: String { "сек." }
     private var remainingTimeString: String {
         let remaining = max(elapsedTime - passedTime, 0)
@@ -45,51 +43,52 @@ struct FlipCard: View {
     }
     
     var body: some View {
-        VStack {
-            HStack{
-                Spacer()
-                Text("\(remainingTimeString) \(secondsLabel)")
-                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-            }
-            ProgressView(value: passedTime, total: elapsedTime)
-                .progressViewStyle(.linear)
-                .padding(.horizontal, 8)
-                .frame(height: 4)
-                .animation(.linear(duration: 0.1), value: passedTime)
-                .tint(progressColor)
-            if(deutschesSeite){
-                Text(deutschesWorte)
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
-                    .padding(.top, condensed ? 0 : 10)
-                    .if(deutschesBeispeil == nil){ view in
-                            view.padding(.bottom, condensed ? 0 : 10)
-                    }
-                if(deutschesBeispeil != nil){
-                    Text("\"\(deutschesBeispeil!)\"")
-                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        .padding(.leading, 10)
-                        .padding(.bottom, condensed ? 0 : 10)
+        ZStack{
+            VStack {
+                HStack{
+                    Spacer()
+                    Text("\(remainingTimeString) \(secondsLabel)")
+                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                 }
-            }else{
-                Text(russischesWorte)
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
-                    .padding(.top, condensed ? 0 : 10)
-                    .if(russischesBeispeil == nil){ view in
+                ProgressView(value: passedTime, total: elapsedTime)
+                    .progressViewStyle(.linear)
+                    .padding(.horizontal, 8)
+                    .frame(height: 4)
+                    .animation(.linear(duration: 0.1), value: passedTime)
+                    .tint(progressColor)
+                if(deutschesSeite){
+                    Text(deutschesWorte)
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
+                        .padding(.top, condensed ? 0 : 10)
+                        .if(deutschesBeispeil == nil){ view in
                             view.padding(.bottom, condensed ? 0 : 10)
+                        }
+                    if(deutschesBeispeil != nil){
+                        Text("\"\(deutschesBeispeil!)\"")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.leading, 10)
+                            .padding(.bottom, condensed ? 0 : 10)
                     }
-                if(russischesBeispeil != nil){
-                    Text("\"\(russischesBeispeil!)\"")
-                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        .padding(.leading, 10)
-                        .padding(.bottom, condensed ? 0 : 10)
+                }else{
+                    Text(russischesWorte)
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
+                        .padding(.top, condensed ? 0 : 10)
+                        .if(russischesBeispeil == nil){ view in
+                            view.padding(.bottom, condensed ? 0 : 10)
+                        }
+                    if(russischesBeispeil != nil){
+                        Text("\"\(russischesBeispeil!)\"")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.leading, 10)
+                            .padding(.bottom, condensed ? 0 : 10)
+                    }
                 }
             }
-        }
-        .frame(maxWidth: .infinity)
-        .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0, theme: theme)
-        .onTapGesture {
-            deutschesSeite.toggle()
-            wasNotFlipped = false
+            .frame(maxWidth: .infinity)
+            .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0, theme: theme)
+            .onTapGesture {
+                deutschesSeite.toggle()
+            }
         }
     }
 }
