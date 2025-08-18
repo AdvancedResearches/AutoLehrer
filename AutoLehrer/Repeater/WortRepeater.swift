@@ -45,57 +45,7 @@ struct WortRepeater: View {
                 Spacer()
             }
             VStack {
-                NG_Button(
-                    title: "Дальше".localized(for: language),
-                    style: .NG_ButtonStyle_Service,
-                    isDisabled: .init(
-                        get: { !readyToMoveOn },
-                        set: { readyToMoveOn = !$0 }
-                    ),
-                    isHighlighting: .constant(false),
-                    isPulsating: .constant(readyToMoveOn),
-                    action: {
-                        if(readyToMoveOn){
-                            attemptCounter += 1
-                            var successCounter: Int = 0
-                            
-                            for theFormCounter in 0..<wort.count{
-                                if(guessingResult[theFormCounter] == 1){
-                                    Statistics.set_success(wort[theFormCounter])
-                                    successCounter += 1
-                                }
-                                if(guessingResult[theFormCounter] == -1){
-                                    Statistics.set_failure(wort[theFormCounter])
-                                }
-                            }
-                            
-                            if(successCounter == wort.count){
-                                if(WortFormen.set_success(pickedWortFormen!)){
-                                    confirmedWorte.insert(pickedWortFormen!)
-                                }
-                            }else{
-                                WortFormen.set_failure(pickedWortFormen!)
-                                confirmedWorte.remove(pickedWortFormen!)
-                            }
-                            
-                            WortFormen.set_attempted(pickedWortFormen!)
-                            Statistics.wortFormenUrgency(pickedWortFormen!)
-                            
-                            pickTheWord()
-                        }else{
-                            withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                            withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                            withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                            withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                            withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                            withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
-                        }
-                    },
-                    widthFlood: true
-                )
-                .if(!readyToMoveOn){ view in
-                    view.opacity(0.2)
-                }
+                
                 if(pickedWortFormen != nil){
                     HStack{
                         Text("Правильно \(pickedWortFormen!.successCounter) раз подряд")
@@ -110,6 +60,58 @@ struct WortRepeater: View {
                                 dasWortSektion(dasWort: dasWort, index: index)
                                     .id(index)
                             }
+                            if(readyToMoveOn){
+                                NG_Button(
+                                    title: "Дальше".localized(for: language),
+                                    style: .NG_ButtonStyle_Service,
+                                    isDisabled: .init(
+                                        get: { !readyToMoveOn },
+                                        set: { readyToMoveOn = !$0 }
+                                    ),
+                                    isHighlighting: .constant(false),
+                                    isPulsating: .constant(readyToMoveOn),
+                                    action: {
+                                        if(readyToMoveOn){
+                                            attemptCounter += 1
+                                            var successCounter: Int = 0
+                                            
+                                            for theFormCounter in 0..<wort.count{
+                                                if(guessingResult[theFormCounter] == 1){
+                                                    Statistics.set_success(wort[theFormCounter])
+                                                    successCounter += 1
+                                                }
+                                                if(guessingResult[theFormCounter] == -1){
+                                                    Statistics.set_failure(wort[theFormCounter])
+                                                }
+                                            }
+                                            
+                                            if(successCounter == wort.count){
+                                                if(WortFormen.set_success(pickedWortFormen!)){
+                                                    confirmedWorte.insert(pickedWortFormen!)
+                                                }
+                                            }else{
+                                                WortFormen.set_failure(pickedWortFormen!)
+                                                confirmedWorte.remove(pickedWortFormen!)
+                                            }
+                                            
+                                            WortFormen.set_attempted(pickedWortFormen!)
+                                            Statistics.wortFormenUrgency(pickedWortFormen!)
+                                            
+                                            pickTheWord()
+                                        }else{
+                                            withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
+                                            withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                                            withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                                            withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                                            withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                                            withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
+                                        }
+                                    },
+                                    widthFlood: true
+                                )
+                                .padding(.horizontal, 15)
+                                .padding(.vertical, 25)
+                            }
                         }
                         .background(.clear)
                         .onChange(of: runningWort) { newValue in
@@ -119,6 +121,7 @@ struct WortRepeater: View {
                         }
                     }
                 }
+                
                 Spacer()
             }
             .frame(maxWidth: .infinity)
