@@ -115,9 +115,11 @@ struct WortRepeater: View {
                                 )
                                 .padding(.horizontal, 15)
                                 .padding(.vertical, 25)
+                                .transition(.scale)
                             }
                         }
                         .background(.clear)
+                        .animation(.easeInOut(duration: 0.35), value: readyToMoveOn)
                         .onChange(of: runningWort) { newValue in
                             withAnimation {
                                 proxy.scrollTo(newValue, anchor: .center)
