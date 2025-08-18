@@ -120,39 +120,56 @@ extension Statistics{
     public static func pickWortFormen(_ context: NSManagedObjectContext, wortArt: WortArt) -> WortFormen{
         let startTime = Date().timeIntervalSince1970 * 1000
         WortFormen.coolDown(context, wortArt)
+        
+        let alleWortformen: [WortFormen] = wortArt.relWortFormen?.allObjects  as! [WortFormen] ?? []
+        print("Statistics.pickWortFormen: for wortArt \(wortArt.name_DE!)")
+        for theWortForm in alleWortformen.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}{
+            print("Statistics.pickWortFormen:       wort form \(theWortForm.wortFrequencyOrder) with coolDown=\(theWortForm.coolDown), failed=\(theWortForm.failed), successCounter=\(theWortForm.successCounter), urgencyCache=\(theWortForm.urgencyCache)")
+        }
+        
         let coolFailed = WortFormen.get_failedCool(context, wortArt)
         if(coolFailed.count > 0){
             let endTime = Date().timeIntervalSince1970 * 1000
             let diffMs = endTime - startTime
             print("Statistics.pickWortFormen: duration coolFailed \(diffMs) ms")
-            return pickFromRange(coolFailed)
+            let pickedWortFormen: WortFormen = pickFromRange(coolFailed)
+            print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+            return pickedWortFormen
         }
         let coolSuccessfulTop = WortFormen.get_successfulCoolTop(context, wortArt)
         if(coolSuccessfulTop.count > 0){
             let endTime = Date().timeIntervalSince1970 * 1000
             let diffMs = endTime - startTime
             print("Statistics.pickWortFormen: duration coolSuccessfulTop \(diffMs) ms")
-            return pickFromRange(coolSuccessfulTop)
+            let pickedWortFormen: WortFormen = pickFromRange(coolSuccessfulTop)
+            print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+            return pickedWortFormen
         }
         let coolSuccessfulRest = WortFormen.get_successfulCoolRest(context, wortArt)
         if(coolSuccessfulRest.count > 0){
             let endTime = Date().timeIntervalSince1970 * 1000
             let diffMs = endTime - startTime
             print("Statistics.pickWortFormen: duration coolSuccessfulRest \(diffMs) ms")
-            return pickFromRange(coolSuccessfulRest)
+            let pickedWortFormen: WortFormen = pickFromRange(coolSuccessfulRest)
+            print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+            return pickedWortFormen
         }
         let hotFailed = WortFormen.get_failedHot(context, wortArt)
         if(hotFailed.count > 0){
             let endTime = Date().timeIntervalSince1970 * 1000
             let diffMs = endTime - startTime
             print("Statistics.pickWortFormen: duration hotFailed \(diffMs) ms")
-            return pickFromRange(hotFailed)
+            let pickedWortFormen: WortFormen = pickFromRange(hotFailed)
+            print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+            return pickedWortFormen
         }
         let hotSuccessful = WortFormen.get_successfulHot(context, wortArt)
         let endTime = Date().timeIntervalSince1970 * 1000
         let diffMs = endTime - startTime
         print("Statistics.pickWortFormen: duration hotSuccessful \(diffMs) ms")
-        return pickFromRange(hotSuccessful)
+        let pickedWortFormen: WortFormen = pickFromRange(hotSuccessful)
+        print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
+        return pickedWortFormen
     }
     public static func pickFromRange(_ allTheWortFormen: [WortFormen]) -> WortFormen{
         var retValue = allTheWortFormen.first!
