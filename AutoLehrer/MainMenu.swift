@@ -245,6 +245,8 @@ struct MainMenu: View {
                                 }, widthFlood: true)
                             }
                             
+                            
+                            
                             /*
                             NavigationLink(
                                 destination: ArchivalMenu().NG_NavigationTitle("Архив", theme: theme),
