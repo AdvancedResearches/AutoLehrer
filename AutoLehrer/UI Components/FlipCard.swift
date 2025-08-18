@@ -51,12 +51,6 @@ struct FlipCard: View {
                     Text("\(remainingTimeString) \(secondsLabel)")
                         .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                 }
-                ProgressView(value: passedTime, total: elapsedTime)
-                    .progressViewStyle(.linear)
-                    .padding(.horizontal, 8)
-                    .frame(height: 4)
-                    .animation(.linear(duration: 0.1), value: passedTime)
-                    .tint(progressColor)
                 if(deutschesSeite){
                     Text(deutschesWorte)
                         .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
@@ -84,6 +78,12 @@ struct FlipCard: View {
                             .padding(.bottom, condensed ? 0 : 10)
                     }
                 }
+                ProgressView(value: passedTime, total: elapsedTime)
+                    .progressViewStyle(.linear)
+                    .padding(.horizontal, 8)
+                    .frame(height: 4)
+                    .animation(.linear(duration: 0.1), value: passedTime)
+                    .tint(progressColor)
             }
             .frame(maxWidth: .infinity)
             .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0 || notStarted, theme: theme)
