@@ -162,6 +162,8 @@ extension Statistics{
             let pickedWortFormen: WortFormen = pickFromRange(coolFailed)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
+        }else{
+            print("Statistics.pickWortFormen: nothing to pick from coolFailed")
         }
         let coolSuccessfulTop = WortFormen.get_successfulCoolTop(context, wortArt)
         if(coolSuccessfulTop.count > 0){
@@ -171,6 +173,8 @@ extension Statistics{
             let pickedWortFormen: WortFormen = pickFromRange(coolSuccessfulTop)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
+        }else{
+            print("Statistics.pickWortFormen: nothing to pick from coolSuccessfulTop")
         }
         let coolSuccessfulRest = WortFormen.get_successfulCoolRest(context, wortArt)
         if(coolSuccessfulRest.count > 0){
@@ -180,6 +184,8 @@ extension Statistics{
             let pickedWortFormen: WortFormen = pickFromRange(coolSuccessfulRest)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
+        }else{
+            print("Statistics.pickWortFormen: nothing to pick from coolSuccessfulRest")
         }
         let hotFailedNotRecent3 = WortFormen.get_failedHot_notRecent3(context, wortArt)
         if(hotFailedNotRecent3.count > 0){
@@ -189,15 +195,19 @@ extension Statistics{
             let pickedWortFormen: WortFormen = pickFromRange(hotFailedNotRecent3)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
+        }else{
+            print("Statistics.pickWortFormen: nothing to pick from hotFailedNotRecent3")
         }
         let hotSuccessfulNotRecent3 = WortFormen.get_successfulHot_notRecent3(context, wortArt)
         if(hotSuccessfulNotRecent3.count > 0){
             let endTime = Date().timeIntervalSince1970 * 1000
             let diffMs = endTime - startTime
             print("Statistics.pickWortFormen: duration hotFailedNotRecent3 \(diffMs) ms")
-            let pickedWortFormen: WortFormen = pickFromRange(hotFailedNotRecent3)
+            let pickedWortFormen: WortFormen = pickFromRange(hotSuccessfulNotRecent3)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
+        }else{
+            print("Statistics.pickWortFormen: nothing to pick from hotSuccessfulNotRecent3")
         }
         let hotFailedRecent3 = WortFormen.get_failedHot_recent3(context, wortArt)
         if(hotFailedRecent3.count > 0){
@@ -207,6 +217,8 @@ extension Statistics{
             let pickedWortFormen: WortFormen = pickFromRange(hotFailedRecent3)
             print("Statistics.pickWortFormen: picked wort form \(pickedWortFormen.wortFrequencyOrder) with coolDown=\(pickedWortFormen.coolDown), failed=\(pickedWortFormen.failed), successCounter=\(pickedWortFormen.successCounter), urgencyCache=\(pickedWortFormen.urgencyCache)")
             return pickedWortFormen
+        }else{
+            print("Statistics.pickWortFormen: nothing to pick from hotFailedRecent3")
         }
         let hotSuccessfulRecent3 = WortFormen.get_successfulHot_recent3(context, wortArt)
         let endTime = Date().timeIntervalSince1970 * 1000
