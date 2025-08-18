@@ -62,7 +62,7 @@ struct FlipCard: View {
                         Text("\"\(deutschesBeispeil!)\"")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
-                            .padding(.bottom, condensed ? 0 : 10)
+                            //.padding(.bottom, condensed ? 0 : 10)
                     }
                 }else{
                     Text(russischesWorte)
@@ -75,7 +75,7 @@ struct FlipCard: View {
                         Text("\"\(russischesBeispeil!)\"")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
-                            .padding(.bottom, condensed ? 0 : 10)
+                            //.padding(.bottom, condensed ? 0 : 10)
                     }
                 }
                 ProgressView(value: passedTime, total: elapsedTime)

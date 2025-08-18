@@ -245,6 +245,7 @@ struct MainMenu: View {
                                 }, widthFlood: true)
                             }
                             
+                            /*
                             NavigationLink(
                                 destination: ArchivalMenu().NG_NavigationTitle("Архив", theme: theme),
                                 isActive: $Archival_isActive
@@ -269,6 +270,7 @@ struct MainMenu: View {
                                 }
                             }
                             .disabled(Archival_disabled)
+                            */
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)

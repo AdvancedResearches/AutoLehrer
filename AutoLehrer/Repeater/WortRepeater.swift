@@ -59,6 +59,9 @@ struct WortRepeater: View {
                             ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
                                 dasWortSektion(dasWort: dasWort, index: index)
                                     .id(index)
+                                    .if(index > runningWort){ view in
+                                        view.opacity(0.2)
+                                    }
                             }
                             if(readyToMoveOn){
                                 NG_Button(
@@ -204,11 +207,13 @@ struct WortRepeater: View {
                     }
                 }
                 if(isCurrent){
-                    if(!flippedSeite[index]){
+                    //if(!flippedSeite[index]){
+                        /*
                         NG_Button(title: "Посмотреть перевод", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false) , isHighlighting: .constant(true), isPulsating: .constant(true), action: {
                             deutschesSeite[index] = true
                         }, widthFlood: true)
-                    }else{
+                         */
+                    //}else{
                         HStack{
                             Spacer()
                             NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: Binding(
@@ -240,7 +245,7 @@ struct WortRepeater: View {
                                 }
                             }, widthFlood: true)
                             .if((!flippedSeite[index])||(missedGuess[index])){ view in
-                                view.opacity(0.2)
+                                view.opacity(0.0)
                             }
                             NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(
                                 get: {
@@ -270,11 +275,11 @@ struct WortRepeater: View {
                                 }
                             }, widthFlood: true)
                             .if(!flippedSeite[index]){ view in
-                                view.opacity(0.2)
+                                view.opacity(0.0)
                             }
                             Spacer()
                         }
-                    }
+                    //}
                 }
             }
             .if(isCurrent){ view in
