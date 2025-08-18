@@ -171,7 +171,7 @@ struct WortRepeater: View {
                     .onChange(of: deutschesSeite[index]){ value in
                         flippedSeite[index] = true
                     }
-                    if(/*!isCurrent*/hasPassed){
+                    if(hasPassed){
                         Image(systemName: "checkmark.square.fill")
                             .resizable()
                             .frame(width: 35, height: 35)
@@ -201,23 +201,59 @@ struct WortRepeater: View {
                     }
                 }
                 if(isCurrent){
-                    HStack{
-                        Spacer()
-                        NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: Binding(
-                            get: {
-                                !flippedSeite[index] || missedGuess[index]
-                            },
-                            set: { value in
-                            }
-                        ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                            if(flippedSeite[index] && !missedGuess[index]){
-                                if(guessingResult[index] == 0){
-                                    runningWort += 1
+                    if(!flippedSeite[index]){
+                        NG_Button(title: "Посмотреть перевод", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false) , isHighlighting: .constant(true), isPulsating: .constant(true), action: {
+                            deutschesSeite[index] = true
+                        }, widthFlood: true)
+                    }else{
+                        HStack{
+                            Spacer()
+                            NG_Button(title: "Знал", style: .NG_ButtonStyle_Green, isDisabled: Binding(
+                                get: {
+                                    !flippedSeite[index] || missedGuess[index]
+                                },
+                                set: { value in
                                 }
-                                guessingResult[index] = 1
-                                readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
-                            }else{
-                                if(!flippedSeite[index]){
+                            ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                if(flippedSeite[index] && !missedGuess[index]){
+                                    if(guessingResult[index] == 0){
+                                        runningWort += 1
+                                    }
+                                    guessingResult[index] = 1
+                                    readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                }else{
+                                    if(!flippedSeite[index]){
+                                        withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.05)) { flipShakingRatio[index] = 0.95 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.1)) { flipShakingRatio[index] = 1.05 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.15)) { flipShakingRatio[index] = 0.95 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.2)) { flipShakingRatio[index] = 1.05 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.25)) { flipShakingRatio[index] = 0.95 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.3)) { flipShakingRatio[index] = 1.05 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.35)) { flipShakingRatio[index] = 0.95 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.4)) { flipShakingRatio[index] = 1.05 }
+                                        withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
+                                    }
+                                }
+                            }, widthFlood: true)
+                            .if((!flippedSeite[index])||(missedGuess[index])){ view in
+                                view.opacity(0.2)
+                            }
+                            NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(
+                                get: {
+                                    !flippedSeite[index]
+                                },
+                                set: { value in
+                                    flippedSeite[index] = !value
+                                }
+                            ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                if(flippedSeite[index]){
+                                    if(guessingResult[index] == 0){
+                                        runningWort += 1
+                                    }
+                                    guessingResult[index] = -1
+                                    readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                }else{
                                     withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
                                     withAnimation(.easeOut(duration: 0.05).delay(0.05)) { flipShakingRatio[index] = 0.95 }
                                     withAnimation(.easeOut(duration: 0.05).delay(0.1)) { flipShakingRatio[index] = 1.05 }
@@ -229,42 +265,12 @@ struct WortRepeater: View {
                                     withAnimation(.easeOut(duration: 0.05).delay(0.4)) { flipShakingRatio[index] = 1.05 }
                                     withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                                 }
+                            }, widthFlood: true)
+                            .if(!flippedSeite[index]){ view in
+                                view.opacity(0.2)
                             }
-                        }, widthFlood: true)
-                        .if((!flippedSeite[index])||(missedGuess[index])){ view in
-                            view.opacity(0.2)
+                            Spacer()
                         }
-                        NG_Button(title: "Не знал", style: .NG_ButtonStyle_Red, isDisabled: Binding(
-                            get: {
-                                !flippedSeite[index]
-                            },
-                            set: { value in
-                                flippedSeite[index] = !value
-                            }
-                        ), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
-                            if(flippedSeite[index]){
-                                if(guessingResult[index] == 0){
-                                    runningWort += 1
-                                }
-                                guessingResult[index] = -1
-                                readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
-                            }else{
-                                withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.05)) { flipShakingRatio[index] = 0.95 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.1)) { flipShakingRatio[index] = 1.05 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.15)) { flipShakingRatio[index] = 0.95 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.2)) { flipShakingRatio[index] = 1.05 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.25)) { flipShakingRatio[index] = 0.95 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.3)) { flipShakingRatio[index] = 1.05 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.35)) { flipShakingRatio[index] = 0.95 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.4)) { flipShakingRatio[index] = 1.05 }
-                                withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
-                            }
-                        }, widthFlood: true)
-                        .if(!flippedSeite[index]){ view in
-                            view.opacity(0.2)
-                        }
-                        Spacer()
                     }
                 }
             }
