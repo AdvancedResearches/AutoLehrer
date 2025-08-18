@@ -21,9 +21,42 @@ struct FlipCard: View {
     var russischesBeispeil: String?
     @Binding var result: Int
     var condensed: Bool = true
+    @Binding var elapsedTime: Double
+    @Binding var passedTime: Double
+    @Binding var completed: Bool
+    
+    @State var wasNotFlipped: Bool = false
+    
+    private var secondsLabel: String { "сек." }
+    private var remainingTimeString: String {
+        let remaining = max(elapsedTime - passedTime, 0)
+        return String(format: "%.1f", remaining)
+    }
+    
+    private var progressColor: Color {
+        let remaining = elapsedTime - passedTime
+        if remaining > 3 {
+            return .green
+        } else if remaining > 1 {
+            return .yellow
+        } else {
+            return .red
+        }
+    }
     
     var body: some View {
         VStack {
+            HStack{
+                Spacer()
+                Text("\(remainingTimeString) \(secondsLabel)")
+                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+            }
+            ProgressView(value: passedTime, total: elapsedTime)
+                .progressViewStyle(.linear)
+                .padding(.horizontal, 8)
+                .frame(height: 4)
+                .animation(.linear(duration: 0.1), value: passedTime)
+                .tint(progressColor)
             if(deutschesSeite){
                 Text(deutschesWorte)
                     .NG_textStyling(.NG_TextStyle_Text_Regular, glare: true, theme: theme)
@@ -53,9 +86,10 @@ struct FlipCard: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, theme: theme)
+        .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0, theme: theme)
         .onTapGesture {
             deutschesSeite.toggle()
+            wasNotFlipped = false
         }
     }
 }

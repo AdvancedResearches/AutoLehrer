@@ -18,6 +18,10 @@ struct WortRepeater: View {
     @State var flippedSeite: [Bool] = []
     @State var missedGuess: [Bool] = []
     @State var flipScaleRatio: [CGFloat] = []
+    @State var flipTimers: [Timer?] = []
+    @State var flipTotal: [Double] = []
+    @State var flipPassed: [Double] = []
+    @State var flipCompleted: [Bool] = []
     @State var flipShakingRatio: [CGFloat] = []
     @State var wortForm: [WortArtFormen] = []
     
@@ -150,7 +154,10 @@ struct WortRepeater: View {
                         deutschesBeispeil: beispiel[index]?.beispiel_DE ?? nil,
                         russischesBeispeil: beispiel[index]?.beispiel_RU ?? nil,
                         result: $guessingResult[index],
-                        condensed: !isCurrent
+                        condensed: !isCurrent,
+                        elapsedTime: $flipTotal[index],
+                        passedTime: $flipPassed[index],
+                        completed: $flipCompleted[index]
                     )
                     .scaleEffect(flipScaleRatio[index])
                     .scaleEffect(flipShakingRatio[index])
@@ -256,6 +263,29 @@ struct WortRepeater: View {
                 view.onAppear{
                     let thisCertainCounter = attemptCounter
                     print("Initiate flipping for index \(index)")
+                    
+                    flipTimers[index]?.invalidate()
+                    flipTotal[index] = 5.0
+                    flipPassed[index] = 0.0
+                    flipCompleted[index] = false
+                    
+                    flipTimers[index] = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true){ t in
+                        if attemptCounter != thisCertainCounter || flippedSeite[index] {
+                            t.invalidate()
+                            flipTimers[index] = nil
+                            return
+                        }
+                        
+                        flipPassed[index] += 0.1
+                        
+                        if flipPassed[index] >= flipTotal[index] {
+                            flipCompleted[index] = true
+                            
+                            t.invalidate()
+                            flipTimers[index] = nil
+                        }
+                    }
+                    
                     withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
                     withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
                     withAnimation(.easeOut(duration: 0.25).delay(1.0)) { flipScaleRatio[index] = 1.04 }
@@ -275,6 +305,10 @@ struct WortRepeater: View {
                             }
                         }
                     }
+                }
+                .onDisappear{
+                    flipTimers[index]?.invalidate()
+                    flipTimers[index] = nil
                 }
             }
         }
@@ -326,6 +360,10 @@ struct WortRepeater: View {
         flippedSeite = Array(repeating: false, count: wort.count)
         missedGuess = Array(repeating: false, count: wort.count)
         flipScaleRatio = Array(repeating: 1, count: wort.count)
+        flipTimers = Array(repeating: nil, count: wort.count)
+        flipPassed = Array(repeating: 0, count: wort.count)
+        flipTotal = Array(repeating: 5.0, count: wort.count)
+        flipCompleted = Array(repeating: false, count: wort.count)
         flipShakingRatio = Array(repeating: 1, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOn = false
