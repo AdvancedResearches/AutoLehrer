@@ -36,6 +36,7 @@ struct AutoLehrerApp: App {
                     .environmentObject(theme)
                     .environmentObject(presetsProgress)
                     .task {
+                        try? await Task.sleep(nanoseconds: 500_000_000) // задержка 0.5 секунды
                         await presetLoad()   // ждём тут
                         isActive = true
                     }
