@@ -86,7 +86,7 @@ struct FlipCard: View {
                     .tint(progressColor)
             }
             .frame(maxWidth: .infinity)
-            .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0 || notStarted, theme: theme)
+            .NG_Card(result==0 ? .NG_CardStyle_Regular : result==1 ? .NG_CardStyle_Green : .NG_CardStyle_Red, noShadow: result != 0 || notStarted, highlighted: .constant(result == 0 && !notStarted), theme: theme)
             .onTapGesture {
                 deutschesSeite.toggle()
             }
