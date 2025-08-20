@@ -62,11 +62,12 @@ struct WortRepeater: View {
                                     .if(index > runningWort){ view in
                                         view.opacity(0.2)
                                     }
-                                    
                             }
                             if(readyToMoveOn){
+                                let successFormen: Int = guessingResult.filter{$0 == 1}.count
+                                let totalFormen: Int = guessingResult.count
                                 NG_Button(
-                                    title: "Дальше".localized(for: language),
+                                    title: "Дальше (\(successFormen)/\(totalFormen) было правильно)".localized(for: language),
                                     style: .NG_ButtonStyle_Service,
                                     isDisabled: .init(
                                         get: { !readyToMoveOn },
@@ -338,7 +339,6 @@ struct WortRepeater: View {
                     flipTimers[index] = nil
                 }
             }
-            
         }
     }
     func pickTheWord() {
