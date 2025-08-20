@@ -68,7 +68,7 @@ struct WortRepeater: View {
                                 let totalFormen: Int = guessingResult.count
                                 NG_Button(
                                     title: "Дальше (\(successFormen)/\(totalFormen) было правильно)".localized(for: language),
-                                    style: .NG_ButtonStyle_Service,
+                                    style: successFormen==totalFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
                                     isDisabled: .init(
                                         get: { !readyToMoveOn },
                                         set: { readyToMoveOn = !$0 }
