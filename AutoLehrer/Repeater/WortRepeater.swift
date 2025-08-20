@@ -338,6 +338,7 @@ struct WortRepeater: View {
                     flipTimers[index] = nil
                 }
             }
+            
         }
     }
     func pickTheWord() {
