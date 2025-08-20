@@ -282,4 +282,12 @@ extension WortFormen{
         }
         return false
     }
+    public static func accountedFormenRatio(_ wortFormen: WortFormen) -> Double{
+        let alleFormen: Double = Double(alleFormen(wortFormen))
+        return (Double(wortFormen.formsToShow) / alleFormen).rounded(.down)
+    }
+    public static func alleFormen(_ wortFormen: WortFormen) -> Int{
+        return wortFormen.relWort?.count ?? 0
+    }
+    
 }
