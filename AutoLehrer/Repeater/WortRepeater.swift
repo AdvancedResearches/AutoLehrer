@@ -315,15 +315,38 @@ struct WortRepeater: View {
             HStack{
                 Text("Отмечено как неизвестное: \(guessingResult.filter{$0 == -1}.count)")
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    .padding(.bottom, 10)
                 Spacer()
             }
+            
+            Divider()
             
             let fasttrack = !pickedWortFormen!.failed
             let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)
             let allAnswered = !guessingResult.contains(0)
             let hasFaults = guessingResult.contains(-1)
             let matchpoint = fasttrack ? true : pickedWortFormen!.successCounter >= 2
+            
+            if(fasttrack){
+                HStack{
+                    Text("Этот набор форм слова предлагается впервые. Достаточно с первого раза перевести всё правильно чтобы этот набор форм слова считался изученным!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    Spacer()
+                }
+            }else{
+                HStack{
+                    Text("Ранее в этом наборе форм слова были ошибки. Чтобы этот набор форм слова считался изученным надо подтвердить знания 3 раза.")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        .padding(.bottom, 10)
+                    Spacer()
+                }
+                HStack{
+                    Text("До этой попытки было правильно переведено подряд раз: \(pickedWortFormen!.successCounter)")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    Spacer()
+                }
+            }
+            
+            Divider()
             
             if allAnswered{
                 if hasFaults{
@@ -344,7 +367,7 @@ struct WortRepeater: View {
                             }
                         }else{
                             HStack{
-                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь это слово позже правильным переводом ещё \(3-pickedWortFormen!.successCounter) раз. И вот тогда это слово будет считаться как защитаное")
+                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь это слово позже правильным переводом ещё \(3-pickedWortFormen!.successCounter) раз. И вот тогда это слово будет считаться как изученное!")
                                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                     .padding(.bottom, 10)
                                 Spacer()
