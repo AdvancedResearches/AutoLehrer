@@ -318,6 +318,7 @@ struct WortRepeater: View {
                     .padding(.bottom, 10)
                 Spacer()
             }
+            
             let fasttrack = !pickedWortFormen!.failed
             let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)
             let allAnswered = !guessingResult.contains(0)
@@ -359,7 +360,7 @@ struct WortRepeater: View {
                             }
                         }else{
                             HStack{
-                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь этот набор форм слова позже правильным переводом ещё \(3-pickedWortFormen!.successCounter) раз. И тогда будет добавлена ещё одну форму этого слова для перевода.")
+                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь этот набор форм слова позже правильным переводом ещё \(2-pickedWortFormen!.successCounter) раз(а). И тогда будет добавлена ещё одну форму этого слова для перевода.")
                                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                     .padding(.bottom, 10)
                                 Spacer()
