@@ -18,17 +18,17 @@ struct DualColorBar: View {
                 Rectangle()
                     .fill(pulsation ? Color.green : Color.yellow)
                     .frame(width: geo.size.width * CGFloat(yellowvalue))
-                    .onChange(of: pulseyellowtogreen) { _, newValue in
-                                    if newValue {
-                                        // запускаем анимацию
-                                        withAnimation(.linear(duration: 1).repeatForever(autoreverses: true)) {
-                                            pulsation = true
-                                        }
-                                    } else {
-                                        // сбрасываем
-                                        pulsation = false
-                                    }
-                                }
+                    .task(id: pulseyellowtogreen) {
+                        print("animation check triggered")
+                        if pulseyellowtogreen {
+                            print("animation triggered")
+                            withAnimation(.linear(duration: 0.5).repeatForever(autoreverses: true)) {
+                                pulsation = true
+                            }
+                        } else {
+                            pulsation = false
+                        }
+                    }
 
                 // Зелёная часть
                 Rectangle()
@@ -108,15 +108,6 @@ struct WortRepeater: View {
                 Spacer()
             }
             VStack {
-                /*
-                if(pickedWortFormen != nil){
-                    HStack{
-                        Text("Правильно \(pickedWortFormen!.successCounter) раз подряд. Это слово на fast track \(!pickedWortFormen!.failed)")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        Spacer()
-                    }
-                }
-                 */
                 if(pickedWortFormen != nil){
                     dasProgressSektion()
                 }
@@ -328,12 +319,13 @@ struct WortRepeater: View {
         )
     }
     private func dasProgressSektion() -> some View {
-        HStack{
+        return HStack{
+            let potentialyAddWortForme: Bool = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 3)
             DualColorBar(
                 greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
                 yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!),
                 height: 25,
-                pulseyellowtogreen: true
+                pulseyellowtogreen: potentialyAddWortForme
             )
             if(!pickedWortFormen!.failed){
                 Image(systemName: "questionmark.square.fill")
