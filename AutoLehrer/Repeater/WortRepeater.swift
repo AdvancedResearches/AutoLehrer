@@ -5,7 +5,7 @@ struct DualColorBar: View {
     var greenvalue: Double   // 0...1
     var yellowvalue: Double  // где меняется цвет
     var height: CGFloat = 25
-    var pulseyellowtogreen: Bool = false
+    @Binding var pulseyellowtogreen: Bool
     @State private var pulsation = false
 
     var body: some View {
@@ -18,15 +18,19 @@ struct DualColorBar: View {
                 Rectangle()
                     .fill(pulsation ? Color.green : Color.yellow)
                     .frame(width: geo.size.width * CGFloat(yellowvalue))
+                    .animation(pulseyellowtogreen
+                               ? .linear(duration: 0.5).repeatForever(autoreverses: true)
+                                           : .default,
+                                           value: pulsation)
                     .task(id: pulseyellowtogreen) {
-                        print("animation check triggered")
                         if pulseyellowtogreen {
-                            print("animation triggered")
-                            withAnimation(.linear(duration: 0.5).repeatForever(autoreverses: true)) {
-                                pulsation = true
-                            }
-                        } else {
+                            // Сначала сброс...
                             pulsation = false
+                            // ...и старт цикла (repeatForever привяжется к ЭТОМУ изменению)
+                            withAnimation { pulsation = true }
+                        } else {
+                            // Чётко гасим без анимации, чтобы остановить «на месте»
+                            withAnimation(nil) { pulsation = false }
                         }
                     }
 
@@ -34,6 +38,12 @@ struct DualColorBar: View {
                 Rectangle()
                     .fill(Color.green)
                     .frame(width: geo.size.width * CGFloat(greenvalue))
+            }
+            .onChange(of: pulseyellowtogreen){ old, new in
+                print("DualColorBar.pulseyellowtogreen: \(old) -> \(new)")
+            }
+            .onAppear{
+                print("DualColorBar.pulseyellowtogreen: \(pulseyellowtogreen)")
             }
         }
         .frame(height: height)
@@ -74,6 +84,7 @@ struct WortRepeater: View {
     
     @State var pickedWortFormen: WortFormen?
     
+    @State var hasFaults: Bool = false
     @State var guessingResult: [Int] = []
     @State var wort: [Wort] = []
     @State var beispiel: [Beispiel?] = []
@@ -99,6 +110,8 @@ struct WortRepeater: View {
     @State private var scaleRatio: CGFloat = 1
     
     @State var attemptCounter: Int = 0
+    
+    @State var potentiallyAddWortForme: Bool = false
     
     var body: some View {
         VStack{
@@ -319,14 +332,26 @@ struct WortRepeater: View {
         )
     }
     private func dasProgressSektion() -> some View {
+        //@State var potentiallyAddWortForme: Bool = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
         return HStack{
-            let potentialyAddWortForme: Bool = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 3)
             DualColorBar(
                 greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
                 yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!),
                 height: 25,
-                pulseyellowtogreen: potentialyAddWortForme
+                pulseyellowtogreen: $potentiallyAddWortForme
             )
+            .onAppear{
+                potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+            }
+            .onChange(of: hasFaults){ _, newValue in
+                if(newValue){
+                    potentiallyAddWortForme = false
+                    print("Discard potential word form add - pulse")
+                }else{
+                    potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+                    print("Reset potential word form add - pulse")
+                }
+            }
             if(!pickedWortFormen!.failed){
                 Image(systemName: "questionmark.square.fill")
                     .symbolRenderingMode(.palette)
@@ -399,6 +424,7 @@ struct WortRepeater: View {
                 }
             }
         }
+        
     }
     private func dasWortSektion(dasWort: Wort, index: Int) -> some View {
         let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
@@ -446,6 +472,7 @@ struct WortRepeater: View {
                                     guessingResult[index] = 1
                                     readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                                 }
+                                hasFaults = guessingResult.contains(-1)
                             }
                         Image(systemName: "multiply.square.fill")
                             .resizable()
@@ -459,6 +486,7 @@ struct WortRepeater: View {
                                     guessingResult[index] = -1
                                     readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                                 }
+                                hasFaults = guessingResult.contains(-1)
                             }
                     }
                 }
@@ -492,6 +520,7 @@ struct WortRepeater: View {
                                     withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                                 }
                             }
+                            hasFaults = guessingResult.contains(-1)
                         }, widthFlood: true)
                         .if((!flippedSeite[index])||(missedGuess[index])){ view in
                             view.opacity(0.0)
@@ -522,6 +551,7 @@ struct WortRepeater: View {
                                 withAnimation(.easeOut(duration: 0.05).delay(0.4)) { flipShakingRatio[index] = 1.05 }
                                 withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                             }
+                            hasFaults = guessingResult.contains(-1)
                         }, widthFlood: true)
                         .if(!flippedSeite[index]){ view in
                             view.opacity(0.0)
