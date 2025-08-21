@@ -282,6 +282,23 @@ struct WortRepeater: View {
                     dismiss()
                 }, blinking: false)
         )
+        .sheet(isPresented: $showProgressBarDetails){
+            dasProgressErklarung()
+            .NG_sheetFormatting(transparent: true)
+            .padding(.horizontal, 10)
+        }
+    }
+    private func dasProgressErklarung() -> some View{
+        VStack{
+            HStack{
+                Text("Has a description of a progress bar")
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                Spacer()
+            }
+            NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                showProgressBarDetails = false
+            }, widthFlood: true)
+        }
     }
     private func dasProgressSektion() -> some View {
         return HStack{
@@ -597,18 +614,6 @@ struct WortRepeater: View {
                     }
 
                     flipTimers[index]?.start()
-                    /*
-                    withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
-                    withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.25).delay(1.0)) { flipScaleRatio[index] = 1.04 }
-                    withAnimation(.easeOut(duration: 0.75).delay(1.25)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.2).delay(2.0)) { flipScaleRatio[index] = 1.06 }
-                    withAnimation(.easeOut(duration: 0.8).delay(2.2)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.15).delay(3.0)) { flipScaleRatio[index] = 1.08 }
-                    withAnimation(.easeOut(duration: 0.85).delay(3.15)) { flipScaleRatio[index] = 1 }
-                    withAnimation(.easeOut(duration: 0.1).delay(4.0)) { flipScaleRatio[index] = 1.1 }
-                    withAnimation(.easeOut(duration: 0.9).delay(4.1)) { flipScaleRatio[index] = 1 }
-                     */
                 }
                 .onDisappear{
                     flipTimers[index]?.invalidate()
