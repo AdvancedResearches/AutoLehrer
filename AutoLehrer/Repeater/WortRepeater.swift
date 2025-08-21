@@ -265,11 +265,17 @@ struct WortRepeater: View {
             }
             .onChange(of: showProgressBarDetails){ oldValue, newValue in
                 if(newValue){
-                    guard let timer = flipTimers[runningWort] else {return}
-                    timer.pause()
+                    if(runningWort < flipTimers.count){
+                        guard let timer = flipTimers[runningWort] else {return}
+                        timer.pause()
+                    }
                 }else{
-                    guard let timer = flipTimers[runningWort] else {return}
-                    timer.resume()
+                    if(runningWort < flipTimers.count){
+                        if(!flippedSeite[runningWort]){
+                            guard let timer = flipTimers[runningWort] else {return}
+                            timer.resume()
+                        }
+                    }
                 }
             }
         }
@@ -284,16 +290,65 @@ struct WortRepeater: View {
         )
         .sheet(isPresented: $showProgressBarDetails){
             dasProgressErklarung()
-            .NG_sheetFormatting(transparent: true)
-            .padding(.horizontal, 10)
+                .padding(.horizontal, 10)
+                .NG_sheetFormatting(transparent: true)
+                .padding(.horizontal, 10)
         }
     }
     private func dasProgressErklarung() -> some View{
         VStack{
             HStack{
-                Text("Has a description of a progress bar")
+                Text("Всего форм у этого слова: \(WortFormen.alleFormen(pickedWortFormen!))")
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                 Spacer()
+            }
+            HStack{
+                Text("Сейчас предлагается: \(pickedWortFormen!.formsToShow)")
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                Spacer()
+            }
+            HStack{
+                Text("Отмечено как известное: \(guessingResult.filter{$0 == 1}.count)")
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                Spacer()
+            }
+            HStack{
+                Text("Отмечено как неизвестное: \(guessingResult.filter{$0 == -1}.count)")
+                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    .padding(.bottom, 10)
+                Spacer()
+            }
+            if(guessingResult.contains(0)){
+                if(pickedWortFormen!.failed){
+                    if(pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)){
+                        HStack{
+                            Text("В этом наборе форм уже бывали ошибки. Теперь чтоб этот набор считался изученным нужно ещё \(3-pickedWortFormen!.successCounter) раз правильно всё перевести. И тогда это слово будет считатья изученным.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Spacer()
+                        }
+                    }else{
+                        HStack{
+                            Text("В этом наборе форм уже бывали ошибки. Теперь чтоб этот набор считался изученным нужно ещё \(3-pickedWortFormen!.successCounter) раз правильно всё перевести. И тогда в следующий раз будет добавлена ещё одна форма для перевода.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Spacer()
+                        }
+                    }
+                }else{
+                    if(pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)){
+                        HStack{
+                            Text("Этот набор форм предложен впервые. Если сразу перевести всё правильно, то он будет считаться изученным. И так как сейчас к переводу предлагаются сейчас все формы, то и всё слово будет считаться изученным.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Spacer()
+                        }
+                    }else{
+                        HStack{
+                            Text("Этот набор форм предложен впервые. Если сразу перевести всё правильно, то он будет считаться изученным. И тогда в следующий раз будет добавлена ещё одна форма для перевода.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Spacer()
+                        }
+                    }
+                }
+            }else{
             }
             NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
                 showProgressBarDetails = false
