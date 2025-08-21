@@ -318,38 +318,100 @@ struct WortRepeater: View {
                     .padding(.bottom, 10)
                 Spacer()
             }
-            if(guessingResult.contains(0)){
-                if(pickedWortFormen!.failed){
-                    if(pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)){
-                        HStack{
-                            Text("В этом наборе форм уже бывали ошибки. Теперь чтоб этот набор считался изученным нужно ещё \(3-pickedWortFormen!.successCounter) раз правильно всё перевести. И тогда это слово будет считатья изученным.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            Spacer()
-                        }
-                    }else{
-                        HStack{
-                            Text("В этом наборе форм уже бывали ошибки. Теперь чтоб этот набор считался изученным нужно ещё \(3-pickedWortFormen!.successCounter) раз правильно всё перевести. И тогда в следующий раз будет добавлена ещё одна форма для перевода.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            Spacer()
-                        }
+            let fasttrack = !pickedWortFormen!.failed
+            let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)
+            let allAnswered = !guessingResult.contains(0)
+            let hasFaults = guessingResult.contains(-1)
+            let matchpoint = fasttrack ? true : pickedWortFormen!.successCounter >= 3
+            
+            if allAnswered{
+                if hasFaults{
+                    HStack{
+                        Text("Были ошибки. Придётся позже попробовать ещё раз.")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.bottom, 10)
+                        Spacer()
                     }
                 }else{
-                    if(pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)){
-                        HStack{
-                            Text("Этот набор форм предложен впервые. Если сразу перевести всё правильно, то он будет считаться изученным. И так как сейчас к переводу предлагаются сейчас все формы, то и всё слово будет считаться изученным.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            Spacer()
+                    if(gamepoint){
+                        if(matchpoint){
+                            HStack{
+                                Text("Ошибок не было! Поздравляю! Слово засчитано как изученное!")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
+                        }else{
+                            HStack{
+                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь это слово позже правильным переводом ещё \(3-pickedWortFormen!.successCounter) раз. И вот тогда это слово будет считаться как защитаное")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
                         }
                     }else{
-                        HStack{
-                            Text("Этот набор форм предложен впервые. Если сразу перевести всё правильно, то он будет считаться изученным. И тогда в следующий раз будет добавлена ещё одна форма для перевода.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            Spacer()
+                        if(matchpoint){
+                            HStack{
+                                Text("Ошибок не было! В следующий раз добавим ещё одну форму этого слова для перевода!")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
+                        }else{
+                            HStack{
+                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь этот набор форм слова позже правильным переводом ещё \(3-pickedWortFormen!.successCounter) раз. И тогда будет добавлена ещё одну форму этого слова для перевода.")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
                         }
                     }
                 }
             }else{
+                if hasFaults{
+                    HStack{
+                        Text("Уже были ошибки. Придётся позже попробовать ещё раз. А пока продолжай переводить оставшиеся формы.")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            .padding(.bottom, 10)
+                        Spacer()
+                    }
+                }else{
+                    if(gamepoint){
+                        if(matchpoint){
+                            HStack{
+                                Text("Пока что ошибок не было! Ты в шаге от того, чтобы слово слиталось изученным. Просто переведи все оставшиеся формы правильно!")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
+                        }else{
+                            HStack{
+                                Text("Пока что ошибок не было! Продолжай в том же духе!")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
+                        }
+                    }else{
+                        if(matchpoint){
+                            HStack{
+                                Text("Пока что ошибок не было! Продолжай в том же духе и тогда в следующий раз добавим ещё одну форму этого слова для перевода!")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
+                        }else{
+                            HStack{
+                                Text("Пока что ошибок не было! Продолжай в том же духе!")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    .padding(.bottom, 10)
+                                Spacer()
+                            }
+                        }
+                    }
+                }
             }
+            
             NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
                 showProgressBarDetails = false
             }, widthFlood: true)
