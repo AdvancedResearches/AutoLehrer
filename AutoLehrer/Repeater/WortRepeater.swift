@@ -332,7 +332,6 @@ struct WortRepeater: View {
         )
     }
     private func dasProgressSektion() -> some View {
-        //@State var potentiallyAddWortForme: Bool = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
         return HStack{
             DualColorBar(
                 greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
@@ -355,21 +354,21 @@ struct WortRepeater: View {
             if(!pickedWortFormen!.failed){
                 Image(systemName: "questionmark.square.fill")
                     .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, .yellow)
+                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                     .font(.system(size: 25))
                 Image(systemName: "questionmark.square.fill")
                     .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, .yellow)
+                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                     .font(.system(size: 25))
                 Image(systemName: "questionmark.square.fill")
                     .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, .yellow)
+                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                     .font(.system(size: 25))
             }else{
                 if(pickedWortFormen!.successCounter == 0){
                     Image(systemName: "questionmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .yellow)
+                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                         .font(.system(size: 25))
                     Image(systemName: "square")
                         .symbolRenderingMode(.palette)
@@ -387,7 +386,7 @@ struct WortRepeater: View {
                         .font(.system(size: 25))
                     Image(systemName: "questionmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .yellow)
+                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                         .font(.system(size: 25))
                     Image(systemName: "square")
                         .symbolRenderingMode(.palette)
@@ -405,7 +404,7 @@ struct WortRepeater: View {
                         .font(.system(size: 25))
                     Image(systemName: "questionmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .yellow)
+                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                         .font(.system(size: 25))
                 }
                 if(pickedWortFormen!.successCounter >= 3){
@@ -673,6 +672,7 @@ struct WortRepeater: View {
         guessingResult = Array(repeating: 0, count: wort.count)
         readyToMoveOn = false
         runningWort = 0
+        hasFaults = false
         pickedWortFormen = pickedSache
     }
 }
