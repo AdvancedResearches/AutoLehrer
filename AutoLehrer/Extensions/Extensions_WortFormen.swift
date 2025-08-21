@@ -225,6 +225,11 @@ extension WortFormen{
                 wortFormen.formsToShow += 1
                 wortFormen.successCounter = 0
                 wortFormen.failed = false
+        }else{
+            if(wortConfirmed(wortFormen)){
+                wortFormen.successCounter = 3
+                wortFormen.failed = false
+            }
         }
         try! context.save()
         return wortFormen.successCounter >= 3
@@ -274,7 +279,7 @@ extension WortFormen{
     }
     public static func repetitionsToAddNewForm(_ wortFormen: WortFormen) -> Int{
         if wortFormen.failed{
-            return Int(3 - wortFormen.successCounter)
+            return Int(2 - wortFormen.successCounter)
         }else{
             return 0
         }
@@ -282,6 +287,14 @@ extension WortFormen{
     public static func shallAddNewForm(_ wortFormen: WortFormen) -> Bool{
         if(repetitionsToAddNewForm(wortFormen) <= 0){
             if(wortFormen.formsToShow < wortFormen.relWort?.count ?? 0){
+                return true
+            }
+        }
+        return false
+    }
+    public static func wortConfirmed(_ wortFormen: WortFormen) -> Bool{
+        if(repetitionsToAddNewForm(wortFormen) <= 0){
+            if(wortFormen.formsToShow >= wortFormen.relWort?.count ?? 0){
                 return true
             }
         }

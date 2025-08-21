@@ -71,7 +71,7 @@ struct WortRepeater: View {
                 
                 if(pickedWortFormen != nil){
                     HStack{
-                        Text("Правильно \(pickedWortFormen!.successCounter) раз подряд")
+                        Text("Правильно \(pickedWortFormen!.successCounter) раз подряд. Это слово на fast track \(!pickedWortFormen!.failed)")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         Spacer()
                     }
@@ -174,10 +174,20 @@ struct WortRepeater: View {
                                                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                     Spacer()
                                                 }
+                                                HStack{
+                                                    Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
+                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                    Spacer()
+                                                }
                                             }else{
                                                 //Не всё правильно отвечено - Все формы проверены
                                                 HStack{
                                                     Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы это слово зачлось как изученное.")
+                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                    Spacer()
+                                                }
+                                                HStack{
+                                                    Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
                                                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                     Spacer()
                                                 }
@@ -193,10 +203,20 @@ struct WortRepeater: View {
                                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                         Spacer()
                                                     }
+                                                    HStack{
+                                                        Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
                                                 }else{
                                                     //Всё правильно отвечено - Не все ещё формы проверены - рано добавить ещё одну форму
                                                     HStack{
                                                         Text("Все формы были помечены как правильные. Нужно ответить правильно на все формы ещё \(WortFormen.repetitionsToAddNewForm(pickedWortFormen!)) раз(а) чтобы добавить ещё одну форму для проверки.")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
+                                                    HStack{
+                                                        Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
                                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                         Spacer()
                                                     }
@@ -214,6 +234,11 @@ struct WortRepeater: View {
                                                     //Всё правильно отвечено - Все формы проверены - рано добавить ещё одну форму
                                                     HStack{
                                                         Text("Все формы были помечены как правильные. Нужно ответить правильно на все формы ещё \(WortFormen.repetitionsToAddNewForm(pickedWortFormen!)) раз(а) чтобы слово считалось выученым.")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
+                                                    HStack{
+                                                        Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
                                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                         Spacer()
                                                     }
