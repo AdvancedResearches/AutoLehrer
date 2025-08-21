@@ -68,7 +68,7 @@ struct WortRepeater: View {
                 Spacer()
             }
             VStack {
-                
+                /*
                 if(pickedWortFormen != nil){
                     HStack{
                         Text("Правильно \(pickedWortFormen!.successCounter) раз подряд. Это слово на fast track \(!pickedWortFormen!.failed)")
@@ -76,6 +76,7 @@ struct WortRepeater: View {
                         Spacer()
                     }
                 }
+                 */
                 if(pickedWortFormen != nil){
                     ScrollViewReader { proxy in
                         ScrollView(.vertical, showsIndicators: true){
