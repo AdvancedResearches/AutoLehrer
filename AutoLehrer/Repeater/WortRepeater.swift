@@ -341,14 +341,15 @@ struct WortRepeater: View {
             )
             .onAppear{
                 potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+                print("Initialize potential word form add - pulse to \(potentiallyAddWortForme)")
             }
             .onChange(of: hasFaults){ _, newValue in
                 if(newValue){
                     potentiallyAddWortForme = false
-                    print("Discard potential word form add - pulse")
+                    print("Discard potential word form add - pulse false")
                 }else{
                     potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                    print("Reset potential word form add - pulse")
+                    print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
                 }
             }
             if(!pickedWortFormen!.failed){
@@ -382,7 +383,7 @@ struct WortRepeater: View {
                 if(pickedWortFormen!.successCounter == 1){
                     Image(systemName: "checkmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .green)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
                         .font(.system(size: 25))
                     Image(systemName: "questionmark.square.fill")
                         .symbolRenderingMode(.palette)
@@ -396,11 +397,11 @@ struct WortRepeater: View {
                 if(pickedWortFormen!.successCounter == 2){
                     Image(systemName: "checkmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .green)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
                         .font(.system(size: 25))
                     Image(systemName: "checkmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .green)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
                         .font(.system(size: 25))
                     Image(systemName: "questionmark.square.fill")
                         .symbolRenderingMode(.palette)
@@ -410,15 +411,15 @@ struct WortRepeater: View {
                 if(pickedWortFormen!.successCounter >= 3){
                     Image(systemName: "checkmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .green)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
                         .font(.system(size: 25))
                     Image(systemName: "checkmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .green)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
                         .font(.system(size: 25))
                     Image(systemName: "checkmark.square.fill")
                         .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .green)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
                         .font(.system(size: 25))
                 }
             }
@@ -674,5 +675,6 @@ struct WortRepeater: View {
         runningWort = 0
         hasFaults = false
         pickedWortFormen = pickedSache
+        potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
     }
 }
