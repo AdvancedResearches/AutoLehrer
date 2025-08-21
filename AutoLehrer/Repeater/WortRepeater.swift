@@ -1,6 +1,29 @@
 import SwiftUI
 import CoreData
 
+private struct SizePreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize = .zero
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
+        value = nextValue()
+    }
+}
+
+struct SizeAware<Content: View>: View {
+    let onChange: (CGSize) -> Void
+    @ViewBuilder var content: () -> Content
+
+    var body: some View {
+        content()
+            .background(
+                GeometryReader { geo in
+                    Color.clear
+                        .preference(key: SizePreferenceKey.self, value: geo.size)
+                }
+            )
+            .onPreferenceChange(SizePreferenceKey.self, perform: onChange)
+    }
+}
+
 struct WortRepeater: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -64,60 +87,73 @@ struct WortRepeater: View {
                                     }
                             }
                             if(readyToMoveOn){
-                                let successFormen: Int = guessingResult.filter{$0 == 1}.count
-                                let totalFormen: Int = guessingResult.count
-                                NG_Button(
-                                    title: "Дальше (\(successFormen)/\(totalFormen) было правильно)".localized(for: language),
-                                    style: successFormen==totalFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                                    isDisabled: .init(
-                                        get: { !readyToMoveOn },
-                                        set: { readyToMoveOn = !$0 }
-                                    ),
-                                    isHighlighting: .constant(false),
-                                    isPulsating: .constant(readyToMoveOn),
-                                    action: {
-                                        if(readyToMoveOn){
-                                            attemptCounter += 1
-                                            var successCounter: Int = 0
-                                            
-                                            for theFormCounter in 0..<wort.count{
-                                                if(guessingResult[theFormCounter] == 1){
-                                                    Statistics.set_success(wort[theFormCounter])
-                                                    successCounter += 1
-                                                }
-                                                if(guessingResult[theFormCounter] == -1){
-                                                    Statistics.set_failure(wort[theFormCounter])
-                                                }
+                                SizeAware(onChange: { _ in
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                            withAnimation(.easeInOut(duration: 0.5)) {
+                                                proxy.scrollTo("bottom-anchor", anchor: .bottom)
                                             }
-                                            
-                                            if(successCounter == wort.count){
-                                                if(WortFormen.set_success(pickedWortFormen!)){
-                                                    confirmedWorte.insert(pickedWortFormen!)
-                                                }
-                                            }else{
-                                                WortFormen.set_failure(pickedWortFormen!)
-                                                confirmedWorte.remove(pickedWortFormen!)
-                                            }
-                                            
-                                            WortFormen.set_attempted(pickedWortFormen!)
-                                            Statistics.wortFormenUrgency(pickedWortFormen!)
-                                            
-                                            pickTheWord()
-                                        }else{
-                                            withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                                            withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                                            withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                                            withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                                            withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                                            withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
                                         }
-                                    },
-                                    widthFlood: true
-                                )
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 25)
-                                .transition(.scale)
+                                }) {
+                                    VStack{
+                                        let successFormen: Int = guessingResult.filter{$0 == 1}.count
+                                        let totalFormen: Int = guessingResult.count
+                                        NG_Button(
+                                            title: "Дальше (\(successFormen)/\(totalFormen) было правильно)".localized(for: language),
+                                            style: successFormen==totalFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                            isDisabled: .init(
+                                                get: { !readyToMoveOn },
+                                                set: { readyToMoveOn = !$0 }
+                                            ),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(readyToMoveOn),
+                                            action: {
+                                                if(readyToMoveOn){
+                                                    attemptCounter += 1
+                                                    var successCounter: Int = 0
+                                                    
+                                                    for theFormCounter in 0..<wort.count{
+                                                        if(guessingResult[theFormCounter] == 1){
+                                                            Statistics.set_success(wort[theFormCounter])
+                                                            successCounter += 1
+                                                        }
+                                                        if(guessingResult[theFormCounter] == -1){
+                                                            Statistics.set_failure(wort[theFormCounter])
+                                                        }
+                                                    }
+                                                    
+                                                    if(successCounter == wort.count){
+                                                        if(WortFormen.set_success(pickedWortFormen!)){
+                                                            confirmedWorte.insert(pickedWortFormen!)
+                                                        }
+                                                    }else{
+                                                        WortFormen.set_failure(pickedWortFormen!)
+                                                        confirmedWorte.remove(pickedWortFormen!)
+                                                    }
+                                                    
+                                                    WortFormen.set_attempted(pickedWortFormen!)
+                                                    Statistics.wortFormenUrgency(pickedWortFormen!)
+                                                    
+                                                    pickTheWord()
+                                                }else{
+                                                    withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
+                                                }
+                                            },
+                                            widthFlood: true
+                                        )
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 25)
+                                        .transition(.scale)
+                                        Text("Было изучено столько-то форм ...")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }
+                                }
                             }
+                            Color.clear.frame(height: 1).id("bottom-anchor")
                         }
                         .background(.clear)
                         .animation(.easeInOut(duration: 0.35), value: readyToMoveOn)
