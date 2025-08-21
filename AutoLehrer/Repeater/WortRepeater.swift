@@ -1,6 +1,52 @@
 import SwiftUI
 import CoreData
 
+class PausableTimer {
+    private var timer: Timer?
+    private let interval: TimeInterval
+    private let handler: () -> Void
+    private var isRunning = false
+    private var isPaused = false
+    
+    init(interval: TimeInterval, handler: @escaping () -> Void) {
+        self.interval = interval
+        self.handler = handler
+    }
+    
+    func start() {
+        guard !isRunning else { return }
+        schedule()
+        isRunning = true
+        isPaused = false
+    }
+    
+    func pause() {
+        guard isRunning, !isPaused else { return }
+        timer?.invalidate()
+        isPaused = true
+    }
+    
+    func resume() {
+        guard isRunning, isPaused else { return }
+        schedule()
+        isPaused = false
+    }
+    
+    func invalidate() {
+        timer?.invalidate()
+        timer = nil
+        isRunning = false
+        isPaused = false
+    }
+    
+    private func schedule() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { _ in
+            self.handler()
+        }
+    }
+}
+
 struct DualColorBar: View {
     var greenvalue: Double   // 0...1
     var yellowvalue: Double  // где меняется цвет
@@ -92,7 +138,7 @@ struct WortRepeater: View {
     @State var flippedSeite: [Bool] = []
     @State var missedGuess: [Bool] = []
     @State var flipScaleRatio: [CGFloat] = []
-    @State var flipTimers: [Timer?] = []
+    @State var flipTimers: [PausableTimer?] = []
     @State var flipTotal: [Double] = []
     @State var flipPassed: [Double] = []
     @State var flipCompleted: [Bool] = []
@@ -112,6 +158,8 @@ struct WortRepeater: View {
     @State var attemptCounter: Int = 0
     
     @State var potentiallyAddWortForme: Bool = false
+    
+    @State var showProgressBarDetails: Bool = false
     
     var body: some View {
         VStack{
@@ -324,6 +372,15 @@ struct WortRepeater: View {
             .onAppear{
                 pickTheWord()
             }
+            .onChange(of: showProgressBarDetails){ oldValue, newValue in
+                if(newValue){
+                    guard let timer = flipTimers[runningWort] else {return}
+                    timer.pause()
+                }else{
+                    guard let timer = flipTimers[runningWort] else {return}
+                    timer.resume()
+                }
+            }
         }
         .background(theme.currentTheme.NG_LinearGradient_Background_Page)
         .navigationBarTitleDisplayMode(.inline)
@@ -427,6 +484,9 @@ struct WortRepeater: View {
                         .font(.system(size: 25))
                 }
             }
+        }
+        .onTapGesture {
+            showProgressBarDetails.toggle()
         }
         
     }
@@ -578,9 +638,9 @@ struct WortRepeater: View {
                     flipPassed[index] = 0.0
                     flipCompleted[index] = false
                     
-                    flipTimers[index] = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true){ t in
+                    flipTimers[index] = PausableTimer(interval: 0.1) {
                         if attemptCounter != thisCertainCounter || flippedSeite[index] {
-                            t.invalidate()
+                            flipTimers[index]?.invalidate()
                             flipTimers[index] = nil
                             return
                         }
@@ -589,11 +649,19 @@ struct WortRepeater: View {
                         
                         if flipPassed[index] >= flipTotal[index] {
                             flipCompleted[index] = true
-                            
-                            t.invalidate()
+                            flipTimers[index]?.invalidate()
                             flipTimers[index] = nil
+                            if(attemptCounter == thisCertainCounter){
+                                if(!flippedSeite[index]){
+                                    deutschesSeite[index] = true
+                                    flippedSeite[index] = true
+                                    missedGuess[index] = true
+                                }
+                            }
                         }
                     }
+
+                    flipTimers[index]?.start()
                     
                     withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
                     withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
@@ -605,6 +673,7 @@ struct WortRepeater: View {
                     withAnimation(.easeOut(duration: 0.85).delay(3.15)) { flipScaleRatio[index] = 1 }
                     withAnimation(.easeOut(duration: 0.1).delay(4.0)) { flipScaleRatio[index] = 1.1 }
                     withAnimation(.easeOut(duration: 0.9).delay(4.1)) { flipScaleRatio[index] = 1 }
+                    /*
                     DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                         if(attemptCounter == thisCertainCounter){
                             if(!flippedSeite[index]){
@@ -614,6 +683,7 @@ struct WortRepeater: View {
                             }
                         }
                     }
+                    */
                 }
                 .onDisappear{
                     flipTimers[index]?.invalidate()
