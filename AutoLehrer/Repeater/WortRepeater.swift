@@ -166,13 +166,16 @@ struct WortRepeater: View {
                                             Spacer()
                                         }
                                         if(successFormen < checkedFormen){
+                                            //Не всё правильно отвечено
                                             if(checkedFormen < totalFormen){
+                                                //Не всё правильно отвечено - Не все ещё формы проверены
                                                 HStack{
                                                     Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы добавить ещё одну форму для проверки.")
                                                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                     Spacer()
                                                 }
                                             }else{
+                                                //Не всё правильно отвечено - Все формы проверены
                                                 HStack{
                                                     Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы это слово зачлось как изученное.")
                                                         .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
@@ -180,12 +183,42 @@ struct WortRepeater: View {
                                                 }
                                             }
                                         }else{
-                                            HStack{
-                                                Text("Все формы были правильно отвечены. Поздравляю!")
-                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                Spacer()
+                                            //Всё правильно отвечено
+                                            if(checkedFormen < totalFormen){
+                                                //Всё правильно отвечено - Не все ещё формы проверены
+                                                if(WortFormen.repetitionsToAddNewForm(pickedWortFormen!) <= 0){
+                                                    //Всё правильно отвечено - Не все ещё формы проверены - пора добавить ещё одну форму
+                                                    HStack{
+                                                        Text("Все формы были помечены как правильные. Добавляем ещё одну форму для проверки.")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
+                                                }else{
+                                                    //Всё правильно отвечено - Не все ещё формы проверены - рано добавить ещё одну форму
+                                                    HStack{
+                                                        Text("Все формы были помечены как правильные. Нужно ответить правильно на все формы ещё \(WortFormen.repetitionsToAddNewForm(pickedWortFormen!)) раз(а) чтобы добавить ещё одну форму для проверки.")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
+                                                }
+                                            }else{
+                                                //Всё правильно отвечено - Все формы проверены
+                                                if(WortFormen.repetitionsToAddNewForm(pickedWortFormen!) <= 0){
+                                                    //Всё правильно отвечено - Все формы проверены - пора добавить ещё одну форму
+                                                    HStack{
+                                                        Text("Все формы были помечены как правильные. Поздравляю! Слово выучено!")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
+                                                }else{
+                                                    //Всё правильно отвечено - Все формы проверены - рано добавить ещё одну форму
+                                                    HStack{
+                                                        Text("Все формы были помечены как правильные. Нужно ответить правильно на все формы ещё \(WortFormen.repetitionsToAddNewForm(pickedWortFormen!)) раз(а) чтобы слово считалось выученым.")
+                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                        Spacer()
+                                                    }
+                                                }
                                             }
-                                            
                                         }
                                     }
                                 }

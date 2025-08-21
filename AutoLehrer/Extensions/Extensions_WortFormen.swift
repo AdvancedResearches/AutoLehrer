@@ -214,35 +214,18 @@ extension WortFormen{
     }
     public static func set_success(_ wortFormen: WortFormen) -> Bool{
         guard let context = wortFormen.managedObjectContext else { return false }
+        let shallAddNewForm = shallAddNewForm(wortFormen)
         wortFormen.successCounter += 1
-        wortFormen.coolDown = WortFormen.successCoolDown
-        let formsAvailable = wortFormen.relWort?.count ?? 0
         if wortFormen.failed{
-            if(wortFormen.successCounter >= 3){
-                if(wortFormen.formsToShow < formsAvailable){
-                    wortFormen.formsToShow += 1
-                    wortFormen.successCounter = 0
-                    wortFormen.coolDown = WortFormen.successCoolDown
-                }
-            }
+            wortFormen.coolDown = WortFormen.successCoolDown
         }else{
-            if(wortFormen.successCounter == 1){
-                if(wortFormen.formsToShow < formsAvailable){
-                    wortFormen.formsToShow += 1
-                    wortFormen.successCounter = 0
-                    wortFormen.coolDown = WortFormen.successCoolDownFastTrack
-                }
-            }else{
-                if(wortFormen.successCounter >= 3){
-                    if(wortFormen.formsToShow < formsAvailable){
-                        wortFormen.formsToShow += 1
-                        wortFormen.successCounter = 0
-                        wortFormen.coolDown = WortFormen.successCoolDown
-                    }
-                }
-            }
+            wortFormen.coolDown = WortFormen.successCoolDownFastTrack
         }
-        wortFormen.failed = false
+        if shallAddNewForm{
+                wortFormen.formsToShow += 1
+                wortFormen.successCounter = 0
+                wortFormen.failed = false
+        }
         try! context.save()
         return wortFormen.successCounter >= 3
     }
@@ -289,5 +272,19 @@ extension WortFormen{
     public static func alleFormen(_ wortFormen: WortFormen) -> Int{
         return wortFormen.relWort?.count ?? 0
     }
-    
+    public static func repetitionsToAddNewForm(_ wortFormen: WortFormen) -> Int{
+        if wortFormen.failed{
+            return Int(3 - wortFormen.successCounter)
+        }else{
+            return 0
+        }
+    }
+    public static func shallAddNewForm(_ wortFormen: WortFormen) -> Bool{
+        if(repetitionsToAddNewForm(wortFormen) <= 0){
+            if(wortFormen.formsToShow < wortFormen.relWort?.count ?? 0){
+                return true
+            }
+        }
+        return false
+    }
 }
