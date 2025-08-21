@@ -136,6 +136,7 @@ struct WortRepeater: View {
                                     }
                             }
                             if(readyToMoveOn){
+                                /*
                                 SizeAware(onChange: { _ in
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                         withAnimation(.easeInOut(duration: 1.0)) {
@@ -143,10 +144,11 @@ struct WortRepeater: View {
                                             }
                                         }
                                 }) {
-                                    VStack{
+                                    */
+                                    //VStack{
                                         let successFormen = guessingResult.filter{$0 == 1}.count
                                         let checkedFormen = guessingResult.count
-                                        let totalFormen = WortFormen.alleFormen(pickedWortFormen!)
+                                        //let totalFormen = WortFormen.alleFormen(pickedWortFormen!)
                                         NG_Button(
                                             title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
                                             style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
@@ -198,7 +200,7 @@ struct WortRepeater: View {
                                         .padding(.horizontal, 15)
                                         .padding(.vertical, 25)
                                         .transition(.scale)
-                                        
+                                        /*
                                         HStack{
                                             Text("Всего форм: \(totalFormen)")
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
@@ -294,8 +296,9 @@ struct WortRepeater: View {
                                                 }
                                             }
                                         }
-                                    }
-                                }
+                                         */
+                                    //}
+                                //}
                             }
                             Color.clear.frame(height: 1).id("bottom-anchor")
                         }
