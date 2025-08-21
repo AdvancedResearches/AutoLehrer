@@ -116,8 +116,9 @@ struct WortRepeater: View {
     var body: some View {
         VStack{
             HStack{
-                Text("Выучено слов \(confirmedWorte.count) из \(exercisedWorte.count)")
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                Text("В этой сессии пробовали \(exercisedWorte.count) слов. Из них выучено \(confirmedWorte.count).")
+                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                    .padding(.horizontal, 5)
                 Spacer()
             }
             VStack {
