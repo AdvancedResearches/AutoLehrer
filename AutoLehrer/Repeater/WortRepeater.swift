@@ -89,17 +89,18 @@ struct WortRepeater: View {
                             if(readyToMoveOn){
                                 SizeAware(onChange: { _ in
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                            withAnimation(.easeInOut(duration: 0.5)) {
+                                        withAnimation(.easeInOut(duration: 1.0)) {
                                                 proxy.scrollTo("bottom-anchor", anchor: .bottom)
                                             }
                                         }
                                 }) {
                                     VStack{
-                                        let successFormen: Int = guessingResult.filter{$0 == 1}.count
-                                        let totalFormen: Int = guessingResult.count
+                                        let successFormen = guessingResult.filter{$0 == 1}.count
+                                        let checkedFormen = guessingResult.count
+                                        let totalFormen = WortFormen.alleFormen(pickedWortFormen!)
                                         NG_Button(
-                                            title: "Дальше (\(successFormen)/\(totalFormen) было правильно)".localized(for: language),
-                                            style: successFormen==totalFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                            title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
+                                            style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
                                             isDisabled: .init(
                                                 get: { !readyToMoveOn },
                                                 set: { readyToMoveOn = !$0 }
@@ -148,8 +149,44 @@ struct WortRepeater: View {
                                         .padding(.horizontal, 15)
                                         .padding(.vertical, 25)
                                         .transition(.scale)
-                                        Text("Было изучено столько-то форм ...")
-                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        
+                                        HStack{
+                                            Text("Всего форм: \(totalFormen)")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Spacer()
+                                        }
+                                        HStack{
+                                            Text("Проверено форм: \(checkedFormen)")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Spacer()
+                                        }
+                                        HStack{
+                                            Text("Правильно отмечено форм: \(successFormen)")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Spacer()
+                                        }
+                                        if(successFormen < checkedFormen){
+                                            if(checkedFormen < totalFormen){
+                                                HStack{
+                                                    Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы добавить ещё одну форму для проверки.")
+                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                    Spacer()
+                                                }
+                                            }else{
+                                                HStack{
+                                                    Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы это слово зачлось как изученное.")
+                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                    Spacer()
+                                                }
+                                            }
+                                        }else{
+                                            HStack{
+                                                Text("Все формы были правильно отвечены. Поздравляю!")
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                Spacer()
+                                            }
+                                            
+                                        }
                                     }
                                 }
                             }
