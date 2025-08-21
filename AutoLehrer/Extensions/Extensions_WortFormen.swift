@@ -270,9 +270,13 @@ extension WortFormen{
         }
         return false
     }
-    public static func accountedFormenRatio(_ wortFormen: WortFormen) -> Double{
+    public static func attemptingFormenRatio(_ wortFormen: WortFormen) -> Double{
         let alleFormen: Double = Double(alleFormen(wortFormen))
-        return (Double(wortFormen.formsToShow) / alleFormen).rounded(.down)
+        return (Double(wortFormen.formsToShow) / alleFormen)
+    }
+    public static func succeededFormenRatio(_ wortFormen: WortFormen) -> Double{
+        let alleFormen: Double = Double(alleFormen(wortFormen))
+        return (Double(wortFormen.formsToShow<=0 ? 0 : wortFormen.formsToShow-1) / alleFormen)
     }
     public static func alleFormen(_ wortFormen: WortFormen) -> Int{
         return wortFormen.relWort?.count ?? 0

@@ -1,6 +1,46 @@
 import SwiftUI
 import CoreData
 
+struct DualColorBar: View {
+    var greenvalue: Double   // 0...1
+    var yellowvalue: Double  // где меняется цвет
+    var height: CGFloat = 25
+    var pulseyellowtogreen: Bool = false
+    @State private var pulsation = false
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .fill(Color.black.opacity(0.2))
+                
+                // Жёлтая часть
+                Rectangle()
+                    .fill(pulsation ? Color.green : Color.yellow)
+                    .frame(width: geo.size.width * CGFloat(yellowvalue))
+                    .onChange(of: pulseyellowtogreen) { _, newValue in
+                                    if newValue {
+                                        // запускаем анимацию
+                                        withAnimation(.linear(duration: 1).repeatForever(autoreverses: true)) {
+                                            pulsation = true
+                                        }
+                                    } else {
+                                        // сбрасываем
+                                        pulsation = false
+                                    }
+                                }
+
+                // Зелёная часть
+                Rectangle()
+                    .fill(Color.green)
+                    .frame(width: geo.size.width * CGFloat(greenvalue))
+            }
+        }
+        .frame(height: height)
+        .clipShape(RoundedRectangle(cornerRadius: height/2))
+    }
+}
+
 private struct SizePreferenceKey: PreferenceKey {
     static var defaultValue: CGSize = .zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
@@ -77,6 +117,9 @@ struct WortRepeater: View {
                     }
                 }
                  */
+                if(pickedWortFormen != nil){
+                    dasProgressSektion()
+                }
                 if(pickedWortFormen != nil){
                     ScrollViewReader { proxy in
                         ScrollView(.vertical, showsIndicators: true){
@@ -284,7 +327,87 @@ struct WortRepeater: View {
                 }, blinking: false)
         )
     }
-    
+    private func dasProgressSektion() -> some View {
+        HStack{
+            DualColorBar(
+                greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
+                yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!),
+                height: 25,
+                pulseyellowtogreen: true
+            )
+            if(!pickedWortFormen!.failed){
+                Image(systemName: "questionmark.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.black, .yellow)
+                    .font(.system(size: 25))
+                Image(systemName: "questionmark.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.black, .yellow)
+                    .font(.system(size: 25))
+                Image(systemName: "questionmark.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.black, .yellow)
+                    .font(.system(size: 25))
+            }else{
+                if(pickedWortFormen!.successCounter == 0){
+                    Image(systemName: "questionmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .yellow)
+                        .font(.system(size: 25))
+                    Image(systemName: "square")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .clear)
+                        .font(.system(size: 25))
+                    Image(systemName: "square")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .clear)
+                        .font(.system(size: 25))
+                }
+                if(pickedWortFormen!.successCounter == 1){
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "questionmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .yellow)
+                        .font(.system(size: 25))
+                    Image(systemName: "square")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .clear)
+                        .font(.system(size: 25))
+                }
+                if(pickedWortFormen!.successCounter == 2){
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "questionmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .yellow)
+                        .font(.system(size: 25))
+                }
+                if(pickedWortFormen!.successCounter >= 3){
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .green)
+                        .font(.system(size: 25))
+                }
+            }
+        }
+    }
     private func dasWortSektion(dasWort: Wort, index: Int) -> some View {
         let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
         let hasPassed = index < runningWort
