@@ -323,7 +323,7 @@ struct WortRepeater: View {
             let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)
             let allAnswered = !guessingResult.contains(0)
             let hasFaults = guessingResult.contains(-1)
-            let matchpoint = fasttrack ? true : pickedWortFormen!.successCounter >= 3
+            let matchpoint = fasttrack ? true : pickedWortFormen!.successCounter >= 2
             
             if allAnswered{
                 if hasFaults{
