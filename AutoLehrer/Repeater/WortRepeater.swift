@@ -141,6 +141,7 @@ struct WortRepeater: View {
     @State var flipTimers: [PausableTimer?] = []
     @State var flipTotal: [Double] = []
     @State var flipPassed: [Double] = []
+    @State var flipTicker: [Int] = []
     @State var flipCompleted: [Bool] = []
     @State var flipShakingRatio: [CGFloat] = []
     @State var wortForm: [WortArtFormen] = []
@@ -164,7 +165,7 @@ struct WortRepeater: View {
     var body: some View {
         VStack{
             HStack{
-                Text("В этой сессии пробовали \(exercisedWorte.count) слов. Из них выучено \(confirmedWorte.count).")
+                Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
                     .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                     .padding(.horizontal, 5)
                 Spacer()
@@ -184,19 +185,8 @@ struct WortRepeater: View {
                                     }
                             }
                             if(readyToMoveOn){
-                                /*
-                                SizeAware(onChange: { _ in
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                        withAnimation(.easeInOut(duration: 1.0)) {
-                                                proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                                            }
-                                        }
-                                }) {
-                                    */
-                                    //VStack{
                                         let successFormen = guessingResult.filter{$0 == 1}.count
                                         let checkedFormen = guessingResult.count
-                                        //let totalFormen = WortFormen.alleFormen(pickedWortFormen!)
                                         NG_Button(
                                             title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
                                             style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
@@ -248,105 +238,6 @@ struct WortRepeater: View {
                                         .padding(.horizontal, 15)
                                         .padding(.vertical, 25)
                                         .transition(.scale)
-                                        /*
-                                        HStack{
-                                            Text("Всего форм: \(totalFormen)")
-                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            Spacer()
-                                        }
-                                        HStack{
-                                            Text("Проверено форм: \(checkedFormen)")
-                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            Spacer()
-                                        }
-                                        HStack{
-                                            Text("Правильно отмечено форм: \(successFormen)")
-                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            Spacer()
-                                        }
-                                        if(successFormen < checkedFormen){
-                                            //Не всё правильно отвечено
-                                            if(checkedFormen < totalFormen){
-                                                //Не всё правильно отвечено - Не все ещё формы проверены
-                                                HStack{
-                                                    Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы добавить ещё одну форму для проверки.")
-                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                    Spacer()
-                                                }
-                                                HStack{
-                                                    Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
-                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                    Spacer()
-                                                }
-                                            }else{
-                                                //Не всё правильно отвечено - Все формы проверены
-                                                HStack{
-                                                    Text("Не все формы были правильно отвечены. Поэтому надо будет ответить ещё 3 раза правильно все формы чтобы это слово зачлось как изученное.")
-                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                    Spacer()
-                                                }
-                                                HStack{
-                                                    Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
-                                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                    Spacer()
-                                                }
-                                            }
-                                        }else{
-                                            //Всё правильно отвечено
-                                            if(checkedFormen < totalFormen){
-                                                //Всё правильно отвечено - Не все ещё формы проверены
-                                                if(WortFormen.repetitionsToAddNewForm(pickedWortFormen!) <= 0){
-                                                    //Всё правильно отвечено - Не все ещё формы проверены - пора добавить ещё одну форму
-                                                    HStack{
-                                                        Text("Все формы были помечены как правильные. Добавляем ещё одну форму для проверки.")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                    HStack{
-                                                        Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                }else{
-                                                    //Всё правильно отвечено - Не все ещё формы проверены - рано добавить ещё одну форму
-                                                    HStack{
-                                                        Text("Все формы были помечены как правильные. Нужно ответить правильно на все формы ещё \(WortFormen.repetitionsToAddNewForm(pickedWortFormen!)) раз(а) чтобы добавить ещё одну форму для проверки.")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                    HStack{
-                                                        Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                }
-                                            }else{
-                                                //Всё правильно отвечено - Все формы проверены
-                                                if(WortFormen.repetitionsToAddNewForm(pickedWortFormen!) <= 0){
-                                                    //Всё правильно отвечено - Все формы проверены - пора добавить ещё одну форму
-                                                    HStack{
-                                                        Text("Все формы были помечены как правильные. Поздравляю! Слово выучено!")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                }else{
-                                                    //Всё правильно отвечено - Все формы проверены - рано добавить ещё одну форму
-                                                    HStack{
-                                                        Text("Все формы были помечены как правильные. Нужно ответить правильно на все формы ещё \(WortFormen.repetitionsToAddNewForm(pickedWortFormen!)) раз(а) чтобы слово считалось выученым.")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                    HStack{
-                                                        Text("Слово будет засчитано как заученное только после подтверждения всех форм!")
-                                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                        Spacer()
-                                                    }
-                                                }
-                                            }
-                                        }
-                                         */
-                                    //}
-                                //}
                             }
                             Color.clear.frame(height: 1).id("bottom-anchor")
                         }
@@ -638,14 +529,57 @@ struct WortRepeater: View {
                     flipPassed[index] = 0.0
                     flipCompleted[index] = false
                     
-                    flipTimers[index] = PausableTimer(interval: 0.1) {
+                    flipTimers[index] = PausableTimer(interval: 0.05) {
+                        
                         if attemptCounter != thisCertainCounter || flippedSeite[index] {
                             flipTimers[index]?.invalidate()
                             flipTimers[index] = nil
                             return
                         }
                         
-                        flipPassed[index] += 0.1
+                        if(flipTicker[index] == 000){
+                            withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
+                            print("Animation 0 started")
+                        }
+                        if(flipTicker[index] == 030){
+                            withAnimation(.easeOut(duration: 0.7)) { flipScaleRatio[index] = 1 }
+                            print("Animation 1 started")
+                        }
+                        if(flipTicker[index] == 100){
+                            withAnimation(.easeOut(duration: 0.25)) { flipScaleRatio[index] = 1.04 }
+                            print("Animation 2 started")
+                        }
+                        if(flipTicker[index] == 125){
+                            withAnimation(.easeOut(duration: 0.75)) { flipScaleRatio[index] = 1 }
+                            print("Animation 3 started")
+                        }
+                        if(flipTicker[index] == 200){
+                            withAnimation(.easeOut(duration: 0.2)) { flipScaleRatio[index] = 1.06 }
+                            print("Animation 4 started")
+                        }
+                        if(flipTicker[index] == 220){
+                            withAnimation(.easeOut(duration: 0.8)) { flipScaleRatio[index] = 1 }
+                            print("Animation 5 started")
+                        }
+                        if(flipTicker[index] == 300){
+                            withAnimation(.easeOut(duration: 0.15)) { flipScaleRatio[index] = 1.08 }
+                            print("Animation 6 started")
+                        }
+                        if(flipTicker[index] == 315){
+                            withAnimation(.easeOut(duration: 0.85)) { flipScaleRatio[index] = 1.02 }
+                            print("Animation 7 started")
+                        }
+                        if(flipTicker[index] == 400){
+                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                            print("Animation 8 started")
+                        }
+                        if(flipTicker[index] == 410){
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1.02 }
+                            print("Animation 9 started")
+                        }
+                        
+                        flipPassed[index] += 0.05
+                        flipTicker[index] += 5
                         
                         if flipPassed[index] >= flipTotal[index] {
                             flipCompleted[index] = true
@@ -659,10 +593,11 @@ struct WortRepeater: View {
                                 }
                             }
                         }
+                        
                     }
 
                     flipTimers[index]?.start()
-                    
+                    /*
                     withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
                     withAnimation(.easeOut(duration: 0.7).delay(0.3)) { flipScaleRatio[index] = 1 }
                     withAnimation(.easeOut(duration: 0.25).delay(1.0)) { flipScaleRatio[index] = 1.04 }
@@ -673,17 +608,7 @@ struct WortRepeater: View {
                     withAnimation(.easeOut(duration: 0.85).delay(3.15)) { flipScaleRatio[index] = 1 }
                     withAnimation(.easeOut(duration: 0.1).delay(4.0)) { flipScaleRatio[index] = 1.1 }
                     withAnimation(.easeOut(duration: 0.9).delay(4.1)) { flipScaleRatio[index] = 1 }
-                    /*
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        if(attemptCounter == thisCertainCounter){
-                            if(!flippedSeite[index]){
-                                deutschesSeite[index] = true
-                                flippedSeite[index] = true
-                                missedGuess[index] = true
-                            }
-                        }
-                    }
-                    */
+                     */
                 }
                 .onDisappear{
                     flipTimers[index]?.invalidate()
@@ -741,6 +666,7 @@ struct WortRepeater: View {
         flipScaleRatio = Array(repeating: 1, count: wort.count)
         flipTimers = Array(repeating: nil, count: wort.count)
         flipPassed = Array(repeating: 0, count: wort.count)
+        flipTicker = Array(repeating: 0, count: wort.count)
         flipTotal = Array(repeating: 5.0, count: wort.count)
         flipCompleted = Array(repeating: false, count: wort.count)
         flipShakingRatio = Array(repeating: 1, count: wort.count)
