@@ -14,7 +14,7 @@ extension Settings {
             let timeAttackMode = Int64(timeAttackModeValue)!
             return timeAttackMode
         } else {
-            setLastLoadedVersion(5, in: context)
+            setTimeAttackMode(5, in: context)
             return 5
         }
     }

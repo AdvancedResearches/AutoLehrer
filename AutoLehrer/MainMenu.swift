@@ -156,6 +156,7 @@ struct MainMenu: View {
                                 Text("Время на перевод:")
                                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                 NG_Button(title: getTimeAttackName(), style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                    toggleTimeAttackMode()
                                 })
                                 Spacer()
                             }
@@ -166,6 +167,7 @@ struct MainMenu: View {
                             }
                         }
                         .id(redrawTimeAttackMode)
+                        Divider()
 
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             ForEach(wortArten){ wortArt in
