@@ -569,118 +569,121 @@ struct WortRepeater: View {
                     print("Initiate flipping for index \(index)")
                     
                     flipTimers[index]?.invalidate()
-                    flipTotal[index] = 5.0
+                    //flipTotal[index] = 5.0
                     flipPassed[index] = 0.0
                     flipCompleted[index] = false
                     
-                    flipTimers[index] = PausableTimer(interval: 0.05) {
+                    if(flipTotal[index] >= 0){
                         
-                        if attemptCounter != thisCertainCounter || flippedSeite[index] {
-                            flipTimers[index]?.invalidate()
-                            flipTimers[index] = nil
-                            return
-                        }
-                        
-                        if(flipTicker[index] == 000){
-                            withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
-                            print("Animation 0 started")
-                        }
-                        if(flipTicker[index] == 030){
-                            withAnimation(.easeOut(duration: 0.7)) { flipScaleRatio[index] = 1 }
-                            print("Animation 1 started")
-                        }
-                        if(flipTicker[index] == 100){
-                            withAnimation(.easeOut(duration: 0.25)) { flipScaleRatio[index] = 1.04 }
-                            print("Animation 2 started")
-                        }
-                        if(flipTicker[index] == 125){
-                            withAnimation(.easeOut(duration: 0.75)) { flipScaleRatio[index] = 1 }
-                            print("Animation 3 started")
-                        }
-                        if(flipTicker[index] == 200){
-                            withAnimation(.easeOut(duration: 0.2)) { flipScaleRatio[index] = 1.06 }
-                            print("Animation 4 started")
-                        }
-                        if(flipTicker[index] == 220){
-                            withAnimation(.easeOut(duration: 0.8)) { flipScaleRatio[index] = 1 }
-                            print("Animation 5 started")
-                        }
-                        if(flipTicker[index] == 300){
-                            withAnimation(.easeOut(duration: 0.15)) { flipScaleRatio[index] = 1.08 }
-                            print("Animation 6 started")
-                        }
-                        if(flipTicker[index] == 315){
-                            withAnimation(.easeOut(duration: 0.85)) { flipScaleRatio[index] = 1 }
-                            print("Animation 7 started")
-                        }
-                        if(flipTicker[index] == 400){
-                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
-                            print("Animation 8 started")
-                        }
-                        if(flipTicker[index] == 410){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
-                            print("Animation 9 started")
-                        }
-                        if(flipTicker[index] == 500){
-                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
-                            print("Animation 8 started")
-                        }
-                        if(flipTicker[index] == 510){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
-                            print("Animation 9 started")
-                        }
-                        if(flipTicker[index] == 600){
-                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
-                            print("Animation 8 started")
-                        }
-                        if(flipTicker[index] == 610){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
-                            print("Animation 9 started")
-                        }
-                        if(flipTicker[index] == 700){
-                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
-                            print("Animation 8 started")
-                        }
-                        if(flipTicker[index] == 710){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
-                            print("Animation 9 started")
-                        }
-                        if(flipTicker[index] == 800){
-                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
-                            print("Animation 8 started")
-                        }
-                        if(flipTicker[index] == 810){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
-                            print("Animation 9 started")
-                        }
-                        if(flipTicker[index] == 900){
-                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
-                            print("Animation 8 started")
-                        }
-                        if(flipTicker[index] == 910){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
-                            print("Animation 9 started")
-                        }
-                        
-                        flipPassed[index] += 0.05
-                        flipTicker[index] += 5
-                        
-                        if flipPassed[index] >= flipTotal[index] {
-                            flipCompleted[index] = true
-                            flipTimers[index]?.invalidate()
-                            flipTimers[index] = nil
-                            if(attemptCounter == thisCertainCounter){
-                                if(!flippedSeite[index]){
-                                    deutschesSeite[index] = true
-                                    flippedSeite[index] = true
-                                    missedGuess[index] = true
+                        flipTimers[index] = PausableTimer(interval: 0.05) {
+                            
+                            if attemptCounter != thisCertainCounter || flippedSeite[index] {
+                                flipTimers[index]?.invalidate()
+                                flipTimers[index] = nil
+                                return
+                            }
+                            
+                            if(flipTicker[index] == 000){
+                                withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
+                                print("Animation 0 started")
+                            }
+                            if(flipTicker[index] == 030){
+                                withAnimation(.easeOut(duration: 0.7)) { flipScaleRatio[index] = 1 }
+                                print("Animation 1 started")
+                            }
+                            if(flipTicker[index] == 100){
+                                withAnimation(.easeOut(duration: 0.25)) { flipScaleRatio[index] = 1.04 }
+                                print("Animation 2 started")
+                            }
+                            if(flipTicker[index] == 125){
+                                withAnimation(.easeOut(duration: 0.75)) { flipScaleRatio[index] = 1 }
+                                print("Animation 3 started")
+                            }
+                            if(flipTicker[index] == 200){
+                                withAnimation(.easeOut(duration: 0.2)) { flipScaleRatio[index] = 1.06 }
+                                print("Animation 4 started")
+                            }
+                            if(flipTicker[index] == 220){
+                                withAnimation(.easeOut(duration: 0.8)) { flipScaleRatio[index] = 1 }
+                                print("Animation 5 started")
+                            }
+                            if(flipTicker[index] == 300){
+                                withAnimation(.easeOut(duration: 0.15)) { flipScaleRatio[index] = 1.08 }
+                                print("Animation 6 started")
+                            }
+                            if(flipTicker[index] == 315){
+                                withAnimation(.easeOut(duration: 0.85)) { flipScaleRatio[index] = 1 }
+                                print("Animation 7 started")
+                            }
+                            if(flipTicker[index] == 400){
+                                withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                                print("Animation 8 started")
+                            }
+                            if(flipTicker[index] == 410){
+                                withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                                print("Animation 9 started")
+                            }
+                            if(flipTicker[index] == 500){
+                                withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                                print("Animation 8 started")
+                            }
+                            if(flipTicker[index] == 510){
+                                withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                                print("Animation 9 started")
+                            }
+                            if(flipTicker[index] == 600){
+                                withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                                print("Animation 8 started")
+                            }
+                            if(flipTicker[index] == 610){
+                                withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                                print("Animation 9 started")
+                            }
+                            if(flipTicker[index] == 700){
+                                withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                                print("Animation 8 started")
+                            }
+                            if(flipTicker[index] == 710){
+                                withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                                print("Animation 9 started")
+                            }
+                            if(flipTicker[index] == 800){
+                                withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                                print("Animation 8 started")
+                            }
+                            if(flipTicker[index] == 810){
+                                withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                                print("Animation 9 started")
+                            }
+                            if(flipTicker[index] == 900){
+                                withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                                print("Animation 8 started")
+                            }
+                            if(flipTicker[index] == 910){
+                                withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                                print("Animation 9 started")
+                            }
+                            
+                            flipPassed[index] += 0.05
+                            flipTicker[index] += 5
+                            
+                            if flipPassed[index] >= flipTotal[index] {
+                                flipCompleted[index] = true
+                                flipTimers[index]?.invalidate()
+                                flipTimers[index] = nil
+                                if(attemptCounter == thisCertainCounter){
+                                    if(!flippedSeite[index]){
+                                        deutschesSeite[index] = true
+                                        flippedSeite[index] = true
+                                        missedGuess[index] = true
+                                    }
                                 }
                             }
+                            
                         }
                         
+                        flipTimers[index]?.start()
                     }
-
-                    flipTimers[index]?.start()
                 }
                 .onDisappear{
                     flipTimers[index]?.invalidate()
@@ -740,7 +743,7 @@ struct WortRepeater: View {
         flipTimers = Array(repeating: nil, count: wort.count)
         flipPassed = Array(repeating: 0, count: wort.count)
         flipTicker = Array(repeating: 0, count: wort.count)
-        flipTotal = Array(repeating: 5.0, count: wort.count)
+        flipTotal = Array(repeating: Double(timeAttackMode), count: wort.count)
         flipCompleted = Array(repeating: false, count: wort.count)
         flipShakingRatio = Array(repeating: 1, count: wort.count)
         guessingResult = Array(repeating: 0, count: wort.count)
