@@ -98,6 +98,7 @@ public struct WortArtFormen{
 }
 
 extension WortFormen{
+    public static let completeCoolDown: Int64 = 51
     public static let successCoolDown: Int64 = 21
     public static let successCoolDownFastTrack: Int64 = 2
     public static let failCoolDown: Int64 = 11
@@ -216,21 +217,28 @@ extension WortFormen{
         guard let context = wortFormen.managedObjectContext else { return false }
         let shallAddNewForm = shallAddNewForm(wortFormen)
         wortFormen.successCounter += 1
+        
         if wortFormen.failed{
             wortFormen.coolDown = WortFormen.successCoolDown
         }else{
-            wortFormen.coolDown = WortFormen.successCoolDownFastTrack
+            if(wortFormen.formsToShow == WortFormen.alleFormen(wortFormen)){
+                wortFormen.coolDown = WortFormen.completeCoolDown
+            }else{
+                wortFormen.coolDown = WortFormen.successCoolDownFastTrack
+            }
         }
+        
         if shallAddNewForm{
                 wortFormen.formsToShow += 1
                 wortFormen.successCounter = 0
-                wortFormen.failed = false
+                
         }else{
             if(wortConfirmed(wortFormen)){
                 wortFormen.successCounter = 3
-                wortFormen.failed = false
             }
         }
+        
+        wortFormen.failed = false
         try! context.save()
         return wortFormen.successCounter >= 3
     }
