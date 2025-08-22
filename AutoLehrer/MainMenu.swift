@@ -92,11 +92,52 @@ struct MainMenu: View {
     @State private var wortArtenStatsRedraw: Int = 0
     @State private var totalStatsRedraw: Int = 1000
     
+    @State private var redrawTimeAttackMode: Int = 0
+    
     init(){
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.green
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
         UISegmentedControl.appearance().backgroundColor = UIColor.gray
+    }
+    
+    private func getTimeAttackName() -> String {
+        let storedValue = Settings.getTimeAttackMode(in: viewContext)
+        if(storedValue > 0){
+            return "\(storedValue) сек."
+        }
+        return "без ограничения"
+    }
+    
+    private func getTimeAttackDescription() -> String {
+        let storedValue = Settings.getTimeAttackMode(in: viewContext)
+        if(storedValue == 3){
+            return "Максимально точно проверяет сможете ли вы использовать эти слова в речи."
+        }
+        if(storedValue == 5){
+            return "Проверяет сможете ли вы понимать эти слова в чужой речи."
+        }
+        if(storedValue == 10){
+            return "Проверяет наличие этих слов в вашем пассивном словарном запасе."
+        }
+        return "Подходит если вы только начинаете учить слова"
+    }
+    
+    private func toggleTimeAttackMode(){
+        var currentTimeAttackMode = Settings.getTimeAttackMode(in: viewContext)
+        if currentTimeAttackMode == -1 {
+            currentTimeAttackMode = 3
+        }else
+        if currentTimeAttackMode == 3 {
+            currentTimeAttackMode = 5
+        }else
+        if currentTimeAttackMode == 5 {
+            currentTimeAttackMode = 10
+        }else{
+            currentTimeAttackMode = -1
+        }
+        Settings.setTimeAttackMode(currentTimeAttackMode, in: viewContext)
+        redrawTimeAttackMode += 1
     }
     
     var body: some View {
@@ -109,6 +150,22 @@ struct MainMenu: View {
                     VStack{
                         Text("Учить".localized(for: language))
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
+                        
+                        VStack{
+                            HStack{
+                                Text("Время на перевод:")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                NG_Button(title: getTimeAttackName(), style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                })
+                                Spacer()
+                            }
+                            HStack{
+                                Text(getTimeAttackDescription())
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                Spacer()
+                            }
+                        }
+                        .id(redrawTimeAttackMode)
 
                         LazyVGrid(columns: [GridItem(.flexible(), spacing: 5)], spacing: 5){
                             ForEach(wortArten){ wortArt in
