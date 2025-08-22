@@ -7,6 +7,7 @@ struct WortRepeater: View {
     @AppStorage("appLanguage") var language: String = "ru"
     @EnvironmentObject var theme: ThemeManager
     
+    
     var wortArt: WortArt
     
     @State var pickedWortFormen: WortFormen?
