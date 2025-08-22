@@ -244,35 +244,6 @@ struct MainMenu: View {
                                     }
                                 }, widthFlood: true)
                             }
-                            
-                            
-                            
-                            /*
-                            NavigationLink(
-                                destination: ArchivalMenu().NG_NavigationTitle("Архив", theme: theme),
-                                isActive: $Archival_isActive
-                            ) {
-                                Group {
-                                    let state = recommendationModel.buttonStates[.mainmenu_archival] ?? .enabled
-                                    NG_Button(
-                                        title: "Архив",
-                                        style: .NG_ButtonStyle_Service,
-                                        isDisabled: .constant(state == .disabled),
-                                        isHighlighting: .constant(state == .highlighted),
-                                        isPulsating: .constant(state == .pulsating),
-                                        widthFlood: true
-                                    )
-                                }
-                            }
-                            .onChange(of: Archival_isActive){ /*oldValue, */newValue in
-                                if !newValue{
-                                    invokeUpdates()
-                                    wortArtenStatsRedraw += 1
-                                    totalStatsRedraw += 1
-                                }
-                            }
-                            .disabled(Archival_disabled)
-                            */
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
