@@ -9,6 +9,19 @@ import Foundation
 import CoreData
 
 extension Settings {
+    static func getTimeAttackMode(in context: NSManagedObjectContext) -> Int64 {
+        if let timeAttackModeValue = getValue(for: "timeAttackMode", in: context) {
+            let timeAttackMode = Int64(timeAttackModeValue)!
+            return timeAttackMode
+        } else {
+            setLastLoadedVersion(5, in: context)
+            return 5
+        }
+    }
+    static func setTimeAttackMode(_ value: Int64, in context: NSManagedObjectContext){
+        setValue(String(value), for: "timeAttackMode", in: context)
+    }
+    
     static func getLastLoadedVersion(in context: NSManagedObjectContext) -> Int64 {
         if let lastLoadedVersionString = getValue(for: "lastLoadedVersion", in: context) {
             let lastLoadedVersion = Int64(lastLoadedVersionString)!
@@ -21,7 +34,6 @@ extension Settings {
     static func setLastLoadedVersion(_ value: Int64, in context: NSManagedObjectContext){
         setValue(String(value), for: "lastLoadedVersion", in: context)
     }
-    
     
     static func getGender(in context: NSManagedObjectContext) -> String {
         if let gender = getValue(for: "gender", in: context) {
