@@ -43,6 +43,8 @@ struct WortRepeater: View {
     
     @State var showProgressBarDetails: Bool = false
     
+    @State private var timeAttackMode: Int = -1
+    
     var body: some View {
         VStack{
             HStack{
@@ -174,6 +176,9 @@ struct WortRepeater: View {
                 .padding(.horizontal, 10)
                 .NG_sheetFormatting(transparent: true)
                 .padding(.horizontal, 10)
+        }
+        .onAppear(){
+            timeAttackMode = Int(Settings.getTimeAttackMode(in: viewContext))
         }
     }
     private func dasProgressErklarung() -> some View{
@@ -605,7 +610,7 @@ struct WortRepeater: View {
                             print("Animation 6 started")
                         }
                         if(flipTicker[index] == 315){
-                            withAnimation(.easeOut(duration: 0.85)) { flipScaleRatio[index] = 1.02 }
+                            withAnimation(.easeOut(duration: 0.85)) { flipScaleRatio[index] = 1 }
                             print("Animation 7 started")
                         }
                         if(flipTicker[index] == 400){
@@ -613,7 +618,47 @@ struct WortRepeater: View {
                             print("Animation 8 started")
                         }
                         if(flipTicker[index] == 410){
-                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1.02 }
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                            print("Animation 9 started")
+                        }
+                        if(flipTicker[index] == 500){
+                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                            print("Animation 8 started")
+                        }
+                        if(flipTicker[index] == 510){
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                            print("Animation 9 started")
+                        }
+                        if(flipTicker[index] == 600){
+                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                            print("Animation 8 started")
+                        }
+                        if(flipTicker[index] == 610){
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                            print("Animation 9 started")
+                        }
+                        if(flipTicker[index] == 700){
+                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                            print("Animation 8 started")
+                        }
+                        if(flipTicker[index] == 710){
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                            print("Animation 9 started")
+                        }
+                        if(flipTicker[index] == 800){
+                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                            print("Animation 8 started")
+                        }
+                        if(flipTicker[index] == 810){
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
+                            print("Animation 9 started")
+                        }
+                        if(flipTicker[index] == 900){
+                            withAnimation(.easeOut(duration: 0.1)) { flipScaleRatio[index] = 1.1 }
+                            print("Animation 8 started")
+                        }
+                        if(flipTicker[index] == 910){
+                            withAnimation(.easeOut(duration: 0.9)) { flipScaleRatio[index] = 1 }
                             print("Animation 9 started")
                         }
                         
@@ -640,6 +685,7 @@ struct WortRepeater: View {
                 .onDisappear{
                     flipTimers[index]?.invalidate()
                     flipTimers[index] = nil
+                    withAnimation(.easeOut(duration: 1.0)) { flipScaleRatio[index] = 1 }
                 }
             }
         }

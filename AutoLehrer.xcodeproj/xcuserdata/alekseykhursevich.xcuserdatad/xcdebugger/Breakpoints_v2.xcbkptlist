@@ -334,8 +334,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "pickTheWord()"
             landmarkType = "7">
          </BreakpointContent>
@@ -382,8 +382,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "708"
-            endingLineNumber = "708">
+            startingLineNumber = "754"
+            endingLineNumber = "754">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -460,8 +460,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "689"
-            endingLineNumber = "689"
+            startingLineNumber = "735"
+            endingLineNumber = "735"
             landmarkName = "pickTheWord()"
             landmarkType = "7">
          </BreakpointContent>
@@ -476,8 +476,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "685"
-            endingLineNumber = "685"
+            startingLineNumber = "731"
+            endingLineNumber = "731"
             landmarkName = "pickTheWord()"
             landmarkType = "7">
          </BreakpointContent>
