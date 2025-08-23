@@ -334,10 +334,10 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "720"
-            endingLineNumber = "720"
+            startingLineNumber = "728"
+            endingLineNumber = "728"
             landmarkName = "pickTheWord()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -382,8 +382,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "738"
-            endingLineNumber = "738">
+            startingLineNumber = "746"
+            endingLineNumber = "746">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -460,10 +460,10 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "719"
-            endingLineNumber = "719"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
             landmarkName = "pickTheWord()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -476,10 +476,10 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "715"
-            endingLineNumber = "715"
+            startingLineNumber = "723"
+            endingLineNumber = "723"
             landmarkName = "pickTheWord()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -69,59 +69,67 @@ struct WortRepeater: View {
                                     }
                             }
                             if(readyToMoveOn){
-                                        let successFormen = guessingResult.filter{$0 == 1}.count
-                                        let checkedFormen = guessingResult.count
-                                        NG_Button(
-                                            title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
-                                            style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                                            isDisabled: .init(
-                                                get: { !readyToMoveOn },
-                                                set: { readyToMoveOn = !$0 }
-                                            ),
-                                            isHighlighting: .constant(false),
-                                            isPulsating: .constant(readyToMoveOn),
-                                            action: {
-                                                if(readyToMoveOn){
-                                                    attemptCounter += 1
-                                                    var successCounter: Int = 0
-                                                    
-                                                    for theFormCounter in 0..<wort.count{
-                                                        if(guessingResult[theFormCounter] == 1){
-                                                            Statistics.set_success(wort[theFormCounter])
-                                                            successCounter += 1
-                                                        }
-                                                        if(guessingResult[theFormCounter] == -1){
-                                                            Statistics.set_failure(wort[theFormCounter])
-                                                        }
+                                SizeAware(onChange: { _ in
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                        withAnimation(.easeInOut(duration: 1.0)) {
+                                            proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                        }
+                                    }
+                                }) {
+                                    let successFormen = guessingResult.filter{$0 == 1}.count
+                                    let checkedFormen = guessingResult.count
+                                    NG_Button(
+                                        title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
+                                        style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                        isDisabled: .init(
+                                            get: { !readyToMoveOn },
+                                            set: { readyToMoveOn = !$0 }
+                                        ),
+                                        isHighlighting: .constant(false),
+                                        isPulsating: .constant(readyToMoveOn),
+                                        action: {
+                                            if(readyToMoveOn){
+                                                attemptCounter += 1
+                                                var successCounter: Int = 0
+                                                
+                                                for theFormCounter in 0..<wort.count{
+                                                    if(guessingResult[theFormCounter] == 1){
+                                                        Statistics.set_success(wort[theFormCounter])
+                                                        successCounter += 1
                                                     }
-                                                    
-                                                    if(successCounter == wort.count){
-                                                        if(WortFormen.set_success(pickedWortFormen!)){
-                                                            confirmedWorte.insert(pickedWortFormen!)
-                                                        }
-                                                    }else{
-                                                        WortFormen.set_failure(pickedWortFormen!)
-                                                        confirmedWorte.remove(pickedWortFormen!)
+                                                    if(guessingResult[theFormCounter] == -1){
+                                                        Statistics.set_failure(wort[theFormCounter])
                                                     }
-                                                    
-                                                    WortFormen.set_attempted(pickedWortFormen!)
-                                                    Statistics.wortFormenUrgency(pickedWortFormen!)
-                                                    
-                                                    pickTheWord()
-                                                }else{
-                                                    withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                                                    withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                                                    withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                                                    withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                                                    withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                                                    withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
                                                 }
-                                            },
-                                            widthFlood: true
-                                        )
-                                        .padding(.horizontal, 15)
-                                        .padding(.vertical, 25)
-                                        .transition(.scale)
+                                                
+                                                if(successCounter == wort.count){
+                                                    if(WortFormen.set_success(pickedWortFormen!)){
+                                                        confirmedWorte.insert(pickedWortFormen!)
+                                                    }
+                                                }else{
+                                                    WortFormen.set_failure(pickedWortFormen!)
+                                                    confirmedWorte.remove(pickedWortFormen!)
+                                                }
+                                                
+                                                WortFormen.set_attempted(pickedWortFormen!)
+                                                Statistics.wortFormenUrgency(pickedWortFormen!)
+                                                
+                                                pickTheWord()
+                                            }else{
+                                                withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
+                                                withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                                                withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                                                withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                                                withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                                                withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
+                                            }
+                                        },
+                                        widthFlood: true
+                                    )
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 25)
+                                    .transition(.scale)
+                                }
                             }
                             Color.clear.frame(height: 1).id("bottom-anchor")
                         }
