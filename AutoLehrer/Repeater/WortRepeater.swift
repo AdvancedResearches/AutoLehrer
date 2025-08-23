@@ -71,7 +71,7 @@ struct WortRepeater: View {
                             if(readyToMoveOn){
                                 SizeAware(onChange: { _ in
                                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                        withAnimation(.easeInOut(duration: 1.0)) {
+                                        withAnimation(.easeInOut(duration: 0.35)) {
                                             proxy.scrollTo("bottom-anchor", anchor: .bottom)
                                         }
                                     }
