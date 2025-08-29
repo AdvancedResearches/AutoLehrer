@@ -671,8 +671,15 @@ struct Archival_Vocabulary{
                 var WortDictionary: [String:Wort] = [:]
                 
                 var profiling_worter_full: Double = 0
-                var profiling_worter_findofcreate: Double = 0
+                var profiling_worter_wortartformen: Double = 0
+                var profiling_worter_wortformen: Double = 0
+                var profiling_worter_prefiltering: Double = 0
+                var profiling_worter_findorcreate: Double = 0
+                
+                
                 var full_wort_list: [Wort] = try! theContext.fetch(Wort.fetchRequest())
+                // группируем по relWortFormen
+                let wort_list_lookup_byWortFormen = Dictionary(grouping: full_wort_list, by: { $0.relWortFormen })
                 
                 for theWort in theData.wortHive.theHive{
                     let marker0 = Date.now
@@ -688,9 +695,15 @@ struct Archival_Vocabulary{
                         pronomenart: PronomenartDictionary[theWort.relPronomenart ?? "NIL"],
                         tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
                     )
+                    let marker1 = Date.now
                     let wort_formen = WortFormenDictionary[theWort.relWortFormen]!
-                    let wort_for_formen = full_wort_list.filter{$0.relWortFormen == wort_formen}
+                    let marker2 = Date.now
+                    //let wort_for_formen = full_wort_list.filter{$0.relWortFormen == wort_formen}
+                    let wort_for_formen = wort_list_lookup_byWortFormen[wort_formen]!
+                    let marker3 = Date.now
+                    
                     let uploadingWort = Wort.findOrCreate(in: theContext, among: wort_for_formen, wortFormen: wort_formen, wortArtFormen: theWortArtFormen)
+                    
                     /*
                     let uploadingWort = Wort.findOrCreate(in: theContext, wortFormen: WortFormenDictionary[theWort.relWortFormen]!, wortArtFormen: WortArtFormen(
                         deklination: DeklinationDictionary[theWort.relDeklination ?? "NIL"],
@@ -707,8 +720,6 @@ struct Archival_Vocabulary{
                     */
                     
                     let marker10 = Date.now
-                    
-                    profiling_worter_findofcreate += marker10.timeIntervalSince(marker0) * 1000
                     
                     uploadingWort.wort_DE = theWort.wort_DE
                     uploadingWort.wort_RU = theWort.wort_RU
@@ -754,8 +765,11 @@ struct Archival_Vocabulary{
                     let marker50 = Date.now
                     
                     profiling_worter_full += marker50.timeIntervalSince(marker0) * 1000
-                    
-                    print("total: \(profiling_worter_full), FoC: \(profiling_worter_findofcreate / profiling_worter_full)")
+                    profiling_worter_wortartformen += marker1.timeIntervalSince(marker0) * 1000
+                    profiling_worter_wortformen += marker2.timeIntervalSince(marker1) * 1000
+                    profiling_worter_prefiltering += marker3.timeIntervalSince(marker2) * 1000
+                    profiling_worter_findorcreate += marker10.timeIntervalSince(marker3) * 1000
+                    print("total: \(profiling_worter_full), WAF: \(profiling_worter_wortartformen / profiling_worter_full), WF: \(profiling_worter_wortformen / profiling_worter_full), Pre-Fltrd: \(profiling_worter_prefiltering / profiling_worter_full), FoC: \(profiling_worter_findorcreate / profiling_worter_full)")
                 }
                 //print("Start preset_1_0_0_0: new Wort loaded")
                 let existingWort: [Wort] = try theContext.fetch(Wort.fetchRequest())

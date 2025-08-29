@@ -88,6 +88,23 @@ extension Wort{
         }
         return retValue
     }
+    public static func Wort_filter(worte: [Wort], wortArtFormen: WortArtFormen) -> [Wort] {
+        let f = wortArtFormen
+        return worte.filter { w in
+            if let v = f.deklination,      w.relDeklination      != v { return false }
+            if let v = f.genus,            w.relGenus            != v { return false }
+            if let v = f.kasus,            w.relKasus            != v { return false }
+            if let v = f.komparationsgrad, w.relKomparationsgrad != v { return false }
+            if let v = f.modus,            w.relModus            != v { return false }
+            if let v = f.numerus,          w.relNumerus          != v { return false }
+            if let v = f.person,           w.relPerson           != v { return false }
+            if let v = f.tempus,           w.relTempus           != v { return false }
+            if let v = f.hoflichkeiten,    w.relHoflichkeiten    != v { return false }
+            if let v = f.pronomenart,      w.relPronomenart      != v { return false }
+            return true
+        }
+    }
+    /*
     public static func Wort_filter(worte: [Wort], wortArtFormen: WortArtFormen) -> [Wort]{
         var filteredWorten: [Wort] = worte
         if(wortArtFormen.deklination != nil){
@@ -122,7 +139,8 @@ extension Wort{
         }
         return filteredWorten
     }
-    public static func Worte_sort(_ worte: [Wort], _ wortArt: WortArt) -> [Wort]{
+    */
+     public static func Worte_sort(_ worte: [Wort], _ wortArt: WortArt) -> [Wort]{
         var retValue: [Wort] = []
         var sortedWorte: [WortSorting] = WortSorting.fromWortArray(worte)
         if(wortArt.name_DE == "Nomen"){
