@@ -211,11 +211,25 @@ extension Wort{
         return beispielSet.randomElement()
     }
     public static func findOrCreate(in context: NSManagedObjectContext, wortFormen: WortFormen?, wortArtFormen: WortArtFormen) -> Wort {
+        var profiling_findorcreate_full: Double = 0
+        var profiling_findorcreate_fetching: Double = 0
+        var profiling_findorcreate_filtering: Double = 0
+        
         var result: Wort? = nil
         do{
             if(wortFormen != nil){
-                let setOf = try context.fetch(Wort.fetchRequest()).filter{$0.relWortFormen == wortFormen}
+                let marker0 = Date.now
+                //let setOf = try context.fetch(Wort.fetchRequest()).filter{$0.relWortFormen == wortFormen}
+                let request: NSFetchRequest<Wort> = Wort.fetchRequest()
+                request.predicate = NSPredicate(format: "relWortFormen == %@", wortFormen!)
+                let setOf = try context.fetch(request)
+                let marker10 = Date.now
                 result = Wort_filter(worte: setOf, wortArtFormen: wortArtFormen).first
+                let marker20 = Date.now
+                profiling_findorcreate_full = marker20.timeIntervalSince(marker0) * 1000
+                profiling_findorcreate_fetching = marker10.timeIntervalSince(marker0) * 1000
+                profiling_findorcreate_filtering = marker20.timeIntervalSince(marker10) * 1000
+                print("FoC: total: \(profiling_findorcreate_full), fetching: \(profiling_findorcreate_fetching / profiling_findorcreate_full), filtering: \(profiling_findorcreate_filtering / profiling_findorcreate_full)")
             }
             if result == nil {
                 result = Wort(context: context)
@@ -226,18 +240,6 @@ extension Wort{
     public static func debug_string(_ wort: Wort) -> String{
         var retValue: String = wort.wort_DE!
         retValue += " \(wort.relWortFormen!.relWortArt!.name_DE!)-\(wort.relWortFormen!.wortFrequencyOrder)"
-        /*
-         relDeklination
-         relGenus
-         relHoflichkeiten
-         relKasus
-         relKomparationsgrad
-         relModus
-         relNumerus
-         relPerson
-         relPronomenart
-         relTempus
-         */
         if(wort.relDeklination != nil){
             retValue += " [relDeklination:\(wort.relDeklination!.name_DE!)]"
         }
