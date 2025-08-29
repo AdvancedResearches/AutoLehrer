@@ -669,7 +669,12 @@ struct Archival_Vocabulary{
                 runningCounter = 0
                 fullCount = theData.wortHive.theHive.count
                 var WortDictionary: [String:Wort] = [:]
+                
+                var profiling_worter_full: Double = 0
+                var profiling_worter_findofcreate: Double = 0
+                
                 for theWort in theData.wortHive.theHive{
+                    let marker0 = Date.now
                     let uploadingWort = Wort.findOrCreate(in: theContext, wortFormen: WortFormenDictionary[theWort.relWortFormen]!, wortArtFormen: WortArtFormen(
                         deklination: DeklinationDictionary[theWort.relDeklination ?? "NIL"],
                         genus: GenusDictionary[theWort.relGenus ?? "NIL"],
@@ -682,6 +687,11 @@ struct Archival_Vocabulary{
                         pronomenart: PronomenartDictionary[theWort.relPronomenart ?? "NIL"],
                         tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
                     ))
+                    
+                    let marker10 = Date.now
+                    
+                    profiling_worter_findofcreate += marker10.timeIntervalSince(marker0) * 1000
+                    
                     uploadingWort.wort_DE = theWort.wort_DE
                     uploadingWort.wort_RU = theWort.wort_RU
                     
@@ -698,6 +708,8 @@ struct Archival_Vocabulary{
                     
                     uploadingWort.relWortFormen = WortFormenDictionary[theWort.relWortFormen]!
                     
+                    let marker20 = Date.now
+                    
                     if let relForm = uploadingWort.relWortFormen,
                        pronomensLoaded.contains(relForm) {
                         pronomensFormsLoaded.append(uploadingWort)
@@ -709,12 +721,23 @@ struct Archival_Vocabulary{
                         print("Start preset_1_0_0_0: \(boundToPronomens) fur \(Wort.debug_string(uploadingWort))")
                     }
                     
+                    let marker30 = Date.now
+                    
                     WortDictionary.updateValue(uploadingWort, forKey: theWort.wortKey)
                     
                     //print("Start preset_1_0_0_0: new Wort \(uploadingWort.wort_DE) loaded")
                     
                     runningCounter += 1
+                    
+                    let marker40 = Date.now
+                    
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
+                    
+                    let marker50 = Date.now
+                    
+                    profiling_worter_full += marker50.timeIntervalSince(marker0) * 1000
+                    
+                    print("total: \(profiling_worter_full), FoC: \(profiling_worter_findofcreate / profiling_worter_full)")
                 }
                 //print("Start preset_1_0_0_0: new Wort loaded")
                 let existingWort: [Wort] = try theContext.fetch(Wort.fetchRequest())
