@@ -210,6 +210,30 @@ extension Wort{
         // Например, вернуть первый элемент (или можешь выбрать случайный, если хочешь)
         return beispielSet.randomElement()
     }
+    public static func findOrCreate(in context: NSManagedObjectContext, among listOfWords: [Wort], wortFormen: WortFormen?, wortArtFormen: WortArtFormen) -> Wort{
+        var profiling_findorcreate_full: Double = 0
+        var profiling_findorcreate_fetching: Double = 0
+        var profiling_findorcreate_filtering: Double = 0
+        
+        var result: Wort? = nil
+        do{
+            if(wortFormen != nil){
+                let marker0 = Date.now
+                let setOf = listOfWords
+                let marker10 = Date.now
+                result = Wort_filter(worte: setOf, wortArtFormen: wortArtFormen).first
+                let marker20 = Date.now
+                profiling_findorcreate_full = marker20.timeIntervalSince(marker0) * 1000
+                profiling_findorcreate_fetching = marker10.timeIntervalSince(marker0) * 1000
+                profiling_findorcreate_filtering = marker20.timeIntervalSince(marker10) * 1000
+                print("FoC: total: \(profiling_findorcreate_full), fetching: \(profiling_findorcreate_fetching / profiling_findorcreate_full), filtering: \(profiling_findorcreate_filtering / profiling_findorcreate_full)")
+            }
+            if result == nil {
+                result = Wort(context: context)
+            }
+        }catch{}
+        return result!
+    }
     public static func findOrCreate(in context: NSManagedObjectContext, wortFormen: WortFormen?, wortArtFormen: WortArtFormen) -> Wort {
         var profiling_findorcreate_full: Double = 0
         var profiling_findorcreate_fetching: Double = 0

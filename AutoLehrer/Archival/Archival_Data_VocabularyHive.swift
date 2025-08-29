@@ -672,9 +672,26 @@ struct Archival_Vocabulary{
                 
                 var profiling_worter_full: Double = 0
                 var profiling_worter_findofcreate: Double = 0
+                var full_wort_list: [Wort] = try! theContext.fetch(Wort.fetchRequest())
                 
                 for theWort in theData.wortHive.theHive{
                     let marker0 = Date.now
+                    let theWortArtFormen =  WortArtFormen(
+                        deklination: DeklinationDictionary[theWort.relDeklination ?? "NIL"],
+                        genus: GenusDictionary[theWort.relGenus ?? "NIL"],
+                        hoflichkeiten: HoflichketienDictionary[theWort.relHoflichkeiten ?? "NIL"],
+                        kasus: KasusDictionary[theWort.relKasus ?? "NIL"],
+                        komparationsgrad: KomparationsgradDictionary[theWort.relKomparationsgrad ?? "NIL"],
+                        modus: ModusDictionary[theWort.relModus ?? "NIL"],
+                        numerus: NumerusDictionary[theWort.relNumerus ?? "NIL"],
+                        person: PersonDictionary[theWort.relPerson ?? "NIL"],
+                        pronomenart: PronomenartDictionary[theWort.relPronomenart ?? "NIL"],
+                        tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
+                    )
+                    let wort_formen = WortFormenDictionary[theWort.relWortFormen]!
+                    let wort_for_formen = full_wort_list.filter{$0.relWortFormen == wort_formen}
+                    let uploadingWort = Wort.findOrCreate(in: theContext, among: wort_for_formen, wortFormen: wort_formen, wortArtFormen: theWortArtFormen)
+                    /*
                     let uploadingWort = Wort.findOrCreate(in: theContext, wortFormen: WortFormenDictionary[theWort.relWortFormen]!, wortArtFormen: WortArtFormen(
                         deklination: DeklinationDictionary[theWort.relDeklination ?? "NIL"],
                         genus: GenusDictionary[theWort.relGenus ?? "NIL"],
@@ -687,6 +704,7 @@ struct Archival_Vocabulary{
                         pronomenart: PronomenartDictionary[theWort.relPronomenart ?? "NIL"],
                         tempus: TempusDictionary[theWort.relTempus ?? "NIL"]
                     ))
+                    */
                     
                     let marker10 = Date.now
                     
