@@ -227,7 +227,7 @@ struct MainMenu: View {
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
                         NavigationLink(
-                            destination: ThemesView().NG_NavigationTitle("Детали", theme: theme),
+                            destination: StatisticsView().NG_NavigationTitle("Статистика", theme: theme),
                             isActive: $Theme_isActive
                         ) {
                             Group {
