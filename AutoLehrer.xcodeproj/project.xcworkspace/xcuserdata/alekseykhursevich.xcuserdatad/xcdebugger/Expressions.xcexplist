@@ -70,7 +70,7 @@
          contextName = "static Archival_Vocabulary.preset_1_0_0_0(theContext:theData:progress:):Archival_Data_VocabularyHive.swift">
          <PersistentStrings>
             <PersistentString
-               value = "theWort.relDeklination">
+               value = "theWort">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

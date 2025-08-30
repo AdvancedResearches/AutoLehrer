@@ -337,7 +337,7 @@
             startingLineNumber = "728"
             endingLineNumber = "728"
             landmarkName = "pickTheWord()"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -350,8 +350,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_Wort.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "pick_wort(_:wortArtFormen:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -366,8 +366,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_Wort.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "pick_wort(_:wortArtFormen:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -463,7 +463,7 @@
             startingLineNumber = "727"
             endingLineNumber = "727"
             landmarkName = "pickTheWord()"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -479,7 +479,7 @@
             startingLineNumber = "723"
             endingLineNumber = "723"
             landmarkName = "pickTheWord()"
-            landmarkType = "9">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -492,8 +492,8 @@
             filePath = "AutoLehrer/Archival/Archival_Data_VocabularyHive.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "738"
-            endingLineNumber = "738"
+            startingLineNumber = "742"
+            endingLineNumber = "742"
             landmarkName = "preset_1_0_0_0(theContext:theData:progress:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -508,8 +508,24 @@
             filePath = "AutoLehrer/Archival/Archival_Data_VocabularyHive.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
+            startingLineNumber = "754"
+            endingLineNumber = "754"
+            landmarkName = "preset_1_0_0_0(theContext:theData:progress:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "911FD9D6-5450-42DE-A8D0-31EA242C8344"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AutoLehrer/Archival/Archival_Data_VocabularyHive.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
             landmarkName = "preset_1_0_0_0(theContext:theData:progress:)"
             landmarkType = "7">
          </BreakpointContent>

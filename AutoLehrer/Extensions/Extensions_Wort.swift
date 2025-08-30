@@ -187,6 +187,13 @@ extension Wort{
             }
             retValue = sortedWorte.map{$0.dasWort}
         }
+         if(wortArt.name_DE == "Redewendung"){
+             sortedWorte = sortedWorte.sorted {
+                 (($0.deklinationOrder)) <
+                 (($1.deklinationOrder))
+             }
+             retValue = sortedWorte.map{$0.dasWort}
+         }
         return retValue
     }
     public static func pick_wort(_ wortForm: WortFormen, wortArtFormen: WortArtFormen) -> Wort?{

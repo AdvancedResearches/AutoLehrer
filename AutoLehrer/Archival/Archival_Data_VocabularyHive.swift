@@ -638,7 +638,7 @@ struct Archival_Vocabulary{
                 for theWortFormen in theData.wortFormenHive.theHive{
                     let uploadingWortFormen = WortFormen.findOrCreate(in: theContext, wortArt: WortArtDictionary[theWortFormen.relWortArt], order: theWortFormen.wortFrequencyOrder)
                     uploadingWortFormen.wortFrequencyOrder = theWortFormen.wortFrequencyOrder
-                    uploadingWortFormen.relWortArt    = WortArtDictionary[theWortFormen.relWortArt]!
+                    uploadingWortFormen.relWortArt = WortArtDictionary[theWortFormen.relWortArt]!
                     if(uploadingWortFormen.relWortArt!.name_DE == "Pronomen"){
                         pronomensLoaded.append(uploadingWortFormen)
                     }
@@ -699,8 +699,12 @@ struct Archival_Vocabulary{
                     let wort_formen = WortFormenDictionary[theWort.relWortFormen]!
                     let marker2 = Date.now
                     //let wort_for_formen = full_wort_list.filter{$0.relWortFormen == wort_formen}
-                    let wort_for_formen = wort_list_lookup_byWortFormen[wort_formen]!
+                    let wort_for_formen = wort_list_lookup_byWortFormen[wort_formen] ?? []
                     let marker3 = Date.now
+                    
+                    if(theWort.relWortFormen == "RedewendungOrder1"){
+                        print("Caught the RedewendungOrder1")
+                    }
                     
                     let uploadingWort = Wort.findOrCreate(in: theContext, among: wort_for_formen, wortFormen: wort_formen, wortArtFormen: theWortArtFormen)
                     
