@@ -32,42 +32,66 @@ struct StatisticsView: View {
     var body: some View{
         NavigationStack {
             VStack {
-                HStack{
-                    Text("Время изучения")
-                        .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
-                        .padding(.leading, 10)
-                    Spacer()
-                }
-                let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-1)
-                let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(1)
-                Chart {
-                    ForEach(statArray) { theStat in
-                        if let learn = theStat.learnTime {
-                            let minutes = learn / 60
-                            LineMark(
-                                x: .value("Date", theStat.timeStamp),
-                                y: .value("learnTime", minutes),
-                                series: .value("Metric", "learnTime")
-                            )
-                            .foregroundStyle(.green)
-                            .interpolationMethod(.stepEnd)
-                            .lineStyle(StrokeStyle(lineWidth: 2))
-                            
-                            PointMark(
-                                x: .value("Date", theStat.timeStamp),
-                                y: .value("Learn", minutes)
-                            )
-                            .symbol {
-                                Rectangle()
-                                    .foregroundColor(.green)
-                                    .frame(width: 20, height: 20)
+                VStack{
+                    HStack{
+                        Text("Время изучения")
+                            .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
+                            .padding(.leading, 10)
+                        Spacer()
+                    }
+                    let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
+                    let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(2)
+                    Chart {
+                        ForEach(statArray) { theStat in
+                            if let learn = theStat.learnTime {
+                                let minutes = learn / 60
+                                LineMark(
+                                    x: .value("Date", theStat.timeStamp),
+                                    y: .value("learnTime", minutes),
+                                    series: .value("Metric", "learnTime")
+                                )
+                                .foregroundStyle(.green)
+                                .interpolationMethod(.stepEnd)
+                                .lineStyle(StrokeStyle(lineWidth: 2))
+                                
+                                PointMark(
+                                    x: .value("Date", theStat.timeStamp),
+                                    y: .value("Learn", minutes)
+                                )
+                                .symbol {
+                                    Rectangle()
+                                        .foregroundColor(.green)
+                                        .frame(width: 10, height: 10)
+                                }
                             }
                         }
                     }
+                    .chartXScale(domain: chartFromDate ... chartToDate)
+                    .chartXAxis {
+                        AxisMarks(preset: .aligned) { mark in
+                            AxisGridLine()
+                                .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // цвет линий сетки по X
+                            AxisTick()
+                                .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/) // цвет "чеков"
+                            AxisValueLabel()
+                                .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/) // цвет подписей
+                        }
+                    }
+                    .chartYAxis {
+                        AxisMarks(preset: .extended) { mark in
+                            AxisGridLine()
+                                .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // линии сетки по Y
+                            AxisTick()
+                                .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/)
+                            AxisValueLabel()
+                                .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/)
+                        }
+                    }
+                    .padding()
+                    .frame(maxHeight: UIScreen.main.bounds.height / 3)
                 }
-                .chartXScale(domain: chartFromDate ... chartToDate)
+                .NG_Card(.NG_CardStyle_Regular, theme: theme)
                 .padding(.horizontal)
-                .frame(maxHeight: UIScreen.main.bounds.height / 3)
                 /*
                  Chart {
                      ForEach(sortedMuscles, id: \.self) { muscle in
