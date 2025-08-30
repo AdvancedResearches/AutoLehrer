@@ -78,6 +78,8 @@
     </entity>
     <entity name="TimeStatistics" representedClassName="TimeStatistics" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="hasDeclaredSuperriorityVsAverage" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="hasDeclaredSuperriorityVsYesterday" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="learningTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="relWortArt" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WortArt" inverseName="relTimeStatistics" inverseEntity="WortArt"/>
     </entity>

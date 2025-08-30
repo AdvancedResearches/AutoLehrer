@@ -44,6 +44,11 @@ struct WortRepeater: View {
     
     @State var showProgressBarDetails: Bool = false
     
+    @State var showDailyWortArtAnnouncement: Bool = false
+    @State var showAverageWortArtAnnouncement: Bool = false
+    @State var showDailyAnnouncement: Bool = false
+    @State var showAverageAnnouncement: Bool = false
+    
     @State private var timeAttackMode: Int = -1
     
     var body: some View {
@@ -186,8 +191,120 @@ struct WortRepeater: View {
                 .NG_sheetFormatting(transparent: true)
                 .padding(.horizontal, 10)
         }
+        .sheet(isPresented: $showDailyWortArtAnnouncement){
+            dailyWortArtHorrayAnnouncement()
+                .padding(.horizontal, 10)
+                .NG_sheetFormatting(transparent: true)
+                .padding(.horizontal, 10)
+        }
+        .sheet(isPresented: $showDailyAnnouncement){
+            dailyHorrayAnnouncement()
+                .padding(.horizontal, 10)
+                .NG_sheetFormatting(transparent: true)
+                .padding(.horizontal, 10)
+        }
+        .sheet(isPresented: $showAverageWortArtAnnouncement){
+            averageWortArtHorrayAnnouncement()
+                .padding(.horizontal, 10)
+                .NG_sheetFormatting(transparent: true)
+                .padding(.horizontal, 10)
+        }
+        .sheet(isPresented: $showAverageAnnouncement){
+            averageHorrayAnnouncement()
+                .padding(.horizontal, 10)
+                .NG_sheetFormatting(transparent: true)
+                .padding(.horizontal, 10)
+        }
         .onAppear(){
             timeAttackMode = Int(Settings.getTimeAttackMode(in: viewContext))
+        }
+    }
+    private func dailyWortArtHorrayAnnouncement() -> some View{
+        VStack{
+            HStack{
+                let stats = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                if(stats != nil){
+                    let spentMinutes: Int = Int(stats!.learningTime / 60)
+                    let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
+                    Text("Сегодня на изучение этой группы слов потрачено уже больше, чем вчера - \(spentMinutes) минут \(spentSeconds) секунд!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }else{
+                    Text("Сегодня на изучение этой группы слов потрачено уже больше, чем вчера!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }
+                Spacer()
+            }
+            
+            NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                TimeStatistics.hasAnnouncedAboveYesterday(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+                showDailyWortArtAnnouncement = false
+            }, widthFlood: true)
+        }
+    }
+    private func averageWortArtHorrayAnnouncement() -> some View{
+        VStack{
+            HStack{
+                let stats = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                if(stats != nil){
+                    let spentMinutes: Int = Int(stats!.learningTime / 60)
+                    let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
+                    Text("Сегодня на изучение этой группы слов потрачено уже больше, чем в среднем за неделю - \(spentMinutes) минут \(spentSeconds) секунд!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }else{
+                    Text("Сегодня на изучение этой группы слов потрачено уже больше, чем в среднем за неделю!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }
+                Spacer()
+            }
+            
+            NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                TimeStatistics.hasAnnouncedAboveAverage(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+                showAverageWortArtAnnouncement = false
+            }, widthFlood: true)
+        }
+    }
+    private func dailyHorrayAnnouncement() -> some View{
+        VStack{
+            HStack{
+                let stats = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                if(stats != nil){
+                    let spentMinutes: Int = Int(stats!.learningTime / 60)
+                    let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
+                    Text("Сегодня на изучение в целом потрачено уже больше, чем вчера - \(spentMinutes) минут \(spentSeconds) секунд!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }else{
+                    Text("Сегодня на изучение в целом потрачено уже больше, чем вчера!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }
+                Spacer()
+            }
+            
+            NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                TimeStatistics.hasAnnouncedAboveYesterday(in: viewContext, forThe: nil)
+                showDailyAnnouncement = false
+            }, widthFlood: true)
+        }
+    }
+    private func averageHorrayAnnouncement() -> some View{
+        VStack{
+            HStack{
+                let stats = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                if(stats != nil){
+                    let spentMinutes: Int = Int(stats!.learningTime / 60)
+                    let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
+                    Text("Сегодня на изучение в целом потрачено уже больше, чем в среднем за неделю - \(spentMinutes) минут \(spentSeconds) секунд!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }else{
+                    Text("Сегодня на изучение в целом потрачено уже больше, чем в среднем за неделю!")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }
+                Spacer()
+            }
+            
+            NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                TimeStatistics.hasAnnouncedAboveAverage(in: viewContext, forThe: nil)
+                showAverageAnnouncement = false
+            }, widthFlood: true)
         }
     }
     private func dasProgressErklarung() -> some View{
@@ -685,6 +802,18 @@ struct WortRepeater: View {
         }
     }
     func pickTheWord() {
+        if(pickedWortFormen != nil){
+            let pickedWortArt = pickedWortFormen!.relWortArt
+            if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: pickedWortArt)){
+                showDailyWortArtAnnouncement =  true
+            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: pickedWortArt)){
+                showAverageWortArtAnnouncement =  true
+            }else if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: nil)){
+                showDailyAnnouncement =  true
+            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: nil)){
+                showAverageAnnouncement =  true
+            }
+        }
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
         

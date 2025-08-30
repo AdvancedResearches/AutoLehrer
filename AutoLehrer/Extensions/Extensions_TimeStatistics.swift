@@ -8,6 +8,48 @@
 import CoreData
 
 extension TimeStatistics{
+    public static func hasAnnouncedAboveAverage(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
+        if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
+            today.hasDeclaredSuperriorityVsAverage = true
+            try! context.save()
+        }
+    }
+    public static func isAboveAverageToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
+        let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
+        if(today == nil){
+            return false
+        }
+        if(today!.hasDeclaredSuperriorityVsAverage){
+            return false
+        }
+        let averageTime = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt) ?? 0
+        let todayTime = today!.learningTime
+        if(todayTime > averageTime){
+            return true
+        }
+        return false
+    }
+    public static func hasAnnouncedAboveYesterday(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
+        if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
+            today.hasDeclaredSuperriorityVsYesterday = true
+            try! context.save()
+        }
+    }
+    public static func isAboveYesterdayToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
+        let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
+        if(today == nil){
+            return false
+        }
+        if(today!.hasDeclaredSuperriorityVsYesterday){
+            return false
+        }
+        let yesterdayTime = fetchYesterdayLearningTime(in: context, forThe: wortArt)?.learningTime ?? 0
+        let todayTime = today!.learningTime
+        if(todayTime > yesterdayTime){
+            return true
+        }
+        return false
+    }
     public static func submitLearningTime(in context: NSManagedObjectContext, at date: Date, for duration: Double, forThe wortArt: WortArt?){
         if(wortArt != nil){
             let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
@@ -30,5 +72,29 @@ extension TimeStatistics{
         newStamp.relWortArt = wortArt
         try! context.save()
         return newStamp
+    }
+    public static func fetchLearningTime(in context: NSManagedObjectContext, at date: Date, forThe wortArt: WortArt?)->TimeStatistics?{
+        let theStamp = try! context.fetch(TimeStatistics.fetchRequest()).filter({$0.date == date && $0.relWortArt == wortArt}).first
+        return theStamp
+    }
+    public static func fetchYesterdayLearningTime(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->TimeStatistics?{
+        let theStamp = try! context.fetch(TimeStatistics.fetchRequest()).filter({$0.date == Date.now.offset_inDays(-1).stripTime() && $0.relWortArt == wortArt}).first
+        return theStamp
+    }
+    public static func fetchWeeklyAverageLearningTime(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
+        var timeStamps: [TimeStatistics] = []
+        for theOffest in -7 ..< -1{
+            if let timeStamp = fetchLearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
+                    timeStamps.append(timeStamp)
+            }
+        }
+        if timeStamps.count > 0 {
+            return nil
+        }
+        var total: Double = 0
+        for theStamp in timeStamps{
+            total += theStamp.learningTime
+        }
+        return total / Double(timeStamps.count)
     }
 }
