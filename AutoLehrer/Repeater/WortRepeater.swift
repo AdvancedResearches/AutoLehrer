@@ -60,15 +60,19 @@ struct WortRepeater: View {
             let statsForYesterday: TimeStatistics? = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
             let statsForAverage: Double? = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
             if(statsForToday != nil && statsForYesterday != nil && statsForAverage != nil){
-                let remainderForYesterday = max(statsForToday!.learningTime - statsForYesterday!.learningTime, 0)
-                let remainderForAverage = max(statsForToday!.learningTime - statsForAverage!, 0)
+                let remainderForYesterday = max(statsForYesterday!.learningTime - statsForToday!.learningTime, 0)
+                let remainderForAverage = max(statsForAverage! - statsForToday!.learningTime, 0)
                 if remainderForYesterday > 0 {
                     toBeatYesterday = Date.doubleSeconds_toMinutesAndSecondsString_RU(remainderForYesterday)
                 }else{
                     toBeatYesterday = nil
                 }
                 if remainderForAverage > 0 {
-                    toBeatAverage = Date.doubleSeconds_toMinutesAndSecondsString_RU(remainderForYesterday)
+                    if(remainderForAverage != remainderForYesterday){
+                        toBeatAverage = Date.doubleSeconds_toMinutesAndSecondsString_RU(remainderForYesterday)
+                    }else{
+                        toBeatAverage = nil
+                    }
                 }else{
                     toBeatAverage = nil
                 }
@@ -929,9 +933,7 @@ struct WortRepeater: View {
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
-        
-        recalcTimeToBeatReminder()
-        
+                
         if (pickedSache.formsToShow < 1){
             pickedSache.formsToShow = 1
         }
@@ -987,5 +989,7 @@ struct WortRepeater: View {
         hasFaults = false
         pickedWortFormen = pickedSache
         potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+        
+        recalcTimeToBeatReminder()
     }
 }

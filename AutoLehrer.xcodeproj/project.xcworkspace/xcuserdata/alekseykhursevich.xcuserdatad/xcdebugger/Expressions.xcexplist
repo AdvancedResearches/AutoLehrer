@@ -3,6 +3,23 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "static TimeStatistics.fetchWeeklyAverageLearningTime(in:forThe:):Extensions_TimeStatistics.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Date.now.offset_inDays(theOffest).stripTime()">
+            </PersistentString>
+            <PersistentString
+               value = "Date.now.stripTime()">
+            </PersistentString>
+            <PersistentString
+               value = "total / Double(timeStamps.count)">
+            </PersistentString>
+            <PersistentString
+               value = "fetchLearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "Data_Archival.preset():Data_Archival.swift">
       </ContextState>
       <ContextState
