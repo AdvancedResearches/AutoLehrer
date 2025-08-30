@@ -227,8 +227,7 @@ struct MainMenu: View {
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
                         NavigationLink(
-                            destination: StatisticsView().NG_NavigationTitle("Статистика", theme: theme),
-                            isActive: $Theme_isActive
+                            destination: StatisticsView().NG_NavigationTitle("Статистика", theme: theme)
                         ) {
                             Group {
                                 let state = recommendationModel.buttonStates[.mainmenu_theme] ?? .enabled
@@ -240,11 +239,6 @@ struct MainMenu: View {
                                     isPulsating: .constant(state == .pulsating),
                                     widthFlood: true
                                 )
-                            }
-                        }
-                        .onChange(of: Theme_isActive){newValue in
-                            if !newValue{
-                                invokeUpdates()
                             }
                         }
                         
