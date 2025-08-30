@@ -226,6 +226,28 @@ struct MainMenu: View {
                         Text("Опробовано: \(alles_attempted) (\(String(format: "%.1f", alles_attempted_ratio))%)")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             .padding(.leading, 10)
+                        NavigationLink(
+                            destination: ThemesView().NG_NavigationTitle("Детали", theme: theme),
+                            isActive: $Theme_isActive
+                        ) {
+                            Group {
+                                let state = recommendationModel.buttonStates[.mainmenu_theme] ?? .enabled
+                                NG_Button(
+                                    title: "Детали".localized(for: language),
+                                    style: .NG_ButtonStyle_Service,
+                                    isDisabled: .constant(state == .disabled),
+                                    isHighlighting: .constant(state == .highlighted),
+                                    isPulsating: .constant(state == .pulsating),
+                                    widthFlood: true
+                                )
+                            }
+                        }
+                        .onChange(of: Theme_isActive){newValue in
+                            if !newValue{
+                                invokeUpdates()
+                            }
+                        }
+                        
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
