@@ -8,6 +8,36 @@
 import CoreData
 
 extension TimeStatistics{
+    public static func recalculate_completion(in theContext: NSManagedObjectContext){
+        do{
+            var allWortFormenTotal: Int64 = 0
+            var allWortFormenConfirmed: Int64 = 0
+
+            for theWortArt in try theContext.fetch(WortArt.fetchRequest()) {
+                var wortFormenTotal: Int64 = 0
+                var wortFormenConfirmed: Int64 = 0
+
+                for theWortFormen in (theWortArt.relWortFormen as? Set<WortFormen>) ?? [] {
+                    let count = (theWortFormen.relWort as? Set<Wort>)?.count ?? 0
+                    wortFormenTotal += Int64(count)
+                    wortFormenConfirmed += max(theWortFormen.formsToShow - 1, 0)
+                }
+                
+                var wortFormenTimeStats = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
+                wortFormenTimeStats.totalFormen = Int64(wortFormenTotal)
+                wortFormenTimeStats.completedFormen = Int64(wortFormenConfirmed)
+
+                allWortFormenTotal += wortFormenTotal
+                allWortFormenConfirmed += wortFormenConfirmed
+            }
+            
+            var wortFormenTimeStats = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: nil)
+            wortFormenTimeStats.totalFormen = Int64(allWortFormenTotal)
+            wortFormenTimeStats.completedFormen = Int64(allWortFormenConfirmed)
+            
+            try theContext.save()
+        }catch{}
+    }
     public static func hasAnnouncedAboveAverage(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
         if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
             today.hasDeclaredSuperriorityVsAverage = true
