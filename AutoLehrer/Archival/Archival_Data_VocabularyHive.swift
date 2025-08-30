@@ -841,6 +841,35 @@ struct Archival_Vocabulary{
                     Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
                 }
                 
+                runningCounter = 0
+                fullCount = 0
+                for theWortArt in WortArtDictionary.values {
+                    fullCount += (theWortArt.relWortFormen as? Set<WortFormen>)?.count ?? 0
+                }
+                var wortArtAllFormenTotalCount: Int64 = 0
+                var wortArtAllFormenAcceptedCount: Int64 = 0
+                for theWortArtKey in WortArtDictionary.keys{
+                    var wortArtFormenTotalCount: Int64 = 0
+                    var wortArtFormenAcceptedCount: Int64 = 0
+                    let theWortArt = WortArtDictionary[theWortArtKey]!
+                    for theWortFormen in (theWortArt.relWortFormen as? Set<WortFormen>) ?? [] {
+                        wortArtFormenTotalCount += Int64(theWortFormen.relWort?.count ?? 0)
+                        wortArtFormenAcceptedCount += max(theWortFormen.formsToShow - 1, 0)
+                        runningCounter += 1
+                        Task { @MainActor in progress.fraction = Double(runningCounter)/Double(fullCount) }
+                    }
+                    wortArtAllFormenTotalCount += wortArtFormenTotalCount
+                    wortArtAllFormenAcceptedCount += wortArtFormenAcceptedCount
+                    let timeStatisticElement = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
+                    timeStatisticElement.totalFormen = wortArtFormenTotalCount
+                    timeStatisticElement.completedFormen = wortArtFormenAcceptedCount
+                }
+                let timeStatisticElement = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: nil)
+                timeStatisticElement.totalFormen = wortArtAllFormenTotalCount
+                timeStatisticElement.completedFormen = wortArtAllFormenAcceptedCount
+                
+                try! theContext.save()
+                
                 statusMessage += "ЗАВЕРШЕНО"
                 Task { @MainActor in progress.text = statusMessage
                     progress.completed = true}

@@ -92,77 +92,7 @@ struct StatisticsView: View {
                 }
                 .NG_Card(.NG_CardStyle_Regular, theme: theme)
                 .padding(.horizontal)
-                /*
-                 Chart {
-                     ForEach(sortedMuscles, id: \.self) { muscle in
-                         if (!hiddenMuscles.contains(muscle)){
-                             if let points = muscle_chart_data_points[muscle] {
-                                 ForEach(points) { point in
-                                     if let fatigue = point.fatigue {
-                                         LineMark(
-                                             x: .value("Date", point.date),
-                                             y: .value("Fatigue", Float(Float(fatigue.id)/Float(3.0))),
-                                             series: .value("Fatigue", muscle.fullName)
-                                         )
-                                         .foregroundStyle(point.fatigueColor)
-                                         .interpolationMethod(.stepEnd)
-                                         .lineStyle(StrokeStyle(lineWidth: 2 + CGFloat(point.scale*2)))
-                                         PointMark(
-                                             x: .value("Date", point.date),
-                                             y: .value("Fatigue", Float(Float(fatigue.id)/Float(3.0)))
-                                         )
-                                         .symbol {
-                                             Rectangle()
-                                                 .foregroundColor(point.fatigueColor)
-                                                 .frame(width: 20 + CGFloat(point.scale*4), height: 20 + CGFloat(point.scale*4))
-                                         }
-                                     }
-                                     if let development = point.development {
-                                         LineMark(
-                                             x: .value("Date", point.date),
-                                             y: .value("Development", development),
-                                             series: .value("Development", muscle.fullName)
-                                         )
-                                         .foregroundStyle(point.developmentColor)
-                                         .interpolationMethod(.stepEnd)
-                                         .lineStyle(StrokeStyle(lineWidth: 2 + CGFloat(point.scale*2)))
-                                         
-                                         PointMark(
-                                             x: .value("Date", point.date),
-                                             y: .value("Development", development)
-                                         )
-                                         .foregroundStyle(point.developmentColor)
-                                         .symbolSize(100 + CGFloat(point.scale*100))
-                                     }
-                                 }
-                             }
-                         }
-                     }
-                 }
-                 .chartXScale(domain: showStart...showEnd)
-                 .chartYScale(domain: 0...1.5)
-                 .chartXAxis {
-                     AxisMarks(preset: .aligned) { mark in
-                         AxisGridLine()
-                             .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // цвет линий сетки по X
-                         AxisTick()
-                             .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/) // цвет "чеков"
-                         AxisValueLabel()
-                             .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/) // цвет подписей
-                     }
-                 }
-                 .chartYAxis {
-                     AxisMarks(preset: .extended) { mark in
-                         AxisGridLine()
-                             .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // линии сетки по Y
-                         AxisTick()
-                             .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/)
-                         AxisValueLabel()
-                             .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/)
-                     }
-                 }
-                 .padding()
-                 */
+
                 Spacer()
             }
             .onAppear{

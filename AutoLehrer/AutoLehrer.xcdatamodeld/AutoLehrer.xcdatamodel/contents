@@ -77,10 +77,12 @@
         <relationship name="relWort" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Wort" inverseName="relTempus" inverseEntity="Wort"/>
     </entity>
     <entity name="TimeStatistics" representedClassName="TimeStatistics" syncable="YES" codeGenerationType="class">
+        <attribute name="completedFormen" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="hasDeclaredSuperriorityVsAverage" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="hasDeclaredSuperriorityVsYesterday" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="learningTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="totalFormen" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="relWortArt" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WortArt" inverseName="relTimeStatistics" inverseEntity="WortArt"/>
     </entity>
     <entity name="Wort" representedClassName="Wort" syncable="YES" codeGenerationType="class">
