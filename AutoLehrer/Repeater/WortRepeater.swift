@@ -51,6 +51,37 @@ struct WortRepeater: View {
     
     @State private var timeAttackMode: Int = -1
     
+    @State var toBeatYesterday: String?
+    @State var toBeatAverage: String?
+    
+    func recalcTimeToBeatReminder(){
+        if(pickedWortFormen != nil){
+            let statsForToday: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+            let statsForYesterday: TimeStatistics? = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+            let statsForAverage: Double? = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+            if(statsForToday != nil && statsForYesterday != nil && statsForAverage != nil){
+                let remainderForYesterday = max(statsForToday!.learningTime - statsForYesterday!.learningTime, 0)
+                let remainderForAverage = max(statsForToday!.learningTime - statsForAverage!, 0)
+                if remainderForYesterday > 0 {
+                    toBeatYesterday = Date.doubleSeconds_toMinutesAndSecondsString_RU(remainderForYesterday)
+                }else{
+                    toBeatYesterday = nil
+                }
+                if remainderForAverage > 0 {
+                    toBeatAverage = Date.doubleSeconds_toMinutesAndSecondsString_RU(remainderForYesterday)
+                }else{
+                    toBeatAverage = nil
+                }
+            }else{
+                toBeatYesterday = nil
+                toBeatAverage = nil
+            }
+        }else{
+            toBeatYesterday = nil
+            toBeatAverage = nil
+        }
+    }
+    
     var body: some View {
         VStack{
             HStack{
@@ -58,6 +89,22 @@ struct WortRepeater: View {
                     .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                     .padding(.horizontal, 5)
                 Spacer()
+            }
+            if(toBeatYesterday != nil){
+                HStack{
+                    Text("Позаниматься ещё \(toBeatYesterday!) чтобы превысить вчерашний результат")
+                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                        .padding(.horizontal, 5)
+                    Spacer()
+                }
+            }
+            if(toBeatAverage != nil){
+                HStack{
+                    Text("Позаниматься ещё \(toBeatAverage!) чтобы превысить средний результат за неделю")
+                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                        .padding(.horizontal, 5)
+                    Spacer()
+                }
             }
             VStack {
                 if(pickedWortFormen != nil){
@@ -707,6 +754,7 @@ struct WortRepeater: View {
                             }
                             hasFaults = guessingResult.contains(-1)
                             TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dasWort.relWortFormen?.relWortArt)
+                            recalcTimeToBeatReminder()
                         }, widthFlood: true)
                         .if((!flippedSeite[index])||(missedGuess[index])){ view in
                             view.opacity(0.0)
@@ -739,6 +787,7 @@ struct WortRepeater: View {
                             }
                             hasFaults = guessingResult.contains(-1)
                             TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dasWort.relWortFormen?.relWortArt)
+                            recalcTimeToBeatReminder()
                         }, widthFlood: true)
                         .if(!flippedSeite[index]){ view in
                             view.opacity(0.0)
@@ -880,6 +929,8 @@ struct WortRepeater: View {
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
+        
+        recalcTimeToBeatReminder()
         
         if (pickedSache.formsToShow < 1){
             pickedSache.formsToShow = 1

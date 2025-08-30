@@ -1,6 +1,25 @@
 import Foundation
 
 extension Date {
+    public static func doubleSeconds_toMinutesAndSecondsString_RU(_ seconds: Double) -> String{
+        let totalSecondsInt = Int(seconds)
+        let minutesInt = totalSecondsInt / 60
+        let secondsInt = totalSecondsInt % 60
+        
+        var retValue: String = ""
+        
+        if minutesInt > 0 {
+            retValue += "\(minutesInt) мин"
+            if(seconds > 0) {
+                retValue += " \(secondsInt) сек"
+            }
+        }else{
+            retValue += "\(secondsInt) сек"
+        }
+        
+        return retValue
+    }
+    
     public static func convert_DateToString_DownToSecond(theDate: Date) -> String{
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
