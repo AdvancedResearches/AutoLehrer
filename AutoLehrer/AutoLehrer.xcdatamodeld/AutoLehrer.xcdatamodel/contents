@@ -79,6 +79,7 @@
     <entity name="TimeStatistics" representedClassName="TimeStatistics" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="learningTime" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="relWortArt" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WortArt" inverseName="relTimeStatistics" inverseEntity="WortArt"/>
     </entity>
     <entity name="Wort" representedClassName="Wort" syncable="YES" codeGenerationType="class">
         <attribute name="wort_DE" optional="YES" attributeType="String"/>
@@ -111,6 +112,7 @@
         <attribute name="property_8" optional="YES" attributeType="String"/>
         <attribute name="property_9" optional="YES" attributeType="String"/>
         <attribute name="property_10" optional="YES" attributeType="String"/>
+        <relationship name="relTimeStatistics" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TimeStatistics" inverseName="relWortArt" inverseEntity="TimeStatistics"/>
         <relationship name="relWortFormen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WortFormen" inverseName="relWortArt" inverseEntity="WortFormen"/>
     </entity>
     <entity name="WortFormen" representedClassName="WortFormen" syncable="YES" codeGenerationType="class">

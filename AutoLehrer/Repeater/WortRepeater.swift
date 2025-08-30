@@ -529,6 +529,7 @@ struct WortRepeater: View {
                                 }
                             }
                             hasFaults = guessingResult.contains(-1)
+                            TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dasWort.relWortFormen?.relWortArt)
                         }, widthFlood: true)
                         .if((!flippedSeite[index])||(missedGuess[index])){ view in
                             view.opacity(0.0)
@@ -560,6 +561,7 @@ struct WortRepeater: View {
                                 withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                             }
                             hasFaults = guessingResult.contains(-1)
+                            TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dasWort.relWortFormen?.relWortArt)
                         }, widthFlood: true)
                         .if(!flippedSeite[index]){ view in
                             view.opacity(0.0)
