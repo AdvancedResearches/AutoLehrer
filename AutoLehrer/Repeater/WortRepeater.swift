@@ -535,15 +535,15 @@ struct WortRepeater: View {
                 }
             }
             if(!pickedWortFormen!.failed){
-                Image(systemName: "questionmark.square.fill")
+                Image(systemName: "chevron.right.square.fill")
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                     .font(.system(size: 25))
-                Image(systemName: "questionmark.square.fill")
+                Image(systemName: "chevron.right.square.fill")
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                     .font(.system(size: 25))
-                Image(systemName: "questionmark.square.fill")
+                Image(systemName: "chevron.right.square.fill")
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
                     .font(.system(size: 25))
