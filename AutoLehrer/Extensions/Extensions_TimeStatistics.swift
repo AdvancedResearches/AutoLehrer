@@ -22,6 +22,10 @@ extension TimeStatistics{
         if(today!.hasDeclaredSuperriorityVsAverage){
             return false
         }
+        let average = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt)
+        if(average == nil){
+            return false
+        }
         let averageTime = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt) ?? 0
         let todayTime = today!.learningTime
         if(todayTime > averageTime){
@@ -43,7 +47,11 @@ extension TimeStatistics{
         if(today!.hasDeclaredSuperriorityVsYesterday){
             return false
         }
-        let yesterdayTime = fetchYesterdayLearningTime(in: context, forThe: wortArt)?.learningTime ?? 0
+        let yesterday = fetchYesterdayLearningTime(in: context, forThe: wortArt)
+        if(yesterday == nil){
+            return false
+        }
+        let yesterdayTime = yesterday!.learningTime
         let todayTime = today!.learningTime
         if(todayTime > yesterdayTime){
             return true

@@ -175,6 +175,66 @@ struct WortRepeater: View {
                     }
                 }
             }
+            .onChange(of: showDailyAnnouncement){ oldValue, newValue in
+                if(newValue){
+                    if(runningWort < flipTimers.count){
+                        guard let timer = flipTimers[runningWort] else {return}
+                        timer.pause()
+                    }
+                }else{
+                    if(runningWort < flipTimers.count){
+                        if(!flippedSeite[runningWort]){
+                            guard let timer = flipTimers[runningWort] else {return}
+                            timer.resume()
+                        }
+                    }
+                }
+            }
+            .onChange(of: showAverageAnnouncement){ oldValue, newValue in
+                if(newValue){
+                    if(runningWort < flipTimers.count){
+                        guard let timer = flipTimers[runningWort] else {return}
+                        timer.pause()
+                    }
+                }else{
+                    if(runningWort < flipTimers.count){
+                        if(!flippedSeite[runningWort]){
+                            guard let timer = flipTimers[runningWort] else {return}
+                            timer.resume()
+                        }
+                    }
+                }
+            }
+            .onChange(of: showDailyWortArtAnnouncement){ oldValue, newValue in
+                if(newValue){
+                    if(runningWort < flipTimers.count){
+                        guard let timer = flipTimers[runningWort] else {return}
+                        timer.pause()
+                    }
+                }else{
+                    if(runningWort < flipTimers.count){
+                        if(!flippedSeite[runningWort]){
+                            guard let timer = flipTimers[runningWort] else {return}
+                            timer.resume()
+                        }
+                    }
+                }
+            }
+            .onChange(of: showAverageWortArtAnnouncement){ oldValue, newValue in
+                if(newValue){
+                    if(runningWort < flipTimers.count){
+                        guard let timer = flipTimers[runningWort] else {return}
+                        timer.pause()
+                    }
+                }else{
+                    if(runningWort < flipTimers.count){
+                        if(!flippedSeite[runningWort]){
+                            guard let timer = flipTimers[runningWort] else {return}
+                            timer.resume()
+                        }
+                    }
+                }
+            }
         }
         .background(theme.currentTheme.NG_LinearGradient_Background_Page)
         .navigationBarTitleDisplayMode(.inline)
@@ -697,7 +757,6 @@ struct WortRepeater: View {
                     print("Initiate flipping for index \(index)")
                     
                     flipTimers[index]?.invalidate()
-                    //flipTotal[index] = 5.0
                     flipPassed[index] = 0.0
                     flipCompleted[index] = false
                     
@@ -713,6 +772,7 @@ struct WortRepeater: View {
                             
                             if(flipTicker[index] == 000){
                                 withAnimation(.easeOut(duration: 0.3)) { flipScaleRatio[index] = 1.02 }
+                                doWeNeedToAnnounce()
                             }
                             if(flipTicker[index] == 030){
                                 withAnimation(.easeOut(duration: 0.7)) { flipScaleRatio[index] = 1 }
@@ -801,7 +861,8 @@ struct WortRepeater: View {
             }
         }
     }
-    func pickTheWord() {
+    
+    func doWeNeedToAnnounce(){
         if(pickedWortFormen != nil){
             let pickedWortArt = pickedWortFormen!.relWortArt
             if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: pickedWortArt)){
@@ -814,6 +875,9 @@ struct WortRepeater: View {
                 showAverageAnnouncement =  true
             }
         }
+    }
+    
+    func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
         
