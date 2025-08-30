@@ -8,8 +8,10 @@
 import Foundation
 import SwiftUI
 import CoreData
+import Charts
 
-struct StatsItem{
+struct StatsItem: Identifiable{
+    var id: Int
     var timeStamp: Date
     var learnTime: Double?
 }
@@ -36,6 +38,36 @@ struct StatisticsView: View {
                         .padding(.leading, 10)
                     Spacer()
                 }
+                let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-1)
+                let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(1)
+                Chart {
+                    ForEach(statArray) { theStat in
+                        if let learn = theStat.learnTime {
+                            let minutes = learn / 60
+                            LineMark(
+                                x: .value("Date", theStat.timeStamp),
+                                y: .value("learnTime", minutes),
+                                series: .value("Metric", "learnTime")
+                            )
+                            .foregroundStyle(.green)
+                            .interpolationMethod(.stepEnd)
+                            .lineStyle(StrokeStyle(lineWidth: 2))
+                            
+                            PointMark(
+                                x: .value("Date", theStat.timeStamp),
+                                y: .value("Learn", minutes)
+                            )
+                            .symbol {
+                                Rectangle()
+                                    .foregroundColor(.green)
+                                    .frame(width: 20, height: 20)
+                            }
+                        }
+                    }
+                }
+                .chartXScale(domain: chartFromDate ... chartToDate)
+                .padding(.horizontal)
+                .frame(maxHeight: UIScreen.main.bounds.height / 3)
                 /*
                  Chart {
                      ForEach(sortedMuscles, id: \.self) { muscle in
@@ -124,8 +156,8 @@ struct StatisticsView: View {
     }
     
     func defaultTimeLearningData() {
-        for theOffset in -27 ..< 0 {
-            let newTimeStampItem = StatsItem(timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil)
+        for theOffset in -27 ... 0 {
+            let newTimeStampItem = StatsItem(id: theOffset+27, timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil)
             statArray.append(newTimeStampItem)
         }
     }
@@ -134,13 +166,14 @@ struct StatisticsView: View {
         if(statArray.count == 0){
             defaultTimeLearningData()
         }
-        for theOffset in -27 ..< 0 {
-            var newTimeStampItem = StatsItem(timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil)
+        for theOffset in -27 ... 0 {
+            var newTimeStampItem = StatsItem(id: theOffset+27, timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil)
             let retrievedTimers = TimeStatistics.fetchLearningTime(in: viewContext, at: newTimeStampItem.timeStamp, forThe: nil)
             if(retrievedTimers != nil){
                 newTimeStampItem.learnTime = retrievedTimers!.learningTime
             }
             statArray[theOffset + 27] = newTimeStampItem
+            print("Statistics.reloadTimeLearningData(): statArray[\(theOffset + 27)] .timeStamp:\(statArray[theOffset + 27].timeStamp) .learnTime:\(statArray[theOffset + 27].learnTime) .id:\(statArray[theOffset + 27].id) - offset:\(theOffset)")
         }
     }
 }
