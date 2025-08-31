@@ -12,9 +12,11 @@ struct WortRepeater: View {
     
     var prufungModus: Bool = false
     @State var runningWortArt: WortArt?
+    @State var alleWortArten: [WortArt] = []
     @State var runningWortArtIndex: Int = 0
     @State var prufungWortFormen: [WortFormen] = []
     @State var prufungResult: [WortArt: Int] = [:]
+    @State var prufungCompleted: Bool = false
     
     @State var pickedWortFormen: WortFormen?
     
@@ -158,7 +160,7 @@ struct WortRepeater: View {
                                         action: {
                                             if(readyToMoveOn){
                                                 if(prufungModus){
-                                                    
+                                                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
                                                 }else{
                                                     attemptCounter += 1
                                                     var successCounter: Int = 0
@@ -594,80 +596,166 @@ struct WortRepeater: View {
     private func iconColorByGuessingResultFurPrufungModus(_ index: Int) -> Color{
         return guessingResult[index] == -1 ?  Color.red : guessingResult[index] == 0 ? Color.yellow : Color.green
     }
+    private func nummerIconName(_ nummer: Int) -> String{
+        if(nummer == 0){
+            return "0.square.fill"
+        }
+        if(nummer == 1){
+            return "1.square.fill"
+        }
+        if(nummer == 2){
+            return "2.square.fill"
+        }
+        if(nummer == 3){
+            return "3.square.fill"
+        }
+        if(nummer == 4){
+            return "4.square.fill"
+        }
+        if(nummer == 5){
+            return "5.square.fill"
+        }
+        if(nummer == 6){
+            return "6.square.fill"
+        }
+        if(nummer == 7){
+            return "7.square.fill"
+        }
+        if(nummer == 8){
+            return "8.square.fill"
+        }
+        if(nummer == 9){
+            return "9.square.fill"
+        }
+        if(nummer == 10){
+            return "10.square.fill"
+        }
+        return "square.slash.fill"
+    }
+    private func nummerIconColor(_ nummer: Int) -> Color{
+        if(nummer == 0){
+            return .red
+        }
+        if(nummer == 1){
+            return .red
+        }
+        if(nummer == 2){
+            return .red
+        }
+        if(nummer == 3){
+            return .red
+        }
+        if(nummer == 4){
+            return .red
+        }
+        if(nummer == 5){
+            return .red
+        }
+        if(nummer == 6){
+            return .yellow
+        }
+        if(nummer == 7){
+            return .yellow
+        }
+        if(nummer == 8){
+            return .yellow
+        }
+        if(nummer == 9){
+            return .yellow
+        }
+        if(nummer == 10){
+            return .green
+        }
+        return .gray
+    }
     private func dasPrufungProgressSektion() -> some View {
         return VStack{
-            if(runningWortArt != nil){
-                if(wort.count > 0){
-                    HStack{
-                        Text("Проверяем раздел [\(runningWortArt!.name_RU!)]")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    }
-                    HStack{
-                        let iconName0 = iconNameByGuessingResultFurPrufungModus(0)
-                        let iconColor0 = iconColorByGuessingResultFurPrufungModus(0)
-                        let iconName1 = iconNameByGuessingResultFurPrufungModus(1)
-                        let iconColor1 = iconColorByGuessingResultFurPrufungModus(1)
-                        let iconName2 = iconNameByGuessingResultFurPrufungModus(2)
-                        let iconColor2 = iconColorByGuessingResultFurPrufungModus(2)
-                        let iconName3 = iconNameByGuessingResultFurPrufungModus(3)
-                        let iconColor3 = iconColorByGuessingResultFurPrufungModus(3)
-                        let iconName4 = iconNameByGuessingResultFurPrufungModus(4)
-                        let iconColor4 = iconColorByGuessingResultFurPrufungModus(4)
-                        let iconName5 = iconNameByGuessingResultFurPrufungModus(5)
-                        let iconColor5 = iconColorByGuessingResultFurPrufungModus(5)
-                        let iconName6 = iconNameByGuessingResultFurPrufungModus(6)
-                        let iconColor6 = iconColorByGuessingResultFurPrufungModus(6)
-                        let iconName7 = iconNameByGuessingResultFurPrufungModus(7)
-                        let iconColor7 = iconColorByGuessingResultFurPrufungModus(7)
-                        let iconName8 = iconNameByGuessingResultFurPrufungModus(8)
-                        let iconColor8 = iconColorByGuessingResultFurPrufungModus(8)
-                        let iconName9 = iconNameByGuessingResultFurPrufungModus(9)
-                        let iconColor9 = iconColorByGuessingResultFurPrufungModus(9)
-                        Image(systemName: iconName0)
+            if(prufungCompleted){
+                HStack{
+                    ForEach(0..<alleWortArten.count){ index in
+                        let derPrufungResult: Int = prufungResult[alleWortArten[index]]!
+                        let iconName = nummerIconName(derPrufungResult)
+                        let iconColor = nummerIconColor(derPrufungResult)
+                        Image(systemName: iconName)
                             .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor0)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName1)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor1)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName2)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor2)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName3)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor3)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName4)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor4)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName5)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor5)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName6)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor6)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName7)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor7)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName8)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor8)
-                            .font(.system(size: 25))
-                        Image(systemName: iconName9)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor9)
+                            .foregroundStyle(.black, iconColor)
                             .font(.system(size: 25))
                     }
-                }else{
-                    HStack{
-                        Text("Пока ещё нечего проверять в  разделе [\(runningWortArt!.name_RU!)]")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                }
+            }else{
+                if(runningWortArt != nil){
+                    if(wort.count > 0){
+                        HStack{
+                            Text("Проверяем раздел [\(runningWortArt!.name_RU!)]")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                        HStack{
+                            let iconName0 = iconNameByGuessingResultFurPrufungModus(0)
+                            let iconColor0 = iconColorByGuessingResultFurPrufungModus(0)
+                            let iconName1 = iconNameByGuessingResultFurPrufungModus(1)
+                            let iconColor1 = iconColorByGuessingResultFurPrufungModus(1)
+                            let iconName2 = iconNameByGuessingResultFurPrufungModus(2)
+                            let iconColor2 = iconColorByGuessingResultFurPrufungModus(2)
+                            let iconName3 = iconNameByGuessingResultFurPrufungModus(3)
+                            let iconColor3 = iconColorByGuessingResultFurPrufungModus(3)
+                            let iconName4 = iconNameByGuessingResultFurPrufungModus(4)
+                            let iconColor4 = iconColorByGuessingResultFurPrufungModus(4)
+                            let iconName5 = iconNameByGuessingResultFurPrufungModus(5)
+                            let iconColor5 = iconColorByGuessingResultFurPrufungModus(5)
+                            let iconName6 = iconNameByGuessingResultFurPrufungModus(6)
+                            let iconColor6 = iconColorByGuessingResultFurPrufungModus(6)
+                            let iconName7 = iconNameByGuessingResultFurPrufungModus(7)
+                            let iconColor7 = iconColorByGuessingResultFurPrufungModus(7)
+                            let iconName8 = iconNameByGuessingResultFurPrufungModus(8)
+                            let iconColor8 = iconColorByGuessingResultFurPrufungModus(8)
+                            let iconName9 = iconNameByGuessingResultFurPrufungModus(9)
+                            let iconColor9 = iconColorByGuessingResultFurPrufungModus(9)
+                            Image(systemName: iconName0)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor0)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName1)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor1)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName2)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor2)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName3)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor3)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName4)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor4)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName5)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor5)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName6)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor6)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName7)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor7)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName8)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor8)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName9)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor9)
+                                .font(.system(size: 25))
+                        }
+                    }else{
+                        HStack{
+                            Text("Пока ещё нечего проверять в  разделе [\(runningWortArt!.name_RU!)]")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
                     }
                 }
             }
@@ -1111,7 +1199,9 @@ struct WortRepeater: View {
     }
     func pickTheWordFurPrufung() {
         
-        let alleWortArten: [WortArt] = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
+        if(alleWortArten.isEmpty){
+            alleWortArten = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
+        }
         
         if prufungResult.isEmpty {
             for dieWortArt in alleWortArten {
@@ -1120,7 +1210,10 @@ struct WortRepeater: View {
         }
         
         if(runningWortArtIndex >= alleWortArten.count){
+            prufungCompleted = true
             return
+        }else{
+            prufungCompleted = false
         }
         runningWortArt = alleWortArten[runningWortArtIndex]
         
