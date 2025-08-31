@@ -229,7 +229,11 @@ struct WortRepeater: View {
             .frame(maxWidth: .infinity)
             .NG_Card(.NG_CardStyle_Regular, theme: theme)
             .onAppear{
-                pickTheWord()
+                if(prufungModus){
+                    pickTheWordFurPrufung()
+                }else{
+                    pickTheWord()
+                }
             }
             .onChange(of: showProgressBarDetails){ oldValue, newValue in
                 if(newValue){
@@ -584,9 +588,89 @@ struct WortRepeater: View {
             }, widthFlood: true)
         }
     }
+    private func iconNameByGuessingResultFurPrufungModus(_ index: Int) -> String{
+        return guessingResult[index] == -1 ?  "multiply.square.fill" : guessingResult[index] == 0 ? "questionmark.square.fill" : "checkmark.square.fill"
+    }
+    private func iconColorByGuessingResultFurPrufungModus(_ index: Int) -> Color{
+        return guessingResult[index] == -1 ?  Color.red : guessingResult[index] == 0 ? Color.yellow : Color.green
+    }
     private func dasPrufungProgressSektion() -> some View {
-        return HStack{
-            
+        return VStack{
+            if(runningWortArt != nil){
+                if(wort.count > 0){
+                    HStack{
+                        Text("Проверяем раздел [\(runningWortArt!.name_RU!)]")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    HStack{
+                        let iconName0 = iconNameByGuessingResultFurPrufungModus(0)
+                        let iconColor0 = iconColorByGuessingResultFurPrufungModus(0)
+                        let iconName1 = iconNameByGuessingResultFurPrufungModus(1)
+                        let iconColor1 = iconColorByGuessingResultFurPrufungModus(1)
+                        let iconName2 = iconNameByGuessingResultFurPrufungModus(2)
+                        let iconColor2 = iconColorByGuessingResultFurPrufungModus(2)
+                        let iconName3 = iconNameByGuessingResultFurPrufungModus(3)
+                        let iconColor3 = iconColorByGuessingResultFurPrufungModus(3)
+                        let iconName4 = iconNameByGuessingResultFurPrufungModus(4)
+                        let iconColor4 = iconColorByGuessingResultFurPrufungModus(4)
+                        let iconName5 = iconNameByGuessingResultFurPrufungModus(5)
+                        let iconColor5 = iconColorByGuessingResultFurPrufungModus(5)
+                        let iconName6 = iconNameByGuessingResultFurPrufungModus(6)
+                        let iconColor6 = iconColorByGuessingResultFurPrufungModus(6)
+                        let iconName7 = iconNameByGuessingResultFurPrufungModus(7)
+                        let iconColor7 = iconColorByGuessingResultFurPrufungModus(7)
+                        let iconName8 = iconNameByGuessingResultFurPrufungModus(8)
+                        let iconColor8 = iconColorByGuessingResultFurPrufungModus(8)
+                        let iconName9 = iconNameByGuessingResultFurPrufungModus(9)
+                        let iconColor9 = iconColorByGuessingResultFurPrufungModus(9)
+                        Image(systemName: iconName0)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor0)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName1)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor1)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName2)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor2)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName3)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor3)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName4)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor4)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName5)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor5)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName6)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor6)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName7)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor7)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName8)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor8)
+                            .font(.system(size: 25))
+                        Image(systemName: iconName9)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor9)
+                            .font(.system(size: 25))
+                    }
+                }else{
+                    HStack{
+                        Text("Пока ещё нечего проверять в  разделе [\(runningWortArt!.name_RU!)]")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                }
+            }
         }
         .onTapGesture {
             //showProgressBarDetails.toggle()

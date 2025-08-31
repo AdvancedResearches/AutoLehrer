@@ -334,9 +334,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1009"
-            endingLineNumber = "1009"
-            landmarkName = "dasWortSektion(dasWort:index:)"
+            startingLineNumber = "1093"
+            endingLineNumber = "1093"
+            landmarkName = "pickTheWord()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -382,8 +382,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1089"
-            endingLineNumber = "1089">
+            startingLineNumber = "1173"
+            endingLineNumber = "1173">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -460,9 +460,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1008"
-            endingLineNumber = "1008"
-            landmarkName = "dasWortSektion(dasWort:index:)"
+            startingLineNumber = "1092"
+            endingLineNumber = "1092"
+            landmarkName = "pickTheWord()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -476,9 +476,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1004"
-            endingLineNumber = "1004"
-            landmarkName = "dasWortSektion(dasWort:index:)"
+            startingLineNumber = "1088"
+            endingLineNumber = "1088"
+            landmarkName = "pickTheWord()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
