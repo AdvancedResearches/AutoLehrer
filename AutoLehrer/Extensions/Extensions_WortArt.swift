@@ -40,7 +40,8 @@ extension WortArt{
         let allWortFormen: [WortFormen] = Array(wortArt.relWortFormen as? Set<WortFormen> ?? []).filter{$0.formsToShow >= 1}
         
         for theWortForm in allWortFormen{
-            
+            let alleFormenToTry = WortFormen.retrieve_allAllowedFormen(theWortForm, includeLastAttempting: false)
+            retValue.append(contentsOf: alleFormenToTry)
         }
         
         return retValue

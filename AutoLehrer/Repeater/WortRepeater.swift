@@ -13,6 +13,8 @@ struct WortRepeater: View {
     var prufungModus: Bool = false
     @State var runningWortArt: WortArt?
     @State var runningWortArtIndex: Int = 0
+    @State var prufungWortFormen: [WortFormen] = []
+    @State var prufungResult: [WortArt: Int] = [:]
     
     @State var pickedWortFormen: WortFormen?
     
@@ -1075,11 +1077,15 @@ struct WortRepeater: View {
         
         var theCounter = 0
         
+        /*
         var alleWorteFurSache = pickedSache.relWort?.allObjects as! [Wort] ?? []
         
         var sortedWorte = Wort.Worte_sort(alleWorteFurSache, pickedSache.relWortArt!)
         
         var topWorte: [Wort] = Array(sortedWorte.prefix(Int(pickedSache.formsToShow)))
+        */
+        
+        var topWorte: [Wort] = WortFormen.retrieve_allAllowedFormen(pickedSache)
         
         for theCounter in 0..<topWorte.count{
             wort.append(topWorte[theCounter])
@@ -1111,19 +1117,21 @@ struct WortRepeater: View {
     func pickTheWordFurPrufung() {
         
         let alleWortArten: [WortArt] = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
+        
+        if prufungResult.isEmpty {
+            for dieWortArt in alleWortArten {
+                prufungResult.updateValue(-1, forKey: dieWortArt)
+            }
+        }
+        
         if(runningWortArtIndex >= alleWortArten.count){
             return
         }
         runningWortArt = alleWortArten[runningWortArtIndex]
         
+        var wortenZuWalhlenAus: [Wort] = WortArt.fetch_alleConfirmedWorten(runningWortArt!)
         
-        
-        let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
-        
-                
-        if (pickedSache.formsToShow < 1){
-            pickedSache.formsToShow = 1
-        }
+        var gewahltWorter: [Wort] = Array(wortenZuWalhlenAus.shuffled().prefix(10))
         
         pickedWortFormen = nil
         wort = []
@@ -1134,31 +1142,18 @@ struct WortRepeater: View {
         flipScaleRatio = []
         guessingResult = []
         wortForm = []
+        prufungWortFormen = []
         
-        exercisedWorte.insert(pickedSache)
-        
-        wort = []
-        beispiel = []
-        
-        print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
-        
-        var appendedCount = 0
-        
-        var theCounter = 0
-        
-        var alleWorteFurSache = pickedSache.relWort?.allObjects as! [Wort] ?? []
-        
-        var sortedWorte = Wort.Worte_sort(alleWorteFurSache, pickedSache.relWortArt!)
-        
-        var topWorte: [Wort] = Array(sortedWorte.prefix(Int(pickedSache.formsToShow)))
-        
-        for theCounter in 0..<topWorte.count{
-            wort.append(topWorte[theCounter])
-            beispiel.append(Wort.get_beispiel(topWorte[theCounter]))
-            wortForm.append(WortArtFormen.fromWort(topWorte[theCounter]))
+        if(gewahltWorter.count < 10){
+            return
         }
         
-        print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
+        for theCounter in 0..<gewahltWorter.count{
+            wort.append(gewahltWorter[theCounter])
+            beispiel.append(Wort.get_beispiel(gewahltWorter[theCounter]))
+            wortForm.append(WortArtFormen.fromWort(gewahltWorter[theCounter]))
+            prufungWortFormen.append(gewahltWorter[theCounter].relWortFormen!)
+        }
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         flippedSeite = Array(repeating: false, count: wort.count)
@@ -1174,9 +1169,9 @@ struct WortRepeater: View {
         readyToMoveOn = false
         runningWort = 0
         hasFaults = false
-        pickedWortFormen = pickedSache
+        pickedWortFormen = prufungWortFormen[0]
         potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-        
-        recalcTimeToBeatReminder()
+        prufungResult.updateValue(0, forKey: runningWortArt!)
+        runningWortArtIndex += 1
     }
 }
