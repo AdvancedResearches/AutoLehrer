@@ -9,6 +9,7 @@ struct WortRepeater: View {
     @EnvironmentObject var theme: ThemeManager
     
     var wortArt: WortArt
+    var prufungModus: Bool = false
     
     @State var pickedWortFormen: WortFormen?
     
