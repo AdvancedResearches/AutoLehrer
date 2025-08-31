@@ -1110,7 +1110,13 @@ struct WortRepeater: View {
     }
     func pickTheWordFurPrufung() {
         
-        let alle
+        let alleWortArten: [WortArt] = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
+        if(runningWortArtIndex >= alleWortArten.count){
+            return
+        }
+        runningWortArt = alleWortArten[runningWortArtIndex]
+        
+        
         
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         

@@ -35,4 +35,14 @@ extension WortArt{
         }catch{}
         return result!
     }
+    public static func fetch_alleConfirmedWorten(_ wortArt: WortArt) -> [Wort]{
+        var retValue: [Wort] = []
+        let allWortFormen: [WortFormen] = Array(wortArt.relWortFormen as? Set<WortFormen> ?? []).filter{$0.formsToShow >= 1}
+        
+        for theWortForm in allWortFormen{
+            
+        }
+        
+        return retValue
+    }
 }

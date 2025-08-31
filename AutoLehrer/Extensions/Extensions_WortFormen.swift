@@ -312,4 +312,22 @@ extension WortFormen{
         }
         return false
     }
+    public static func retrieve_allAllowedFormen(_ wortFormen: WortFormen, includeLastAttempting: Bool = true) -> [Wort] {
+        var retValue: [Wort] = []
+        
+        var alleWorteFurSache = wortFormen.relWort?.allObjects as! [Wort] ?? []
+        var sortedWorte = Wort.Worte_sort(alleWorteFurSache, wortFormen.relWortArt!)
+        
+        var countToRetrive: Int = Int(wortFormen.formsToShow)
+        
+        if(!includeLastAttempting){
+            if(wortFormen.successCounter < 2){
+                countToRetrive -= 1
+            }
+        }
+        
+        retValue = Array(sortedWorte.prefix(Int(wortFormen.formsToShow)))
+        
+        return retValue
+    }
 }
