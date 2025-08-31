@@ -586,99 +586,10 @@ struct WortRepeater: View {
     }
     private func dasPrufungProgressSektion() -> some View {
         return HStack{
-            DualColorBar(
-                greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
-                yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!),
-                height: 25,
-                pulseyellowtogreen: $potentiallyAddWortForme
-            )
-            .onAppear{
-                potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                print("Initialize potential word form add - pulse to \(potentiallyAddWortForme)")
-            }
-            .onChange(of: hasFaults){ _, newValue in
-                if(newValue){
-                    potentiallyAddWortForme = false
-                    print("Discard potential word form add - pulse false")
-                }else{
-                    potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                    print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
-                }
-            }
-            if(!pickedWortFormen!.failed){
-                Image(systemName: "chevron.right.square.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                    .font(.system(size: 25))
-                Image(systemName: "chevron.right.square.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                    .font(.system(size: 25))
-                Image(systemName: "chevron.right.square.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                    .font(.system(size: 25))
-            }else{
-                if(pickedWortFormen!.successCounter == 0){
-                    Image(systemName: "questionmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                        .font(.system(size: 25))
-                    Image(systemName: "square")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .clear)
-                        .font(.system(size: 25))
-                    Image(systemName: "square")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .clear)
-                        .font(.system(size: 25))
-                }
-                if(pickedWortFormen!.successCounter == 1){
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "questionmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                        .font(.system(size: 25))
-                    Image(systemName: "square")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .clear)
-                        .font(.system(size: 25))
-                }
-                if(pickedWortFormen!.successCounter == 2){
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "questionmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                        .font(.system(size: 25))
-                }
-                if(pickedWortFormen!.successCounter >= 3){
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                }
-            }
+            
         }
         .onTapGesture {
-            showProgressBarDetails.toggle()
+            //showProgressBarDetails.toggle()
         }
         
     }

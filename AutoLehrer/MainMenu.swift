@@ -205,6 +205,24 @@ struct MainMenu: View {
                             }
                         }
                         .id(wortArtenStatsRedraw)
+                        
+                        if(!wortArten.isEmpty){
+                            Divider()
+                            
+                            NavigationLink(
+                                destination: WortRepeater(wortArt: wortArten.first!, prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme)) {
+                                    Group {
+                                        NG_Button(
+                                            title: "Экзамен",
+                                            style: .NG_ButtonStyle_Regular,
+                                            isDisabled: .constant(false),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(false),
+                                            widthFlood: true
+                                        )
+                                    }
+                                }
+                        }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
