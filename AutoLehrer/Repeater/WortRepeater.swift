@@ -975,7 +975,8 @@ struct WortRepeater: View {
                                 }
                             }
                             hasFaults = guessingResult.contains(-1)
-                            TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dasWort.relWortFormen?.relWortArt)
+                            let dieWortArt: WortArt? = prufungModus ? runningWortArt : dasWort.relWortFormen?.relWortArt
+                            TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dieWortArt)
                             recalcTimeToBeatReminder()
                         }, widthFlood: true)
                         .if((!flippedSeite[index])||(missedGuess[index])){ view in
@@ -1008,7 +1009,8 @@ struct WortRepeater: View {
                                 withAnimation(.easeOut(duration: 0.05).delay(0.45)) { flipShakingRatio[index] = 1 }
                             }
                             hasFaults = guessingResult.contains(-1)
-                            TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dasWort.relWortFormen?.relWortArt)
+                            let dieWortArt: WortArt? = prufungModus ? runningWortArt : dasWort.relWortFormen?.relWortArt
+                            TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dieWortArt)
                             recalcTimeToBeatReminder()
                         }, widthFlood: true)
                         .if(!flippedSeite[index]){ view in
