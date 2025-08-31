@@ -9,7 +9,9 @@ struct WortRepeater: View {
     @EnvironmentObject var theme: ThemeManager
     
     var wortArt: WortArt
+    
     var prufungModus: Bool = false
+    @State var runningWortArt: WortArt?
     
     @State var pickedWortFormen: WortFormen?
     
@@ -89,31 +91,37 @@ struct WortRepeater: View {
     
     var body: some View {
         VStack{
-            HStack{
-                Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
-                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                    .padding(.horizontal, 5)
-                Spacer()
-            }
-            if(toBeatYesterday != nil){
+            if(!prufungModus){
                 HStack{
-                    Text("Позаниматься ещё \(toBeatYesterday!) чтобы превысить вчерашний результат")
+                    Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
                         .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
                         .padding(.horizontal, 5)
                     Spacer()
                 }
-            }
-            if(toBeatAverage != nil){
-                HStack{
-                    Text("Позаниматься ещё \(toBeatAverage!) чтобы превысить средний результат за неделю")
-                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                        .padding(.horizontal, 5)
-                    Spacer()
+                if(toBeatYesterday != nil){
+                    HStack{
+                        Text("Позаниматься ещё \(toBeatYesterday!) чтобы превысить вчерашний результат")
+                            .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                            .padding(.horizontal, 5)
+                        Spacer()
+                    }
+                }
+                if(toBeatAverage != nil){
+                    HStack{
+                        Text("Позаниматься ещё \(toBeatAverage!) чтобы превысить средний результат за неделю")
+                            .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                            .padding(.horizontal, 5)
+                        Spacer()
+                    }
                 }
             }
             VStack {
-                if(pickedWortFormen != nil){
-                    dasProgressSektion()
+                if(prufungModus){
+                    dasPrufungProgressSektion()
+                }else{
+                    if(pickedWortFormen != nil){
+                        dasProgressSektion()
+                    }
                 }
                 if(pickedWortFormen != nil){
                     ScrollViewReader { proxy in
@@ -146,32 +154,40 @@ struct WortRepeater: View {
                                         isPulsating: .constant(readyToMoveOn),
                                         action: {
                                             if(readyToMoveOn){
-                                                attemptCounter += 1
-                                                var successCounter: Int = 0
-                                                
-                                                for theFormCounter in 0..<wort.count{
-                                                    if(guessingResult[theFormCounter] == 1){
-                                                        Statistics.set_success(wort[theFormCounter])
-                                                        successCounter += 1
-                                                    }
-                                                    if(guessingResult[theFormCounter] == -1){
-                                                        Statistics.set_failure(wort[theFormCounter])
-                                                    }
-                                                }
-                                                
-                                                if(successCounter == wort.count){
-                                                    if(WortFormen.set_success(pickedWortFormen!)){
-                                                        confirmedWorte.insert(pickedWortFormen!)
-                                                    }
+                                                if(prufungModus){
+                                                    
                                                 }else{
-                                                    WortFormen.set_failure(pickedWortFormen!)
-                                                    confirmedWorte.remove(pickedWortFormen!)
+                                                    attemptCounter += 1
+                                                    var successCounter: Int = 0
+                                                    
+                                                    for theFormCounter in 0..<wort.count{
+                                                        if(guessingResult[theFormCounter] == 1){
+                                                            Statistics.set_success(wort[theFormCounter])
+                                                            successCounter += 1
+                                                        }
+                                                        if(guessingResult[theFormCounter] == -1){
+                                                            Statistics.set_failure(wort[theFormCounter])
+                                                        }
+                                                    }
+                                                    
+                                                    if(successCounter == wort.count){
+                                                        if(WortFormen.set_success(pickedWortFormen!)){
+                                                            confirmedWorte.insert(pickedWortFormen!)
+                                                        }
+                                                    }else{
+                                                        WortFormen.set_failure(pickedWortFormen!)
+                                                        confirmedWorte.remove(pickedWortFormen!)
+                                                    }
+                                                    
+                                                    WortFormen.set_attempted(pickedWortFormen!)
+                                                    Statistics.wortFormenUrgency(pickedWortFormen!)
                                                 }
                                                 
-                                                WortFormen.set_attempted(pickedWortFormen!)
-                                                Statistics.wortFormenUrgency(pickedWortFormen!)
-                                                
-                                                pickTheWord()
+                                                if(prufungModus){
+                                                    pickTheWordFurPrufung()
+                                                }else{
+                                                    pickTheWord()
+                                                }
                                             }else{
                                                 withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
                                                 withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
@@ -565,6 +581,104 @@ struct WortRepeater: View {
             }, widthFlood: true)
         }
     }
+    private func dasPrufungProgressSektion() -> some View {
+        return HStack{
+            DualColorBar(
+                greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
+                yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!),
+                height: 25,
+                pulseyellowtogreen: $potentiallyAddWortForme
+            )
+            .onAppear{
+                potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+                print("Initialize potential word form add - pulse to \(potentiallyAddWortForme)")
+            }
+            .onChange(of: hasFaults){ _, newValue in
+                if(newValue){
+                    potentiallyAddWortForme = false
+                    print("Discard potential word form add - pulse false")
+                }else{
+                    potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+                    print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
+                }
+            }
+            if(!pickedWortFormen!.failed){
+                Image(systemName: "chevron.right.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
+                    .font(.system(size: 25))
+                Image(systemName: "chevron.right.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
+                    .font(.system(size: 25))
+                Image(systemName: "chevron.right.square.fill")
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
+                    .font(.system(size: 25))
+            }else{
+                if(pickedWortFormen!.successCounter == 0){
+                    Image(systemName: "questionmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
+                        .font(.system(size: 25))
+                    Image(systemName: "square")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .clear)
+                        .font(.system(size: 25))
+                    Image(systemName: "square")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .clear)
+                        .font(.system(size: 25))
+                }
+                if(pickedWortFormen!.successCounter == 1){
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "questionmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
+                        .font(.system(size: 25))
+                    Image(systemName: "square")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, .clear)
+                        .font(.system(size: 25))
+                }
+                if(pickedWortFormen!.successCounter == 2){
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "questionmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
+                        .font(.system(size: 25))
+                }
+                if(pickedWortFormen!.successCounter >= 3){
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
+                        .font(.system(size: 25))
+                    Image(systemName: "checkmark.square.fill")
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
+                        .font(.system(size: 25))
+                }
+            }
+        }
+        .onTapGesture {
+            showProgressBarDetails.toggle()
+        }
+        
+    }
     private func dasProgressSektion() -> some View {
         return HStack{
             DualColorBar(
@@ -932,6 +1046,68 @@ struct WortRepeater: View {
     }
     
     func pickTheWord() {
+        let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
+        print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
+                
+        if (pickedSache.formsToShow < 1){
+            pickedSache.formsToShow = 1
+        }
+        
+        pickedWortFormen = nil
+        wort = []
+        beispiel = []
+        deutschesSeite = []
+        flippedSeite = []
+        missedGuess = []
+        flipScaleRatio = []
+        guessingResult = []
+        wortForm = []
+        
+        exercisedWorte.insert(pickedSache)
+        
+        wort = []
+        beispiel = []
+        
+        print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
+        
+        var appendedCount = 0
+        
+        var theCounter = 0
+        
+        var alleWorteFurSache = pickedSache.relWort?.allObjects as! [Wort] ?? []
+        
+        var sortedWorte = Wort.Worte_sort(alleWorteFurSache, pickedSache.relWortArt!)
+        
+        var topWorte: [Wort] = Array(sortedWorte.prefix(Int(pickedSache.formsToShow)))
+        
+        for theCounter in 0..<topWorte.count{
+            wort.append(topWorte[theCounter])
+            beispiel.append(Wort.get_beispiel(topWorte[theCounter]))
+            wortForm.append(WortArtFormen.fromWort(topWorte[theCounter]))
+        }
+        
+        print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
+        
+        deutschesSeite = Array(repeating: false, count: wort.count)
+        flippedSeite = Array(repeating: false, count: wort.count)
+        missedGuess = Array(repeating: false, count: wort.count)
+        flipScaleRatio = Array(repeating: 1, count: wort.count)
+        flipTimers = Array(repeating: nil, count: wort.count)
+        flipPassed = Array(repeating: 0, count: wort.count)
+        flipTicker = Array(repeating: 0, count: wort.count)
+        flipTotal = Array(repeating: Double(timeAttackMode), count: wort.count)
+        flipCompleted = Array(repeating: false, count: wort.count)
+        flipShakingRatio = Array(repeating: 1, count: wort.count)
+        guessingResult = Array(repeating: 0, count: wort.count)
+        readyToMoveOn = false
+        runningWort = 0
+        hasFaults = false
+        pickedWortFormen = pickedSache
+        potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+        
+        recalcTimeToBeatReminder()
+    }
+    func pickTheWordFurPrufung() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
                 
