@@ -3,7 +3,6 @@ import CoreData
 
 struct WortRepeater: View {
     
-    
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     @AppStorage("appLanguage") var language: String = "ru"

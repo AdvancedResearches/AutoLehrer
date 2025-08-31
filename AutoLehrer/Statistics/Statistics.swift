@@ -28,6 +28,8 @@ struct StatisticsView: View {
     @State var currentTheme: Theme_Style = .regular
     
     @State var statArray: [StatsItem] = []
+    @State var wortArten: [WortArt] = []
+    @State var selectedArt: Int = -1
     
     let allThemes: [Theme_Style] = [.regular, .herren, .frauen, .cyberpunk, .retrowave]
     
@@ -39,6 +41,14 @@ struct StatisticsView: View {
                         Text("Время изучения")
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
                             .padding(.leading, 10)
+                        Picker("Типы", selection: $selectedArt) {
+                            Text("В целом").tag(-1)
+                            ForEach(Array(wortArten.enumerated()), id: \.element) { index, theArt in
+                                Text(theArt.name_RU ?? "")
+                                    .tag(index)
+                            }
+                        }
+                        .pickerStyle(.menu)
                         Spacer()
                     }
                     let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
@@ -100,6 +110,14 @@ struct StatisticsView: View {
                         Text("Степень изучения")
                             .NG_textStyling(.NG_TextStyle_SectionHeader, theme: theme)
                             .padding(.leading, 10)
+                        Picker("Типы", selection: $selectedArt) {
+                            Text("В целом").tag(-1)
+                            ForEach(Array(wortArten.enumerated()), id: \.element) { index, theArt in
+                                Text(theArt.name_RU ?? "")
+                                    .tag(index)
+                            }
+                        }
+                        .pickerStyle(.menu)
                         Spacer()
                     }
                     let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
@@ -164,6 +182,9 @@ struct StatisticsView: View {
             .onAppear{
                 reloadTimeLearningData()
             }
+            .onChange(of: selectedArt){
+                reloadTimeLearningData()
+            }
             .background(theme.currentTheme.NG_LinearGradient_Background_Page)
             .navigationBarBackButtonHidden(true)
             .navigationBarItems(
@@ -180,6 +201,7 @@ struct StatisticsView: View {
             let newTimeStampItem = StatsItem(id: theOffset+27, timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil, totalFormen: nil, confirmedFormen: nil)
             statArray.append(newTimeStampItem)
         }
+        wortArten = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
     }
     
     func reloadTimeLearningData() {
@@ -187,9 +209,13 @@ struct StatisticsView: View {
         if(statArray.count == 0){
             defaultTimeLearningData()
         }
+        var theWortArt: WortArt? = nil
+        if(selectedArt >= 0){
+            theWortArt = wortArten[selectedArt]
+        }
         for theOffset in -27 ... 0 {
             var newTimeStampItem = StatsItem(id: theOffset+27, timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil, totalFormen: nil, confirmedFormen: nil)
-            let retrievedTimers = TimeStatistics.fetchLearningTime(in: viewContext, at: newTimeStampItem.timeStamp, forThe: nil)
+            let retrievedTimers = TimeStatistics.fetchLearningTime(in: viewContext, at: newTimeStampItem.timeStamp, forThe: theWortArt)
             if(retrievedTimers != nil){
                 newTimeStampItem.learnTime = retrievedTimers!.learningTime
                 newTimeStampItem.totalFormen = retrievedTimers!.totalFormen
