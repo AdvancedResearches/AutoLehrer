@@ -12,6 +12,7 @@ struct WortRepeater: View {
     
     var prufungModus: Bool = false
     @State var runningWortArt: WortArt?
+    @State var runningWortArtIndex: Int = 0
     
     @State var pickedWortFormen: WortFormen?
     
@@ -1108,8 +1109,11 @@ struct WortRepeater: View {
         recalcTimeToBeatReminder()
     }
     func pickTheWordFurPrufung() {
+        
+        let alle
+        
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
-        print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
+        
                 
         if (pickedSache.formsToShow < 1){
             pickedSache.formsToShow = 1
