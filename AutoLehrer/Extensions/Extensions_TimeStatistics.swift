@@ -21,6 +21,11 @@ extension TimeStatistics{
                     let count = (theWortFormen.relWort as? Set<Wort>)?.count ?? 0
                     wortFormenTotal += Int64(count)
                     wortFormenConfirmed += max(theWortFormen.formsToShow - 1, 0)
+                    if(count == theWortFormen.formsToShow){
+                        if(theWortFormen.successCounter >= 2){
+                           wortFormenConfirmed += 1
+                        }
+                    }
                 }
                 
                 var wortFormenTimeStats = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
