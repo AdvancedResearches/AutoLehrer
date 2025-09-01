@@ -951,7 +951,8 @@ struct WortRepeater: View {
                             }) {
                                 let successFormen = guessingResult.filter{$0 == 1}.count
                                 let checkedFormen = guessingResult.count
-                                if(prufungCompleted){
+                                NextButton_Regular()
+                                /*if(prufungCompleted){
                                     NG_Button(
                                         title: "Экзамен закончен".localized(for: language),
                                         style: .NG_ButtonStyle_Regular,
@@ -1026,7 +1027,7 @@ struct WortRepeater: View {
                                     .padding(.horizontal, 15)
                                     .padding(.vertical, 25)
                                     .transition(.scale)
-                                }
+                                }*/
                             }
                         }
                         Color.clear.frame(height: 1).id("bottom-anchor")
