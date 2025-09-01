@@ -38,8 +38,8 @@ struct StatisticsView: View {
     
     var body: some View{
         NavigationStack {
-            VStack {
-                ScrollView(.vertical){
+            ScrollView(.vertical){
+                VStack {
                     VStack{
                         HStack{
                             Text("Время изучения")
