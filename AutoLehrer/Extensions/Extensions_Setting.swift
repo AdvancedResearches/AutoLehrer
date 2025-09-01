@@ -9,6 +9,19 @@ import Foundation
 import CoreData
 
 extension Settings {
+    
+    static func getLetztePrufung(in context: NSManagedObjectContext) -> Date? {
+        if let letztePrufungValue = getValue(for: "letztePrufung", in: context) {
+            let letztePrufung = Date.convert_StringToDate_DownToSecond(theString: letztePrufungValue)// Int64(timeAttackModeValue)!
+            return letztePrufung
+        } else {
+            return nil
+        }
+    }
+    static func setLetztePrufung(_ value: Date, in context: NSManagedObjectContext){
+        setValue(Date.convert_DateToString_DownToSecond(theDate: value) , for: "letztePrufung", in: context)
+    }
+    
     static func getTimeAttackMode(in context: NSManagedObjectContext) -> Int64 {
         if let timeAttackModeValue = getValue(for: "timeAttackMode", in: context) {
             let timeAttackMode = Int64(timeAttackModeValue)!

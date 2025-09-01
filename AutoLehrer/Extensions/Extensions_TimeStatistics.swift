@@ -8,6 +8,23 @@
 import CoreData
 
 extension TimeStatistics{
+    public static func bereitFurPrufung(_ context: NSManagedObjectContext) -> Bool{
+        let alleWortArten = try! context.fetch(WortArt.fetchRequest())
+        var wortArtAcceptable: Int = 0
+        for dieWortArt in alleWortArten{
+            if(WortArt.fetch_alleConfirmedWorten(dieWortArt).count >= 10){
+                wortArtAcceptable += 1
+            }
+        }
+        return wortArtAcceptable > 0
+    }
+    public static func DaysSinceLastPrufung(_ context: NSManagedObjectContext) -> Int{
+        let letztePrufung = Settings.getLetztePrufung(in: context)
+        if(letztePrufung != nil){
+            return Date.get_offset_inDays(letztePrufung!, Date.now)
+        }
+        return -1
+    }
     public static func submitExamResults(in context: NSManagedObjectContext, at date: Date, for examScore: Double, forThe wortArt: WortArt?){
         let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
         theStamp.examTotal += examScore
