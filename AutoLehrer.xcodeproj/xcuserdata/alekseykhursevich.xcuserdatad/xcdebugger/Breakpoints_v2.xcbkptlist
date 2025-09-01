@@ -334,9 +334,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1285"
-            endingLineNumber = "1285"
-            landmarkName = "dasProgressSektion()"
+            startingLineNumber = "1422"
+            endingLineNumber = "1422"
+            landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -382,9 +382,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1383"
-            endingLineNumber = "1383"
-            landmarkName = "dasWortSektion(dasWort:index:)"
+            startingLineNumber = "1520"
+            endingLineNumber = "1520"
+            landmarkName = "dasProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -462,9 +462,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1284"
-            endingLineNumber = "1284"
-            landmarkName = "dasProgressSektion()"
+            startingLineNumber = "1421"
+            endingLineNumber = "1421"
+            landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -478,9 +478,9 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1280"
-            endingLineNumber = "1280"
-            landmarkName = "dasProgressSektion()"
+            startingLineNumber = "1417"
+            endingLineNumber = "1417"
+            landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
