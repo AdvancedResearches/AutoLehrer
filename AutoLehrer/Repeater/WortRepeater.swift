@@ -94,11 +94,48 @@ struct WortRepeater: View {
         }
     }
     
-    func prufungScorePercent(_ for: WortArt? = nil) -> Int {
+    func prufungScorePercent(_ forWA: WortArt? = nil) -> Int {
+        if(forWA != nil){
+            if let dasResult = prufungResult[forWA!] {
+                return Int(Double(100) * Double(dasResult) / Double(10))
+            }else{
+                return 0
+            }
+        }else{
+            var ganzResult: Int = 0
+            var countedResults: Int = 0
+            for dasWA in alleWortArten{
+                let dasResult = prufungScorePercent(dasWA)
+                if(dasResult >= 0){
+                    ganzResult += dasResult
+                    countedResults += 1
+                }
+            }
+            return Int(Double(ganzResult) / Double(countedResults))
+        }
         return 0
     }
     
-    func prufungResult(_ for: WortArt? = nil) -> String{
+    func prufungResult(_ forWA: WortArt? = nil) -> String{
+        let scorePercentage = prufungScorePercent(forWA)
+        if(scorePercentage == 100){
+            return "Отлично"
+        }
+        if(scorePercentage > 80){
+            return "Хорошо"
+        }
+        if(scorePercentage > 60){
+            return "Удовлетворительно"
+        }
+        if(scorePercentage > 40){
+            return "Неудовлетворительно"
+        }
+        if(scorePercentage > 20){
+            return "Плохо"
+        }
+        if(scorePercentage > 0){
+            return "Отвратительно"
+        }
         return "Неизвестно"
     }
     
@@ -138,14 +175,14 @@ struct WortRepeater: View {
                 }
                 if(prufungCompleted){
                     HStack{
-                        Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())")
+                        Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
                             .NG_textStyling(.NG_TextStyle_Text_Big, theme: theme)
                         Spacer()
                     }
                         .padding(.leading, 10)
                     ForEach(0..<alleWortArten.count){ index in
                         HStack{
-                            Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))")
+                            Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             Spacer()
                         }
