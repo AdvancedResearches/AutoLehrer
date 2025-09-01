@@ -18,6 +18,7 @@ struct WortRepeater: View {
     @State var prufungResult: [WortArt: Int] = [:]
     @State var prufungCompleted: Bool = false
     @State var prufungLoadCompleted: Bool = false
+    @State var prufungButtonTrigger: Bool = false
     
     @State var pickedWortFormen: WortFormen?
     
@@ -540,6 +541,7 @@ struct WortRepeater: View {
                             }) {
                                 NextButton_Prufung_Next()
                             }
+                            
                         }
                     }else{
                         if(prufungLoadCompleted){
@@ -553,19 +555,18 @@ struct WortRepeater: View {
                                 
                             }) {
                                 NextButton_Prufung_Skip()
+                                    .id(prufungButtonTrigger)
                             }
                         }
                     }
                     
                     Color.clear.frame(height: 1).id("bottom-anchor")
-                        .onChange(of: prufungLoadCompleted){ newValue in
-                            if(newValue){
-                                
-                            }
-                        }
                 }
                 .background(.clear)
-                .animation(.easeInOut(duration: 0.35), value: readyToMoveOn)
+                .animation(.easeInOut(duration: 0.35), value: prufungButtonTrigger)
+                .onChange(of: prufungButtonTrigger){ newValue in
+                    print("prufungButtonTrigger changed to \(newValue) and shall trigger animation")
+                }
                 .onChange(of: runningWort) { newValue in
                     withAnimation {
                         proxy.scrollTo(newValue, anchor: .center)
@@ -1172,6 +1173,9 @@ struct WortRepeater: View {
                                     }
                                     guessingResult[index] = 1
                                     readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                    if readyToMoveOn {
+                                        prufungButtonTrigger.toggle()
+                                    }
                                 }
                                 hasFaults = guessingResult.contains(-1)
                             }
@@ -1186,6 +1190,9 @@ struct WortRepeater: View {
                                     }
                                     guessingResult[index] = -1
                                     readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                    if readyToMoveOn {
+                                        prufungButtonTrigger.toggle()
+                                    }
                                 }
                                 hasFaults = guessingResult.contains(-1)
                             }
@@ -1207,6 +1214,9 @@ struct WortRepeater: View {
                                 }
                                 guessingResult[index] = 1
                                 readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                if readyToMoveOn {
+                                    prufungButtonTrigger.toggle()
+                                }
                             }else{
                                 if(!flippedSeite[index]){
                                     withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
@@ -1243,6 +1253,9 @@ struct WortRepeater: View {
                                 }
                                 guessingResult[index] = -1
                                 readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
+                                if readyToMoveOn {
+                                    prufungButtonTrigger.toggle()
+                                }
                             }else{
                                 withAnimation(.easeOut(duration: 0.05)) { flipShakingRatio[index] = 1.05 }
                                 withAnimation(.easeOut(duration: 0.05).delay(0.05)) { flipShakingRatio[index] = 0.95 }
@@ -1426,14 +1439,6 @@ struct WortRepeater: View {
         
         var theCounter = 0
         
-        /*
-        var alleWorteFurSache = pickedSache.relWort?.allObjects as! [Wort] ?? []
-        
-        var sortedWorte = Wort.Worte_sort(alleWorteFurSache, pickedSache.relWortArt!)
-        
-        var topWorte: [Wort] = Array(sortedWorte.prefix(Int(pickedSache.formsToShow)))
-        */
-        
         var topWorte: [Wort] = WortFormen.retrieve_allAllowedFormen(pickedSache)
         
         for theCounter in 0..<topWorte.count{
@@ -1516,6 +1521,7 @@ struct WortRepeater: View {
             print("pickTheWordFurPrufung: detected demand to skip the wort art")
             runningWortArtIndex += 1
             prufungLoadCompleted = true
+            prufungButtonTrigger.toggle()
             return
         }
         
