@@ -38,6 +38,7 @@ struct StatisticsView: View {
     
     var body: some View{
         NavigationStack {
+            let third = UIScreen.main.bounds.height / 3
             ScrollView(.vertical){
                 VStack {
                     VStack{
@@ -104,7 +105,8 @@ struct StatisticsView: View {
                             }
                         }
                         .padding()
-                        .frame(maxHeight: UIScreen.main.bounds.height / 2)
+                        //.frame(maxHeight: UIScreen.main.bounds.height / 2)
+                        .frame(height: third)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -176,7 +178,8 @@ struct StatisticsView: View {
                             }
                         }
                         .padding()
-                        .frame(maxHeight: UIScreen.main.bounds.height / 2)
+                        //.frame(maxHeight: UIScreen.main.bounds.height / 2)
+                        .frame(height: third)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -245,7 +248,8 @@ struct StatisticsView: View {
                             }
                         }
                         .padding()
-                        .frame(maxHeight: UIScreen.main.bounds.height / 2)
+                        //.frame(maxHeight: UIScreen.main.bounds.height / 2)
+                        .frame(height: third)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
