@@ -203,11 +203,51 @@ struct StatisticsView: View {
                         let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(2)
                         Chart {
                             ForEach(statArray) { theStat in
+                                if let min = theStat.examMin {
+                                    LineMark(
+                                        x: .value("Date", theStat.timeStamp),
+                                        y: .value("examMinRate", min),
+                                        series: .value("Percentage", "examMinRate")
+                                    )
+                                    .foregroundStyle(.red)
+                                    .interpolationMethod(.stepEnd)
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                    
+                                    PointMark(
+                                        x: .value("Date", theStat.timeStamp),
+                                        y: .value("examMinRate", min)
+                                    )
+                                    .symbol {
+                                        Rectangle()
+                                            .foregroundColor(.red)
+                                            .frame(width: 10, height: 10)
+                                    }
+                                }
+                                if let max = theStat.examMax {
+                                    LineMark(
+                                        x: .value("Date", theStat.timeStamp),
+                                        y: .value("examMaxRate", max),
+                                        series: .value("Percentage", "examMaxRate")
+                                    )
+                                    .foregroundStyle(.green)
+                                    .interpolationMethod(.stepEnd)
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                    
+                                    PointMark(
+                                        x: .value("Date", theStat.timeStamp),
+                                        y: .value("examMaxRate", max)
+                                    )
+                                    .symbol {
+                                        Rectangle()
+                                            .foregroundColor(.green)
+                                            .frame(width: 10, height: 10)
+                                    }
+                                }
                                 if let average = theStat.examAverage {
                                     LineMark(
                                         x: .value("Date", theStat.timeStamp),
                                         y: .value("examAverageRate", average),
-                                        series: .value("Metric", "learnTime")
+                                        series: .value("Percentage", "examAverageRate")
                                     )
                                     .foregroundStyle(.blue)
                                     .interpolationMethod(.stepEnd)
@@ -296,9 +336,11 @@ struct StatisticsView: View {
                 newTimeStampItem.learnTime = retrievedTimers!.learningTime
                 newTimeStampItem.totalFormen = retrievedTimers!.totalFormen
                 newTimeStampItem.confirmedFormen = retrievedTimers!.completedFormen
-                newTimeStampItem.examMin = retrievedTimers!.examMin
-                newTimeStampItem.examMax = retrievedTimers!.examMax
-                newTimeStampItem.examAverage = retrievedTimers!.examTotal / Double(retrievedTimers!.examCount)
+                if(retrievedTimers!.examCount > 0){
+                    newTimeStampItem.examMin = retrievedTimers!.examMin
+                    newTimeStampItem.examMax = retrievedTimers!.examMax
+                    newTimeStampItem.examAverage = retrievedTimers!.examTotal / Double(retrievedTimers!.examCount)
+                }
             }
             statArray[theOffset + 27] = newTimeStampItem
             print("Statistics.reloadTimeLearningData(): statArray[\(theOffset + 27)] .timeStamp:\(statArray[theOffset + 27].timeStamp) .learnTime:\(statArray[theOffset + 27].learnTime) .id:\(statArray[theOffset + 27].id) - offset:\(theOffset)")
