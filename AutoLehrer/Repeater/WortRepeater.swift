@@ -437,7 +437,7 @@ struct WortRepeater: View {
                 title: "К следующему разделу".localized(for: language),
                 style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
                 isDisabled: .constant(false),
-                isHighlighting: .constant(false),
+                isHighlighting: .constant(true),
                 isPulsating: .constant(true),
                 action: {
                     pickTheWordFurPrufung()
@@ -456,14 +456,11 @@ struct WortRepeater: View {
             NG_Button(
                 title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
                 style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                isDisabled: .init(
-                    get: { !readyToMoveOn },
-                    set: { readyToMoveOn = !$0 }
-                ),
-                isHighlighting: .constant(false),
-                isPulsating: .constant(readyToMoveOn),
+                isDisabled: .constant(false),
+                isHighlighting: .constant(true),
+                isPulsating: .constant(true),
                 action: {
-                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)    
+                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
                     pickTheWordFurPrufung()
                 },
                 widthFlood: true
