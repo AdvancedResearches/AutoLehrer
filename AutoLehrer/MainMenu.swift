@@ -94,6 +94,8 @@ struct MainMenu: View {
     
     @State private var redrawTimeAttackMode: Int = 0
     
+    @State private var zeigeNichtGenugWorterPopup: Bool = false
+    
     init(){
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor.green
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.black], for: .selected)
@@ -215,14 +217,21 @@ struct MainMenu: View {
                                         NG_Button(
                                             title: "Экзамен",
                                             style: .NG_ButtonStyle_Regular,
-                                            isDisabled: .constant(false),
+                                            isDisabled: .constant(!TimeStatistics.bereitFurPrufung(viewContext)),
                                             isHighlighting: .constant(false),
                                             isPulsating: .constant(false),
                                             widthFlood: true
                                         )
                                     }
                                 }
+                                .disabled(!TimeStatistics.bereitFurPrufung(viewContext))
+                                .onTapGesture{
+                                    if(!TimeStatistics.bereitFurPrufung(viewContext)){
+                                        zeigeNichtGenugWorterPopup = true
+                                    }
+                                }
                         }
+                            
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -368,6 +377,18 @@ struct MainMenu: View {
         }
         .onChange(of: recommendationModel.recommendation){ newRecomendation in
             updateUI()
+        }
+        .sheet(isPresented: $zeigeNichtGenugWorterPopup){
+            ConfirmationPopup(
+                isPresented: $zeigeNichtGenugWorterPopup,
+                header: "Почему не запускается экзамен?",
+                yesSelection: "Понятно.",
+                hasNo: false,
+                message: "Пока ещё слишком мало выучено. Когда будет можно кнопка станет активной.",
+                onConfirm: {
+                }
+            )
+            .NG_sheetFormatting(transparent: true)
         }
     }
     private func invokeUpdates(){
