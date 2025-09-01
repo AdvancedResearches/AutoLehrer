@@ -187,31 +187,7 @@ struct WortRepeater: View {
     var body: some View {
         VStack{
             if(!prufungModus){
-                /*
-                HStack{
-                    Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
-                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                        .padding(.horizontal, 5)
-                    Spacer()
-                }
-                if(toBeatYesterday != nil){
-                    HStack{
-                        Text("Позаниматься ещё \(toBeatYesterday!) чтобы превысить вчерашний результат")
-                            .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                            .padding(.horizontal, 5)
-                        Spacer()
-                    }
-                }
-                if(toBeatAverage != nil){
-                    HStack{
-                        Text("Позаниматься ещё \(toBeatAverage!) чтобы превысить средний результат за неделю")
-                            .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                            .padding(.horizontal, 5)
-                        Spacer()
-                    }
-                }
-                 */
-                TimeStatistics()
+                TimeStatisticsSection()
             }
             VStack {
                 if(prufungModus){
@@ -222,6 +198,7 @@ struct WortRepeater: View {
                     }
                 }
                 if(prufungCompleted){
+                    /*
                     HStack{
                         Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
                             .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
@@ -237,6 +214,8 @@ struct WortRepeater: View {
                         }
                             .padding(.leading, 20)
                     }
+                     */
+                    PrufungCompletedSection()
                 }else{
                     if(prufungModus){
                             ScrollViewReader { proxy in
@@ -766,7 +745,7 @@ struct WortRepeater: View {
         }
     }
     
-    private func timeStatistics() -> some View{
+    private func TimeStatisticsSection() -> some View{
         Group{
             HStack{
                 Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
@@ -789,6 +768,25 @@ struct WortRepeater: View {
                         .padding(.horizontal, 5)
                     Spacer()
                 }
+            }
+        }
+    }
+    private func PrufungCompletedSection() -> some View{
+        Group{
+            HStack{
+                Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
+                    .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
+                Spacer()
+            }
+            .NG_Card(.NG_CardStyle_Regular, theme: theme)
+            .padding(.horizontal, 20)
+            ForEach(0..<alleWortArten.count){ index in
+                HStack{
+                    Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
+                        .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
+                    Spacer()
+                }
+                    .padding(.leading, 20)
             }
         }
     }
