@@ -8,6 +8,12 @@
 import CoreData
 
 extension TimeStatistics{
+    public static func auslesenWieVieleMinutenHeute(_ context: NSManagedObjectContext) -> Int{
+        guard let statsHeute: TimeStatistics? = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: nil) else {
+            return 0
+        }
+        return Int(statsHeute!.learningTime  / 60)
+    }
     public static func bereitFurPrufung(_ context: NSManagedObjectContext) -> Bool{
         let alleWortArten = try! context.fetch(WortArt.fetchRequest())
         var wortArtAcceptable: Int = 0

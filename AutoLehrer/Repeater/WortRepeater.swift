@@ -337,6 +337,10 @@ struct WortRepeater: View {
         }
         .onAppear(){
             timeAttackMode = Int(Settings.getTimeAttackMode(in: viewContext))
+            if(prufungModus){
+                Settings.setLetztePrufung(Date.now, in: viewContext)
+                print("Set letzte prufung fur jetzt")
+            }
         }
     }
     

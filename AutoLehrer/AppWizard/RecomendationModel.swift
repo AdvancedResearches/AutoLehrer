@@ -86,18 +86,24 @@ class RecommendationModel: ObservableObject {
                     return
                 }
                 if (keinPrufungDauert > 1){
-                    recommendation = .keinPrufungDieseWoche
-                    shallBeNone = false
-                    autoClose = false
-                    popupEnabled = true
-                    return
+                    let minutesSpentToday: Int = TimeStatistics.auslesenWieVieleMinutenHeute(context)
+                    if(minutesSpentToday >= 5){
+                        recommendation = .keinPrufungDieseWoche
+                        shallBeNone = false
+                        autoClose = false
+                        popupEnabled = true
+                        return
+                    }
                 }
                 if (keinPrufungDauert == 1){
-                    recommendation = .keinPrufungHeute
-                    shallBeNone = false
-                    autoClose = false
-                    popupEnabled = true
-                    return
+                    let minutesSpentToday: Int = TimeStatistics.auslesenWieVieleMinutenHeute(context)
+                    if(minutesSpentToday >= 15){
+                        recommendation = .keinPrufungHeute
+                        shallBeNone = false
+                        autoClose = false
+                        popupEnabled = true
+                        return
+                    }
                 }
             }
         }
