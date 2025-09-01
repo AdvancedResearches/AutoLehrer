@@ -139,6 +139,29 @@ struct WortRepeater: View {
         return "Неизвестно"
     }
     
+    func prufungResultNGTextTint(_ forWA: WortArt? = nil) -> NG_TextColor{
+        let scorePercentage = prufungScorePercent(forWA)
+        if(scorePercentage == 100){
+            return .NG_TextColor_Green
+        }
+        if(scorePercentage > 80){
+            return .NG_TextColor_Regular
+        }
+        if(scorePercentage > 60){
+            return .NG_TextColor_Regular
+        }
+        if(scorePercentage > 40){
+            return .NG_TextColor_Red
+        }
+        if(scorePercentage > 20){
+            return .NG_TextColor_Red
+        }
+        if(scorePercentage > 0){
+            return .NG_TextColor_Red
+        }
+        return .NG_TextColor_Regular
+    }
+    
     var body: some View {
         VStack{
             if(!prufungModus){
@@ -176,14 +199,14 @@ struct WortRepeater: View {
                 if(prufungCompleted){
                     HStack{
                         Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
-                            .NG_textStyling(.NG_TextStyle_Text_Big, theme: theme)
+                            .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
                         Spacer()
                     }
                         .padding(.leading, 10)
                     ForEach(0..<alleWortArten.count){ index in
                         HStack{
                             Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
                             Spacer()
                         }
                             .padding(.leading, 20)
