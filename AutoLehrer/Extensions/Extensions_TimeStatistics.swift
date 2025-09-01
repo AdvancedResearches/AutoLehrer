@@ -9,19 +9,11 @@ import CoreData
 
 extension TimeStatistics{
     public static func submitExamResults(in context: NSManagedObjectContext, at date: Date, for examScore: Double, forThe wortArt: WortArt?){
-        if(wortArt != nil){
-            let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
-            theStamp.examTotal += examScore
-            theStamp.examMin = min(theStamp.examMin, examScore)
-            theStamp.examMax = max(theStamp.examMax, examScore)
-            theStamp.examCount += 1
-        }
-        let genericStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: nil)
-        genericStamp.examTotal += examScore
-        genericStamp.examMin = min(genericStamp.examMin, examScore)
-        genericStamp.examMax = max(genericStamp.examMax, examScore)
-        genericStamp.examCount += 1
-        print("Learning time submitted at \(date) for \(genericStamp.learningTime) for the generic")
+        let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
+        theStamp.examTotal += examScore
+        theStamp.examMin = min(theStamp.examMin, examScore)
+        theStamp.examMax = max(theStamp.examMax, examScore)
+        theStamp.examCount += 1
         try! context.save()
     }
     public static func recalculate_completion(in theContext: NSManagedObjectContext){

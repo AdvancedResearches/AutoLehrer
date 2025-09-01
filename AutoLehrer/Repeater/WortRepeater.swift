@@ -94,6 +94,28 @@ struct WortRepeater: View {
         }
     }
     
+    func prufungScore(_ forWA: WortArt? = nil) -> Double {
+        if(forWA != nil){
+            if let dasResult = prufungResult[forWA!] {
+                return Double(100) * Double(dasResult) / Double(10)
+            }else{
+                return 0
+            }
+        }else{
+            var ganzResult: Int = 0
+            var countedResults: Int = 0
+            for dasWA in alleWortArten{
+                let dasResult = prufungScorePercent(dasWA)
+                if(dasResult >= 0){
+                    ganzResult += dasResult
+                    countedResults += 1
+                }
+            }
+            return Double(ganzResult) / Double(countedResults)
+        }
+        return 0
+    }
+    
     func prufungScorePercent(_ forWA: WortArt? = nil) -> Int {
         if(forWA != nil){
             if let dasResult = prufungResult[forWA!] {
@@ -1316,6 +1338,10 @@ struct WortRepeater: View {
         
         if(runningWortArtIndex >= alleWortArten.count){
             prufungCompleted = true
+            for theWortArt in alleWortArten {
+                TimeStatistics.submitExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(theWortArt), forThe: theWortArt)
+            }
+            TimeStatistics.submitExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(nil), forThe: nil)
             return
         }else{
             prufungCompleted = false
