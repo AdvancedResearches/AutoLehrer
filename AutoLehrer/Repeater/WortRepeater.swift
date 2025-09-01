@@ -366,33 +366,62 @@ struct WortRepeater: View {
     }
     private func PrufungCompletedSection() -> some View{
         Group{
-            HStack{
-                let precentageResult: Int = prufungScorePercent()
-                if(precentageResult >= 0){
-                    Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
-                        .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
-                }else{
-                    Text("Общая оценка: \(prufungResult())")
-                        .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
-                }
-                
-                Spacer()
-            }
-            .NG_Card(.NG_CardStyle_Regular, theme: theme)
-            .padding(.horizontal, 20)
-            ForEach(0..<alleWortArten.count){ index in
-                HStack{
-                    let precentageResult: Int = prufungScorePercent(alleWortArten[index])
-                    if(precentageResult >= 0){
-                        Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
-                    }else{
-                        Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index]))")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: true){
+                    HStack{
+                        let precentageResult: Int = prufungScorePercent()
+                        if(precentageResult >= 0){
+                            Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
+                                .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
+                        }else{
+                            Text("Общая оценка: \(prufungResult())")
+                                .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
+                        }
+                        
+                        Spacer()
                     }
-                    Spacer()
+                    .NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .padding(.horizontal, 20)
+                    ForEach(0..<alleWortArten.count){ index in
+                        HStack{
+                            let precentageResult: Int = prufungScorePercent(alleWortArten[index])
+                            if(precentageResult >= 0){
+                                Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
+                            }else{
+                                Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index]))")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
+                            }
+                            Spacer()
+                        }
+                        .padding(.leading, 20)
+                    }
+                    SizeAware(onChange: { _ in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                            withAnimation(.easeInOut(duration: 0.35)) {
+                                proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                            }
+                        }
+                    }) {
+                        NG_Button(
+                            title: "Экзамен закончен".localized(for: language),
+                            style: .NG_ButtonStyle_Regular,
+                            isDisabled: .constant(false),
+                            isHighlighting: .constant(false),
+                            isPulsating: .constant(true),
+                            action: {
+                                dismiss()
+                            },
+                            widthFlood: true
+                        )
+                        .padding(.horizontal, 15)
+                        .padding(.vertical, 25)
+                        .transition(.scale)
+                        .onAppear{
+                            print("prufungConpleted button shall be rendered")
+                        }
+                    }
                 }
-                    .padding(.leading, 20)
             }
         }
     }
@@ -406,6 +435,35 @@ struct WortRepeater: View {
                             .if(index > runningWort){ view in
                                 view.opacity(0.2)
                             }
+                    }
+                    if(prufungCompleted){
+                        SizeAware(onChange: { _ in
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                withAnimation(.easeInOut(duration: 0.35)) {
+                                    proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                }
+                            }
+                        }) {
+                            NG_Button(
+                                title: "Экзамен закончен".localized(for: language),
+                                style: .NG_ButtonStyle_Regular,
+                                isDisabled: .constant(false),
+                                isHighlighting: .constant(false),
+                                isPulsating: .constant(true),
+                                action: {
+                                    dismiss()
+                                },
+                                widthFlood: true
+                            )
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 25)
+                            .transition(.scale)
+                            .onAppear{
+                                print("prufungConpleted button shall be rendered")
+                            }
+                        }
+                    }else{
+                        
                     }
                     if(readyToMoveOn){
                         SizeAware(onChange: { _ in
