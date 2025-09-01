@@ -436,56 +436,11 @@ struct WortRepeater: View {
             NG_Button(
                 title: "К следующему разделу".localized(for: language),
                 style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                isDisabled: .init(
-                    get: { !readyToMoveOn },
-                    set: { readyToMoveOn = !$0 }
-                ),
+                isDisabled: .constant(false),
                 isHighlighting: .constant(false),
-                isPulsating: .constant(readyToMoveOn),
+                isPulsating: .constant(true),
                 action: {
-                    if(readyToMoveOn){
-                        if(prufungModus){
-                            prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
-                        }else{
-                            attemptCounter += 1
-                            var successCounter: Int = 0
-                            
-                            for theFormCounter in 0..<wort.count{
-                                if(guessingResult[theFormCounter] == 1){
-                                    Statistics.set_success(wort[theFormCounter])
-                                    successCounter += 1
-                                }
-                                if(guessingResult[theFormCounter] == -1){
-                                    Statistics.set_failure(wort[theFormCounter])
-                                }
-                            }
-                            
-                            if(successCounter == wort.count){
-                                if(WortFormen.set_success(pickedWortFormen!)){
-                                    confirmedWorte.insert(pickedWortFormen!)
-                                }
-                            }else{
-                                WortFormen.set_failure(pickedWortFormen!)
-                                confirmedWorte.remove(pickedWortFormen!)
-                            }
-                            
-                            WortFormen.set_attempted(pickedWortFormen!)
-                            Statistics.wortFormenUrgency(pickedWortFormen!)
-                        }
-                        
-                        if(prufungModus){
-                            pickTheWordFurPrufung()
-                        }else{
-                            pickTheWord()
-                        }
-                    }else{
-                        withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                        withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                        withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                        withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                        withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                        withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
-                    }
+                    pickTheWordFurPrufung()
                 },
                 widthFlood: true
             )
@@ -616,7 +571,7 @@ struct WortRepeater: View {
                             }
                         }
                     }) {
-                        NG_Button(
+                        /*NG_Button(
                             title: "Экзамен закончен".localized(for: language),
                             style: .NG_ButtonStyle_Regular,
                             isDisabled: .constant(false),
@@ -629,7 +584,8 @@ struct WortRepeater: View {
                         )
                         .padding(.horizontal, 15)
                         .padding(.vertical, 25)
-                        .transition(.scale)
+                        .transition(.scale)*/
+                        NextButton_Prufung_Ende()
                     }
                 }
             }
@@ -673,262 +629,289 @@ struct WortRepeater: View {
                             }
                         }
                     }else{
-                        
-                    }
-                    if(readyToMoveOn){
-                        SizeAware(onChange: { _ in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                withAnimation(.easeInOut(duration: 0.35)) {
-                                    proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                        if(wort.count > 0){
+                            if(readyToMoveOn){
+                                SizeAware(onChange: { _ in
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                        withAnimation(.easeInOut(duration: 0.35)) {
+                                            proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                        }
+                                    }
+                                }) {
+                                    NextButton_Prufung_Next()
                                 }
                             }
-                        }) {
-                            let successFormen = guessingResult.filter{$0 == 1}.count
-                            let checkedFormen = guessingResult.count
-                            if(prufungCompleted){
-                                NG_Button(
-                                    title: "Экзамен закончен".localized(for: language),
-                                    style: .NG_ButtonStyle_Regular,
-                                    isDisabled: .constant(false),
-                                    isHighlighting: .constant(false),
-                                    isPulsating: .constant(true),
-                                    action: {
-                                        dismiss()
-                                    },
-                                    widthFlood: true
-                                )
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 25)
-                                .transition(.scale)
-                            }else{
-                                if(wort.count > 0){
-                                    NG_Button(
-                                        title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
-                                        style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                                        isDisabled: .init(
-                                            get: { !readyToMoveOn },
-                                            set: { readyToMoveOn = !$0 }
-                                        ),
-                                        isHighlighting: .constant(false),
-                                        isPulsating: .constant(readyToMoveOn),
-                                        action: {
-                                            if(readyToMoveOn){
-                                                if(prufungModus){
-                                                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
-                                                }else{
-                                                    attemptCounter += 1
-                                                    var successCounter: Int = 0
-                                                    
-                                                    for theFormCounter in 0..<wort.count{
-                                                        if(guessingResult[theFormCounter] == 1){
-                                                            Statistics.set_success(wort[theFormCounter])
-                                                            successCounter += 1
-                                                        }
-                                                        if(guessingResult[theFormCounter] == -1){
-                                                            Statistics.set_failure(wort[theFormCounter])
-                                                        }
-                                                    }
-                                                    
-                                                    if(successCounter == wort.count){
-                                                        if(WortFormen.set_success(pickedWortFormen!)){
-                                                            confirmedWorte.insert(pickedWortFormen!)
-                                                        }
-                                                    }else{
-                                                        WortFormen.set_failure(pickedWortFormen!)
-                                                        confirmedWorte.remove(pickedWortFormen!)
-                                                    }
-                                                    
-                                                    WortFormen.set_attempted(pickedWortFormen!)
-                                                    Statistics.wortFormenUrgency(pickedWortFormen!)
-                                                }
-                                                
-                                                if(prufungModus){
-                                                    pickTheWordFurPrufung()
-                                                }else{
-                                                    pickTheWord()
-                                                }
-                                            }else{
-                                                withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
-                                            }
-                                        },
-                                        widthFlood: true
-                                    )
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 25)
-                                    .transition(.scale)
-                                }else{
-                                    NG_Button(
-                                        title: "К следующему разделу".localized(for: language),
-                                        style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                                        isDisabled: .init(
-                                            get: { !readyToMoveOn },
-                                            set: { readyToMoveOn = !$0 }
-                                        ),
-                                        isHighlighting: .constant(false),
-                                        isPulsating: .constant(readyToMoveOn),
-                                        action: {
-                                            if(readyToMoveOn){
-                                                if(prufungModus){
-                                                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
-                                                }else{
-                                                    attemptCounter += 1
-                                                    var successCounter: Int = 0
-                                                    
-                                                    for theFormCounter in 0..<wort.count{
-                                                        if(guessingResult[theFormCounter] == 1){
-                                                            Statistics.set_success(wort[theFormCounter])
-                                                            successCounter += 1
-                                                        }
-                                                        if(guessingResult[theFormCounter] == -1){
-                                                            Statistics.set_failure(wort[theFormCounter])
-                                                        }
-                                                    }
-                                                    
-                                                    if(successCounter == wort.count){
-                                                        if(WortFormen.set_success(pickedWortFormen!)){
-                                                            confirmedWorte.insert(pickedWortFormen!)
-                                                        }
-                                                    }else{
-                                                        WortFormen.set_failure(pickedWortFormen!)
-                                                        confirmedWorte.remove(pickedWortFormen!)
-                                                    }
-                                                    
-                                                    WortFormen.set_attempted(pickedWortFormen!)
-                                                    Statistics.wortFormenUrgency(pickedWortFormen!)
-                                                }
-                                                
-                                                if(prufungModus){
-                                                    pickTheWordFurPrufung()
-                                                }else{
-                                                    pickTheWord()
-                                                }
-                                            }else{
-                                                withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
-                                            }
-                                        },
-                                        widthFlood: true
-                                    )
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 25)
-                                    .transition(.scale)
+                        }else{
+                            SizeAware(onChange: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
                                 }
+                            }) {
+                                NextButton_Prufung_Skip()
                             }
                         }
-                    } else{
-                        SizeAware(onChange: { _ in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                withAnimation(.easeInOut(duration: 0.35)) {
-                                    proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                        /*
+                        if(readyToMoveOn){
+                            SizeAware(onChange: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
                                 }
-                            }
-                        }) {
-                            let successFormen = guessingResult.filter{$0 == 1}.count
-                            let checkedFormen = guessingResult.count
-                            if(prufungCompleted){
-                                NG_Button(
-                                    title: "Экзамен закончен".localized(for: language),
-                                    style: .NG_ButtonStyle_Regular,
-                                    isDisabled: .constant(false),
-                                    isHighlighting: .constant(false),
-                                    isPulsating: .constant(true),
-                                    action: {
-                                        dismiss()
-                                    },
-                                    widthFlood: true
-                                )
-                                .padding(.horizontal, 15)
-                                .padding(.vertical, 25)
-                                .transition(.scale)
-                            }else{
-                                if(wort.count > 0){
+                            }) {
+                                let successFormen = guessingResult.filter{$0 == 1}.count
+                                let checkedFormen = guessingResult.count
+                                if(prufungCompleted){
                                     NG_Button(
-                                        title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
-                                        style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                                        isDisabled: .init(
-                                            get: { !readyToMoveOn },
-                                            set: { readyToMoveOn = !$0 }
-                                        ),
-                                        isHighlighting: .constant(false),
-                                        isPulsating: .constant(readyToMoveOn),
-                                        action: {
-                                            if(readyToMoveOn){
-                                                if(prufungModus){
-                                                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
-                                                }else{
-                                                    attemptCounter += 1
-                                                    var successCounter: Int = 0
-                                                    
-                                                    for theFormCounter in 0..<wort.count{
-                                                        if(guessingResult[theFormCounter] == 1){
-                                                            Statistics.set_success(wort[theFormCounter])
-                                                            successCounter += 1
-                                                        }
-                                                        if(guessingResult[theFormCounter] == -1){
-                                                            Statistics.set_failure(wort[theFormCounter])
-                                                        }
-                                                    }
-                                                    
-                                                    if(successCounter == wort.count){
-                                                        if(WortFormen.set_success(pickedWortFormen!)){
-                                                            confirmedWorte.insert(pickedWortFormen!)
-                                                        }
-                                                    }else{
-                                                        WortFormen.set_failure(pickedWortFormen!)
-                                                        confirmedWorte.remove(pickedWortFormen!)
-                                                    }
-                                                    
-                                                    WortFormen.set_attempted(pickedWortFormen!)
-                                                    Statistics.wortFormenUrgency(pickedWortFormen!)
-                                                }
-                                                
-                                                if(prufungModus){
-                                                    pickTheWordFurPrufung()
-                                                }else{
-                                                    pickTheWord()
-                                                }
-                                            }else{
-                                                withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
-                                                withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
-                                                withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
-                                            }
-                                        },
-                                        widthFlood: true
-                                    )
-                                    .padding(.horizontal, 15)
-                                    .padding(.vertical, 25)
-                                    .transition(.scale)
-                                }else{
-                                    NG_Button(
-                                        title: "К следующему разделу".localized(for: language),
-                                        style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                        title: "Экзамен закончен".localized(for: language),
+                                        style: .NG_ButtonStyle_Regular,
                                         isDisabled: .constant(false),
-                                        isHighlighting: .constant(true),
+                                        isHighlighting: .constant(false),
                                         isPulsating: .constant(true),
                                         action: {
-                                            pickTheWordFurPrufung()
+                                            dismiss()
                                         },
                                         widthFlood: true
                                     )
                                     .padding(.horizontal, 15)
                                     .padding(.vertical, 25)
                                     .transition(.scale)
+                                }else{
+                                    if(wort.count > 0){
+                                        if(readyToMoveOn){
+                                            NG_Button(
+                                                title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
+                                                style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                                isDisabled: .init(
+                                                    get: { !readyToMoveOn },
+                                                    set: { readyToMoveOn = !$0 }
+                                                ),
+                                                isHighlighting: .constant(false),
+                                                isPulsating: .constant(readyToMoveOn),
+                                                action: {
+                                                    if(readyToMoveOn){
+                                                        if(prufungModus){
+                                                            prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
+                                                        }else{
+                                                            attemptCounter += 1
+                                                            var successCounter: Int = 0
+                                                            
+                                                            for theFormCounter in 0..<wort.count{
+                                                                if(guessingResult[theFormCounter] == 1){
+                                                                    Statistics.set_success(wort[theFormCounter])
+                                                                    successCounter += 1
+                                                                }
+                                                                if(guessingResult[theFormCounter] == -1){
+                                                                    Statistics.set_failure(wort[theFormCounter])
+                                                                }
+                                                            }
+                                                            
+                                                            if(successCounter == wort.count){
+                                                                if(WortFormen.set_success(pickedWortFormen!)){
+                                                                    confirmedWorte.insert(pickedWortFormen!)
+                                                                }
+                                                            }else{
+                                                                WortFormen.set_failure(pickedWortFormen!)
+                                                                confirmedWorte.remove(pickedWortFormen!)
+                                                            }
+                                                            
+                                                            WortFormen.set_attempted(pickedWortFormen!)
+                                                            Statistics.wortFormenUrgency(pickedWortFormen!)
+                                                        }
+                                                        
+                                                        if(prufungModus){
+                                                            pickTheWordFurPrufung()
+                                                        }else{
+                                                            pickTheWord()
+                                                        }
+                                                    }else{
+                                                        withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
+                                                        withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                                                        withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                                                        withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                                                        withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                                                        withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
+                                                    }
+                                                },
+                                                widthFlood: true
+                                            )
+                                            .padding(.horizontal, 15)
+                                            .padding(.vertical, 25)
+                                            .transition(.scale)
+                                        }
+                                    }else{
+                                        NG_Button(
+                                            title: "К следующему разделу".localized(for: language),
+                                            style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                            isDisabled: .init(
+                                                get: { !readyToMoveOn },
+                                                set: { readyToMoveOn = !$0 }
+                                            ),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(readyToMoveOn),
+                                            action: {
+                                                if(readyToMoveOn){
+                                                    if(prufungModus){
+                                                        prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
+                                                    }else{
+                                                        attemptCounter += 1
+                                                        var successCounter: Int = 0
+                                                        
+                                                        for theFormCounter in 0..<wort.count{
+                                                            if(guessingResult[theFormCounter] == 1){
+                                                                Statistics.set_success(wort[theFormCounter])
+                                                                successCounter += 1
+                                                            }
+                                                            if(guessingResult[theFormCounter] == -1){
+                                                                Statistics.set_failure(wort[theFormCounter])
+                                                            }
+                                                        }
+                                                        
+                                                        if(successCounter == wort.count){
+                                                            if(WortFormen.set_success(pickedWortFormen!)){
+                                                                confirmedWorte.insert(pickedWortFormen!)
+                                                            }
+                                                        }else{
+                                                            WortFormen.set_failure(pickedWortFormen!)
+                                                            confirmedWorte.remove(pickedWortFormen!)
+                                                        }
+                                                        
+                                                        WortFormen.set_attempted(pickedWortFormen!)
+                                                        Statistics.wortFormenUrgency(pickedWortFormen!)
+                                                    }
+                                                    
+                                                    if(prufungModus){
+                                                        pickTheWordFurPrufung()
+                                                    }else{
+                                                        pickTheWord()
+                                                    }
+                                                }else{
+                                                    withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
+                                                }
+                                            },
+                                            widthFlood: true
+                                        )
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 25)
+                                        .transition(.scale)
+                                    }
+                                }
+                            }
+                        } else{
+                            SizeAware(onChange: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
+                                }
+                            }) {
+                                let successFormen = guessingResult.filter{$0 == 1}.count
+                                let checkedFormen = guessingResult.count
+                                if(prufungCompleted){
+                                    NG_Button(
+                                        title: "Экзамен закончен".localized(for: language),
+                                        style: .NG_ButtonStyle_Regular,
+                                        isDisabled: .constant(false),
+                                        isHighlighting: .constant(false),
+                                        isPulsating: .constant(true),
+                                        action: {
+                                            dismiss()
+                                        },
+                                        widthFlood: true
+                                    )
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 25)
+                                    .transition(.scale)
+                                }else{
+                                    if(wort.count > 0){
+                                        NG_Button(
+                                            title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
+                                            style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                            isDisabled: .init(
+                                                get: { !readyToMoveOn },
+                                                set: { readyToMoveOn = !$0 }
+                                            ),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(readyToMoveOn),
+                                            action: {
+                                                if(readyToMoveOn){
+                                                    if(prufungModus){
+                                                        prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
+                                                    }else{
+                                                        attemptCounter += 1
+                                                        var successCounter: Int = 0
+                                                        
+                                                        for theFormCounter in 0..<wort.count{
+                                                            if(guessingResult[theFormCounter] == 1){
+                                                                Statistics.set_success(wort[theFormCounter])
+                                                                successCounter += 1
+                                                            }
+                                                            if(guessingResult[theFormCounter] == -1){
+                                                                Statistics.set_failure(wort[theFormCounter])
+                                                            }
+                                                        }
+                                                        
+                                                        if(successCounter == wort.count){
+                                                            if(WortFormen.set_success(pickedWortFormen!)){
+                                                                confirmedWorte.insert(pickedWortFormen!)
+                                                            }
+                                                        }else{
+                                                            WortFormen.set_failure(pickedWortFormen!)
+                                                            confirmedWorte.remove(pickedWortFormen!)
+                                                        }
+                                                        
+                                                        WortFormen.set_attempted(pickedWortFormen!)
+                                                        Statistics.wortFormenUrgency(pickedWortFormen!)
+                                                    }
+                                                    
+                                                    if(prufungModus){
+                                                        pickTheWordFurPrufung()
+                                                    }else{
+                                                        pickTheWord()
+                                                    }
+                                                }else{
+                                                    withAnimation(.easeOut(duration: 0.1)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.1)) { scaleRatio = 1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.2)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.3)) { scaleRatio = 1 }
+                                                    withAnimation(.easeOut(duration: 0.1).delay(0.4)) { scaleRatio = 1.1 }
+                                                    withAnimation(.easeOut(duration: 0.5).delay(0.5)) { scaleRatio = 1 }
+                                                }
+                                            },
+                                            widthFlood: true
+                                        )
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 25)
+                                        .transition(.scale)
+                                    }else{
+                                        NG_Button(
+                                            title: "К следующему разделу".localized(for: language),
+                                            style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                                            isDisabled: .constant(false),
+                                            isHighlighting: .constant(true),
+                                            isPulsating: .constant(true),
+                                            action: {
+                                                pickTheWordFurPrufung()
+                                            },
+                                            widthFlood: true
+                                        )
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 25)
+                                        .transition(.scale)
+                                    }
                                 }
                             }
                         }
+                         */
                     }
+                    
                     Color.clear.frame(height: 1).id("bottom-anchor")
                 }
                 .background(.clear)
