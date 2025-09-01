@@ -88,6 +88,7 @@ struct MainMenu: View {
     
     @State private var wortArten: [WortArt] = []
     @State private var repeater_isActive: [WortArt: Bool] = [:]
+    @State private var prufung_isActive: Bool = false
     
     @State private var wortArtenStatsRedraw: Int = 0
     @State private var totalStatsRedraw: Int = 1000
@@ -146,8 +147,8 @@ struct MainMenu: View {
         NavigationStack{
             ZStack{
                 ScrollView{
-                    if !appwizardPopupEnabled {
-                        AppWizardView(popupEnabled: $appwizardPopupEnabled, autoClose: autoCloseWizard)
+                    if !recommendationModel.popupEnabled {
+                        AppWizardView(popupEnabled: $appwizardPopupEnabled)
                     }
                     VStack{
                         Text("Учить".localized(for: language))
@@ -203,6 +204,7 @@ struct MainMenu: View {
                                 .onChange(of: repeater_isActive[wortArt]){ newValue in
                                     wortArtenStatsRedraw += 1
                                     totalStatsRedraw += 1
+                                    invokeUpdates()
                                 }
                             }
                         }
@@ -212,24 +214,31 @@ struct MainMenu: View {
                             Divider()
                             
                             NavigationLink(
-                                destination: WortRepeater(wortArt: wortArten.first!, prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme)) {
-                                    Group {
-                                        NG_Button(
-                                            title: "Экзамен",
-                                            style: .NG_ButtonStyle_Regular,
-                                            isDisabled: .constant(!TimeStatistics.bereitFurPrufung(viewContext)),
-                                            isHighlighting: .constant(false),
-                                            isPulsating: .constant(false),
-                                            widthFlood: true
-                                        )
-                                    }
+                                destination: WortRepeater(wortArt: wortArten.first!, prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme),
+                                isActive: $prufung_isActive
+                            ) {
+                                Group {
+                                    NG_Button(
+                                        title: "Экзамен",
+                                        style: .NG_ButtonStyle_Regular,
+                                        isDisabled: .constant(!TimeStatistics.bereitFurPrufung(viewContext)),
+                                        isHighlighting: .constant(false),
+                                        isPulsating: .constant(false),
+                                        widthFlood: true
+                                    )
                                 }
-                                .disabled(!TimeStatistics.bereitFurPrufung(viewContext))
-                                .onTapGesture{
-                                    if(!TimeStatistics.bereitFurPrufung(viewContext)){
-                                        zeigeNichtGenugWorterPopup = true
-                                    }
+                            }
+                            .onChange(of: prufung_isActive){ altValue, newValue in
+                                if(altValue && !newValue){
+                                    invokeUpdates()
                                 }
+                            }
+                            .disabled(!TimeStatistics.bereitFurPrufung(viewContext))
+                            .onTapGesture{
+                                if(!TimeStatistics.bereitFurPrufung(viewContext)){
+                                    zeigeNichtGenugWorterPopup = true
+                                }
+                            }
                         }
                             
                     }
@@ -351,11 +360,11 @@ struct MainMenu: View {
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
                 }
-                .disabled(appwizardPopupEnabled)
-                .blur(radius: appwizardPopupEnabled ? 1 : 0)
+                .disabled(recommendationModel.popupEnabled)
+                .blur(radius: recommendationModel.popupEnabled ? 3 : 0)
                 
-                if appwizardPopupEnabled {
-                    AppWizardView(popupEnabled: $appwizardPopupEnabled, autoClose: autoCloseWizard, onWizardFinished: {
+                if recommendationModel.popupEnabled {
+                    AppWizardView(popupEnabled: $appwizardPopupEnabled, onWizardFinished: {
                         invokeUpdates()
                     })
                         .transition(.scale.combined(with: .opacity))
@@ -368,7 +377,6 @@ struct MainMenu: View {
         }
         .onAppear{
             invokeUpdates()
-            //reloadPresets()
         }
         .onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
@@ -397,8 +405,13 @@ struct MainMenu: View {
         repeater_isActive.removeAll()
     }
     private func updateUI(){
-        autoCloseWizard = true
-        appwizardPopupEnabled = true
+        if(recommendationModel.recommendation == .keinPrufungNie || recommendationModel.recommendation == .keinPrufungLangeZeit || recommendationModel.recommendation == .keinPrufungDieseWoche || recommendationModel.recommendation == .keinPrufungHeute){
+            autoCloseWizard = false
+            appwizardPopupEnabled = true
+        }else{
+            autoCloseWizard = true
+            appwizardPopupEnabled = true
+        }
         previousWizardRecommendation = recommendationModel.recommendation
     }
 }

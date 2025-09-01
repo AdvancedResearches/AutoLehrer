@@ -10,9 +10,43 @@ import CoreData
 
 extension Settings {
     
+    public static let Nie: Int = -1000000
+    
+    static func auslesenKeinPrufungDauert(in context: NSManagedObjectContext) -> Int {
+        if let letzePrufungDate = getLetztePrufung(in: context) {
+            let derDauert = Date.get_offset_inDays(letzePrufungDate, Date.now)
+            if derDauert > 0 {
+                return 0
+            }
+            return derDauert
+        }
+        return Nie
+    }
+    
+    static func auslesenPrufungHeuteGefragt(in context: NSManagedObjectContext) -> Bool {
+        if let prufungGefragtDateValue = getValue(for: "prufungGefragtDate", in: context) {
+            if let prufungGefragtDate = Date.convert_StringToDate_DownToSecond(theString: prufungGefragtDateValue){
+                if prufungGefragtDate.stripTime() == Date.now.stripTime(){
+                    return true
+                }else{
+                    setzenPrufungHeuteGefragt(in: context)
+                    return false
+                }
+            }else{
+                setzenPrufungHeuteGefragt(in: context)
+                return false
+            }
+        }
+        setzenPrufungHeuteGefragt(in: context)
+        return false
+    }
+    static func setzenPrufungHeuteGefragt(in context: NSManagedObjectContext){
+        setValue(Date.convert_DateToString_DownToSecond(theDate: Date.now.stripTime()), for: "prufungGefragtDate", in: context)
+    }
+    
     static func getLetztePrufung(in context: NSManagedObjectContext) -> Date? {
         if let letztePrufungValue = getValue(for: "letztePrufung", in: context) {
-            let letztePrufung = Date.convert_StringToDate_DownToSecond(theString: letztePrufungValue)// Int64(timeAttackModeValue)!
+            let letztePrufung = Date.convert_StringToDate_DownToSecond(theString: letztePrufungValue)
             return letztePrufung
         } else {
             return nil

@@ -6,23 +6,156 @@ struct AppWizardView: View {
     @EnvironmentObject var theme: ThemeManager
     @AppStorage("appLanguage") var language: String = "ru"
     @Binding var popupEnabled: Bool
+    @Environment(\.managedObjectContext) private var viewContext
     
-    var autoClose: Bool
+    @State var prufung_isActive: Bool = false
+    
+    //var autoClose: Bool
     
     var onWizardFinished: (() -> Void)?
     
     var body: some View {
         Group{
-            if popupEnabled {
+            if recommendationModel.popupEnabled {
                 VStack{
                     VStack{
-                        content
-                        if(!autoClose){
-                            NG_Button(title: "OK".localized(for: language), style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                                withAnimation {
-                                    popupEnabled = false
+                        if(recommendationModel.recommendation == .keinPrufungHeute){
+                            content
+                            HStack{
+                                Spacer()
+                                NavigationLink(
+                                    destination: WortRepeater(wortArt: WortArt.get_alleWortArten(viewContext).first! , prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme),
+                                    isActive: $prufung_isActive
+                                ) {
+                                    Group {
+                                        NG_Button(
+                                            title: "Давай!",
+                                            style: .NG_ButtonStyle_Green,
+                                            isDisabled: .constant(false),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(true),
+                                            widthFlood: true
+                                        )
+                                    }
                                 }
-                            })
+                                .onChange(of: prufung_isActive){ alteValue, neueValue in
+                                    if(alteValue && !neueValue){
+                                        recommendationModel.update(for: .MainMenu, in: viewContext)
+                                    }
+                                }
+                                Spacer()
+                                NG_Button(title: "Не сейчас".localized(for: language), style: .NG_ButtonStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                    withAnimation {
+                                        recommendationModel.popupEnabled = false
+                                    }
+                                })
+                                Spacer()
+                            }
+                        } else if(recommendationModel.recommendation == .keinPrufungDieseWoche){
+                            content
+                            HStack{
+                                Spacer()
+                                NavigationLink(
+                                    destination: WortRepeater(wortArt: WortArt.get_alleWortArten(viewContext).first! , prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme),
+                                    isActive: $prufung_isActive
+                                ) {
+                                    Group {
+                                        NG_Button(
+                                            title: "Давай!",
+                                            style: .NG_ButtonStyle_Green,
+                                            isDisabled: .constant(false),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(true),
+                                            widthFlood: true
+                                        )
+                                    }
+                                }
+                                .onChange(of: prufung_isActive){ alteValue, neueValue in
+                                    if(alteValue && !neueValue){
+                                        recommendationModel.update(for: .MainMenu, in: viewContext)
+                                    }
+                                }
+                                Spacer()
+                                NG_Button(title: "Не сейчас".localized(for: language), style: .NG_ButtonStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                    withAnimation {
+                                        recommendationModel.popupEnabled = false
+                                    }
+                                })
+                                Spacer()
+                            }
+                        } else if(recommendationModel.recommendation == .keinPrufungLangeZeit){
+                            content
+                            HStack{
+                                Spacer()
+                                NavigationLink(
+                                    destination: WortRepeater(wortArt: WortArt.get_alleWortArten(viewContext).first! , prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme),
+                                    isActive: $prufung_isActive
+                                ) {
+                                    Group {
+                                        NG_Button(
+                                            title: "Давай!",
+                                            style: .NG_ButtonStyle_Green,
+                                            isDisabled: .constant(false),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(true),
+                                            widthFlood: true
+                                        )
+                                    }
+                                }
+                                .onChange(of: prufung_isActive){ alteValue, neueValue in
+                                    if(alteValue && !neueValue){
+                                        recommendationModel.update(for: .MainMenu, in: viewContext)
+                                    }
+                                }
+                                Spacer()
+                                NG_Button(title: "Не сейчас".localized(for: language), style: .NG_ButtonStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                    withAnimation {
+                                        recommendationModel.popupEnabled = false
+                                    }
+                                })
+                                Spacer()
+                            }
+                        } else if(recommendationModel.recommendation == .keinPrufungNie){
+                            content
+                            HStack{
+                                Spacer()
+                                NavigationLink(
+                                    destination: WortRepeater(wortArt: WortArt.get_alleWortArten(viewContext).first! , prufungModus: true).NG_NavigationTitle("Экзамен", theme: theme),
+                                    isActive: $prufung_isActive
+                                ) {
+                                    Group {
+                                        NG_Button(
+                                            title: "Давай!",
+                                            style: .NG_ButtonStyle_Green,
+                                            isDisabled: .constant(false),
+                                            isHighlighting: .constant(false),
+                                            isPulsating: .constant(true),
+                                            widthFlood: true
+                                        )
+                                    }
+                                }
+                                .onChange(of: prufung_isActive){ alteValue, neueValue in
+                                    if(alteValue && !neueValue){
+                                        recommendationModel.update(for: .MainMenu, in: viewContext)
+                                    }
+                                }
+                                Spacer()
+                                NG_Button(title: "Не сейчас".localized(for: language), style: .NG_ButtonStyle_Red, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), action: {
+                                    withAnimation {
+                                        recommendationModel.popupEnabled = false
+                                    }
+                                })
+                                Spacer()
+                            }
+                        } else {
+                            content
+                            if(!recommendationModel.autoClose){
+                                NG_Button(title: "OK".localized(for: language), style: .NG_ButtonStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                                    withAnimation {
+                                        recommendationModel.popupEnabled = false
+                                    }
+                                })
+                            }
                         }
                     }
                     .NG_Card(.NG_CardStyle_AppWizard, theme: theme)
@@ -30,10 +163,10 @@ struct AppWizardView: View {
                     .shadow(radius: 10)
                 }
                 .onAppear {
-                    if autoClose {
+                    if recommendationModel.autoClose {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                             withAnimation {
-                                popupEnabled = false
+                                recommendationModel.popupEnabled = false
                             }
                         }
                     }
@@ -44,7 +177,7 @@ struct AppWizardView: View {
                 .padding(.horizontal, 5)
             }
         }
-        .animation(.easeInOut, value: popupEnabled)
+        .animation(.easeInOut, value: recommendationModel.popupEnabled)
     }
     
     private var content: some View {
@@ -65,6 +198,16 @@ struct AppWizardView: View {
         switch recommendationModel.recommendation {
         case .none:
             return "Как дела?".localized(for: language)
+        case .noneAgain:
+            return "Как дела?".localized(for: language)
+        case .keinPrufungHeute:
+            return "Сегодня ещё не прводился экзамен. Устроим?"
+        case .keinPrufungDieseWoche:
+            return "На этой неделе ещё не проводился экзамен. Устроим?"
+        case .keinPrufungLangeZeit:
+            return "Чего-то давно уже экзамен не проводился. Устроим?"
+        case .keinPrufungNie:
+            return "Ещё никогда не проводился экзамен. Устроим?"
         }
     }
     
@@ -72,6 +215,16 @@ struct AppWizardView: View {
         switch recommendationModel.recommendation {
         case .none:
             return "bubble.left"
+        case .noneAgain:
+            return "bubble.left"
+        case .keinPrufungHeute:
+            return "questionmark.circle"
+        case .keinPrufungDieseWoche:
+            return "questionmark.square"
+        case .keinPrufungLangeZeit:
+            return "questionmark.diamond"
+        case .keinPrufungNie:
+            return "star.bubble"
         }
     }
 }
