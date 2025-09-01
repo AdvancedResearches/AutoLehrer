@@ -17,6 +17,7 @@ struct WortRepeater: View {
     @State var prufungWortFormen: [WortFormen] = []
     @State var prufungResult: [WortArt: Int] = [:]
     @State var prufungCompleted: Bool = false
+    @State var prufungLoadCompleted: Bool = false
     
     @State var pickedWortFormen: WortFormen?
     
@@ -418,7 +419,7 @@ struct WortRepeater: View {
             let checkedFormen = guessingResult.count
             NG_Button(
                 title: "К следующему разделу".localized(for: language),
-                style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                style: .NG_ButtonStyle_Regular,
                 isDisabled: .constant(false),
                 isHighlighting: .constant(true),
                 isPulsating: .constant(true),
@@ -527,46 +528,9 @@ struct WortRepeater: View {
                                 view.opacity(0.2)
                             }
                     }
-                    if(prufungCompleted){
-                        SizeAware(onChange: { _ in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                withAnimation(.easeInOut(duration: 0.35)) {
-                                    proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                                }
-                            }
-                        }) {
-                            NG_Button(
-                                title: "Экзамен закончен".localized(for: language),
-                                style: .NG_ButtonStyle_Regular,
-                                isDisabled: .constant(false),
-                                isHighlighting: .constant(false),
-                                isPulsating: .constant(true),
-                                action: {
-                                    dismiss()
-                                },
-                                widthFlood: true
-                            )
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 25)
-                            .transition(.scale)
-                            .onAppear{
-                                print("prufungConpleted button shall be rendered")
-                            }
-                        }
-                    }else{
-                        if(wort.count > 0){
-                            if(readyToMoveOn){
-                                SizeAware(onChange: { _ in
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                        withAnimation(.easeInOut(duration: 0.35)) {
-                                            proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                                        }
-                                    }
-                                }) {
-                                    NextButton_Prufung_Next()
-                                }
-                            }
-                        }else{
+                    
+                    if(wort.count > 0){
+                        if(readyToMoveOn){
                             SizeAware(onChange: { _ in
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
                                     withAnimation(.easeInOut(duration: 0.35)) {
@@ -574,12 +538,31 @@ struct WortRepeater: View {
                                     }
                                 }
                             }) {
+                                NextButton_Prufung_Next()
+                            }
+                        }
+                    }else{
+                        if(prufungLoadCompleted){
+                            SizeAware(onChange: { _ in
+                                print("PrufungExamSection.wortcount is 0. Scroll to bottom-anchor triggered")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
+                                }
+                                
+                            }) {
                                 NextButton_Prufung_Skip()
                             }
                         }
                     }
                     
                     Color.clear.frame(height: 1).id("bottom-anchor")
+                        .onChange(of: prufungLoadCompleted){ newValue in
+                            if(newValue){
+                                
+                            }
+                        }
                 }
                 .background(.clear)
                 .animation(.easeInOut(duration: 0.35), value: readyToMoveOn)
@@ -1481,6 +1464,9 @@ struct WortRepeater: View {
         recalcTimeToBeatReminder()
     }
     func pickTheWordFurPrufung() {
+        prufungLoadCompleted = false
+        readyToMoveOn = false
+        runningWort = 0
         
         if(alleWortArten.isEmpty){
             alleWortArten = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
@@ -1501,6 +1487,7 @@ struct WortRepeater: View {
             }
             TimeStatistics.submitExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(nil), forThe: nil)
             print("pickTheWordFurPrufung: end of exam detected")
+            prufungLoadCompleted = true
             return
         }else{
             prufungCompleted = false
@@ -1528,6 +1515,7 @@ struct WortRepeater: View {
         if(gewahltWorter.count < 10){
             print("pickTheWordFurPrufung: detected demand to skip the wort art")
             runningWortArtIndex += 1
+            prufungLoadCompleted = true
             return
         }
         
@@ -1558,5 +1546,6 @@ struct WortRepeater: View {
         potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
         prufungResult.updateValue(0, forKey: runningWortArt!)
         runningWortArtIndex += 1
+        prufungLoadCompleted = true
     }
 }
