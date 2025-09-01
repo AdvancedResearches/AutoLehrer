@@ -133,7 +133,7 @@ struct WortRepeater: View {
         if(scorePercentage > 20){
             return "Плохо"
         }
-        if(scorePercentage > 0){
+        if(scorePercentage >= 0){
             return "Отвратительно"
         }
         return "Неизвестно"
@@ -156,7 +156,7 @@ struct WortRepeater: View {
         if(scorePercentage > 20){
             return .NG_TextColor_Red
         }
-        if(scorePercentage > 0){
+        if(scorePercentage >= 0){
             return .NG_TextColor_Red
         }
         return .NG_TextColor_Regular
@@ -202,7 +202,8 @@ struct WortRepeater: View {
                             .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
                         Spacer()
                     }
-                        .padding(.leading, 10)
+                    .NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .padding(.horizontal, 20)
                     ForEach(0..<alleWortArten.count){ index in
                         HStack{
                             Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
