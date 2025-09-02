@@ -256,8 +256,17 @@ struct StatisticsView: View {
                                 }
                             )
                             VStack{
-                                Grid{
+                                Grid(alignment: .leading){
+                                    GridRow{
+                                        Text("Сегодня")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text("Вчера")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text("В среднем")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }
                                     ForEach(learningTableData) { learningItem in
+                                        Divider()
                                         GridRow{
                                             HStack{
                                                 Text(learningItem.wortArtName)
@@ -266,18 +275,14 @@ struct StatisticsView: View {
                                             }
                                             .gridCellColumns(3)
                                         }
-                                        HStack{
-                                            GridRow{
-                                                Text("Today")
-                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                Text("Yesterday")
-                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                                Text("Average")
-                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            }
-                                            Spacer()
+                                        GridRow{
+                                            Text("\(Float(learningItem.today).formattedString(decimalPlaces: 1)) мин.")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Text("\(Float(learningItem.yesterday).formattedString(decimalPlaces: 1)) мин.")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Text("\(Float(learningItem.average).formattedString(decimalPlaces: 1)) мин.")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                         }
-                                        .padding(.leading, 10)
                                     }
                                 }
                             }
@@ -605,7 +610,7 @@ struct StatisticsView: View {
                 }
                 .id(baseId+1000000)
                 .transition(.blurReplace)
-                .animation(.easeInOut(duration: initiated ? 0.5 : 3), value: baseId)
+                .animation(.easeInOut(duration: 0.5), value: baseId)
                 .animation(.easeInOut(duration: 0.5), value: mode_1)
                 .animation(.easeInOut(duration: 0.5), value: mode_2)
                 .animation(.easeInOut(duration: 0.5), value: mode_3)
@@ -615,9 +620,6 @@ struct StatisticsView: View {
                 scaler_1 = third
                 scaler_2 = third
                 scaler_3 = third
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    initiated = true
-                }
             }
             .onChange(of: selectedArt){
                 reloadTimeLearningData()
@@ -653,6 +655,20 @@ struct StatisticsView: View {
         }
         
         learningTableData.removeAll()
+        var learningTableItem = TableItem(wortArtName: "ВСЕГО", today: 0, yesterday: 0, average: 0)
+        let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: nil)
+        if let recentTimeStats = recentTimeStats{
+            learningTableItem.today = recentTimeStats.learningTime / 60.0
+        }
+        let gesternTimeStats: TimeStatistics? = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: nil)
+        if let gesternTimeStats = gesternTimeStats{
+            learningTableItem.yesterday = gesternTimeStats.learningTime / 60.0
+        }
+        let averageLearningTime = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: nil)
+        if let averageLearningTime = averageLearningTime{
+            learningTableItem.average = averageLearningTime / 60.0
+        }
+        learningTableData.append(learningTableItem)
         for dieArt in alleWortArten{
             var learningTableItem = TableItem(wortArtName: dieArt.name_RU ?? "Неизвестно", today: 0, yesterday: 0, average: 0)
             let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
