@@ -156,6 +156,30 @@ extension Statistics{
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
+        let fiveMinutesLater = Date().addingTimeInterval(5 * 60)
+
+        let requestAlleAttemptedIn5MinOrLater: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAlleAttemptedIn5MinOrLater.predicate = NSPredicate(
+            format: "relWortArt == %@ AND attempted == true AND nextPlanedAttempt >= %@",
+            wortArt,
+            fiveMinutesLater as CVarArg
+        )
+        requestAlleAttemptedIn5MinOrLater.sortDescriptors = [
+            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
+        ]
+        
+        let fifteenMinutesLater = Date().addingTimeInterval(15 * 60)
+
+        let requestAlleAttemptedIn15MinOrLater: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAlleAttemptedIn15MinOrLater.predicate = NSPredicate(
+            format: "relWortArt == %@ AND attempted == true AND nextPlanedAttempt >= %@",
+            wortArt,
+            fifteenMinutesLater as CVarArg
+        )
+        requestAlleAttemptedIn15MinOrLater.sortDescriptors = [
+            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
+        ]
+        
         let alleAttemptedEligibleWithoutSetNextPlannedAttempt = try! context.fetch(requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt)
 
         let alleAttemptedWortFormenEligible = try! context.fetch(requestAlleAttemptedEligible)
@@ -164,7 +188,11 @@ extension Statistics{
         
         let alleAttemptedWortFormenNotYetReached = try! context.fetch(requestAlleAttemptedNotYetReached)
         
-        print("pickWortFormen_2: eligible \(alleAttemptedWortFormenEligible.count) where not set are \(alleAttemptedEligibleWithoutSetNextPlannedAttempt.count), neu \(alleNeverAttemptedWortFormen.count), not yet reached \(alleAttemptedWortFormenNotYetReached.count)")
+        let alleAttemptedWortFormenNotYetReachedBeyondShortSession = try! context.fetch(requestAlleAttemptedIn5MinOrLater)
+        
+        let alleAttemptedWortFormenNotYetReachedBeyondLongSession = try! context.fetch(requestAlleAttemptedIn15MinOrLater)
+        
+        print("pickWortFormen_2: eligible \(alleAttemptedWortFormenEligible.count) where not set are \(alleAttemptedEligibleWithoutSetNextPlannedAttempt.count), neu \(alleNeverAttemptedWortFormen.count), not yet reached \(alleAttemptedWortFormenNotYetReached.count) where \(alleAttemptedWortFormenNotYetReachedBeyondShortSession.count) beyond short session and \(alleAttemptedWortFormenNotYetReachedBeyondLongSession.count) beyond long session")
         
         if let ersteEligible = alleAttemptedWortFormenEligible.first {
             return ersteEligible

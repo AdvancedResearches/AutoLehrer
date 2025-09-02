@@ -401,6 +401,8 @@ struct WortRepeater: View {
                         }
                     }
                     
+                    pickedWortFormen!.lastSucceeded = Int64(successCounter)
+                    
                     //if(successCounter == wort.count){
                     if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
                         //wenn all antworten sind rischig - kann sein nur wenn alle moglich wort formen war successfull
@@ -413,7 +415,17 @@ struct WortRepeater: View {
                         }
                     }else{
                         //print("Wort zahlung: das war fails")
-                        WortFormen.set_failure(pickedWortFormen!, attemptedFormen: wort)
+                        
+                        var failedWorter: [Wort] = []
+                        for counter in 0..<guessingResult.count{
+                            if(guessingResult[counter] == -1 ){
+                                failedWorter.append(wort[counter])
+                            }
+                        }
+                        
+                        let failLevel = Int(failedWorter.map { $0.level ?? 0 }.min() ?? 0)
+                        
+                        WortFormen.set_failure(pickedWortFormen!, attemptedFormen: wort, failLevel: failLevel)
                         confirmedWorte.remove(pickedWortFormen!)
                     }
                     
@@ -729,7 +741,7 @@ struct WortRepeater: View {
     private func dasProgressErklarung() -> some View{
         VStack{
             HStack{
-                Text("Всего форм у этого слова: \(WortFormen.alleFormen(pickedWortFormen!))")
+                Text("Всего форм у этого слова: \(WortFormen.alleFormenZahlung(pickedWortFormen!))")
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                 Spacer()
             }
@@ -752,7 +764,7 @@ struct WortRepeater: View {
             Divider()
             
             let fasttrack = !pickedWortFormen!.failed
-            let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormen(pickedWortFormen!)
+            let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormenZahlung(pickedWortFormen!)
             let allAnswered = !guessingResult.contains(0)
             let hasFaults = guessingResult.contains(-1)
             let matchpoint = fasttrack ? true : pickedWortFormen!.successCounter >= 2
@@ -1047,6 +1059,54 @@ struct WortRepeater: View {
         }
         
     }
+    private func progressIconName() -> String {
+        if(pickedWortFormen!.failed){
+            if(pickedWortFormen!.randomFail){
+                return "person.fill.questionmark"
+            }else{
+                if(pickedWortFormen!.failCounter <= 1){
+                    return "1.square.fill"
+                }
+                if(pickedWortFormen!.failCounter == 2){
+                    return "2.square.fill"
+                }
+                if(pickedWortFormen!.failCounter == 3){
+                    return "3.square.fill"
+                }
+                if(pickedWortFormen!.failCounter == 4){
+                    return "4.square.fill"
+                }
+                if(pickedWortFormen!.failCounter == 5){
+                    return "5.square.fill"
+                }
+                return "hand.thumbsdown.fill"
+            }
+        }else{
+            if(pickedWortFormen!.failCounter <= 1){
+                return "1.square.fill"
+            }
+            if(pickedWortFormen!.failCounter == 2){
+                return "2.square.fill"
+            }
+            if(pickedWortFormen!.failCounter == 3){
+                return "3.square.fill"
+            }
+            if(pickedWortFormen!.failCounter == 4){
+                return "4.square.fill"
+            }
+            if(pickedWortFormen!.failCounter == 5){
+                return "5.square.fill"
+            }
+            return "star.square.fill"
+        }
+    }
+    private func progressIconStyle() -> NG_IconStyle {
+        if(pickedWortFormen!.failed){
+            return .NG_IconStyle_Red
+        }else{
+            return .NG_IconStyle_Green
+        }
+    }
     private func dasProgressSektion() -> some View {
         return HStack{
             DualColorBar(
@@ -1069,6 +1129,10 @@ struct WortRepeater: View {
                     //print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
                 }
             }
+            Image(systemName: progressIconName())
+                .resizable()
+                .frame(width: 25, height: 25)
+                .NG_iconStyling(progressIconStyle(), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
             //.border(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green)
             /*
             if(!pickedWortFormen!.failed){

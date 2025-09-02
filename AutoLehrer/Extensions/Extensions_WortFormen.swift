@@ -213,6 +213,99 @@ extension WortFormen{
     public static func get_successfulHot_recent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
         return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown >= (WortFormen.successCoolDown - 3) && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
     }
+    public static func get_success_delay_inSeconds(successCount: Int) -> Int{
+        if(successCount <= 1){
+            return 60
+        }
+        if(successCount == 2){
+            return 180
+        }
+        if(successCount == 3){
+            return 600
+        }
+        if(successCount == 4){
+            return 3600
+        }
+        if(successCount == 5){
+            return 21600
+        }
+        return Int.random(in: 86400...259200)
+    }
+    public static func get_fail_delay_inSeconds(failCount: Int, failLevel: Int, isRandomFail: Bool) -> Int{
+        if(isRandomFail){
+            return 60
+        }
+        if(failLevel==0){
+            if(failCount <= 1){
+                return 60
+            }
+            if(failCount == 2){
+                return 60
+            }
+            if(failCount == 3){
+                return 180
+            }
+            if(failCount == 4){
+                return 60
+            }
+            if(failCount == 5){
+                return Int.random(in: 3600...86400)
+            }
+            return Int.random(in: 0...604800)
+        }
+        if(failLevel==1){
+            if(failCount <= 1){
+                return 60
+            }
+            if(failCount == 2){
+                return 60
+            }
+            if(failCount == 3){
+                return 180
+            }
+            if(failCount == 4){
+                return 60
+            }
+            if(failCount == 5){
+                return Int.random(in: 3600...86400)
+            }
+            return Int.random(in: 0...604800)
+        }
+        if(failLevel==2){
+            if(failCount <= 1){
+                return 60
+            }
+            if(failCount == 2){
+                return 60
+            }
+            if(failCount == 3){
+                return 180
+            }
+            if(failCount == 4){
+                return 60
+            }
+            if(failCount == 5){
+                return Int.random(in: 3600...86400)
+            }
+            return Int.random(in: 0...604800)
+        }
+        if(failCount <= 1){
+            return 60
+        }
+        if(failCount == 2){
+            return 60
+        }
+        if(failCount == 3){
+            return 180
+        }
+        if(failCount == 4){
+            return 60
+        }
+        if(failCount == 5){
+            return Int.random(in: 3600...86400)
+        }
+        return Int.random(in: 0...604800)
+    }
     public static func set_success(_ wortFormen: WortFormen, attemptedFormen: [Wort]) -> Bool{
         guard let context = wortFormen.managedObjectContext else { return false }
         
@@ -229,34 +322,14 @@ extension WortFormen{
             wortFormen.successCounter = 1
         }else{
             wortFormen.successCounter += 1
-            if(wortFormen.formsToShow == WortFormen.alleFormen(wortFormen)){
+            if(wortFormen.formsToShow == WortFormen.alleFormenZahlung(wortFormen)){
                 wortFormen.coolDown = WortFormen.completeCoolDown
             }else{
                 wortFormen.coolDown = WortFormen.successCoolDownFastTrack
             }
         }
         
-        if(wortFormen.levelReached == 0){
-            var theOffset = Int(pow(2.0, Double( min(11, wortFormen.successCounter - 1) )))
-            if(theOffset > 1440){
-                theOffset = Int.random(in: 1440...1440*3)
-            }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
-        }
-        if(wortFormen.levelReached == 1){
-            var theOffset = Int(pow(3.0, Double( min(7, wortFormen.successCounter - 1) )))
-            if(theOffset > 1440){
-                theOffset = Int.random(in: 1440...1440*3)
-            }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
-        }
-        if(wortFormen.levelReached > 1){
-            var theOffset = Int(pow(4.0, Double( min(6, wortFormen.successCounter - 1) )))
-            if(theOffset > 1440){
-                theOffset = Int.random(in: 1440...1440*3)
-            }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
-        }
+        wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(get_success_delay_inSeconds(successCount: Int(wortFormen.successCounter)))
         
         wortFormen.failCounter = 0
         wortFormen.failed = false
@@ -267,51 +340,36 @@ extension WortFormen{
         
         let allAvailable = Int64((wortFormen.relWort as? Set<Wort>)?.count ?? 0)
         
-        //print("Wort zahlung: WortFormen.set_success. all available forms detected \(allAvailable)")
-        
         return wortFormen.formsToShow == allAvailable
     }
-    public static func set_failure(_ wortFormen: WortFormen, attemptedFormen: [Wort]){
+    public static func set_failure(_ wortFormen: WortFormen, attemptedFormen: [Wort], failLevel: Int){
         guard let context = wortFormen.managedObjectContext else { return }
-        if(wortFormen.failed){
-            wortFormen.failCounter += 1
+        
+        let isRandomFailure = wortFormen.randomFail ? false : wortFormen.successCounter > 5
+        
+        if(isRandomFailure){
+            wortFormen.nextPlanedAttempt =  Date.now.offset_inSeconds(get_fail_delay_inSeconds(failCount: 0, failLevel: 0, isRandomFail: true))
+            wortFormen.randomFail = true
         }else{
-            wortFormen.failCounter = 1
+            if(wortFormen.failed){
+                wortFormen.failCounter += 1
+            }else{
+                wortFormen.failCounter = 1
+            }
+            wortFormen.successCounter = 0
+            wortFormen.coolDown = WortFormen.failCoolDown
+            wortFormen.failed = true
+            
+            let maxLevel = attemptedFormen.map { $0.level ?? 0 }.max() ?? 0
+            wortFormen.levelReached = maxLevel
+            
+            wortFormen.nextPlanedAttempt =  Date.now.offset_inSeconds(get_fail_delay_inSeconds(failCount: 0, failLevel: 0, isRandomFail: true))
+            
+            wortFormen.randomFail = false
         }
-        wortFormen.successCounter = 0
-        wortFormen.coolDown = WortFormen.failCoolDown
-        wortFormen.failed = true
+        
         wortFormen.formsToShow = Int64(attemptedFormen.count)
         wortFormen.attempted = true
-        
-        let maxLevel = attemptedFormen.map { $0.level ?? 0 }.max() ?? 0
-        wortFormen.levelReached = maxLevel
-        
-        if(wortFormen.levelReached == 0){
-            if(wortFormen.failCounter > 2){
-                var theOffset = Int(pow(2.0, Double( min(6, wortFormen.failCounter - 2) )))
-                if(theOffset > 60){
-                    theOffset = Int.random(in: 1...60)
-                }
-                wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
-            }else{
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
-            }
-        }
-        if(wortFormen.levelReached == 1){
-            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.failCounter - 2) )))
-            if(theOffset > 60){
-                theOffset = Int.random(in: 1...60)
-            }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
-        }
-        if(wortFormen.levelReached > 1){
-            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.failCounter - 2) )))
-            if(theOffset > 60){
-                theOffset = Int.random(in: 1...60)
-            }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
-        }
         
         print("set_failure: nextPlannedAttempt set to \(wortFormen.nextPlanedAttempt)")
         
@@ -348,14 +406,16 @@ extension WortFormen{
         return false
     }
     public static func attemptingFormenRatio(_ wortFormen: WortFormen, fasttrackExtras: Int) -> Double{
-        let alleFormen: Double = Double(alleFormen(wortFormen))
-        return (Double(wortFormen.formsToShow + Int64(fasttrackExtras)) / alleFormen)
+        let alleFormen: Double = Double(alleFormenZahlung(wortFormen))
+        let succeededFormen: Double = Double(wortFormen.formsToShow)
+        return alleFormen > 0 ? (succeededFormen / alleFormen) : 0
     }
     public static func succeededFormenRatio(_ wortFormen: WortFormen) -> Double{
-        let alleFormen: Double = Double(alleFormen(wortFormen))
-        return (Double(wortFormen.formsToShow<=0 ? 0 : wortFormen.formsToShow-1) / alleFormen)
+        let alleFormen: Double = Double(alleFormenZahlung(wortFormen))
+        let succeededFormen: Double = Double(wortFormen.lastSucceeded)
+        return alleFormen > 0 ? (succeededFormen / alleFormen) : 0
     }
-    public static func alleFormen(_ wortFormen: WortFormen) -> Int{
+    public static func alleFormenZahlung(_ wortFormen: WortFormen) -> Int{
         return wortFormen.relWort?.count ?? 0
     }
     public static func repetitionsToAddNewForm(_ wortFormen: WortFormen) -> Int{
