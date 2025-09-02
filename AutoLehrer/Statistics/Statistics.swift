@@ -211,13 +211,11 @@ struct StatisticsView: View {
                                 )
                                 .foregroundStyle(by: .value("Категория", slice.wortArtName))
                             }
-                            //.chartForegroundStyleScale(scale)
                             .chartLegend(position: .bottom) {
                                 VStack(alignment: .leading, spacing: 1) {
                                     ForEach(pieChartData) { slice in
                                         HStack {
                                             Circle()
-                                                //.fill(Color.categorical(slice.wortArtName))
                                                 .fill(scale[slice.wortArtName] ?? .gray)
                                                 .frame(width: 12, height: 12)
                                             Text(slice.wortArtName)
