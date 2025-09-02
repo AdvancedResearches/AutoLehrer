@@ -53,7 +53,7 @@ struct StatisticsView: View {
     @State var learningRatioPieChartData: [PieChartItem] = []
     @State var learningRatioTableData: [TableItem] = []
     
-    @State var examPieChartDate: [PieChartItem] = []
+    @State var examPieChartData: [PieChartItem] = []
     @State var examTableData: [TableItem] = []
     
     @State var wortArten: [WortArt] = []
@@ -728,14 +728,14 @@ struct StatisticsView: View {
                         }
                         if(mode_3==1){
                             let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
-                                learningRatioPieChartData.enumerated().map { i, slice in
-                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
+                                examPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(examPieChartData.count),
                                                               saturation: 0.7,
                                                               brightness: 0.9))
                                 }
                             )
                             VStack(alignment: .leading, spacing: 1){
-                                Chart(learningRatioPieChartData) { slice in
+                                Chart(examPieChartData) { slice in
                                     SectorMark(
                                         angle: .value("Значение", slice.value),
                                         innerRadius: .ratio(0.2),
@@ -744,7 +744,7 @@ struct StatisticsView: View {
                                     .foregroundStyle(scale[slice.wortArtName] ?? .gray)
                                 }
                                 VStack(alignment: .leading, spacing: 1) {
-                                    ForEach(learningRatioPieChartData) { slice in
+                                    ForEach(examPieChartData) { slice in
                                         HStack(spacing: 8) {
                                             Circle()
                                                 .fill(scale[slice.wortArtName] ?? .gray)
@@ -764,11 +764,11 @@ struct StatisticsView: View {
                                             if value > 1 {
                                                 // pinch-out → увеличиваем
                                                 scaler_1 = threefourth
-                                                print("chart 2 pinch-out")
+                                                print("chart 3 pinch-out")
                                             } else {
                                                 // pinch-in → уменьшаем
                                                 scaler_1 = third
-                                                print("chart 2 pinch-in")
+                                                print("chart 3 pinch-in")
                                             }
                                         }
                                     }
@@ -777,13 +777,6 @@ struct StatisticsView: View {
                             .transition(.blurReplace)
                         }
                         if(mode_3==2){
-                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
-                                learningRatioPieChartData.enumerated().map { i, slice in
-                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
-                                                              saturation: 0.7,
-                                                              brightness: 0.9))
-                                }
-                            )
                             VStack{
                                 Grid(alignment: .leading){
                                     GridRow{
@@ -791,10 +784,10 @@ struct StatisticsView: View {
                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                         Text("Вчера")
                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                        Text("Позавчера")
+                                        Text("В среднем")
                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                     }
-                                    ForEach(learningRatioTableData) { learningItem in
+                                    ForEach(examTableData) { learningItem in
                                         Divider()
                                         GridRow{
                                             HStack{
@@ -809,7 +802,7 @@ struct StatisticsView: View {
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                             Text("\(Float(learningItem.yesterday).formattedString(decimalPlaces: 1)) %")
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            Text("\(Float(learningItem.beforeyesterday).formattedString(decimalPlaces: 1)) %")
+                                            Text("\(Float(learningItem.average).formattedString(decimalPlaces: 1)) %")
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                         }
                                     }
@@ -823,11 +816,11 @@ struct StatisticsView: View {
                                             if value > 1 {
                                                 // pinch-out → увеличиваем
                                                 scaler_1 = threefourth
-                                                print("chart 2 pinch-out")
+                                                print("chart 3 pinch-out")
                                             } else {
                                                 // pinch-in → уменьшаем
                                                 scaler_1 = third
-                                                print("chart 2 pinch-in")
+                                                print("chart 3 pinch-in")
                                             }
                                         }
                                     }
@@ -964,6 +957,57 @@ struct StatisticsView: View {
         }
         
         ///
+        
+        examPieChartData.removeAll()
+        for dieArt in alleWortArten{
+            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            if let recentTimeStats = recentTimeStats{
+                if(recentTimeStats.examCount > 0){
+                    newPieChartItem.value = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
+                }
+            }
+            examPieChartData.append(newPieChartItem)
+        }
+        examTableData.removeAll()
+        var examTableItem = TableItem(wortArtName: "ВСЕГО", today: 0, yesterday: 0, average: 0)
+        recentTimeStats = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: nil)
+        if let recentTimeStats = recentTimeStats{
+            if(recentTimeStats.examCount > 0){
+                examTableItem.today = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
+            }
+        }
+        gesternTimeStats = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: nil)
+        if let gesternTimeStats = gesternTimeStats{
+            if(gesternTimeStats.examCount > 0){
+                examTableItem.yesterday = Double(gesternTimeStats.examTotal) / Double(gesternTimeStats.examCount)
+            }
+        }
+        averageValue = TimeStatistics.fetchWeeklyAverageExam(in: viewContext, forThe: nil)
+        if let averageValue = averageValue{
+            examTableItem.average = averageValue
+        }
+        examTableData.append(examTableItem)
+        for dieArt in alleWortArten{
+            var examTableItem = TableItem(wortArtName: dieArt.name_RU ?? "Неизвестно", today: 0, yesterday: 0, average: 0)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            if let recentTimeStats = recentTimeStats{
+                if(recentTimeStats.examCount > 0){
+                    examTableItem.today = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
+                }
+            }
+            let gesternTimeStats: TimeStatistics? = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: dieArt)
+            if let gesternTimeStats = gesternTimeStats{
+                if(gesternTimeStats.examCount > 0){
+                    examTableItem.yesterday = Double(gesternTimeStats.examTotal) / Double(gesternTimeStats.examCount)
+                }
+            }
+            let averageValue = TimeStatistics.fetchWeeklyAverageExam(in: viewContext, forThe: dieArt)
+            if let averageValue = averageValue{
+                examTableItem.average = averageValue
+            }
+            examTableData.append(examTableItem)
+        }
     }
     
     func reloadTimeLearningData() {

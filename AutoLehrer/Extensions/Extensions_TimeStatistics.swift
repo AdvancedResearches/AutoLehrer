@@ -188,6 +188,7 @@ extension TimeStatistics{
         return total / Double(timeStamps.count)
     }
     public static func fetchWeeklyAverageExam(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
+        print("TimeStatistics.fetchWeeklyAverageExam: running for \(wortArt?.name_RU ?? "ALLES")")
         var timeStamps: [TimeStatistics] = []
         for theOffest in -7 ... -1{
             if let timeStamp = fetchLearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
@@ -196,6 +197,7 @@ extension TimeStatistics{
                 }
             }
         }
+        print("   TimeStatistics.fetchWeeklyAverageExam: have found \(timeStamps.count) days with exams over previous 7 days")
         if timeStamps.count == 0 {
             return nil
         }
@@ -203,6 +205,7 @@ extension TimeStatistics{
         for theStamp in timeStamps{
             total += Double(theStamp.examTotal) / Double(theStamp.examCount)
         }
+        print("   TimeStatistics.fetchWeeklyAverageExam: total for those days was \(total), what give us average = \(total / Double(timeStamps.count))")
         return total / Double(timeStamps.count)
     }
 }
