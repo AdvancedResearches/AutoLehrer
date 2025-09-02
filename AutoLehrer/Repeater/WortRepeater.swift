@@ -383,26 +383,37 @@ struct WortRepeater: View {
                 isHighlighting: .constant(true),
                 isPulsating: .constant(true),
                 action: {
+                    print("Wort zahlung: INITIATED")
                     
+                    //was ist das für?
                     attemptCounter += 1
-                    var successCounter: Int = 0
+                    //Rechen success formen
+                    var successCounter: Int = guessingResult.filter{$0 == 1}.count
                     
+                    //merken wort formen wie successful oder nicht successful
                     for theFormCounter in 0..<wort.count{
                         if(guessingResult[theFormCounter] == 1){
                             Statistics.set_success(wort[theFormCounter])
-                            successCounter += 1
+                            //successCounter += 1
                         }
                         if(guessingResult[theFormCounter] == -1){
                             Statistics.set_failure(wort[theFormCounter])
                         }
                     }
                     
-                    if(successCounter == wort.count){
-                        if(WortFormen.set_success(pickedWortFormen!)){
+                    //if(successCounter == wort.count){
+                    if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
+                        //wenn all antworten sind rischig - kann sein nur wenn alle moglich wort formen war successfull
+                        print("Wort zahlung: ALLE WORT FORMEN WAR SUCCESSFUL")
+                        if(WortFormen.set_success(pickedWortFormen!, attemptedFormenZahlung: wort.count)){
+                            print("Wort zahlung: --- counted wie completed")
                             confirmedWorte.insert(pickedWortFormen!)
+                        }else{
+                            print("Wort zahlung: --- counted wie completed NICHT")
                         }
                     }else{
-                        WortFormen.set_failure(pickedWortFormen!)
+                        print("Wort zahlung: das war fails")
+                        WortFormen.set_failure(pickedWortFormen!, attemptedFormenZahlung: wort.count)
                         confirmedWorte.remove(pickedWortFormen!)
                     }
                     

@@ -213,14 +213,17 @@ extension WortFormen{
     public static func get_successfulHot_recent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
         return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown >= (WortFormen.successCoolDown - 3) && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
     }
-    public static func set_success(_ wortFormen: WortFormen) -> Bool{
+    public static func set_success(_ wortFormen: WortFormen, attemptedFormenZahlung: Int) -> Bool{
         guard let context = wortFormen.managedObjectContext else { return false }
-        let shallAddNewForm = shallAddNewForm(wortFormen)
-        wortFormen.successCounter += 1
+        
+        wortFormen.formsToShow = Int64(attemptedFormenZahlung)
+        print("Wort zahlung: WortFormen.set_success. Set formsToShow to \(wortFormen.formsToShow)")
         
         if wortFormen.failed{
             wortFormen.coolDown = WortFormen.successCoolDown
+            wortFormen.successCounter = 1
         }else{
+            wortFormen.successCounter += 1
             if(wortFormen.formsToShow == WortFormen.alleFormen(wortFormen)){
                 wortFormen.coolDown = WortFormen.completeCoolDown
             }else{
@@ -228,25 +231,21 @@ extension WortFormen{
             }
         }
         
-        if shallAddNewForm{
-                wortFormen.formsToShow += 1
-                wortFormen.successCounter = 0
-                
-        }else{
-            if(wortConfirmed(wortFormen)){
-                wortFormen.successCounter = 3
-            }
-        }
-        
         wortFormen.failed = false
         try! context.save()
-        return wortFormen.successCounter >= 3
+        
+        let allAvailable = Int64((wortFormen.relWort as? Set<Wort>)?.count ?? 0)
+        
+        print("Wort zahlung: WortFormen.set_success. all available forms detected \(allAvailable)")
+        
+        return wortFormen.formsToShow == allAvailable
     }
-    public static func set_failure(_ wortFormen: WortFormen){
+    public static func set_failure(_ wortFormen: WortFormen, attemptedFormenZahlung: Int){
         guard let context = wortFormen.managedObjectContext else { return }
         wortFormen.successCounter = 0
         wortFormen.coolDown = WortFormen.failCoolDown
         wortFormen.failed = true
+        wortFormen.formsToShow = Int64(attemptedFormenZahlung)
         try! context.save()
     }
     public static func get_wortArt_string(_ wortFormen: WortFormen) -> String{
