@@ -171,4 +171,38 @@ extension TimeStatistics{
         }
         return total / Double(timeStamps.count)
     }
+    public static func fetchWeeklyAverageLearningRatio(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
+        var timeStamps: [TimeStatistics] = []
+        for theOffest in -7 ... -1{
+            if let timeStamp = fetchLearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
+                    timeStamps.append(timeStamp)
+            }
+        }
+        if timeStamps.count == 0 {
+            return nil
+        }
+        var total: Double = 0
+        for theStamp in timeStamps{
+            total += Double(theStamp.completedFormen) / Double(theStamp.totalFormen)
+        }
+        return total / Double(timeStamps.count)
+    }
+    public static func fetchWeeklyAverageExam(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
+        var timeStamps: [TimeStatistics] = []
+        for theOffest in -7 ... -1{
+            if let timeStamp = fetchLearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
+                if(timeStamp.examCount > 0){
+                    timeStamps.append(timeStamp)
+                }
+            }
+        }
+        if timeStamps.count == 0 {
+            return nil
+        }
+        var total: Double = 0
+        for theStamp in timeStamps{
+            total += Double(theStamp.examTotal) / Double(theStamp.examCount)
+        }
+        return total / Double(timeStamps.count)
+    }
 }
