@@ -21,6 +21,20 @@ struct StatsItem: Identifiable{
     var examAverage: Double?
 }
 
+struct PieChartItem: Identifiable {
+    var id = UUID()
+    var wortArtName: String
+    var learnTime: Double
+}
+
+struct Slice: Identifiable {
+        var id = UUID()
+        var name: String
+        var value: Double
+}
+
+    
+
 struct StatisticsView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -31,6 +45,7 @@ struct StatisticsView: View {
     @State var currentTheme: Theme_Style = .regular
     
     @State var statArray: [StatsItem] = []
+    @State var pieChartData: [PieChartItem] = []
     @State var wortArten: [WortArt] = []
     @State var selectedArt: Int = -1
     @State var baseId: Int = 0
@@ -44,6 +59,13 @@ struct StatisticsView: View {
     @State var mode_3: Int = 0
     
     @State var initiated: Bool = false
+    
+    let data = [
+        Slice(name: "Учёба", value: 40),
+        Slice(name: "Работа", value: 30),
+        Slice(name: "Отдых", value: 20),
+        Slice(name: "Спорт", value: 10)
+    ]
     
     var body: some View{
         NavigationStack {
@@ -103,77 +125,112 @@ struct StatisticsView: View {
                             }
                         }
                         .animation(.easeInOut(duration: 0.5), value: selectedArt)
-                        .animation(.easeInOut(duration: 0.5), value: mode_1)
                         let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
                         let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(2)
-                        Chart {
-                            ForEach(statArray) { theStat in
-                                if let learn = theStat.learnTime {
-                                    let minutes = learn / 60
-                                    LineMark(
-                                        x: .value("Date", theStat.timeStamp),
-                                        y: .value("learnTime", minutes),
-                                        series: .value("Metric", "learnTime")
-                                    )
-                                    .foregroundStyle(.green)
-                                    .interpolationMethod(.linear)
-                                    .lineStyle(StrokeStyle(lineWidth: 2))
-                                    
-                                    PointMark(
-                                        x: .value("Date", theStat.timeStamp),
-                                        y: .value("Learn", minutes)
-                                    )
-                                    .symbol {
-                                        Rectangle()
-                                            .foregroundColor(.green)
-                                            .frame(width: 10, height: 10)
-                                    }
-                                }
-                            }
-                        }
-                        .chartXScale(domain: chartFromDate ... chartToDate)
-                        .chartXAxis {
-                            AxisMarks(preset: .aligned) { mark in
-                                AxisGridLine()
-                                    .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // цвет линий сетки по X
-                                AxisTick()
-                                    .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/) // цвет "чеков"
-                                AxisValueLabel()
-                                    .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/) // цвет подписей
-                            }
-                        }
-                        .chartYAxis {
-                            AxisMarks(preset: .extended) { mark in
-                                AxisGridLine()
-                                    .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // линии сетки по Y
-                                AxisTick()
-                                    .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/)
-                                AxisValueLabel()
-                                    .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/)
-                            }
-                        }
-                        .padding()
-                        .frame(height: scaler_1)
-                        .gesture(
-                            MagnificationGesture()
-                                .onEnded { value in
-                                    withAnimation(.easeInOut) {
-                                        if value > 1 {
-                                            // pinch-out → увеличиваем
-                                            scaler_1 = threefourth
-                                            print("chart 1 pinch-out")
-                                        } else {
-                                            // pinch-in → уменьшаем
-                                            scaler_1 = third
-                                            print("chart 1 pinch-in")
+                        if(mode_1==0){
+                            Chart {
+                                ForEach(statArray) { theStat in
+                                    if let learn = theStat.learnTime {
+                                        let minutes = learn / 60
+                                        LineMark(
+                                            x: .value("Date", theStat.timeStamp),
+                                            y: .value("learnTime", minutes),
+                                            series: .value("Metric", "learnTime")
+                                        )
+                                        .foregroundStyle(.green)
+                                        .interpolationMethod(.linear)
+                                        .lineStyle(StrokeStyle(lineWidth: 2))
+                                        
+                                        PointMark(
+                                            x: .value("Date", theStat.timeStamp),
+                                            y: .value("Learn", minutes)
+                                        )
+                                        .symbol {
+                                            Rectangle()
+                                                .foregroundColor(.green)
+                                                .frame(width: 10, height: 10)
                                         }
                                     }
                                 }
-                        )
-                        .id(baseId+100000)
-                        .transition(.blurReplace)
+                            }
+                            .chartXScale(domain: chartFromDate ... chartToDate)
+                            .chartXAxis {
+                                AxisMarks(preset: .aligned) { mark in
+                                    AxisGridLine()
+                                        .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // цвет линий сетки по X
+                                    AxisTick()
+                                        .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/) // цвет "чеков"
+                                    AxisValueLabel()
+                                        .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/) // цвет подписей
+                                }
+                            }
+                            .chartYAxis {
+                                AxisMarks(preset: .extended) { mark in
+                                    AxisGridLine()
+                                        .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray.opacity(0.5)*/) // линии сетки по Y
+                                    AxisTick()
+                                        .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.gray*/)
+                                    AxisValueLabel()
+                                        .foregroundStyle(theme.currentTheme.NG_Color_Text_Regular_Text/*Color.white*/)
+                                }
+                            }
+                            .padding()
+                            .frame(height: scaler_1)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 1 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 1 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+100000)
+                            .transition(.blurReplace)
+                        }
+                        if(mode_1==1){
+                            Chart(pieChartData) { slice in
+                                        SectorMark(
+                                            angle: .value("Значение", slice.learnTime),
+                                            innerRadius: .ratio(0),     // 0 → pie, >0 → donut
+                                            outerRadius: .ratio(1.0)
+                                        )
+                                        .foregroundStyle(by: .value("Категория", slice.wortArtName))
+                                    }
+                            .chartLegend(position: .bottom)
+                            .padding()
+                            .frame(height: scaler_1)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 1 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 1 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+110000)
+                            .transition(.blurReplace)
+                        }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .id(baseId+150000)
+                    .transition(.blurReplace)
+                    .animation(.easeInOut(duration: 0.5), value: mode_1)
                     .padding(.horizontal)
                     
                     
@@ -471,7 +528,12 @@ struct StatisticsView: View {
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
                 }
+                .id(baseId+1000000)
+                .transition(.blurReplace)
                 .animation(.easeInOut(duration: initiated ? 0.5 : 3), value: baseId)
+                .animation(.easeInOut(duration: 0.5), value: mode_1)
+                .animation(.easeInOut(duration: 0.5), value: mode_2)
+                .animation(.easeInOut(duration: 0.5), value: mode_3)
             }
             .onAppear{
                 reloadTimeLearningData()
@@ -528,6 +590,17 @@ struct StatisticsView: View {
             }
             statArray[theOffset + 27] = newTimeStampItem
             print("Statistics.reloadTimeLearningData(): statArray[\(theOffset + 27)] .timeStamp:\(statArray[theOffset + 27].timeStamp) .learnTime:\(statArray[theOffset + 27].learnTime) .id:\(statArray[theOffset + 27].id) - offset:\(theOffset)")
+        }
+        let alleWortArten: [WortArt] = WortArt.get_alleWortArten(viewContext)
+        pieChartData.removeAll()
+        for dieArt in alleWortArten{
+            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", learnTime: 0)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            if let recentTimeStats = recentTimeStats{
+                newPieChartItem.learnTime = recentTimeStats.learningTime
+            }
+            pieChartData.append(newPieChartItem)
+            print("Append pie chart slice \(newPieChartItem.wortArtName) - \(newPieChartItem.learnTime)")
         }
         baseId += 1
     }
