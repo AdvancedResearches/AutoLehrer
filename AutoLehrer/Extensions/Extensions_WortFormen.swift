@@ -326,8 +326,16 @@ extension WortFormen{
             }
         }
         
-        retValue = Array(sortedWorte.prefix(Int(wortFormen.formsToShow)))
+        retValue = Array(sortedWorte.prefix(countToRetrive))
         
         return retValue
+    }
+    public static func retrieve_alleFormen(_ wortFormen: WortFormen) -> [Wort] {
+        var retValue: [Wort] = []
+        
+        var alleWorteFurSache = wortFormen.relWort?.allObjects as! [Wort] ?? []
+        var sortedWorte = Wort.Worte_sort(alleWorteFurSache, wortFormen.relWortArt!)
+        
+        return sortedWorte
     }
 }

@@ -37,6 +37,7 @@ struct WortRepeater: View {
     @State var flipCompleted: [Bool] = []
     @State var flipShakingRatio: [CGFloat] = []
     @State var wortForm: [WortArtFormen] = []
+    @State var alleWorter: [Wort] = []
     
     @State var exercisedWorte: Set<WortFormen> = []
     @State var confirmedWorte: Set<WortFormen> = []
@@ -1217,6 +1218,9 @@ struct WortRepeater: View {
                                     runningWort += 1
                                 }
                                 guessingResult[index] = 1
+                                if(!prufungModus){
+                                    nechsterFormAppennding()
+                                }
                                 readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                                 if readyToMoveOn {
                                     prufungButtonTrigger.toggle()
@@ -1398,7 +1402,64 @@ struct WortRepeater: View {
             }
         }
     }
-    
+    private func sollMehrFormJetztZuappenden() -> Bool {
+        if guessingResult.contains(0){
+            return false
+        }
+        if guessingResult.contains(-1){
+            return false
+        }
+        return true
+    }
+    private func nechsterFormAppennding(){
+        print("nechsterFormAppennding invoked")
+        if(sollMehrFormJetztZuappenden()){
+            print("sollMehrFormJetztZuappenden pass")
+            print("worter bevor: \(wort.count) aus \(alleWorter.count)")
+            if(alleWorter.count>wort.count){
+                //for theCounter in 0..<topWorte.count{
+                //    wort.append(topWorte[theCounter])
+                //    beispiel.append(Wort.get_beispiel(topWorte[theCounter]))
+                //    wortForm.append(WortArtFormen.fromWort(topWorte[theCounter]))
+                //}
+                let wortIndexToAppend: Int = wort.count
+                wort.append(alleWorter[wortIndexToAppend])
+                beispiel.append(Wort.get_beispiel(alleWorter[wortIndexToAppend]))
+                wortForm.append(WortArtFormen.fromWort(alleWorter[wortIndexToAppend]))
+                
+                //deutschesSeite = Array(repeating: false, count: wort.count)
+                deutschesSeite.append(false)
+                //flippedSeite = Array(repeating: false, count: wort.count)
+                flippedSeite.append(false)
+                //missedGuess = Array(repeating: false, count: wort.count)
+                missedGuess.append(false)
+                //flipScaleRatio = Array(repeating: 1, count: wort.count)
+                flipScaleRatio.append(1)
+                //flipTimers = Array(repeating: nil, count: wort.count)
+                flipTimers.append(nil)
+                //flipPassed = Array(repeating: 0, count: wort.count)
+                flipPassed.append(0)
+                //flipTicker = Array(repeating: 0, count: wort.count)
+                flipTicker.append(0)
+                //flipTotal = Array(repeating: Double(timeAttackMode), count: wort.count)
+                flipTotal.append(Double(timeAttackMode))
+                //flipCompleted = Array(repeating: false, count: wort.count)
+                flipCompleted.append(false)
+                //flipShakingRatio = Array(repeating: 1, count: wort.count)
+                flipShakingRatio.append(1)
+                //guessingResult = Array(repeating: 0, count: wort.count)
+                guessingResult.append(0)
+                readyToMoveOn = false
+                //runningWort += 1
+                hasFaults = false
+                //pickedWortFormen = pickedSache
+                //potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+            }
+            print("worter nachdem: \(wort.count) aus \(alleWorter.count)")
+        } else {
+            print("sollMehrFormJetztZuappenden fail")
+        }
+    }
     func doWeNeedToAnnounce(){
         if(pickedWortFormen != nil){
             let pickedWortArt = pickedWortFormen!.relWortArt
@@ -1413,7 +1474,6 @@ struct WortRepeater: View {
             }
         }
     }
-    
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
@@ -1444,6 +1504,8 @@ struct WortRepeater: View {
         var theCounter = 0
         
         var topWorte: [Wort] = WortFormen.retrieve_allAllowedFormen(pickedSache)
+        
+        alleWorter = WortFormen.retrieve_alleFormen(pickedSache)
         
         for theCounter in 0..<topWorte.count{
             wort.append(topWorte[theCounter])
