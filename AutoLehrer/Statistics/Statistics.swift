@@ -30,9 +30,10 @@ struct PieChartItem: Identifiable {
 struct TableItem: Identifiable {
     var id = UUID()
     var wortArtName: String
-    var today: Double
-    var yesterday: Double
-    var average: Double
+    var today: Double = 0
+    var yesterday: Double = 0
+    var average: Double = 0
+    var beforeyesterday: Double = 0
 }
 
 struct StatisticsView: View {
@@ -449,6 +450,115 @@ struct StatisticsView: View {
                             .id(baseId+200000)
                             .transition(.blurReplace)
                         }
+                        if(mode_2==1){
+                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
+                                learningRatioPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
+                                                              saturation: 0.7,
+                                                              brightness: 0.9))
+                                }
+                            )
+                            VStack(alignment: .leading, spacing: 1){
+                                Chart(learningRatioPieChartData) { slice in
+                                    SectorMark(
+                                        angle: .value("Значение", slice.value),
+                                        innerRadius: .ratio(0.2),
+                                        outerRadius: .ratio(1.0)
+                                    )
+                                    .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                }
+                                VStack(alignment: .leading, spacing: 1) {
+                                    ForEach(learningRatioPieChartData) { slice in
+                                        HStack(spacing: 8) {
+                                            Circle()
+                                                .fill(scale[slice.wortArtName] ?? .gray)
+                                                .frame(width: 12, height: 12)
+                                            Text(slice.wortArtName)
+                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                        }
+                                    }
+                                }
+                            }
+                            .padding()
+                            .frame(height: scaler_1)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 2 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 2 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+110000)
+                            .transition(.blurReplace)
+                        }
+                        if(mode_2==2){
+                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
+                                learningRatioPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
+                                                              saturation: 0.7,
+                                                              brightness: 0.9))
+                                }
+                            )
+                            VStack{
+                                Grid(alignment: .leading){
+                                    GridRow{
+                                        Text("Сегодня")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text("Вчера")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text("Позавчера")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }
+                                    ForEach(learningRatioTableData) { learningItem in
+                                        Divider()
+                                        GridRow{
+                                            HStack{
+                                                Text(learningItem.wortArtName)
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                Spacer()
+                                            }
+                                            .gridCellColumns(3)
+                                        }
+                                        GridRow{
+                                            Text("\(Float(learningItem.today).formattedString(decimalPlaces: 1)) %")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Text("\(Float(learningItem.yesterday).formattedString(decimalPlaces: 1)) %")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Text("\(Float(learningItem.beforeyesterday).formattedString(decimalPlaces: 1)) %")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding()
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 2 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 2 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+110000)
+                            .transition(.blurReplace)
+                        }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -616,6 +726,115 @@ struct StatisticsView: View {
                             .id(baseId+300000)
                             .transition(.blurReplace)
                         }
+                        if(mode_3==1){
+                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
+                                learningRatioPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
+                                                              saturation: 0.7,
+                                                              brightness: 0.9))
+                                }
+                            )
+                            VStack(alignment: .leading, spacing: 1){
+                                Chart(learningRatioPieChartData) { slice in
+                                    SectorMark(
+                                        angle: .value("Значение", slice.value),
+                                        innerRadius: .ratio(0.2),
+                                        outerRadius: .ratio(1.0)
+                                    )
+                                    .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                }
+                                VStack(alignment: .leading, spacing: 1) {
+                                    ForEach(learningRatioPieChartData) { slice in
+                                        HStack(spacing: 8) {
+                                            Circle()
+                                                .fill(scale[slice.wortArtName] ?? .gray)
+                                                .frame(width: 12, height: 12)
+                                            Text(slice.wortArtName)
+                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                        }
+                                    }
+                                }
+                            }
+                            .padding()
+                            .frame(height: scaler_1)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 2 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 2 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+110000)
+                            .transition(.blurReplace)
+                        }
+                        if(mode_3==2){
+                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
+                                learningRatioPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
+                                                              saturation: 0.7,
+                                                              brightness: 0.9))
+                                }
+                            )
+                            VStack{
+                                Grid(alignment: .leading){
+                                    GridRow{
+                                        Text("Сегодня")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text("Вчера")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        Text("Позавчера")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }
+                                    ForEach(learningRatioTableData) { learningItem in
+                                        Divider()
+                                        GridRow{
+                                            HStack{
+                                                Text(learningItem.wortArtName)
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                Spacer()
+                                            }
+                                            .gridCellColumns(3)
+                                        }
+                                        GridRow{
+                                            Text("\(Float(learningItem.today).formattedString(decimalPlaces: 1)) %")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Text("\(Float(learningItem.yesterday).formattedString(decimalPlaces: 1)) %")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            Text("\(Float(learningItem.beforeyesterday).formattedString(decimalPlaces: 1)) %")
+                                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                        }
+                                    }
+                                }
+                            }
+                            .padding()
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 2 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 2 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+110000)
+                            .transition(.blurReplace)
+                        }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -722,9 +941,9 @@ struct StatisticsView: View {
         if let gesternTimeStats = gesternTimeStats{
             learningTableItem.yesterday = 100.0 * Double(gesternTimeStats.completedFormen) / Double(gesternTimeStats.totalFormen)
         }
-        averageValue = TimeStatistics.fetchWeeklyAverageLearningRatio(in: viewContext, forThe: nil)
-        if let averageValue = averageValue{
-            learningTableItem.average = averageValue
+        var gegesternTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.offset_inDays(-2).stripTime(), forThe: nil)
+        if let gegesternTimeStats = gegesternTimeStats{
+            learningTableItem.beforeyesterday = 100.0 * Double(gegesternTimeStats.completedFormen) / Double(gegesternTimeStats.totalFormen)
         }
         learningRatioTableData.append(learningTableItem)
         for dieArt in alleWortArten{
@@ -737,9 +956,9 @@ struct StatisticsView: View {
             if let gesternTimeStats = gesternTimeStats{
                 learningTableItem.yesterday = 100.0 * Double(gesternTimeStats.completedFormen) / Double(gesternTimeStats.totalFormen)
             }
-            let averageLearningTime = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: dieArt)
-            if let averageLearningTime = averageLearningTime{
-                learningTableItem.average = 100.0 * averageLearningTime
+            let gegesternTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.offset_inDays(-2).stripTime(), forThe: dieArt)
+            if let gegesternTimeStats = gegesternTimeStats{
+                learningTableItem.beforeyesterday = 100.0 * Double(gegesternTimeStats.completedFormen) / Double(gegesternTimeStats.totalFormen)
             }
             learningRatioTableData.append(learningTableItem)
         }
