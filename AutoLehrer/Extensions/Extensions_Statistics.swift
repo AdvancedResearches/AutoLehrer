@@ -132,7 +132,7 @@ extension Statistics{
         
         let requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
         requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == true AND (nextPlanedAttempt == nil)",
+            format: "relWortArt == %@ AND attempted == true AND nextPlanedAttempt == nil",
             wortArt,
             Date() as CVarArg
         )
@@ -156,7 +156,7 @@ extension Statistics{
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
-        let alleAttemptedEligibleWithoutSetNextPlannedAttempt = try! context.fetch(requestAlleAttemptedEligible)
+        let alleAttemptedEligibleWithoutSetNextPlannedAttempt = try! context.fetch(requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt)
 
         let alleAttemptedWortFormenEligible = try! context.fetch(requestAlleAttemptedEligible)
         

@@ -383,7 +383,7 @@ struct WortRepeater: View {
                 isHighlighting: .constant(true),
                 isPulsating: .constant(true),
                 action: {
-                    print("Wort zahlung: INITIATED")
+                    //print("Wort zahlung: INITIATED")
                     
                     //was ist das für?
                     attemptCounter += 1
@@ -404,15 +404,15 @@ struct WortRepeater: View {
                     //if(successCounter == wort.count){
                     if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
                         //wenn all antworten sind rischig - kann sein nur wenn alle moglich wort formen war successfull
-                        print("Wort zahlung: ALLE WORT FORMEN WAR SUCCESSFUL")
+                        //print("Wort zahlung: ALLE WORT FORMEN WAR SUCCESSFUL")
                         if(WortFormen.set_success(pickedWortFormen!, attemptedFormen: wort)){
-                            print("Wort zahlung: --- counted wie completed")
+                            //print("Wort zahlung: --- counted wie completed")
                             confirmedWorte.insert(pickedWortFormen!)
                         }else{
-                            print("Wort zahlung: --- counted wie completed NICHT")
+                            //print("Wort zahlung: --- counted wie completed NICHT")
                         }
                     }else{
-                        print("Wort zahlung: das war fails")
+                        //print("Wort zahlung: das war fails")
                         WortFormen.set_failure(pickedWortFormen!, attemptedFormen: wort)
                         confirmedWorte.remove(pickedWortFormen!)
                     }
@@ -1057,15 +1057,15 @@ struct WortRepeater: View {
             )
             .onAppear{
                 potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                print("Initialize potential word form add - pulse to \(potentiallyAddWortForme)")
+                //print("Initialize potential word form add - pulse to \(potentiallyAddWortForme)")
             }
             .onChange(of: hasFaults){ _, newValue in
                 if(newValue){
                     potentiallyAddWortForme = false
-                    print("Discard potential word form add - pulse false")
+                    //print("Discard potential word form add - pulse false")
                 }else{
                     potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                    print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
+                    //print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
                 }
             }
             if(!pickedWortFormen!.failed){
@@ -1307,7 +1307,7 @@ struct WortRepeater: View {
             .if(!flippedSeite[index] && isCurrent){ view in
                 view.onAppear{
                     let thisCertainCounter = attemptCounter
-                    print("Initiate flipping for index \(index)")
+                    //print("Initiate flipping for index \(index)")
                     
                     flipTimers[index]?.invalidate()
                     flipPassed[index] = 0.0
@@ -1424,10 +1424,10 @@ struct WortRepeater: View {
         return true
     }
     private func nechsterFormAppennding(){
-        print("nechsterFormAppennding invoked")
+        //print("nechsterFormAppennding invoked")
         if(sollMehrFormJetztZuappenden()){
-            print("sollMehrFormJetztZuappenden pass")
-            print("worter bevor: \(wort.count) aus \(alleWorter.count)")
+            //print("sollMehrFormJetztZuappenden pass")
+            //print("worter bevor: \(wort.count) aus \(alleWorter.count)")
             if(alleWorter.count>wort.count){
                 //for theCounter in 0..<topWorte.count{
                 //    wort.append(topWorte[theCounter])
@@ -1468,9 +1468,9 @@ struct WortRepeater: View {
                 //potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
                 fasttrackExtras += 1
             }
-            print("worter nachdem: \(wort.count) aus \(alleWorter.count)")
+            //print("worter nachdem: \(wort.count) aus \(alleWorter.count)")
         } else {
-            print("sollMehrFormJetztZuappenden fail")
+            //print("sollMehrFormJetztZuappenden fail")
         }
     }
     func doWeNeedToAnnounce(){
@@ -1489,7 +1489,7 @@ struct WortRepeater: View {
     }
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen_2(wortArt)
-        print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
+        //print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
                 
         if (pickedSache.formsToShow < 1){
             pickedSache.formsToShow = 1
@@ -1511,7 +1511,7 @@ struct WortRepeater: View {
         wort = []
         beispiel = []
         
-        print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
+        //print("WortRepeater.pickTheWord(): pickedSache.formsToShow: \(pickedSache.formsToShow)")
         
         var appendedCount = 0
         
@@ -1527,7 +1527,7 @@ struct WortRepeater: View {
             wortForm.append(WortArtFormen.fromWort(topWorte[theCounter]))
         }
         
-        print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
+        //print("WortRepeater.pickTheWord(): wort.count: \(wort.count)")
         
         deutschesSeite = Array(repeating: false, count: wort.count)
         flippedSeite = Array(repeating: false, count: wort.count)

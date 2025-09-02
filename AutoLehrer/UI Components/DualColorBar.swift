@@ -47,10 +47,10 @@ struct DualColorBar: View {
                     .frame(width: geo.size.width * CGFloat(greenvalue))
             }
             .onChange(of: pulseyellowtogreen){ old, new in
-                print("DualColorBar.pulseyellowtogreen: \(old) -> \(new)")
+                //print("DualColorBar.pulseyellowtogreen: \(old) -> \(new)")
             }
             .onAppear{
-                print("DualColorBar.pulseyellowtogreen: \(pulseyellowtogreen)")
+                //print("DualColorBar.pulseyellowtogreen: \(pulseyellowtogreen)")
             }
         }
         .frame(height: height)

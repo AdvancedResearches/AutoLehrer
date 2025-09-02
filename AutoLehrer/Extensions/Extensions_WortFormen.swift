@@ -217,7 +217,7 @@ extension WortFormen{
         guard let context = wortFormen.managedObjectContext else { return false }
         
         wortFormen.formsToShow = Int64(attemptedFormen.count)
-        print("Wort zahlung: WortFormen.set_success. Set formsToShow to \(wortFormen.formsToShow)")
+        //print("Wort zahlung: WortFormen.set_success. Set formsToShow to \(wortFormen.formsToShow)")
         
         let maxLevel = attemptedFormen.map { $0.level ?? 0 }.max() ?? 0
         wortFormen.levelReached = maxLevel
@@ -260,11 +260,14 @@ extension WortFormen{
         
         wortFormen.failCounter = 0
         wortFormen.failed = false
+        
+        print("set_success: nextPlannedAttempt set to \(wortFormen.nextPlanedAttempt)")
+        
         try! context.save()
         
         let allAvailable = Int64((wortFormen.relWort as? Set<Wort>)?.count ?? 0)
         
-        print("Wort zahlung: WortFormen.set_success. all available forms detected \(allAvailable)")
+        //print("Wort zahlung: WortFormen.set_success. all available forms detected \(allAvailable)")
         
         return wortFormen.formsToShow == allAvailable
     }
@@ -309,6 +312,8 @@ extension WortFormen{
             }
             wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
         }
+        
+        print("set_failure: nextPlannedAttempt set to \(wortFormen.nextPlanedAttempt)")
         
         try! context.save()
     }

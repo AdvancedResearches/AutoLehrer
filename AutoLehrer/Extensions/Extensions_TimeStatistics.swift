@@ -128,11 +128,11 @@ extension TimeStatistics{
         if(wortArt != nil){
             let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
             theStamp.learningTime += duration
-            print("Learning time submitted at \(date) for \(theStamp.learningTime) for the \(wortArt!.name_RU)")
+            //print("Learning time submitted at \(date) for \(theStamp.learningTime) for the \(wortArt!.name_RU)")
         }
         let genericStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: nil)
         genericStamp.learningTime += duration
-        print("Learning time submitted at \(date) for \(genericStamp.learningTime) for the generic")
+        //print("Learning time submitted at \(date) for \(genericStamp.learningTime) for the generic")
         try! context.save()
     }
     public static func fetchOrCreateLearningTime(in context: NSManagedObjectContext, at date: Date, forThe wortArt: WortArt?)->TimeStatistics{
