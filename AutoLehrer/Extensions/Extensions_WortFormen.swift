@@ -278,9 +278,9 @@ extension WortFormen{
         }
         return false
     }
-    public static func attemptingFormenRatio(_ wortFormen: WortFormen) -> Double{
+    public static func attemptingFormenRatio(_ wortFormen: WortFormen, fasttrackExtras: Int) -> Double{
         let alleFormen: Double = Double(alleFormen(wortFormen))
-        return (Double(wortFormen.formsToShow) / alleFormen)
+        return (Double(wortFormen.formsToShow + Int64(fasttrackExtras)) / alleFormen)
     }
     public static func succeededFormenRatio(_ wortFormen: WortFormen) -> Double{
         let alleFormen: Double = Double(alleFormen(wortFormen))

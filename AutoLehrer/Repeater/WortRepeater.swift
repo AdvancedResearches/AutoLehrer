@@ -25,6 +25,7 @@ struct WortRepeater: View {
     @State var hasFaults: Bool = false
     @State var guessingResult: [Int] = []
     @State var wort: [Wort] = []
+    @State var fasttrackExtras: Int = 0
     @State var beispiel: [Beispiel?] = []
     @State var deutschesSeite: [Bool] = []
     @State var flippedSeite: [Bool] = []
@@ -1039,7 +1040,7 @@ struct WortRepeater: View {
         return HStack{
             DualColorBar(
                 greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
-                yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!),
+                yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!, fasttrackExtras: fasttrackExtras),
                 height: 25,
                 pulseyellowtogreen: $potentiallyAddWortForme
             )
@@ -1454,6 +1455,7 @@ struct WortRepeater: View {
                 hasFaults = false
                 //pickedWortFormen = pickedSache
                 //potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
+                fasttrackExtras += 1
             }
             print("worter nachdem: \(wort.count) aus \(alleWorter.count)")
         } else {
@@ -1491,6 +1493,7 @@ struct WortRepeater: View {
         flipScaleRatio = []
         guessingResult = []
         wortForm = []
+        fasttrackExtras = 0
         
         exercisedWorte.insert(pickedSache)
         
