@@ -219,6 +219,8 @@ extension WortFormen{
         wortFormen.formsToShow = Int64(attemptedFormenZahlung)
         print("Wort zahlung: WortFormen.set_success. Set formsToShow to \(wortFormen.formsToShow)")
         
+        wortFormen.attempted = true
+        
         if wortFormen.failed{
             wortFormen.coolDown = WortFormen.successCoolDown
             wortFormen.successCounter = 1
@@ -231,6 +233,29 @@ extension WortFormen{
             }
         }
         
+        if(wortFormen.levelReached == 0){
+            var theOffset = Int(pow(2.0, Double( min(11, wortFormen.successCounter - 1) )))
+            if(theOffset > 1440){
+                theOffset = Int.random(in: 1440...1440*3)
+            }
+            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+        }
+        if(wortFormen.levelReached == 1){
+            var theOffset = Int(pow(3.0, Double( min(7, wortFormen.successCounter - 1) )))
+            if(theOffset > 1440){
+                theOffset = Int.random(in: 1440...1440*3)
+            }
+            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+        }
+        if(wortFormen.levelReached > 1){
+            var theOffset = Int(pow(4.0, Double( min(6, wortFormen.successCounter - 1) )))
+            if(theOffset > 1440){
+                theOffset = Int.random(in: 1440...1440*3)
+            }
+            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+        }
+        
+        wortFormen.failCounter = 0
         wortFormen.failed = false
         try! context.save()
         
@@ -242,12 +267,42 @@ extension WortFormen{
     }
     public static func set_failure(_ wortFormen: WortFormen, attemptedFormenZahlung: Int){
         guard let context = wortFormen.managedObjectContext else { return }
+        if(wortFormen.failed){
+            wortFormen.failCounter += 1
+        }else{
+            wortFormen.failCounter = 1
+        }
         wortFormen.successCounter = 0
         wortFormen.coolDown = WortFormen.failCoolDown
         wortFormen.failed = true
         wortFormen.formsToShow = Int64(attemptedFormenZahlung)
+        wortFormen.attempted = true
+        
+        if(wortFormen.levelReached == 0){
+            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.successCounter - 1) )))
+            if(theOffset > 60){
+                theOffset = Int.random(in: 1...60)
+            }
+            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+        }
+        if(wortFormen.levelReached == 1){
+            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.successCounter - 1) )))
+            if(theOffset > 60){
+                theOffset = Int.random(in: 1...60)
+            }
+            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+        }
+        if(wortFormen.levelReached > 1){
+            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.successCounter - 1) )))
+            if(theOffset > 60){
+                theOffset = Int.random(in: 1...60)
+            }
+            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+        }
+        
         try! context.save()
     }
+    
     public static func get_wortArt_string(_ wortFormen: WortFormen) -> String{
         if(wortFormen.relWortArt != nil){
             return wortFormen.relWortArt!.name_DE ?? ""

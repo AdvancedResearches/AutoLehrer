@@ -30,6 +30,23 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd-HH-mm-ss"
         return dateFormatter.date(from: theString)
     }
+    func offset_inSeconds(_ offset: Int) -> Date {
+        let calendar = Calendar.current
+        // добавляем или вычитаем секунды
+        return calendar.date(byAdding: .second, value: offset, to: self) ?? self
+    }
+    func offset_inMinutes(_ offset: Int) -> Date {
+        // Используем Calendar для вычисления новой даты
+        let calendar = Calendar.current
+        // Добавляем или вычитаем дни
+        return calendar.date(byAdding: .minute, value: offset, to: self) ?? self
+    }
+    func offset_inHours(_ offset: Int) -> Date {
+        // Используем Calendar для вычисления новой даты
+        let calendar = Calendar.current
+        // Добавляем или вычитаем дни
+        return calendar.date(byAdding: .hour, value: offset, to: self) ?? self
+    }
     func offset_inDays(_ offset: Int) -> Date {
         // Используем Calendar для вычисления новой даты
         let calendar = Calendar.current

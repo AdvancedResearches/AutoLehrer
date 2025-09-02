@@ -127,9 +127,11 @@
     <entity name="WortFormen" representedClassName="WortFormen" syncable="YES" codeGenerationType="class">
         <attribute name="attempted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="coolDown" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="failCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="formsToShow" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="reachedLevel" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="levelReached" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nextPlanedAttempt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="urgencyCache" attributeType="Float" defaultValueString="-10000" usesScalarValueType="YES"/>
         <attribute name="wortFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
