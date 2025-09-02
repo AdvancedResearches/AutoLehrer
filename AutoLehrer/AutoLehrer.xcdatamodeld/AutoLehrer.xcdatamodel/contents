@@ -125,7 +125,7 @@
         <relationship name="relWortFormen" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WortFormen" inverseName="relWortArt" inverseEntity="WortFormen"/>
     </entity>
     <entity name="WortFormen" representedClassName="WortFormen" syncable="YES" codeGenerationType="class">
-        <attribute name="attempted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="attempted" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="coolDown" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="failCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="failed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>

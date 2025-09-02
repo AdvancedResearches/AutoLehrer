@@ -213,11 +213,14 @@ extension WortFormen{
     public static func get_successfulHot_recent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
         return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown >= (WortFormen.successCoolDown - 3) && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
     }
-    public static func set_success(_ wortFormen: WortFormen, attemptedFormenZahlung: Int) -> Bool{
+    public static func set_success(_ wortFormen: WortFormen, attemptedFormen: [Wort]) -> Bool{
         guard let context = wortFormen.managedObjectContext else { return false }
         
-        wortFormen.formsToShow = Int64(attemptedFormenZahlung)
+        wortFormen.formsToShow = Int64(attemptedFormen.count)
         print("Wort zahlung: WortFormen.set_success. Set formsToShow to \(wortFormen.formsToShow)")
+        
+        let maxLevel = attemptedFormen.map { $0.level ?? 0 }.max() ?? 0
+        wortFormen.levelReached = maxLevel
         
         wortFormen.attempted = true
         
@@ -265,7 +268,7 @@ extension WortFormen{
         
         return wortFormen.formsToShow == allAvailable
     }
-    public static func set_failure(_ wortFormen: WortFormen, attemptedFormenZahlung: Int){
+    public static func set_failure(_ wortFormen: WortFormen, attemptedFormen: [Wort]){
         guard let context = wortFormen.managedObjectContext else { return }
         if(wortFormen.failed){
             wortFormen.failCounter += 1
@@ -275,8 +278,11 @@ extension WortFormen{
         wortFormen.successCounter = 0
         wortFormen.coolDown = WortFormen.failCoolDown
         wortFormen.failed = true
-        wortFormen.formsToShow = Int64(attemptedFormenZahlung)
+        wortFormen.formsToShow = Int64(attemptedFormen.count)
         wortFormen.attempted = true
+        
+        let maxLevel = attemptedFormen.map { $0.level ?? 0 }.max() ?? 0
+        wortFormen.levelReached = maxLevel
         
         if(wortFormen.levelReached == 0){
             if(wortFormen.failCounter > 2){

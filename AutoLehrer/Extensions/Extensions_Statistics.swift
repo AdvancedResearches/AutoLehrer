@@ -130,9 +130,16 @@ extension Statistics{
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
+        let requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt.predicate = NSPredicate(
+            format: "relWortArt == %@ AND attempted == true AND (nextPlanedAttempt == nil)",
+            wortArt,
+            Date() as CVarArg
+        )
+        
         let requestAlleNeverAttempted: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
         requestAlleNeverAttempted.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == false",
+            format: "relWortArt == %@ AND (attempted == false OR attempted == nil)",
             wortArt
         )
         requestAlleNeverAttempted.sortDescriptors = [
@@ -148,12 +155,16 @@ extension Statistics{
         requestAlleAttemptedNotYetReached.sortDescriptors = [
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
+        
+        let alleAttemptedEligibleWithoutSetNextPlannedAttempt = try! context.fetch(requestAlleAttemptedEligible)
 
         let alleAttemptedWortFormenEligible = try! context.fetch(requestAlleAttemptedEligible)
         
         let alleNeverAttemptedWortFormen = try! context.fetch(requestAlleNeverAttempted)
         
         let alleAttemptedWortFormenNotYetReached = try! context.fetch(requestAlleAttemptedNotYetReached)
+        
+        print("pickWortFormen_2: eligible \(alleAttemptedWortFormenEligible.count) where not set are \(alleAttemptedEligibleWithoutSetNextPlannedAttempt.count), neu \(alleNeverAttemptedWortFormen.count), not yet reached \(alleAttemptedWortFormenNotYetReached.count)")
         
         if let ersteEligible = alleAttemptedWortFormenEligible.first {
             return ersteEligible

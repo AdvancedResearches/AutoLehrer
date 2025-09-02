@@ -405,7 +405,7 @@ struct WortRepeater: View {
                     if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
                         //wenn all antworten sind rischig - kann sein nur wenn alle moglich wort formen war successfull
                         print("Wort zahlung: ALLE WORT FORMEN WAR SUCCESSFUL")
-                        if(WortFormen.set_success(pickedWortFormen!, attemptedFormenZahlung: wort.count)){
+                        if(WortFormen.set_success(pickedWortFormen!, attemptedFormen: wort)){
                             print("Wort zahlung: --- counted wie completed")
                             confirmedWorte.insert(pickedWortFormen!)
                         }else{
@@ -413,7 +413,7 @@ struct WortRepeater: View {
                         }
                     }else{
                         print("Wort zahlung: das war fails")
-                        WortFormen.set_failure(pickedWortFormen!, attemptedFormenZahlung: wort.count)
+                        WortFormen.set_failure(pickedWortFormen!, attemptedFormen: wort)
                         confirmedWorte.remove(pickedWortFormen!)
                     }
                     
