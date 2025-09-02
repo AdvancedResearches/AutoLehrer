@@ -39,6 +39,10 @@ struct StatisticsView: View {
     @State var scaler_2: CGFloat = 0.1
     @State var scaler_3: CGFloat = 0.1
     
+    @State var mode_1: Int = 0
+    @State var mode_2: Int = 0
+    @State var mode_3: Int = 0
+    
     @State var initiated: Bool = false
     
     var body: some View{
@@ -60,8 +64,46 @@ struct StatisticsView: View {
                                 }
                             }
                             .pickerStyle(.menu)
-                            Spacer()
+                            if(selectedArt == -1){
+                                Spacer()
+                                    .transition(.blurReplace)
+                                if(mode_1 == 0){
+                                    Image(systemName: "chart.xyaxis.line")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_1 = 1
+                                        }
+                                }
+                                if(mode_1 == 1){
+                                    Image(systemName: "chart.pie")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_1 = 2
+                                        }
+                                }
+                                if(mode_1 == 2){
+                                    Image(systemName: "rectangle.split.3x3")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_1 = 0
+                                        }
+                                }
+                            }else{
+                                Spacer()
+                                    .transition(.blurReplace)
+                            }
                         }
+                        .animation(.easeInOut(duration: 0.5), value: selectedArt)
+                        .animation(.easeInOut(duration: 0.5), value: mode_1)
                         let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
                         let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(2)
                         Chart {
@@ -148,8 +190,46 @@ struct StatisticsView: View {
                                 }
                             }
                             .pickerStyle(.menu)
-                            Spacer()
+                            if(selectedArt == -1){
+                                Spacer()
+                                    .transition(.blurReplace)
+                                if(mode_2 == 0){
+                                    Image(systemName: "chart.xyaxis.line")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_2 = 1
+                                        }
+                                }
+                                if(mode_2 == 1){
+                                    Image(systemName: "chart.pie")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_2 = 2
+                                        }
+                                }
+                                if(mode_2 == 2){
+                                    Image(systemName: "rectangle.split.3x3")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_2 = 0
+                                        }
+                                }
+                            }else{
+                                Spacer()
+                                    .transition(.blurReplace)
+                            }
                         }
+                        .animation(.easeInOut(duration: 0.5), value: selectedArt)
+                        .animation(.easeInOut(duration: 0.5), value: mode_2)
                         let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
                         let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(2)
                         Chart {
@@ -239,8 +319,46 @@ struct StatisticsView: View {
                                 }
                             }
                             .pickerStyle(.menu)
-                            Spacer()
+                            if(selectedArt == -1){
+                                Spacer()
+                                    .transition(.blurReplace)
+                                if(mode_3 == 0){
+                                    Image(systemName: "chart.xyaxis.line")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_3 = 1
+                                        }
+                                }
+                                if(mode_3 == 1){
+                                    Image(systemName: "chart.pie")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_3 = 2
+                                        }
+                                }
+                                if(mode_3 == 2){
+                                    Image(systemName: "rectangle.split.3x3")
+                                        .resizable()
+                                        .frame(width: 25, height: 25)
+                                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(false), theme: theme)
+                                        .transition(.blurReplace)
+                                        .onTapGesture{
+                                            mode_3 = 0
+                                        }
+                                }
+                            }else{
+                                Spacer()
+                                    .transition(.blurReplace)
+                            }
                         }
+                        .animation(.easeInOut(duration: 0.5), value: selectedArt)
+                        .animation(.easeInOut(duration: 0.5), value: mode_3)
                         let chartFromDate: Date = (statArray.first?.timeStamp ?? Date()).offset_inDays(-2)
                         let chartToDate: Date = (statArray.last?.timeStamp ?? Date()).offset_inDays(2)
                         Chart {
