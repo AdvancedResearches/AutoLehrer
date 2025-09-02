@@ -202,6 +202,18 @@ struct StatisticsView: View {
                                         }
                                     }
                             )
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        withAnimation(.easeInOut) {
+                                            if(scaler_1 == threefourth){
+                                                scaler_1 = third
+                                            }else if(scaler_1 == third){
+                                                scaler_1 = threefourth
+                                            }
+                                        }
+                                    }
+                            )
                             .id(baseId+100000)
                             .transition(.blurReplace)
                         }
@@ -253,6 +265,18 @@ struct StatisticsView: View {
                                         }
                                     }
                             )
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        withAnimation(.easeInOut) {
+                                            if(scaler_1 == threefourth){
+                                                scaler_1 = third
+                                            }else if(scaler_1 == third){
+                                                scaler_1 = threefourth
+                                            }
+                                        }
+                                    }
+                            )
                             .id(baseId+110000)
                             .transition(.blurReplace)
                         }
@@ -296,22 +320,6 @@ struct StatisticsView: View {
                                 }
                             }
                             .padding()
-                            .gesture(
-                                MagnificationGesture()
-                                    .onEnded { value in
-                                        withAnimation(.easeInOut) {
-                                            if value > 1 {
-                                                // pinch-out → увеличиваем
-                                                scaler_1 = threefourth
-                                                print("chart 1 pinch-out")
-                                            } else {
-                                                // pinch-in → уменьшаем
-                                                scaler_1 = third
-                                                print("chart 1 pinch-in")
-                                            }
-                                        }
-                                    }
-                            )
                             .id(baseId+110000)
                             .transition(.blurReplace)
                         }
@@ -447,6 +455,18 @@ struct StatisticsView: View {
                                         }
                                     }
                             )
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        withAnimation(.easeInOut) {
+                                            if(scaler_2 == threefourth){
+                                                scaler_2 = third
+                                            }else if(scaler_2 == third){
+                                                scaler_2 = threefourth
+                                            }
+                                        }
+                                    }
+                            )
                             .id(baseId+200000)
                             .transition(.blurReplace)
                         }
@@ -480,19 +500,31 @@ struct StatisticsView: View {
                                 }
                             }
                             .padding()
-                            .frame(height: scaler_1)
+                            .frame(height: scaler_2)
                             .gesture(
                                 MagnificationGesture()
                                     .onEnded { value in
                                         withAnimation(.easeInOut) {
                                             if value > 1 {
                                                 // pinch-out → увеличиваем
-                                                scaler_1 = threefourth
+                                                scaler_2 = threefourth
                                                 print("chart 2 pinch-out")
                                             } else {
                                                 // pinch-in → уменьшаем
-                                                scaler_1 = third
+                                                scaler_2 = third
                                                 print("chart 2 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        withAnimation(.easeInOut) {
+                                            if(scaler_2 == threefourth){
+                                                scaler_2 = third
+                                            }else if(scaler_2 == third){
+                                                scaler_2 = threefourth
                                             }
                                         }
                                     }
@@ -540,22 +572,6 @@ struct StatisticsView: View {
                                 }
                             }
                             .padding()
-                            .gesture(
-                                MagnificationGesture()
-                                    .onEnded { value in
-                                        withAnimation(.easeInOut) {
-                                            if value > 1 {
-                                                // pinch-out → увеличиваем
-                                                scaler_1 = threefourth
-                                                print("chart 2 pinch-out")
-                                            } else {
-                                                // pinch-in → уменьшаем
-                                                scaler_1 = third
-                                                print("chart 2 pinch-in")
-                                            }
-                                        }
-                                    }
-                            )
                             .id(baseId+110000)
                             .transition(.blurReplace)
                         }
@@ -723,6 +739,18 @@ struct StatisticsView: View {
                                         }
                                     }
                             )
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        withAnimation(.easeInOut) {
+                                            if(scaler_3 == threefourth){
+                                                scaler_3 = third
+                                            }else if(scaler_3 == third){
+                                                scaler_3 = threefourth
+                                            }
+                                        }
+                                    }
+                            )
                             .id(baseId+300000)
                             .transition(.blurReplace)
                         }
@@ -756,19 +784,31 @@ struct StatisticsView: View {
                                 }
                             }
                             .padding()
-                            .frame(height: scaler_1)
+                            .frame(height: scaler_3)
                             .gesture(
                                 MagnificationGesture()
                                     .onEnded { value in
                                         withAnimation(.easeInOut) {
                                             if value > 1 {
                                                 // pinch-out → увеличиваем
-                                                scaler_1 = threefourth
+                                                scaler_3 = threefourth
                                                 print("chart 3 pinch-out")
                                             } else {
                                                 // pinch-in → уменьшаем
-                                                scaler_1 = third
+                                                scaler_3 = third
                                                 print("chart 3 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .simultaneousGesture(
+                                TapGesture()
+                                    .onEnded {
+                                        withAnimation(.easeInOut) {
+                                            if(scaler_3 == threefourth){
+                                                scaler_3 = third
+                                            }else if(scaler_3 == third){
+                                                scaler_3 = threefourth
                                             }
                                         }
                                     }
@@ -809,22 +849,6 @@ struct StatisticsView: View {
                                 }
                             }
                             .padding()
-                            .gesture(
-                                MagnificationGesture()
-                                    .onEnded { value in
-                                        withAnimation(.easeInOut) {
-                                            if value > 1 {
-                                                // pinch-out → увеличиваем
-                                                scaler_1 = threefourth
-                                                print("chart 3 pinch-out")
-                                            } else {
-                                                // pinch-in → уменьшаем
-                                                scaler_1 = third
-                                                print("chart 3 pinch-in")
-                                            }
-                                        }
-                                    }
-                            )
                             .id(baseId+110000)
                             .transition(.blurReplace)
                         }
