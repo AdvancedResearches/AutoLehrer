@@ -33,12 +33,18 @@ struct StatisticsView: View {
     @State var statArray: [StatsItem] = []
     @State var wortArten: [WortArt] = []
     @State var selectedArt: Int = -1
+    @State var baseId: Int = 0
     
-    let allThemes: [Theme_Style] = [.regular, .herren, .frauen, .cyberpunk, .retrowave]
+    @State var scaler_1: CGFloat = 0.1
+    @State var scaler_2: CGFloat = 0.1
+    @State var scaler_3: CGFloat = 0.1
+    
+    @State var initiated: Bool = false
     
     var body: some View{
         NavigationStack {
-            let third = UIScreen.main.bounds.height / 3
+            let third = UIScreen.main.bounds.height / 3.0
+            let threefourth = UIScreen.main.bounds.height * 3.0 / 4.0
             ScrollView(.vertical){
                 VStack {
                     VStack{
@@ -68,7 +74,7 @@ struct StatisticsView: View {
                                         series: .value("Metric", "learnTime")
                                     )
                                     .foregroundStyle(.green)
-                                    .interpolationMethod(.stepEnd)
+                                    .interpolationMethod(.linear)
                                     .lineStyle(StrokeStyle(lineWidth: 2))
                                     
                                     PointMark(
@@ -105,11 +111,29 @@ struct StatisticsView: View {
                             }
                         }
                         .padding()
-                        //.frame(maxHeight: UIScreen.main.bounds.height / 2)
-                        .frame(height: third)
+                        .frame(height: scaler_1)
+                        .gesture(
+                            MagnificationGesture()
+                                .onEnded { value in
+                                    withAnimation(.easeInOut) {
+                                        if value > 1 {
+                                            // pinch-out → увеличиваем
+                                            scaler_1 = threefourth
+                                            print("chart 1 pinch-out")
+                                        } else {
+                                            // pinch-in → уменьшаем
+                                            scaler_1 = third
+                                            print("chart 1 pinch-in")
+                                        }
+                                    }
+                                }
+                        )
+                        .id(baseId+100000)
+                        .transition(.blurReplace)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
+                    
                     
                     VStack{
                         HStack{
@@ -139,7 +163,7 @@ struct StatisticsView: View {
                                             series: .value("Metric", "learnTime")
                                         )
                                         .foregroundStyle(.green)
-                                        .interpolationMethod(.stepEnd)
+                                        .interpolationMethod(.linear)
                                         .lineStyle(StrokeStyle(lineWidth: 2))
                                         
                                         PointMark(
@@ -179,7 +203,25 @@ struct StatisticsView: View {
                         }
                         .padding()
                         //.frame(maxHeight: UIScreen.main.bounds.height / 2)
-                        .frame(height: third)
+                        .frame(height: scaler_2)
+                        .gesture(
+                            MagnificationGesture()
+                                .onEnded { value in
+                                    withAnimation(.easeInOut) {
+                                        if value > 1 {
+                                            // pinch-out → увеличиваем
+                                            scaler_2 = threefourth
+                                            print("chart 1 pinch-out")
+                                        } else {
+                                            // pinch-in → уменьшаем
+                                            scaler_2 = third
+                                            print("chart 1 pinch-in")
+                                        }
+                                    }
+                                }
+                        )
+                        .id(baseId+200000)
+                        .transition(.blurReplace)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
@@ -210,9 +252,9 @@ struct StatisticsView: View {
                                         series: .value("Percentage", "examMinRate")
                                     )
                                     .foregroundStyle(.red)
-                                    .interpolationMethod(.stepEnd)
+                                    .interpolationMethod(.linear)
                                     .lineStyle(StrokeStyle(lineWidth: 2))
-                                    
+                                    /*
                                     PointMark(
                                         x: .value("Date", theStat.timeStamp),
                                         y: .value("examMinRate", min)
@@ -221,7 +263,7 @@ struct StatisticsView: View {
                                         Rectangle()
                                             .foregroundColor(.red)
                                             .frame(width: 10, height: 10)
-                                    }
+                                    }*/
                                 }
                                 if let max = theStat.examMax {
                                     LineMark(
@@ -230,9 +272,9 @@ struct StatisticsView: View {
                                         series: .value("Percentage", "examMaxRate")
                                     )
                                     .foregroundStyle(.green)
-                                    .interpolationMethod(.stepEnd)
-                                    .lineStyle(StrokeStyle(lineWidth: 2))
-                                    
+                                    .interpolationMethod(.linear)
+                                    .lineStyle(StrokeStyle(lineWidth: 5))
+                                    /*
                                     PointMark(
                                         x: .value("Date", theStat.timeStamp),
                                         y: .value("examMaxRate", max)
@@ -241,7 +283,7 @@ struct StatisticsView: View {
                                         Rectangle()
                                             .foregroundColor(.green)
                                             .frame(width: 10, height: 10)
-                                    }
+                                    }*/
                                 }
                                 if let average = theStat.examAverage {
                                     LineMark(
@@ -250,8 +292,8 @@ struct StatisticsView: View {
                                         series: .value("Percentage", "examAverageRate")
                                     )
                                     .foregroundStyle(.blue)
-                                    .interpolationMethod(.stepEnd)
-                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                    .interpolationMethod(.linear)
+                                    .lineStyle(StrokeStyle(lineWidth: 5))
                                     
                                     PointMark(
                                         x: .value("Date", theStat.timeStamp),
@@ -288,15 +330,39 @@ struct StatisticsView: View {
                             }
                         }
                         .padding()
-                        //.frame(maxHeight: UIScreen.main.bounds.height / 2)
-                        .frame(height: third)
+                        .frame(height: scaler_3)
+                        .gesture(
+                            MagnificationGesture()
+                                .onEnded { value in
+                                    withAnimation(.easeInOut) {
+                                        if value > 1 {
+                                            // pinch-out → увеличиваем
+                                            scaler_3 = threefourth
+                                            print("chart 1 pinch-out")
+                                        } else {
+                                            // pinch-in → уменьшаем
+                                            scaler_3 = third
+                                            print("chart 1 pinch-in")
+                                        }
+                                    }
+                                }
+                        )
+                        .id(baseId+300000)
+                        .transition(.blurReplace)
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
                 }
+                .animation(.easeInOut(duration: initiated ? 0.5 : 3), value: baseId)
             }
             .onAppear{
                 reloadTimeLearningData()
+                scaler_1 = third
+                scaler_2 = third
+                scaler_3 = third
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    initiated = true
+                }
             }
             .onChange(of: selectedArt){
                 reloadTimeLearningData()
@@ -345,5 +411,6 @@ struct StatisticsView: View {
             statArray[theOffset + 27] = newTimeStampItem
             print("Statistics.reloadTimeLearningData(): statArray[\(theOffset + 27)] .timeStamp:\(statArray[theOffset + 27].timeStamp) .learnTime:\(statArray[theOffset + 27].learnTime) .id:\(statArray[theOffset + 27].id) - offset:\(theOffset)")
         }
+        baseId += 1
     }
 }
