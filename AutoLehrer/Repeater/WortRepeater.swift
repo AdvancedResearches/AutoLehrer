@@ -1488,7 +1488,7 @@ struct WortRepeater: View {
         }
     }
     func pickTheWord() {
-        let pickedSache = Statistics.pickWortFormen(viewContext, wortArt: wortArt)
+        let pickedSache = Statistics.pickWortFormen_2(wortArt)
         print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
                 
         if (pickedSache.formsToShow < 1){

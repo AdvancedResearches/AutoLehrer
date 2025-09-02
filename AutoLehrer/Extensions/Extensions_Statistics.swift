@@ -117,6 +117,52 @@ extension Statistics{
         }
         return nil
     }
+    public static func pickWortFormen_2(_ wortArt: WortArt) -> WortFormen{
+        let context = wortArt.managedObjectContext!
+        
+        let requestAlleAttemptedEligible: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAlleAttemptedEligible.predicate = NSPredicate(
+            format: "relWortArt == %@ AND attempted == true AND (nextPlanedAttempt == nil OR nextPlanedAttempt < %@)",
+            wortArt,
+            Date() as CVarArg
+        )
+        requestAlleAttemptedEligible.sortDescriptors = [
+            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
+        ]
+        
+        let requestAlleNeverAttempted: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAlleNeverAttempted.predicate = NSPredicate(
+            format: "relWortArt == %@ AND attempted == false",
+            wortArt
+        )
+        requestAlleNeverAttempted.sortDescriptors = [
+            NSSortDescriptor(key: "wortFrequencyOrder", ascending: true)
+        ]
+        
+        let requestAlleAttemptedNotYetReached: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAlleAttemptedNotYetReached.predicate = NSPredicate(
+            format: "relWortArt == %@ AND attempted == true AND (nextPlanedAttempt != nil AND nextPlanedAttempt >= %@)",
+            wortArt,
+            Date() as CVarArg
+        )
+        requestAlleAttemptedNotYetReached.sortDescriptors = [
+            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
+        ]
+
+        let alleAttemptedWortFormenEligible = try! context.fetch(requestAlleAttemptedEligible)
+        
+        let alleNeverAttemptedWortFormen = try! context.fetch(requestAlleNeverAttempted)
+        
+        let alleAttemptedWortFormenNotYetReached = try! context.fetch(requestAlleAttemptedNotYetReached)
+        
+        if let ersteEligible = alleAttemptedWortFormenEligible.first {
+            return ersteEligible
+        }
+        if let ersteNeu = alleNeverAttemptedWortFormen.first {
+            return ersteNeu
+        }
+        return alleAttemptedWortFormenNotYetReached.first!
+    }
     public static func pickWortFormen(_ context: NSManagedObjectContext, wortArt: WortArt) -> WortFormen{
         let startTime = Date().timeIntervalSince1970 * 1000
         WortFormen.coolDown(context, wortArt)
