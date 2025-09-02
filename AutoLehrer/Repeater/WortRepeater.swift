@@ -1053,7 +1053,8 @@ struct WortRepeater: View {
                 greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
                 yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!, fasttrackExtras: fasttrackExtras),
                 height: 25,
-                pulseyellowtogreen: $potentiallyAddWortForme
+                pulseyellowtogreen: $potentiallyAddWortForme,
+                highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green)
             )
             .onAppear{
                 potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
@@ -1068,6 +1069,8 @@ struct WortRepeater: View {
                     //print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
                 }
             }
+            //.border(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green)
+            /*
             if(!pickedWortFormen!.failed){
                 Image(systemName: "chevron.right.square.fill")
                     .symbolRenderingMode(.palette)
@@ -1139,6 +1142,7 @@ struct WortRepeater: View {
                         .font(.system(size: 25))
                 }
             }
+             */
         }
         .onTapGesture {
             showProgressBarDetails.toggle()

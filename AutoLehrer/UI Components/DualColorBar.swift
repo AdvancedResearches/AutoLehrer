@@ -14,6 +14,7 @@ struct DualColorBar: View {
     var height: CGFloat = 25
     @Binding var pulseyellowtogreen: Bool
     @State private var pulsation = false
+    @Binding var highlightColor: Color
 
     var body: some View {
         GeometryReader { geo in
@@ -55,5 +56,9 @@ struct DualColorBar: View {
         }
         .frame(height: height)
         .clipShape(RoundedRectangle(cornerRadius: height/2))
+        .overlay(
+            RoundedRectangle(cornerRadius: height/2)
+                .stroke(highlightColor, lineWidth: 2)
+        )
     }
 }
