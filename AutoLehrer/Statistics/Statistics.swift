@@ -203,23 +203,24 @@ struct StatisticsView: View {
                                                               brightness: 0.9))
                                 }
                             )
-                            Chart(pieChartData) { slice in
-                                SectorMark(
-                                    angle: .value("Значение", slice.learnTime),
-                                    innerRadius: .ratio(0.2),   // 0 → pie, >0 → donut
-                                    outerRadius: .ratio(1.0)
-                                )
-                                .foregroundStyle(by: .value("Категория", slice.wortArtName))
-                            }
-                            .chartLegend(position: .bottom) {
+                            VStack(alignment: .leading, spacing: 1){
+                                Chart(pieChartData) { slice in
+                                    SectorMark(
+                                        angle: .value("Значение", slice.learnTime),
+                                        innerRadius: .ratio(0.2),   // 0 → pie, >0 → donut
+                                        outerRadius: .ratio(1.0)
+                                    )
+                                    //.foregroundStyle(by: .value("Категория", slice.wortArtName))
+                                    .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                }
                                 VStack(alignment: .leading, spacing: 1) {
                                     ForEach(pieChartData) { slice in
-                                        HStack {
+                                        HStack(spacing: 8) {
                                             Circle()
                                                 .fill(scale[slice.wortArtName] ?? .gray)
                                                 .frame(width: 12, height: 12)
                                             Text(slice.wortArtName)
-                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
                                         }
                                     }
                                 }
