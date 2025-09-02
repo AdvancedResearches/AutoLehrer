@@ -196,15 +196,36 @@ struct StatisticsView: View {
                             .transition(.blurReplace)
                         }
                         if(mode_1==1){
+                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
+                                pieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(pieChartData.count),
+                                                              saturation: 0.7,
+                                                              brightness: 0.9))
+                                }
+                            )
                             Chart(pieChartData) { slice in
-                                        SectorMark(
-                                            angle: .value("Значение", slice.learnTime),
-                                            innerRadius: .ratio(0),     // 0 → pie, >0 → donut
-                                            outerRadius: .ratio(1.0)
-                                        )
-                                        .foregroundStyle(by: .value("Категория", slice.wortArtName))
+                                SectorMark(
+                                    angle: .value("Значение", slice.learnTime),
+                                    innerRadius: .ratio(0.2),   // 0 → pie, >0 → donut
+                                    outerRadius: .ratio(1.0)
+                                )
+                                .foregroundStyle(by: .value("Категория", slice.wortArtName))
+                            }
+                            //.chartForegroundStyleScale(scale)
+                            .chartLegend(position: .bottom) {
+                                VStack(alignment: .leading, spacing: 1) {
+                                    ForEach(pieChartData) { slice in
+                                        HStack {
+                                            Circle()
+                                                //.fill(Color.categorical(slice.wortArtName))
+                                                .fill(scale[slice.wortArtName] ?? .gray)
+                                                .frame(width: 12, height: 12)
+                                            Text(slice.wortArtName)
+                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                                        }
                                     }
-                            .chartLegend(position: .bottom)
+                                }
+                            }
                             .padding()
                             .frame(height: scaler_1)
                             .gesture(
