@@ -24,16 +24,16 @@ struct StatsItem: Identifiable{
 struct PieChartItem: Identifiable {
     var id = UUID()
     var wortArtName: String
-    var learnTime: Double
+    var value: Double
 }
 
-struct Slice: Identifiable {
-        var id = UUID()
-        var name: String
-        var value: Double
+struct TableItem: Identifiable {
+    var id = UUID()
+    var wortArtName: String
+    var today: Double
+    var yesterday: Double
+    var average: Double
 }
-
-    
 
 struct StatisticsView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -45,7 +45,8 @@ struct StatisticsView: View {
     @State var currentTheme: Theme_Style = .regular
     
     @State var statArray: [StatsItem] = []
-    @State var pieChartData: [PieChartItem] = []
+    @State var learningPieChartData: [PieChartItem] = []
+    @State var learningTableData: [TableItem] = []
     @State var wortArten: [WortArt] = []
     @State var selectedArt: Int = -1
     @State var baseId: Int = 0
@@ -59,13 +60,6 @@ struct StatisticsView: View {
     @State var mode_3: Int = 0
     
     @State var initiated: Bool = false
-    
-    let data = [
-        Slice(name: "Учёба", value: 40),
-        Slice(name: "Работа", value: 30),
-        Slice(name: "Отдых", value: 20),
-        Slice(name: "Спорт", value: 10)
-    ]
     
     var body: some View{
         NavigationStack {
@@ -86,6 +80,13 @@ struct StatisticsView: View {
                                 }
                             }
                             .pickerStyle(.menu)
+                            .onChange(of: selectedArt){ newValue in
+                                if(newValue != -1){
+                                    mode_1 = 0
+                                    mode_2 = 0
+                                    mode_3 = 0
+                                }
+                            }
                             if(selectedArt == -1){
                                 Spacer()
                                     .transition(.blurReplace)
@@ -197,16 +198,16 @@ struct StatisticsView: View {
                         }
                         if(mode_1==1){
                             let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
-                                pieChartData.enumerated().map { i, slice in
-                                    (slice.wortArtName, Color(hue: Double(i) / Double(pieChartData.count),
+                                learningPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningPieChartData.count),
                                                               saturation: 0.7,
                                                               brightness: 0.9))
                                 }
                             )
                             VStack(alignment: .leading, spacing: 1){
-                                Chart(pieChartData) { slice in
+                                Chart(learningPieChartData) { slice in
                                     SectorMark(
-                                        angle: .value("Значение", slice.learnTime),
+                                        angle: .value("Значение", slice.value),
                                         innerRadius: .ratio(0.2),   // 0 → pie, >0 → donut
                                         outerRadius: .ratio(1.0)
                                     )
@@ -214,7 +215,7 @@ struct StatisticsView: View {
                                     .foregroundStyle(scale[slice.wortArtName] ?? .gray)
                                 }
                                 VStack(alignment: .leading, spacing: 1) {
-                                    ForEach(pieChartData) { slice in
+                                    ForEach(learningPieChartData) { slice in
                                         HStack(spacing: 8) {
                                             Circle()
                                                 .fill(scale[slice.wortArtName] ?? .gray)
@@ -227,6 +228,60 @@ struct StatisticsView: View {
                             }
                             .padding()
                             .frame(height: scaler_1)
+                            .gesture(
+                                MagnificationGesture()
+                                    .onEnded { value in
+                                        withAnimation(.easeInOut) {
+                                            if value > 1 {
+                                                // pinch-out → увеличиваем
+                                                scaler_1 = threefourth
+                                                print("chart 1 pinch-out")
+                                            } else {
+                                                // pinch-in → уменьшаем
+                                                scaler_1 = third
+                                                print("chart 1 pinch-in")
+                                            }
+                                        }
+                                    }
+                            )
+                            .id(baseId+110000)
+                            .transition(.blurReplace)
+                        }
+                        if(mode_1==2){
+                            let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
+                                learningPieChartData.enumerated().map { i, slice in
+                                    (slice.wortArtName, Color(hue: Double(i) / Double(learningPieChartData.count),
+                                                              saturation: 0.7,
+                                                              brightness: 0.9))
+                                }
+                            )
+                            VStack{
+                                Grid{
+                                    ForEach(learningTableData) { learningItem in
+                                        GridRow{
+                                            HStack{
+                                                Text(learningItem.wortArtName)
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                Spacer()
+                                            }
+                                            .gridCellColumns(3)
+                                        }
+                                        HStack{
+                                            GridRow{
+                                                Text("Today")
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                Text("Yesterday")
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                                Text("Average")
+                                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                            }
+                                            Spacer()
+                                        }
+                                        .padding(.leading, 10)
+                                    }
+                                }
+                            }
+                            .padding()
                             .gesture(
                                 MagnificationGesture()
                                     .onEnded { value in
@@ -584,6 +639,36 @@ struct StatisticsView: View {
             statArray.append(newTimeStampItem)
         }
         wortArten = try! viewContext.fetch(WortArt.fetchRequest()).sorted{$0.order < $1.order}
+        
+        let alleWortArten: [WortArt] = WortArt.get_alleWortArten(viewContext)
+        
+        learningPieChartData.removeAll()
+        for dieArt in alleWortArten{
+            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            if let recentTimeStats = recentTimeStats{
+                newPieChartItem.value = recentTimeStats.learningTime
+            }
+            learningPieChartData.append(newPieChartItem)
+        }
+        
+        learningTableData.removeAll()
+        for dieArt in alleWortArten{
+            var learningTableItem = TableItem(wortArtName: dieArt.name_RU ?? "Неизвестно", today: 0, yesterday: 0, average: 0)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            if let recentTimeStats = recentTimeStats{
+                learningTableItem.today = recentTimeStats.learningTime / 60.0
+            }
+            let gesternTimeStats: TimeStatistics? = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: dieArt)
+            if let gesternTimeStats = gesternTimeStats{
+                learningTableItem.yesterday = gesternTimeStats.learningTime / 60.0
+            }
+            let averageLearningTime = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: dieArt)
+            if let averageLearningTime = averageLearningTime{
+                learningTableItem.average = averageLearningTime / 60.0
+            }
+            learningTableData.append(learningTableItem)
+        }
     }
     
     func reloadTimeLearningData() {
@@ -611,17 +696,8 @@ struct StatisticsView: View {
             statArray[theOffset + 27] = newTimeStampItem
             print("Statistics.reloadTimeLearningData(): statArray[\(theOffset + 27)] .timeStamp:\(statArray[theOffset + 27].timeStamp) .learnTime:\(statArray[theOffset + 27].learnTime) .id:\(statArray[theOffset + 27].id) - offset:\(theOffset)")
         }
-        let alleWortArten: [WortArt] = WortArt.get_alleWortArten(viewContext)
-        pieChartData.removeAll()
-        for dieArt in alleWortArten{
-            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", learnTime: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
-            if let recentTimeStats = recentTimeStats{
-                newPieChartItem.learnTime = recentTimeStats.learningTime
-            }
-            pieChartData.append(newPieChartItem)
-            print("Append pie chart slice \(newPieChartItem.wortArtName) - \(newPieChartItem.learnTime)")
-        }
+        
+        
         baseId += 1
     }
 }
