@@ -279,25 +279,29 @@ extension WortFormen{
         wortFormen.attempted = true
         
         if(wortFormen.levelReached == 0){
-            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.successCounter - 1) )))
-            if(theOffset > 60){
-                theOffset = Int.random(in: 1...60)
+            if(wortFormen.failCounter > 2){
+                var theOffset = Int(pow(2.0, Double( min(6, wortFormen.failCounter - 2) )))
+                if(theOffset > 60){
+                    theOffset = Int.random(in: 1...60)
+                }
+                wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+            }else{
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
             }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
         }
         if(wortFormen.levelReached == 1){
-            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.successCounter - 1) )))
+            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.failCounter - 2) )))
             if(theOffset > 60){
                 theOffset = Int.random(in: 1...60)
             }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+            wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
         }
         if(wortFormen.levelReached > 1){
-            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.successCounter - 1) )))
+            var theOffset = Int(pow(2.0, Double( min(6, wortFormen.failCounter - 2) )))
             if(theOffset > 60){
                 theOffset = Int.random(in: 1...60)
             }
-            wortFormen.nextPlanedAttempt = Date.now.offset_inMinutes(theOffset)
+            wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(15*Int(wortFormen.failCounter))
         }
         
         try! context.save()
