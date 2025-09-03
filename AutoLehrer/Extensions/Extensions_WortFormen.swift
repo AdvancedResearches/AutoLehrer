@@ -213,6 +213,7 @@ extension WortFormen{
     public static func get_successfulHot_recent3(_ context: NSManagedObjectContext, _ wortArt: WortArt) -> [WortFormen]{
         return try! context.fetch(WortFormen.fetchRequest()).filter{$0.coolDown > 0 && $0.coolDown >= (WortFormen.successCoolDown - 3) && !$0.failed && $0.relWortArt == wortArt}.sorted{$0.wortFrequencyOrder < $1.wortFrequencyOrder}
     }
+    public static let treatedAsRandomFailCount: Int = 6
     public static func get_success_delay_inSeconds(successCount: Int) -> Int{
         if(successCount <= 1){
             return 60
@@ -345,7 +346,7 @@ extension WortFormen{
     public static func set_failure(_ wortFormen: WortFormen, attemptedFormen: [Wort], failLevel: Int){
         guard let context = wortFormen.managedObjectContext else { return }
         
-        let isRandomFailure = wortFormen.randomFail ? false : wortFormen.successCounter > 5
+        let isRandomFailure = wortFormen.randomFail ? false : wortFormen.successCounter >= treatedAsRandomFailCount
         
         if(isRandomFailure){
             wortFormen.nextPlanedAttempt =  Date.now.offset_inSeconds(get_fail_delay_inSeconds(failCount: 0, failLevel: 0, isRandomFail: true))

@@ -4025,6 +4025,10 @@ struct NG_Theme {
     var NG_Color_Icon_BottomRight_Red: Color                               = Color.NG_RawColor_DarkRed
     var NG_Color_Icon_Glare_Red: Color                                     = Color.NG_RawColor_MediumRed
     
+    var NG_Color_Icon_TopLeft_Yellow: Color                                = Color.NG_RawColor_BrightRed
+    var NG_Color_Icon_BottomRight_Yellow: Color                            = Color.NG_RawColor_DarkGreen
+    var NG_Color_Icon_Glare_Yellow: Color                                  = Color.NG_RawColor_MediumRed
+    
     var NG_Color_Icon_TopLeft_Green: Color                                 = Color.NG_RawColor_BrightGreen
     var NG_Color_Icon_BottomRight_Green: Color                             = Color.NG_RawColor_DarkGreen
     var NG_Color_Icon_Glare_Green: Color                                   = Color.NG_RawColor_MediumGreen
@@ -4259,6 +4263,9 @@ struct NG_Theme {
         LinearGradient(gradient: Gradient(colors: [NG_Color_Icon_TopLeft_Disabled, NG_Color_Icon_BottomRight_Disabled]), startPoint: .topLeading, endPoint: .bottomTrailing)
     }
     var NG_LinearGradient_Icon_Background_Red: LinearGradient {
+        LinearGradient(gradient: Gradient(colors: [NG_Color_Icon_TopLeft_Red, NG_Color_Icon_BottomRight_Red]), startPoint: .topLeading, endPoint: .bottomTrailing)
+    }
+    var NG_LinearGradient_Icon_Background_Yellow: LinearGradient {
         LinearGradient(gradient: Gradient(colors: [NG_Color_Icon_TopLeft_Red, NG_Color_Icon_BottomRight_Red]), startPoint: .topLeading, endPoint: .bottomTrailing)
     }
     var NG_LinearGradient_Icon_Background_Green: LinearGradient {

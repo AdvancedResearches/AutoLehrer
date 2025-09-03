@@ -1059,6 +1059,188 @@ struct WortRepeater: View {
         }
         
     }
+    private func forecastedProgressIconName() -> String {
+        var forecastedFailState: Bool = false
+        var forecastedRandomFailState: Bool = false
+        var forecastedDepth: Int = 0
+        
+        let hasFails: Bool = guessingResult.contains(-1)
+        let hasIncomplete: Bool = guessingResult.contains(0)
+        
+        if(hasFails){
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = 1
+                forecastedFailState = true
+                forecastedRandomFailState = false
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = Int(pickedWortFormen!.failCounter) + 1
+                    forecastedFailState = true
+                    forecastedRandomFailState = false
+                }else{
+                    if(pickedWortFormen!.successCounter >= WortFormen.treatedAsRandomFailCount){
+                        forecastedDepth = Int(pickedWortFormen!.successCounter)
+                        forecastedFailState = false
+                        forecastedRandomFailState = true
+                    }else{
+                        forecastedDepth = 1
+                        forecastedFailState = true
+                        forecastedRandomFailState = false
+                    }
+                }
+            }
+        }else if(hasIncomplete){
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = Int(pickedWortFormen!.successCounter)
+                forecastedFailState = false
+                forecastedRandomFailState = false
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                }else{
+                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                }
+            }
+        }else{
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = Int(pickedWortFormen!.successCounter)
+                forecastedFailState = false
+                forecastedRandomFailState = false
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                }else{
+                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                }
+            }
+        }
+        
+        if(forecastedRandomFailState){
+            if(forecastedRandomFailState){
+                return "person.fill.questionmark"
+            }else{
+                if(forecastedDepth <= 1){
+                    return "1.square.fill"
+                }
+                if(forecastedDepth == 2){
+                    return "2.square.fill"
+                }
+                if(forecastedDepth == 3){
+                    return "3.square.fill"
+                }
+                if(forecastedDepth == 4){
+                    return "4.square.fill"
+                }
+                if(forecastedDepth == 5){
+                    return "5.square.fill"
+                }
+                return "hand.thumbsdown.fill"
+            }
+        }else{
+            if(forecastedDepth <= 1){
+                return "1.square.fill"
+            }
+            if(forecastedDepth == 2){
+                return "2.square.fill"
+            }
+            if(forecastedDepth == 3){
+                return "3.square.fill"
+            }
+            if(forecastedDepth == 4){
+                return "4.square.fill"
+            }
+            if(forecastedDepth == 5){
+                return "5.square.fill"
+            }
+            return "star.square.fill"
+        }
+        
+        return "questionmark.app.fill"
+    }
+    private func forecastedProgressIconStyle() -> NG_IconStyle {
+        var forecastedFailState: Bool = false
+        var forecastedRandomFailState: Bool = false
+        var forecastedDepth: Int = 0
+        
+        let hasFails: Bool = guessingResult.contains(-1)
+        let hasIncomplete: Bool = guessingResult.contains(0)
+        
+        if(hasFails){
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = 1
+                forecastedFailState = true
+                forecastedRandomFailState = false
+                return .NG_IconStyle_Red
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = Int(pickedWortFormen!.failCounter) + 1
+                    forecastedFailState = true
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Red
+                }else{
+                    if(pickedWortFormen!.successCounter >= WortFormen.treatedAsRandomFailCount){
+                        forecastedDepth = Int(pickedWortFormen!.successCounter)
+                        forecastedFailState = false
+                        forecastedRandomFailState = true
+                        return .NG_IconStyle_Regular
+                    }else{
+                        forecastedDepth = 1
+                        forecastedFailState = true
+                        forecastedRandomFailState = false
+                        return .NG_IconStyle_Red
+                    }
+                }
+            }
+        }else if(hasIncomplete){
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = Int(pickedWortFormen!.successCounter)
+                forecastedFailState = false
+                forecastedRandomFailState = false
+                return .NG_IconStyle_Regular
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Regular
+                }else{
+                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Regular
+                }
+            }
+        }else{
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = Int(pickedWortFormen!.successCounter)
+                forecastedFailState = false
+                forecastedRandomFailState = false
+                return .NG_IconStyle_Green
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Green
+                }else{
+                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Green
+                }
+            }
+        }
+        
+        return .NG_IconStyle_Regular
+    }
     private func progressIconName() -> String {
         if(pickedWortFormen!.failed){
             if(pickedWortFormen!.randomFail){
@@ -1133,80 +1315,14 @@ struct WortRepeater: View {
                 .resizable()
                 .frame(width: 25, height: 25)
                 .NG_iconStyling(progressIconStyle(), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-            //.border(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green)
-            /*
-            if(!pickedWortFormen!.failed){
-                Image(systemName: "chevron.right.square.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                    .font(.system(size: 25))
-                Image(systemName: "chevron.right.square.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                    .font(.system(size: 25))
-                Image(systemName: "chevron.right.square.fill")
-                    .symbolRenderingMode(.palette)
-                    .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                    .font(.system(size: 25))
-            }else{
-                if(pickedWortFormen!.successCounter == 0){
-                    Image(systemName: "questionmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                        .font(.system(size: 25))
-                    Image(systemName: "square")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .clear)
-                        .font(.system(size: 25))
-                    Image(systemName: "square")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .clear)
-                        .font(.system(size: 25))
-                }
-                if(pickedWortFormen!.successCounter == 1){
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "questionmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                        .font(.system(size: 25))
-                    Image(systemName: "square")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, .clear)
-                        .font(.system(size: 25))
-                }
-                if(pickedWortFormen!.successCounter == 2){
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "questionmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, hasFaults ? .red : (!guessingResult.contains(-1) && !guessingResult.contains(0)) ? .green : .yellow)
-                        .font(.system(size: 25))
-                }
-                if(pickedWortFormen!.successCounter >= 3){
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                    Image(systemName: "checkmark.square.fill")
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.black, guessingResult.contains(-1) ? .red : .green)
-                        .font(.system(size: 25))
-                }
-            }
-             */
+            Image(systemName: "arrow.right")
+                .resizable()
+                .frame(width: 15, height: 15)
+                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+            Image(systemName: forecastedProgressIconName())
+                .resizable()
+                .frame(width: 25, height: 25)
+                .NG_iconStyling(forecastedProgressIconStyle(), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
         }
         .onTapGesture {
             showProgressBarDetails.toggle()

@@ -53,6 +53,7 @@ enum NG_IconStyle{
     case NG_IconStyle_Regular
     case NG_IconStyle_Disabled
     case NG_IconStyle_Red
+    case NG_IconStyle_Yellow
     case NG_IconStyle_Green
     case NG_IconStyle_Transparent
 }
@@ -287,7 +288,7 @@ extension Font {
 
 //ICON
 extension View {
-    func NG_iconStyling(_ style: NG_IconStyle, isDisabled: Binding<Bool>, isHighlighting: Binding<Bool>, isPulsating: Binding<Bool>, theme: ThemeManager) -> some View {
+    func NG_iconStyling(_ style: NG_IconStyle, isDisabled: Binding<Bool>, isHighlighting: Binding<Bool>, highlighTint: NG_IconStyle? = nil, isPulsating: Binding<Bool>, theme: ThemeManager) -> some View {
         let effectiveStyle: NG_IconStyle = isDisabled.wrappedValue ? .NG_IconStyle_Disabled : style
         let background: LinearGradient
         let glare: Color
@@ -299,6 +300,9 @@ extension View {
             background = theme.currentTheme.NG_LinearGradient_Icon_Background_Regular
             glare = theme.currentTheme.NG_Color_Icon_Glare_Regular
         case .NG_IconStyle_Green:
+            background = theme.currentTheme.NG_LinearGradient_Icon_Background_Green
+            glare = theme.currentTheme.NG_Color_Icon_Glare_Green
+        case .NG_IconStyle_Yellow:
             background = theme.currentTheme.NG_LinearGradient_Icon_Background_Green
             glare = theme.currentTheme.NG_Color_Icon_Glare_Green
         case .NG_IconStyle_Red:
