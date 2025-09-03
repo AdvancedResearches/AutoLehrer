@@ -66,6 +66,12 @@ struct WortRepeater: View {
     @State var toBeatYesterday: String?
     @State var toBeatAverage: String?
     
+    @State var forecastedIconName: String = ""
+    @State var forecastedIconStyle: NG_IconStyle = .NG_IconStyle_Regular
+    @State var forecastedIconBlinking: Bool = true
+    
+    @State private var dim = false
+    
     func recalcTimeToBeatReminder(){
         if(pickedWortFormen != nil){
             let statsForToday: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
@@ -405,6 +411,7 @@ struct WortRepeater: View {
                     
                     
                     pickedWortFormen!.lastSucceeded = Int64(successCounter)
+                    pickedWortFormen!.formsToShow = Int64(guessingResult.count)
                     /*
                     //if(successCounter == wort.count){
                     if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
@@ -1254,129 +1261,55 @@ struct WortRepeater: View {
         
         return .NG_IconStyle_Regular
     }
-    private func forecastedProgressIconGlareStyle() -> NG_IconStyle? {
-        var forecastedFailState: Bool = false
-        var forecastedRandomFailState: Bool = false
-        var forecastedDepth: Int = 0
-        
-        let hasFails: Bool = guessingResult.contains(-1)
-        let hasIncomplete: Bool = guessingResult.contains(0)
-        
-        if(hasFails){
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = 1
-                forecastedFailState = true
-                forecastedRandomFailState = false
+    private func progressIconName(_ check: WortFormenKeyParameters) -> String {
+        if(check.state == WortFormen.state_frequent){
+            if(check.randomFail){
+                return "questionmark.diamond.fill"
+            }else{
+                return "hare.fill"
+            }
+        }
+        if(check.state == WortFormen.state_daily){
+            return "tortoise.fill"
+        }
+        if(check.state == WortFormen.state_weekly){
+            return "star.fill"
+        }
+        return "plus.square.fill"
+    }
+    private func progressIconStyle(_ check: WortFormenKeyParameters) -> NG_IconStyle {
+        if(check.state == WortFormen.state_frequent){
+            if(check.randomFail){
                 return .NG_IconStyle_Red
             }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = Int(pickedWortFormen!.failCounter) + 1
-                    forecastedFailState = true
-                    forecastedRandomFailState = false
+                if(check.successCounter > 0){
+                    return .NG_IconStyle_Green
+                }else if(check.failCounter > 0){
                     return .NG_IconStyle_Red
                 }else{
-                    if(pickedWortFormen!.successCounter >= WortFormen.treatedAsRandomFailCount){
-                        forecastedDepth = Int(pickedWortFormen!.successCounter)
-                        forecastedFailState = false
-                        forecastedRandomFailState = true
-                        return .NG_IconStyle_Regular
-                    }else{
-                        forecastedDepth = 1
-                        forecastedFailState = true
-                        forecastedRandomFailState = false
-                        return .NG_IconStyle_Red
-                    }
+                    return .NG_IconStyle_Regular
                 }
             }
-        }else if(hasIncomplete){
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = Int(pickedWortFormen!.successCounter)
-                forecastedFailState = false
-                forecastedRandomFailState = false
-                return .NG_IconStyle_Yellow
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Yellow
-                }else{
-                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Yellow
-                }
-            }
-        }else{
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = Int(pickedWortFormen!.successCounter)
-                forecastedFailState = false
-                forecastedRandomFailState = false
+        }
+        if(check.state == WortFormen.state_daily){
+            if(check.successCounter > 0){
                 return .NG_IconStyle_Green
+            }else if(check.failCounter > 0){
+                return .NG_IconStyle_Red
             }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Green
-                }else{
-                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Green
-                }
+                return .NG_IconStyle_Regular
             }
         }
-        
-        return .NG_IconStyle_Regular
-    }
-    private func progressIconName() -> String {
-        if(pickedWortFormen!.failed){
-            if(pickedWortFormen!.randomFail){
-                return "person.fill.questionmark"
+        if(check.state == WortFormen.state_weekly){
+            if(check.successCounter > 0){
+                return .NG_IconStyle_Green
+            }else if(check.failCounter > 0){
+                return .NG_IconStyle_Red
             }else{
-                if(pickedWortFormen!.failCounter <= 1){
-                    return "1.square.fill"
-                }
-                if(pickedWortFormen!.failCounter == 2){
-                    return "2.square.fill"
-                }
-                if(pickedWortFormen!.failCounter == 3){
-                    return "3.square.fill"
-                }
-                if(pickedWortFormen!.failCounter == 4){
-                    return "4.square.fill"
-                }
-                if(pickedWortFormen!.failCounter == 5){
-                    return "5.square.fill"
-                }
-                return "hand.thumbsdown.fill"
+                return .NG_IconStyle_Green
             }
-        }else{
-            if(pickedWortFormen!.successCounter <= 1){
-                return "1.square.fill"
-            }
-            if(pickedWortFormen!.successCounter == 2){
-                return "2.square.fill"
-            }
-            if(pickedWortFormen!.successCounter == 3){
-                return "3.square.fill"
-            }
-            if(pickedWortFormen!.successCounter == 4){
-                return "4.square.fill"
-            }
-            if(pickedWortFormen!.successCounter == 5){
-                return "5.square.fill"
-            }
-            return "star.square.fill"
         }
-    }
-    private func progressIconStyle() -> NG_IconStyle {
-        if(pickedWortFormen!.failed){
-            return .NG_IconStyle_Red
-        }else{
-            return .NG_IconStyle_Green
-        }
+        return .NG_IconStyle_Green
     }
     private func dasProgressSektion() -> some View {
         return HStack{
@@ -1400,18 +1333,35 @@ struct WortRepeater: View {
                     //print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
                 }
             }
-            Image(systemName: progressIconName())
+            Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
                 .resizable()
                 .frame(width: 25, height: 25)
-                .NG_iconStyling(progressIconStyle(), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                .NG_iconStyling(progressIconStyle(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
             Image(systemName: "arrow.right")
                 .resizable()
                 .frame(width: 15, height: 15)
                 .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-            Image(systemName: forecastedProgressIconName())
+            Image(systemName: forecastedIconName)
                 .resizable()
                 .frame(width: 25, height: 25)
-                .NG_iconStyling(forecastedProgressIconStyle(), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                .opacity(forecastedIconBlinking ? (dim ? 0.0 : 1.0) : 1.0)
+                .onAppear {
+                    if forecastedIconBlinking {
+                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                            dim.toggle()
+                        }
+                    }
+                }
+                .onChange(of: forecastedIconBlinking) { newValue in
+                    if newValue {
+                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                            dim.toggle()
+                        }
+                    } else {
+                        dim = false
+                    }
+                }
         }
         .onTapGesture {
             showProgressBarDetails.toggle()
@@ -1468,6 +1418,7 @@ struct WortRepeater: View {
                                     }
                                 }
                                 hasFaults = guessingResult.contains(-1)
+                                forecastIcon()
                             }
                         Image(systemName: "multiply.square.fill")
                             .resizable()
@@ -1485,6 +1436,7 @@ struct WortRepeater: View {
                                     }
                                 }
                                 hasFaults = guessingResult.contains(-1)
+                                forecastIcon()
                             }
                     }
                 }
@@ -1528,6 +1480,7 @@ struct WortRepeater: View {
                             let dieWortArt: WortArt? = prufungModus ? runningWortArt : dasWort.relWortFormen?.relWortArt
                             TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dieWortArt)
                             recalcTimeToBeatReminder()
+                            forecastIcon()
                         }, widthFlood: true)
                         .if((!flippedSeite[index])||(missedGuess[index])){ view in
                             view.opacity(0.0)
@@ -1565,6 +1518,7 @@ struct WortRepeater: View {
                             let dieWortArt: WortArt? = prufungModus ? runningWortArt : dasWort.relWortFormen?.relWortArt
                             TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dieWortArt)
                             recalcTimeToBeatReminder()
+                            forecastIcon()
                         }, widthFlood: true)
                         .if(!flippedSeite[index]){ view in
                             view.opacity(0.0)
@@ -1820,6 +1774,8 @@ struct WortRepeater: View {
         potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
         
         recalcTimeToBeatReminder()
+        
+        forecastIcon()
     }
     func pickTheWordFurPrufung() {
         prufungLoadCompleted = false
@@ -1906,5 +1862,40 @@ struct WortRepeater: View {
         prufungResult.updateValue(0, forKey: runningWortArt!)
         runningWortArtIndex += 1
         prufungLoadCompleted = true
+    }
+    func forecastIcon(){
+        forecastedIconBlinking = true
+        var forecastedAction = WortFormen.action_allRight
+        if(!guessingResult.contains(0)){
+            //if has all answered
+            forecastedIconBlinking = false
+            if(!guessingResult.contains(-1)){
+                //and all answered right
+                forecastedAction = WortFormen.action_allRight
+            }else{
+                if(guessingResult.count > pickedWortFormen!.formsToShow){
+                    //has progress
+                    forecastedAction = WortFormen.action_hasProgress
+                }else{
+                    //has no progress
+                    forecastedAction = WortFormen.action_hasNoProgress
+                }
+            }
+        }else{
+            //still in progress
+            if(guessingResult.contains(-1)){
+                //already has failures means there will be no progress
+                forecastedAction = WortFormen.action_hasNoProgress
+                forecastedIconBlinking = false
+            }else{
+                //still have a potential to has all right
+                forecastedAction = WortFormen.action_allRight
+                forecastedIconBlinking = true
+            }
+        }
+        let forecastedStateBeforeTransition = WortFormen.forecastedState(current: WortFormenKeyParameters.fromWortFormen(pickedWortFormen!), action: forecastedAction)
+        let forecastedStateAfterTransition = WortFormen.forecastedTransition(forecastedStateBeforeTransition)
+        forecastedIconName = progressIconName(forecastedStateAfterTransition)
+        forecastedIconStyle = progressIconStyle(forecastedStateAfterTransition)
     }
 }

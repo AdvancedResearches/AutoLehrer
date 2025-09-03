@@ -97,6 +97,17 @@ public struct WortArtFormen{
     }
 }
 
+public struct WortFormenKeyParameters{
+    var state: String
+    var randomFail: Bool
+    var successCounter: Int
+    var failCounter: Int
+    var nextPlanedAttempt: Date?
+    public static func fromWortFormen(_ current: WortFormen) -> WortFormenKeyParameters{
+        return WortFormenKeyParameters(state: current.state!, randomFail: current.randomFail, successCounter: Int(current.successCounter), failCounter: Int(current.failCounter))
+    }
+}
+
 extension WortFormen{
     public static let completeCoolDown: Int64 = 51
     public static let successCoolDown: Int64 = 21
@@ -472,10 +483,161 @@ extension WortFormen{
     public static let state_frequent = "frequent"
     public static let state_daily = "daily"
     public static let state_weekly = "weekly"
+    public static let action_allRight = "allRight"
+    public static let action_hasProgress = "hasProgress"
+    public static let action_hasNoProgress = "hasNoProgress"
+    public static func forecastedState(current: WortFormenKeyParameters, action: String) -> WortFormenKeyParameters{
+        var retValue: WortFormenKeyParameters = current
+        if(action == action_allRight){
+            if(current.state == state_never){
+                retValue.randomFail = false
+                retValue.successCounter = 1
+                retValue.failCounter = 0
+            }
+            if(current.state == state_frequent){
+                retValue.randomFail = current.randomFail
+                retValue.successCounter += 1
+                retValue.failCounter = 0
+            }
+            if(current.state == state_daily){
+                retValue.randomFail = false
+                retValue.successCounter += 1
+                retValue.failCounter = 0
+            }
+            if(current.state == state_weekly){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }
+        }
+        if(action == action_hasProgress){
+            if(current.state == state_never){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }
+            if(current.state == state_frequent){
+                retValue.randomFail = current.randomFail
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }
+            if(current.state == state_daily){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter += 1
+            }
+            if(current.state == state_weekly){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter += 1
+            }
+        }
+        if(action == action_hasNoProgress){
+            if(current.state == state_never){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 1
+            }
+            if(current.state == state_frequent){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter += 1
+            }
+            if(current.state == state_daily){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter += 1
+            }
+            if(current.state == state_weekly){
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter += 1
+            }
+        }
+        return retValue
+    }
+    public static func forecastedTransition(_ current: WortFormenKeyParameters) -> WortFormenKeyParameters{
+        var retValue: WortFormenKeyParameters = current
+        if(current.state == state_never){
+            retValue.state = state_frequent
+            retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+            retValue.randomFail = false
+            retValue.successCounter = current.successCounter
+            retValue.failCounter = current.failCounter
+        }
+        if(current.state == state_frequent){
+            if(current.randomFail && current.successCounter > 0){
+                retValue.state = state_daily
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }else if(!current.randomFail && current.successCounter > 1){
+                retValue.state = state_daily
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }else if(current.failCounter > 2){
+                retValue.state = state_daily
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }else{
+                retValue.state = state_frequent
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                retValue.randomFail = current.randomFail
+                retValue.successCounter = current.successCounter
+                retValue.failCounter = current.failCounter
+            }
+        }
+        if(current.state == state_daily){
+            if(current.successCounter > 4){
+                retValue.state = state_weekly
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }else if(current.failCounter > 0){
+                retValue.state = state_frequent
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 1
+            }else{
+                retValue.state = state_daily
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(86400)
+                retValue.randomFail = false
+                retValue.successCounter = current.successCounter
+                retValue.failCounter = current.failCounter
+            }
+        }
+        if(current.state == state_weekly){
+            if(current.failCounter > 0){
+                retValue.state = state_frequent
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                retValue.randomFail = true
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }else{
+                retValue.state = state_weekly
+                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
+                retValue.randomFail = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+            }
+        }
+        return retValue
+    }
     public static func submit_allRight(_ wortFormen: WortFormen) {
         if(wortFormen.state != state_never && wortFormen.state != state_frequent && wortFormen.state != state_daily && wortFormen.state != state_weekly){
             wortFormen.state = state_never
         }
+        
+        let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        
+        /*
         if(wortFormen.state == state_never){
             wortFormen.randomFail = false
             wortFormen.successCounter = 1
@@ -496,6 +658,15 @@ extension WortFormen{
             wortFormen.successCounter = 0
             wortFormen.failCounter = 0
         }
+        */
+        
+        let next = forecastedState(current: previous, action: action_allRight)
+        
+        wortFormen.state = next.state
+        wortFormen.randomFail = next.randomFail
+        wortFormen.successCounter = Int64(next.successCounter)
+        wortFormen.failCounter = Int64(next.failCounter)
+        
         guard let context = wortFormen.managedObjectContext else { return }
         do{
             try context.save()
@@ -508,6 +679,10 @@ extension WortFormen{
         if(wortFormen.state != state_never && wortFormen.state != state_frequent && wortFormen.state != state_daily && wortFormen.state != state_weekly){
             wortFormen.state = state_never
         }
+        
+        let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        
+        /*
         if(wortFormen.state == state_never){
             wortFormen.randomFail = false
             wortFormen.successCounter = 0
@@ -528,6 +703,15 @@ extension WortFormen{
             wortFormen.successCounter = 0
             wortFormen.failCounter += 1
         }
+        */
+        
+        let next = forecastedState(current: previous, action: action_hasProgress)
+        
+        wortFormen.state = next.state
+        wortFormen.randomFail = next.randomFail
+        wortFormen.successCounter = Int64(next.successCounter)
+        wortFormen.failCounter = Int64(next.failCounter)
+        
         guard let context = wortFormen.managedObjectContext else { return }
         do{
             try context.save()
@@ -540,6 +724,10 @@ extension WortFormen{
         if(wortFormen.state != state_never && wortFormen.state != state_frequent && wortFormen.state != state_daily && wortFormen.state != state_weekly){
             wortFormen.state = state_never
         }
+        
+        let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        
+        /*
         if(wortFormen.state == state_never){
             wortFormen.randomFail = false
             wortFormen.successCounter = 0
@@ -560,6 +748,15 @@ extension WortFormen{
             wortFormen.successCounter = 0
             wortFormen.failCounter += 1
         }
+        */
+        
+        let next = forecastedState(current: previous, action: action_hasProgress)
+        
+        wortFormen.state = next.state
+        wortFormen.randomFail = next.randomFail
+        wortFormen.successCounter = Int64(next.successCounter)
+        wortFormen.failCounter = Int64(next.failCounter)
+        
         guard let context = wortFormen.managedObjectContext else { return }
         do{
             try context.save()
@@ -569,6 +766,9 @@ extension WortFormen{
         transition(wortFormen)
     }
     public static func transition(_ wortFormen: WortFormen){
+        let current: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        
+        /*
         if(wortFormen.state == state_never){
             wortFormen.state = state_frequent
             wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
@@ -639,6 +839,16 @@ extension WortFormen{
                 wortFormen.failCounter = 0
             }
         }
+        */
+        
+        let next = forecastedTransition(current)
+        
+        wortFormen.state = next.state
+        wortFormen.nextPlanedAttempt = next.nextPlanedAttempt!
+        wortFormen.randomFail = next.randomFail
+        wortFormen.successCounter = Int64(next.successCounter)
+        wortFormen.failCounter = Int64(next.failCounter)
+        
         guard let context = wortFormen.managedObjectContext else { return }
         do{
             try context.save()
