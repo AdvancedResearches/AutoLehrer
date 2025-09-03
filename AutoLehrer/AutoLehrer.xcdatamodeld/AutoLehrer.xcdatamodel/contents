@@ -134,6 +134,7 @@
         <attribute name="levelReached" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nextPlanedAttempt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="randomFail" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="state" attributeType="String" defaultValueString="never"/>
         <attribute name="successCounter" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="urgencyCache" attributeType="Float" defaultValueString="-10000" usesScalarValueType="YES"/>
         <attribute name="wortFrequencyOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>

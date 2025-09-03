@@ -334,10 +334,10 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "989"
-            endingLineNumber = "989"
+            startingLineNumber = "1002"
+            endingLineNumber = "1002"
             landmarkName = "dasPrufungProgressSektion()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -446,10 +446,10 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "988"
-            endingLineNumber = "988"
+            startingLineNumber = "1001"
+            endingLineNumber = "1001"
             landmarkName = "dasPrufungProgressSektion()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -462,10 +462,10 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "984"
-            endingLineNumber = "984"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
             landmarkName = "dasPrufungProgressSektion()"
-            landmarkType = "7">
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

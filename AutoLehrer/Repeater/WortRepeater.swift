@@ -386,9 +386,11 @@ struct WortRepeater: View {
                     //print("Wort zahlung: INITIATED")
                     
                     //was ist das für?
-                    attemptCounter += 1
+                    //attemptCounter += 1
                     //Rechen success formen
-                    var successCounter: Int = guessingResult.filter{$0 == 1}.count
+                    let successCounter: Int = guessingResult.filter{$0 == 1}.count
+                    let hasProgress: Bool = fasttrackExtras > 0
+                    let allRight: Bool = successCounter == guessingResult.count
                     
                     //merken wort formen wie successful oder nicht successful
                     for theFormCounter in 0..<wort.count{
@@ -401,8 +403,9 @@ struct WortRepeater: View {
                         }
                     }
                     
-                    pickedWortFormen!.lastSucceeded = Int64(successCounter)
                     
+                    pickedWortFormen!.lastSucceeded = Int64(successCounter)
+                    /*
                     //if(successCounter == wort.count){
                     if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
                         //wenn all antworten sind rischig - kann sein nur wenn alle moglich wort formen war successfull
@@ -430,6 +433,16 @@ struct WortRepeater: View {
                     }
                     
                     WortFormen.set_attempted(pickedWortFormen!)
+                    */
+                    
+                    if allRight{
+                        WortFormen.submit_allRight(pickedWortFormen!)
+                    }else if hasProgress{
+                        WortFormen.submit_hasProgress(pickedWortFormen!)
+                    }else{
+                        WortFormen.submit_hasNoProgress(pickedWortFormen!)
+                    }
+                     
                     Statistics.wortFormenUrgency(pickedWortFormen!)
                     
                     
@@ -1241,6 +1254,82 @@ struct WortRepeater: View {
         
         return .NG_IconStyle_Regular
     }
+    private func forecastedProgressIconGlareStyle() -> NG_IconStyle? {
+        var forecastedFailState: Bool = false
+        var forecastedRandomFailState: Bool = false
+        var forecastedDepth: Int = 0
+        
+        let hasFails: Bool = guessingResult.contains(-1)
+        let hasIncomplete: Bool = guessingResult.contains(0)
+        
+        if(hasFails){
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = 1
+                forecastedFailState = true
+                forecastedRandomFailState = false
+                return .NG_IconStyle_Red
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = Int(pickedWortFormen!.failCounter) + 1
+                    forecastedFailState = true
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Red
+                }else{
+                    if(pickedWortFormen!.successCounter >= WortFormen.treatedAsRandomFailCount){
+                        forecastedDepth = Int(pickedWortFormen!.successCounter)
+                        forecastedFailState = false
+                        forecastedRandomFailState = true
+                        return .NG_IconStyle_Regular
+                    }else{
+                        forecastedDepth = 1
+                        forecastedFailState = true
+                        forecastedRandomFailState = false
+                        return .NG_IconStyle_Red
+                    }
+                }
+            }
+        }else if(hasIncomplete){
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = Int(pickedWortFormen!.successCounter)
+                forecastedFailState = false
+                forecastedRandomFailState = false
+                return .NG_IconStyle_Yellow
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Yellow
+                }else{
+                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Yellow
+                }
+            }
+        }else{
+            if(pickedWortFormen!.randomFail){
+                forecastedDepth = Int(pickedWortFormen!.successCounter)
+                forecastedFailState = false
+                forecastedRandomFailState = false
+                return .NG_IconStyle_Green
+            }else{
+                if(pickedWortFormen!.failed){
+                    forecastedDepth = 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Green
+                }else{
+                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
+                    forecastedFailState = false
+                    forecastedRandomFailState = false
+                    return .NG_IconStyle_Green
+                }
+            }
+        }
+        
+        return .NG_IconStyle_Regular
+    }
     private func progressIconName() -> String {
         if(pickedWortFormen!.failed){
             if(pickedWortFormen!.randomFail){
@@ -1264,19 +1353,19 @@ struct WortRepeater: View {
                 return "hand.thumbsdown.fill"
             }
         }else{
-            if(pickedWortFormen!.failCounter <= 1){
+            if(pickedWortFormen!.successCounter <= 1){
                 return "1.square.fill"
             }
-            if(pickedWortFormen!.failCounter == 2){
+            if(pickedWortFormen!.successCounter == 2){
                 return "2.square.fill"
             }
-            if(pickedWortFormen!.failCounter == 3){
+            if(pickedWortFormen!.successCounter == 3){
                 return "3.square.fill"
             }
-            if(pickedWortFormen!.failCounter == 4){
+            if(pickedWortFormen!.successCounter == 4){
                 return "4.square.fill"
             }
-            if(pickedWortFormen!.failCounter == 5){
+            if(pickedWortFormen!.successCounter == 5){
                 return "5.square.fill"
             }
             return "star.square.fill"

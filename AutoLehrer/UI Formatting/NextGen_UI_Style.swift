@@ -143,6 +143,12 @@ extension Color {
     static let NG_RawColor_BrightRed: Color                              = Color(hex: "#E5A5A5") // Светло-красный
     static let NG_RawColor_VeryBrightRed: Color                          = Color(hex: "#FBEAEA") // Очень светло-красный
     
+    static let NG_RawColor_VeryDarkYellow: Color                        = Color(hex: "#4A3A1A") // Очень тёмно-жёлтый (с уходом в коричневый)
+    static let NG_RawColor_DarkYellow: Color                            = Color(hex: "#6F5A1A") // Тёмно-жёлтый
+    static let NG_RawColor_MediumYellow: Color                          = Color(hex: "#8F7A2A") // Средне-жёлтый
+    static let NG_RawColor_BrightYellow: Color                          = Color(hex: "#E5D37A") // Светло-жёлтый
+    static let NG_RawColor_VeryBrightYellow: Color                      = Color(hex: "#FBF7EA") // Очень светло-жёлтый (почти бежевый)
+    
     static let NG_RawColor_VeryDarkPureRed: Color                        = Color(hex: "#400000") // Очень тёмный чисто-красный (пересчитанный)
     static let NG_RawColor_DarkPureRed: Color                            = Color(hex: "#800000") // Тёмный чисто-красный (пересчитанный)
     static let NG_RawColor_MediumPureRed: Color                          = Color(hex: "#FF0000") // Базовый чисто-красный
@@ -303,8 +309,8 @@ extension View {
             background = theme.currentTheme.NG_LinearGradient_Icon_Background_Green
             glare = theme.currentTheme.NG_Color_Icon_Glare_Green
         case .NG_IconStyle_Yellow:
-            background = theme.currentTheme.NG_LinearGradient_Icon_Background_Green
-            glare = theme.currentTheme.NG_Color_Icon_Glare_Green
+            background = theme.currentTheme.NG_LinearGradient_Icon_Background_Yellow
+            glare = theme.currentTheme.NG_Color_Icon_Glare_Yellow
         case .NG_IconStyle_Red:
             background = theme.currentTheme.NG_LinearGradient_Icon_Background_Red
             glare = theme.currentTheme.NG_Color_Icon_Glare_Red

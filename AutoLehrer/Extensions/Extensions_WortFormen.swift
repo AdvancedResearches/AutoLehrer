@@ -468,4 +468,182 @@ extension WortFormen{
         
         return sortedWorte
     }
+    public static let state_never = "never"
+    public static let state_frequent = "frequent"
+    public static let state_daily = "daily"
+    public static let state_weekly = "weekly"
+    public static func submit_allRight(_ wortFormen: WortFormen) {
+        if(wortFormen.state != state_never && wortFormen.state != state_frequent && wortFormen.state != state_daily && wortFormen.state != state_weekly){
+            wortFormen.state = state_never
+        }
+        if(wortFormen.state == state_never){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 1
+            wortFormen.failCounter = 0
+        }
+        if(wortFormen.state == state_frequent){
+            wortFormen.randomFail = wortFormen.randomFail
+            wortFormen.successCounter += 1
+            wortFormen.failCounter = 0
+        }
+        if(wortFormen.state == state_daily){
+            wortFormen.randomFail = false
+            wortFormen.successCounter += 1
+            wortFormen.failCounter = 0
+        }
+        if(wortFormen.state == state_weekly){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter = 0
+        }
+        guard let context = wortFormen.managedObjectContext else { return }
+        do{
+            try context.save()
+        }catch{
+            
+        }
+        transition(wortFormen)
+    }
+    public static func submit_hasProgress(_ wortFormen: WortFormen) {
+        if(wortFormen.state != state_never && wortFormen.state != state_frequent && wortFormen.state != state_daily && wortFormen.state != state_weekly){
+            wortFormen.state = state_never
+        }
+        if(wortFormen.state == state_never){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter = 0
+        }
+        if(wortFormen.state == state_frequent){
+            wortFormen.randomFail = wortFormen.randomFail
+            wortFormen.successCounter = 0
+            wortFormen.failCounter = 0
+        }
+        if(wortFormen.state == state_daily){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter += 1
+        }
+        if(wortFormen.state == state_weekly){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter += 1
+        }
+        guard let context = wortFormen.managedObjectContext else { return }
+        do{
+            try context.save()
+        }catch{
+            
+        }
+        transition(wortFormen)
+    }
+    public static func submit_hasNoProgress(_ wortFormen: WortFormen) {
+        if(wortFormen.state != state_never && wortFormen.state != state_frequent && wortFormen.state != state_daily && wortFormen.state != state_weekly){
+            wortFormen.state = state_never
+        }
+        if(wortFormen.state == state_never){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter = 1
+        }
+        if(wortFormen.state == state_frequent){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter += 1
+        }
+        if(wortFormen.state == state_daily){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter += 1
+        }
+        if(wortFormen.state == state_weekly){
+            wortFormen.randomFail = false
+            wortFormen.successCounter = 0
+            wortFormen.failCounter += 1
+        }
+        guard let context = wortFormen.managedObjectContext else { return }
+        do{
+            try context.save()
+        }catch{
+            
+        }
+        transition(wortFormen)
+    }
+    public static func transition(_ wortFormen: WortFormen){
+        if(wortFormen.state == state_never){
+            wortFormen.state = state_frequent
+            wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+            wortFormen.randomFail = false
+            wortFormen.successCounter = wortFormen.successCounter
+            wortFormen.failCounter = wortFormen.failCounter
+        }
+        if(wortFormen.state == state_frequent){
+            if(wortFormen.randomFail && wortFormen.successCounter > 0){
+                wortFormen.state = state_daily
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                wortFormen.randomFail = false
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 0
+            }else if(!wortFormen.randomFail && wortFormen.successCounter > 1){
+                wortFormen.state = state_daily
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                wortFormen.randomFail = false
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 0
+            }else if(wortFormen.failCounter > 2){
+                wortFormen.state = state_daily
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                wortFormen.randomFail = false
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 0
+            }else{
+                wortFormen.state = state_frequent
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                wortFormen.randomFail = wortFormen.randomFail
+                wortFormen.successCounter = wortFormen.successCounter
+                wortFormen.failCounter = wortFormen.failCounter
+            }
+        }
+        if(wortFormen.state == state_daily){
+            if(wortFormen.successCounter > 4){
+                wortFormen.state = state_weekly
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
+                wortFormen.randomFail = false
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 0
+            }else if(wortFormen.failCounter > 0){
+                wortFormen.state = state_frequent
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                wortFormen.randomFail = false
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 1
+            }else{
+                wortFormen.state = state_daily
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(86400)
+                wortFormen.randomFail = false
+                wortFormen.successCounter = wortFormen.successCounter
+                wortFormen.failCounter = wortFormen.failCounter
+            }
+        }
+        if(wortFormen.state == state_weekly){
+            if(wortFormen.failCounter > 0){
+                wortFormen.state = state_frequent
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                wortFormen.randomFail = true
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 0
+            }else{
+                wortFormen.state = state_weekly
+                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
+                wortFormen.randomFail = false
+                wortFormen.successCounter = 0
+                wortFormen.failCounter = 0
+            }
+        }
+        guard let context = wortFormen.managedObjectContext else { return }
+        do{
+            try context.save()
+        }catch{
+            
+        }
+    }
 }
