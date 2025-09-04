@@ -738,12 +738,36 @@ struct WortRepeater: View {
         }
     }
     private func dasProgressErklarung() -> some View{
-        
+        @State var shallBlink: Bool = false
+        @State var opacity: CGFloat = 1.00
         return VStack{
             ScrollView(.vertical){
                 VStack{
+                    Divider()
+                    
+                    DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
+                    HStack{
+                        Rectangle().frame(width: 25, height: 25).foregroundColor(Color.green)
+                        Text(" - какая часть изучается")
+                        Spacer()
+                    }
+                    if(wort.count > pickedWortFormen!.formsToShow){
+                        HStack{
+                            Rectangle().frame(width: 25, height: 25).foregroundColor(Color.yellow)
+                            Text(" - часть, которая дополнительно изучена в этот раз")
+                            Spacer()
+                        }
+                    }
+                    HStack{
+                        Rectangle().frame(width: 25, height: 25).foregroundColor(Color.gray)
+                        Text(" - какая часть не изучена")
+                        Spacer()
+                    }
+                    
+                    Divider()
+                    
                     let current = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
-
+                    
                     HStack{
                         Text("Сейчас это слово в состоянии ")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
@@ -775,6 +799,8 @@ struct WortRepeater: View {
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     }
                     
+                    Divider()
+                    
                     HStack{
                         Text("Предполагается что слово перейдёт в состояние ")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
@@ -782,12 +808,14 @@ struct WortRepeater: View {
                             .resizable()
                             .frame(width: 25, height: 25)
                             .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true))
                         Spacer()
                     }
                     if(forecastedIconBlinking){
                         HStack{
                             Text("Пока иконка мигает всё зависит от твоего дальнейшего прохождения теста.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
                             Spacer()
                         }
                     }
@@ -819,10 +847,9 @@ struct WortRepeater: View {
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     }
                     
+                    Divider()
                 }
             }
-            
-            Divider()
             
             NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
                 showProgressBarDetails = false
