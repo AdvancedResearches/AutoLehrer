@@ -189,17 +189,19 @@ struct MainMenu: View {
                                             repeater_isActive.updateValue(value, forKey: wortArt)
                                     })
                                 ) {
-                                    Group {
+                                    VStack {
                                         let state = recommendationModel.buttonStates[.mainmenu_trainings] ?? .enabled
                                         NG_Button(
-                                            title: wortArt.name_RU!+"("+String(wortArt_confirmed)+"/"+String(format: "%.1f", wortArt_confirmed_ratio)+"%)",
+                                            title: wortArt.name_RU!,
                                             style: .NG_ButtonStyle_Regular,
                                             isDisabled: .constant(!WortArt.hat_worten(wortArt)),
                                             isHighlighting: .constant(false),
                                             isPulsating: .constant(false),
                                             widthFlood: true
                                         )
+                                        SimpleDoubleColorLine(topValue: WortArt.confirmedRatio(wortArt), bottomValue: WortArt.attemptingRatio(wortArt), topColor: .green, bottomColor: .yellow, height: 5)
                                     }
+                                    .NG_Card(.NG_CardStyle_Regular, theme: theme)
                                 }
                                 .onChange(of: repeater_isActive[wortArt]){ newValue in
                                     wortArtenStatsRedraw += 1

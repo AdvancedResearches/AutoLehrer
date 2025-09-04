@@ -1,6 +1,28 @@
 import CoreData
 
 extension WortArt{
+    public static func confirmedRatio(_ wortArt: WortArt) -> Double{
+        let alleWortFormen: [WortFormen] =
+            Array(wortArt.relWortFormen as? Set<WortFormen> ?? [])
+        let confirmedWortFormen = alleWortFormen.filter{$0.state == WortFormen.state_weekly}
+        
+        if alleWortFormen.count > 0 {
+            return Double(confirmedWortFormen.count) / Double(alleWortFormen.count)
+        }
+        
+        return 0
+    }
+    public static func attemptingRatio(_ wortArt: WortArt) -> Double{
+        let alleWortFormen: [WortFormen] =
+            Array(wortArt.relWortFormen as? Set<WortFormen> ?? [])
+        let attemptingWortFormen = alleWortFormen.filter{$0.state != WortFormen.state_never}
+        
+        if alleWortFormen.count > 0 {
+            return Double(attemptingWortFormen.count) / Double(alleWortFormen.count)
+        }
+        
+        return 0
+    }
     public static func get_instance(_ wortArtName: String, _ context: NSManagedObjectContext) -> WortArt?{
         return try! context.fetch(WortArt.fetchRequest()).filter{$0.name_DE == wortArtName}.first
     }
