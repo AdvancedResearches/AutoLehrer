@@ -327,22 +327,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "73BF1B1C-EA13-48C8-B33B-12F1D6708C4E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AutoLehrer/Repeater/WortRepeater.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "994"
-            endingLineNumber = "994"
-            landmarkName = "dasPrufungProgressSektion()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "20358C5D-8C57-4A6C-A7CA-D75024FD7F21"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -433,38 +417,6 @@
             startingLineNumber = "325"
             endingLineNumber = "325"
             landmarkName = "set_success(_:attemptedFormen:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F55946BE-F7E3-4D33-8A73-9D1DD414F215"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AutoLehrer/Repeater/WortRepeater.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "993"
-            endingLineNumber = "993"
-            landmarkName = "dasPrufungProgressSektion()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2E30767C-9854-4A1D-9508-6D66A05AF02B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AutoLehrer/Repeater/WortRepeater.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "989"
-            endingLineNumber = "989"
-            landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

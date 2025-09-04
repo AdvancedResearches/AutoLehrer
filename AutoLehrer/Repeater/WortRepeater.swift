@@ -374,307 +374,7 @@ struct WortRepeater: View {
         }
     }
     
-    private func TimeStatisticsSection() -> some View{
-        Group{
-            /*
-            HStack{
-                Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
-                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                    .padding(.horizontal, 5)
-                Spacer()
-            }
-            if(toBeatYesterday != nil){
-                HStack{
-                    Text("Позаниматься ещё \(toBeatYesterday!) чтобы превысить вчерашний результат")
-                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                        .padding(.horizontal, 5)
-                    Spacer()
-                }
-            }
-            if(toBeatAverage != nil){
-                HStack{
-                    Text("Позаниматься ещё \(toBeatAverage!) чтобы превысить средний результат за неделю")
-                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                        .padding(.horizontal, 5)
-                    Spacer()
-                }
-            }
-             */
-            HStack{
-                Image(systemName: "stopwatch")
-                    .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                Text("\(spentToday) за сегодня / \(spentYesterday) вчера / \(spentAverage) в среднем")
-                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
-                    .padding(.horizontal, 5)
-            }
-        }
-    }
-    
-    private func NextButton_Regular() -> some View{
-        Group{
-            let successFormen = guessingResult.filter{$0 == 1}.count
-            let checkedFormen = guessingResult.count
-            NG_Button(
-                title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
-                style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                isDisabled: .constant(false),
-                isHighlighting: .constant(true),
-                isPulsating: .constant(true),
-                action: {
-                    //Rechen success formen
-                    let successCounter: Int = guessingResult.filter{$0 == 1}.count
-                    let hasProgress: Bool = fasttrackExtras > 0
-                    let allRight: Bool = successCounter == guessingResult.count
-                    
-                    //merken wort formen wie successful oder nicht successful
-                    for theFormCounter in 0..<wort.count{
-                        if(guessingResult[theFormCounter] == 1){
-                            Statistics.set_success(wort[theFormCounter])
-                            //successCounter += 1
-                        }
-                        if(guessingResult[theFormCounter] == -1){
-                            Statistics.set_failure(wort[theFormCounter])
-                        }
-                    }
-                    
-                    
-                    pickedWortFormen!.lastSucceeded = Int64(successCounter)
-                    pickedWortFormen!.formsToShow = Int64(guessingResult.count)
-                    
-                    let previousState = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
-                    let theAction = allRight ? WortFormen.action_allRight : hasProgress ?  WortFormen.action_hasProgress : WortFormen.action_hasNoProgress
-                    var afterPreProcessing: WortFormenKeyParameters = WortFormen.forecastedState(current: previousState, action: theAction)
-                    var afterTransition: WortFormenKeyParameters = WortFormen.forecastedTransition(afterPreProcessing)
-                    
-                    pickedWortFormen!.state = afterTransition.state
-                    pickedWortFormen!.randomFail = afterTransition.randomFail
-                    pickedWortFormen!.successCounter = Int64(afterTransition.successCounter)
-                    pickedWortFormen!.failCounter = Int64(afterTransition.failCounter)
-                    pickedWortFormen!.nextPlanedAttempt = afterTransition.nextPlanedAttempt
-                    
-                    try! viewContext.save()
-                    
-                    print("Processing wort next button: action \(theAction), was [\(previousState.debugString())], next [\(afterTransition.debugString())]")
-                     
-                    //Statistics.wortFormenUrgency(pickedWortFormen!)
-                    
-                    pickTheWord()
-                    
-                },
-                widthFlood: true
-            )
-            .padding(.horizontal, 15)
-            .padding(.vertical, 25)
-            .transition(.scale)
-        }
-    }
-    private func NextButton_Prufung_Skip() -> some View{
-        Group{
-            let successFormen = guessingResult.filter{$0 == 1}.count
-            let checkedFormen = guessingResult.count
-            NG_Button(
-                title: "К следующему разделу".localized(for: language),
-                style: .NG_ButtonStyle_Regular,
-                isDisabled: .constant(false),
-                isHighlighting: .constant(true),
-                isPulsating: .constant(true),
-                action: {
-                    pickTheWordFurPrufung()
-                },
-                widthFlood: true
-            )
-            .padding(.horizontal, 15)
-            .padding(.vertical, 25)
-            .transition(.scale)
-        }
-    }
-    private func NextButton_Prufung_Next() -> some View{
-        Group{
-            let successFormen = guessingResult.filter{$0 == 1}.count
-            let checkedFormen = guessingResult.count
-            NG_Button(
-                title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
-                style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
-                isDisabled: .constant(false),
-                isHighlighting: .constant(true),
-                isPulsating: .constant(true),
-                action: {
-                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
-                    pickTheWordFurPrufung()
-                },
-                widthFlood: true
-            )
-            .padding(.horizontal, 15)
-            .padding(.vertical, 25)
-            .transition(.scale)
-        }
-    }
-    private func NextButton_Prufung_Ende() -> some View{
-        Group{
-            NG_Button(
-                title: "Экзамен закончен".localized(for: language),
-                style: .NG_ButtonStyle_Regular,
-                isDisabled: .constant(false),
-                isHighlighting: .constant(false),
-                isPulsating: .constant(true),
-                action: {
-                    dismiss()
-                },
-                widthFlood: true
-            )
-            .padding(.horizontal, 15)
-            .padding(.vertical, 25)
-            .transition(.scale)
-        }
-    }
-    private func PrufungCompletedSection() -> some View{
-        Group{
-            ScrollViewReader { proxy in
-                ScrollView(.vertical, showsIndicators: true){
-                    HStack{
-                        let precentageResult: Int = prufungScorePercent()
-                        if(precentageResult >= 0){
-                            Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
-                                .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
-                        }else{
-                            Text("Общая оценка: \(prufungResult())")
-                                .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
-                        }
-                        
-                        Spacer()
-                    }
-                    .NG_Card(.NG_CardStyle_Regular, theme: theme)
-                    .padding(.horizontal, 20)
-                    ForEach(0..<alleWortArten.count){ index in
-                        HStack{
-                            let precentageResult: Int = prufungScorePercent(alleWortArten[index])
-                            if(precentageResult >= 0){
-                                Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
-                            }else{
-                                Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index]))")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
-                            }
-                            Spacer()
-                        }
-                        .padding(.leading, 20)
-                    }
-                    SizeAware(onChange: { _ in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                            withAnimation(.easeInOut(duration: 0.35)) {
-                                proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                            }
-                        }
-                    }) {
-                        NextButton_Prufung_Ende()
-                    }
-                }
-            }
-        }
-    }
-    private func PrufungExamSection() -> some View{
-        Group{
-            ScrollViewReader { proxy in
-                ScrollView(.vertical, showsIndicators: true){
-                    ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
-                        dasWortSektion(dasWort: dasWort, index: index)
-                            .id(index)
-                            .if(index > runningWort){ view in
-                                view.opacity(0.2)
-                            }
-                    }
-                    
-                    if(wort.count > 0){
-                        if(readyToMoveOn){
-                            SizeAware(onChange: { _ in
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                    withAnimation(.easeInOut(duration: 0.35)) {
-                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                                    }
-                                }
-                            }) {
-                                NextButton_Prufung_Next()
-                            }
-                            
-                        }
-                    }else{
-                        if(prufungLoadCompleted){
-                            SizeAware(onChange: { _ in
-                                print("PrufungExamSection.wortcount is 0. Scroll to bottom-anchor triggered")
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                    withAnimation(.easeInOut(duration: 0.35)) {
-                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                                    }
-                                }
-                                
-                            }) {
-                                NextButton_Prufung_Skip()
-                                    .id(prufungButtonTrigger)
-                            }
-                        }
-                    }
-                    
-                    Color.clear.frame(height: 1).id("bottom-anchor")
-                }
-                .background(.clear)
-                .animation(.easeInOut(duration: 0.35), value: prufungButtonTrigger)
-                .onChange(of: prufungButtonTrigger){ newValue in
-                    print("prufungButtonTrigger changed to \(newValue) and shall trigger animation")
-                }
-                .onChange(of: runningWort) { newValue in
-                    withAnimation {
-                        proxy.scrollTo(newValue, anchor: .center)
-                    }
-                }
-                .onChange(of: flippedSeite) { newValue in
-                    withAnimation {
-                        proxy.scrollTo(runningWort, anchor: .center)
-                    }
-                }
-            }
-        }
-    }
-    private func RegularTestingSection() -> some View{
-        Group{
-            if(pickedWortFormen != nil){
-                ScrollViewReader { proxy in
-                    ScrollView(.vertical, showsIndicators: true){
-                        ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
-                            dasWortSektion(dasWort: dasWort, index: index)
-                                .id(index)
-                                .if(index > runningWort){ view in
-                                    view.opacity(0.2)
-                                }
-                        }
-                        if(readyToMoveOn){
-                            SizeAware(onChange: { _ in
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
-                                    withAnimation(.easeInOut(duration: 0.35)) {
-                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
-                                    }
-                                }
-                            }) {
-                                NextButton_Regular()
-                            }
-                        }
-                        Color.clear.frame(height: 1).id("bottom-anchor")
-                    }
-                    .background(.clear)
-                    .animation(.easeInOut(duration: 0.35), value: readyToMoveOn)
-                    .onChange(of: runningWort) { newValue in
-                        withAnimation {
-                            proxy.scrollTo(newValue, anchor: .center)
-                        }
-                    }
-                    .onChange(of: flippedSeite) { newValue in
-                        withAnimation {
-                            proxy.scrollTo(runningWort, anchor: .center)
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //generic
     private func dailyWortArtHorrayAnnouncement() -> some View{
         VStack{
             HStack{
@@ -763,137 +463,6 @@ struct WortRepeater: View {
             }, widthFlood: true)
         }
     }
-    
-    private func dasProgressErklarung() -> some View{
-        @State var shallBlink: Bool = false
-        @State var opacity: CGFloat = 1.00
-        return VStack{
-            ScrollView(.vertical){
-                VStack{
-                    Divider()
-                    
-                    DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
-                    HStack{
-                        Rectangle().frame(width: 25, height: 25).foregroundColor(Color.green)
-                        Text(" - какая часть изучается")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        Spacer()
-                    }
-                    if(wort.count > pickedWortFormen!.formsToShow){
-                        HStack{
-                            Rectangle().frame(width: 25, height: 25).foregroundColor(Color.yellow)
-                            Text(" - часть, которая дополнительно изучена в этот раз")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            Spacer()
-                        }
-                    }
-                    HStack{
-                        Rectangle().frame(width: 25, height: 25).foregroundColor(Color.gray)
-                        Text(" - какая часть не изучена")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        Spacer()
-                    }
-                    
-                    Divider()
-                    
-                    let current = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
-                    
-                    HStack{
-                        Text("Сейчас это слово в состоянии ")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        Image(systemName: progressIconName(current))
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .NG_iconStyling(progressIconStyle(current), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        if(current.state == WortFormen.state_never){
-                            Text(" - значит показывается впервые")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }
-                        Spacer()
-                    }
-                    if(current.state == WortFormen.state_frequent){
-                        if(current.failCounter > 0){
-                            Text(" - значит сейчас оно в режиме активного заучивания, прогресса особо нет, и оно будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Но если ошибок будет много, то оно будет переведено в режим пассивного заучивания.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }else{
-                            Text(" - значит сейчас оно в режиме активного заучивания, дела идут хорошо и оно будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Быстро перейдёт в режим пассивного заучивания если всё и дальше будет идти хорошо.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }
-                    }
-                    if(current.state == WortFormen.state_daily){
-                        Text(" - значит сейчас оно в режиме пассивного заучивания и будет предлагаться к переводу не особо часто (обычно пару-тройку раз в день). Если всё будет хорошо то через несколько дней оно перейдёт в разряд хорошо известных.")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    }
-                    if(current.state == WortFormen.state_weekly){
-                        Text(" - считается хорошо известным и будет предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    }
-                    
-                    Divider()
-                    
-                    HStack{
-                        Text("Предполагается что слово перейдёт в состояние ")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        Image(systemName: forecastedIconName)
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            .transition(.opacity)
-                            .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true))
-                        Spacer()
-                    }
-                    if(forecastedIconBlinking){
-                        HStack{
-                            Text("Пока иконка мигает всё зависит от твоего дальнейшего прохождения теста.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
-                            Spacer()
-                        }
-                    }
-                    if(forecastedState.state == WortFormen.state_frequent){
-                        if(forecastedState.randomFail){
-                            Text(" - кажется это была случайная ошибка. Так что если ты исправишься то слово перейдёт в редим пассивного заучивания и не будет мозолить глаза.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }else{
-                            if(forecastedState.failCounter > 0){
-                                Text(" - перейдёт в режим активного заучивания и будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Но если ошибок будет много, то оно будет переведено в режим пассивного заучивания.")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            }else{
-                                Text(" - перейдёт в режим активного заучивания и будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Если всё будет хорошо, то оно очень быстро будет переведено в режим пассивного заучивания.")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            }
-                        }
-                    }
-                    if(forecastedState.state == WortFormen.state_daily){
-                        if(forecastedAction == WortFormen.action_hasNoProgress){
-                            Text(" - ошибок было слишом много. Отдохни пока от этого слова. Планируемый режим пассивного изучения.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }else{
-                            Text(" - О! Ты молодец! Похоже, дальше можно предлагать слово к переводу уже не так часто. Планируется режим пассивного изучения.")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }
-                    }
-                    if(forecastedState.state == WortFormen.state_weekly){
-                        Text(" - будет считаться хорошо известным и предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    }
-                    
-                    Divider()
-                }
-            }
-            
-            NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                showProgressBarDetails = false
-            }, widthFlood: true)
-        }
-    }
-    
-    private func iconNameByGuessingResultFurPrufungModus(_ index: Int) -> String{
-        return guessingResult[index] == -1 ?  "multiply.square.fill" : guessingResult[index] == 0 ? "questionmark.square.fill" : "checkmark.square.fill"
-    }
-    private func iconColorByGuessingResultFurPrufungModus(_ index: Int) -> Color{
-        return guessingResult[index] == -1 ?  Color.red : guessingResult[index] == 0 ? Color.yellow : Color.green
-    }
-    
     private func nummerIconName(_ nummer: Int) -> String{
         if(nummer == 0){
             return "0.square.fill"
@@ -966,205 +535,6 @@ struct WortRepeater: View {
         }
         return .gray
     }
-    
-    private func dasPrufungProgressSektion() -> some View {
-        return VStack{
-            if(prufungCompleted){
-                HStack{
-                    ForEach(0..<alleWortArten.count){ index in
-                        let derPrufungResult: Int = prufungResult[alleWortArten[index]]!
-                        let iconName = nummerIconName(derPrufungResult)
-                        let iconColor = nummerIconColor(derPrufungResult)
-                        Image(systemName: iconName)
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.black, iconColor)
-                            .font(.system(size: 25))
-                    }
-                }
-            }else{
-                if(runningWortArt != nil){
-                    if(wort.count > 0){
-                        HStack{
-                            Text("Проверяем раздел [\(runningWortArt!.name_RU!)]")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }
-                        HStack{
-                            let iconName0 = iconNameByGuessingResultFurPrufungModus(0)
-                            let iconColor0 = iconColorByGuessingResultFurPrufungModus(0)
-                            let iconName1 = iconNameByGuessingResultFurPrufungModus(1)
-                            let iconColor1 = iconColorByGuessingResultFurPrufungModus(1)
-                            let iconName2 = iconNameByGuessingResultFurPrufungModus(2)
-                            let iconColor2 = iconColorByGuessingResultFurPrufungModus(2)
-                            let iconName3 = iconNameByGuessingResultFurPrufungModus(3)
-                            let iconColor3 = iconColorByGuessingResultFurPrufungModus(3)
-                            let iconName4 = iconNameByGuessingResultFurPrufungModus(4)
-                            let iconColor4 = iconColorByGuessingResultFurPrufungModus(4)
-                            let iconName5 = iconNameByGuessingResultFurPrufungModus(5)
-                            let iconColor5 = iconColorByGuessingResultFurPrufungModus(5)
-                            let iconName6 = iconNameByGuessingResultFurPrufungModus(6)
-                            let iconColor6 = iconColorByGuessingResultFurPrufungModus(6)
-                            let iconName7 = iconNameByGuessingResultFurPrufungModus(7)
-                            let iconColor7 = iconColorByGuessingResultFurPrufungModus(7)
-                            let iconName8 = iconNameByGuessingResultFurPrufungModus(8)
-                            let iconColor8 = iconColorByGuessingResultFurPrufungModus(8)
-                            let iconName9 = iconNameByGuessingResultFurPrufungModus(9)
-                            let iconColor9 = iconColorByGuessingResultFurPrufungModus(9)
-                            Image(systemName: iconName0)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor0)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName1)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor1)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName2)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor2)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName3)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor3)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName4)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor4)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName5)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor5)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName6)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor6)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName7)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor7)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName8)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor8)
-                                .font(.system(size: 25))
-                            Image(systemName: iconName9)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.black, iconColor9)
-                                .font(.system(size: 25))
-                        }
-                    }else{
-                        HStack{
-                            Text("Пока ещё нечего проверять в  разделе [\(runningWortArt!.name_RU!)]")
-                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        }
-                    }
-                }
-            }
-        }
-        .onTapGesture {
-            //showProgressBarDetails.toggle()
-        }
-        
-    }
-
-    private func progressIconName(_ check: WortFormenKeyParameters) -> String {
-        if(check.state == WortFormen.state_frequent){
-            if(check.randomFail){
-                return "questionmark.diamond.fill"
-            }else{
-                return "hare.fill"
-            }
-        }
-        if(check.state == WortFormen.state_daily){
-            return "tortoise.fill"
-        }
-        if(check.state == WortFormen.state_weekly){
-            return "star.fill"
-        }
-        return "plus.square.fill"
-    }
-    private func progressIconStyle(_ check: WortFormenKeyParameters) -> NG_IconStyle {
-        if(check.state == WortFormen.state_frequent){
-            if(check.randomFail){
-                return .NG_IconStyle_Red
-            }else{
-                if(check.successCounter > 0){
-                    return .NG_IconStyle_Green
-                }else if(check.failCounter > 0){
-                    return .NG_IconStyle_Red
-                }else{
-                    return .NG_IconStyle_Regular
-                }
-            }
-        }
-        if(check.state == WortFormen.state_daily){
-            if(check.successCounter > 0){
-                return .NG_IconStyle_Green
-            }else if(check.failCounter > 0){
-                return .NG_IconStyle_Red
-            }else{
-                return .NG_IconStyle_Regular
-            }
-        }
-        if(check.state == WortFormen.state_weekly){
-            if(check.successCounter > 0){
-                return .NG_IconStyle_Green
-            }else if(check.failCounter > 0){
-                return .NG_IconStyle_Red
-            }else{
-                return .NG_IconStyle_Green
-            }
-        }
-        return .NG_IconStyle_Green
-    }
-    
-    private func recalcProgressBarValues(){
-        let totalCount: Double = Double(WortFormen.alleFormenZahlung(pickedWortFormen!))
-        let previousCount: Double = Double(pickedWortFormen!.formsToShow)
-        let potentialCount: Double = Double(wort.count)
-        let progressCount: Double = Double(runningWort)
-        
-        countedProgress = progressCount / totalCount
-        countedAsPreviouslyKnown = previousCount / totalCount
-        countedAsPotentialyKnown = potentialCount / totalCount
-    }
-    private func dasProgressSektion() -> some View {
-        return HStack{
-            DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
-            Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
-                .resizable()
-                .frame(width: 25, height: 25)
-                .NG_iconStyling(progressIconStyle(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-            Image(systemName: "arrow.right")
-                .resizable()
-                .frame(width: 15, height: 15)
-                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-            Image(systemName: forecastedIconName)
-                .resizable()
-                .frame(width: 25, height: 25)
-                .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                .opacity(forecastedIconBlinking ? (dim ? 0.0 : 1.0) : 1.0)
-                .onAppear {
-                    if forecastedIconBlinking {
-                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                            dim.toggle()
-                        }
-                    }
-                }
-                .onChange(of: forecastedIconBlinking) { newValue in
-                    if newValue {
-                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                            dim.toggle()
-                        }
-                    } else {
-                        dim = false
-                    }
-                }
-        }
-        .onTapGesture {
-            showProgressBarDetails.toggle()
-        }
-        
-    }
-    
     private func dasWortSektion(dasWort: Wort, index: Int) -> some View {
         let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
         let hasPassed = index < runningWort
@@ -1442,6 +812,384 @@ struct WortRepeater: View {
             }
         }
     }
+    func doWeNeedToAnnounce(){
+        if(pickedWortFormen != nil){
+            let pickedWortArt = pickedWortFormen!.relWortArt
+            if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: pickedWortArt)){
+                showDailyWortArtAnnouncement =  true
+            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: pickedWortArt)){
+                showAverageWortArtAnnouncement =  true
+            }else if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: nil)){
+                showDailyAnnouncement =  true
+            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: nil)){
+                showAverageAnnouncement =  true
+            }
+        }
+    }
+    
+    //regular
+    private func TimeStatisticsSection() -> some View{
+        Group{
+            /*
+            HStack{
+                Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
+                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                    .padding(.horizontal, 5)
+                Spacer()
+            }
+            if(toBeatYesterday != nil){
+                HStack{
+                    Text("Позаниматься ещё \(toBeatYesterday!) чтобы превысить вчерашний результат")
+                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                        .padding(.horizontal, 5)
+                    Spacer()
+                }
+            }
+            if(toBeatAverage != nil){
+                HStack{
+                    Text("Позаниматься ещё \(toBeatAverage!) чтобы превысить средний результат за неделю")
+                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                        .padding(.horizontal, 5)
+                    Spacer()
+                }
+            }
+             */
+            HStack{
+                Image(systemName: "stopwatch")
+                    .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                Text("\(spentToday) за сегодня / \(spentYesterday) вчера / \(spentAverage) в среднем")
+                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                    .padding(.horizontal, 5)
+            }
+        }
+    }
+    private func NextButton_Regular() -> some View{
+        Group{
+            let successFormen = guessingResult.filter{$0 == 1}.count
+            let checkedFormen = guessingResult.count
+            NG_Button(
+                title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
+                style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                isDisabled: .constant(false),
+                isHighlighting: .constant(true),
+                isPulsating: .constant(true),
+                action: {
+                    //Rechen success formen
+                    let successCounter: Int = guessingResult.filter{$0 == 1}.count
+                    let hasProgress: Bool = fasttrackExtras > 0
+                    let allRight: Bool = successCounter == guessingResult.count
+                    
+                    //merken wort formen wie successful oder nicht successful
+                    for theFormCounter in 0..<wort.count{
+                        if(guessingResult[theFormCounter] == 1){
+                            Statistics.set_success(wort[theFormCounter])
+                            //successCounter += 1
+                        }
+                        if(guessingResult[theFormCounter] == -1){
+                            Statistics.set_failure(wort[theFormCounter])
+                        }
+                    }
+                    
+                    
+                    pickedWortFormen!.lastSucceeded = Int64(successCounter)
+                    pickedWortFormen!.formsToShow = Int64(guessingResult.count)
+                    
+                    let previousState = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
+                    let theAction = allRight ? WortFormen.action_allRight : hasProgress ?  WortFormen.action_hasProgress : WortFormen.action_hasNoProgress
+                    var afterPreProcessing: WortFormenKeyParameters = WortFormen.forecastedState(current: previousState, action: theAction)
+                    var afterTransition: WortFormenKeyParameters = WortFormen.forecastedTransition(afterPreProcessing)
+                    
+                    pickedWortFormen!.state = afterTransition.state
+                    pickedWortFormen!.randomFail = afterTransition.randomFail
+                    pickedWortFormen!.successCounter = Int64(afterTransition.successCounter)
+                    pickedWortFormen!.failCounter = Int64(afterTransition.failCounter)
+                    pickedWortFormen!.nextPlanedAttempt = afterTransition.nextPlanedAttempt
+                    
+                    try! viewContext.save()
+                    
+                    print("Processing wort next button: action \(theAction), was [\(previousState.debugString())], next [\(afterTransition.debugString())]")
+                     
+                    //Statistics.wortFormenUrgency(pickedWortFormen!)
+                    
+                    pickTheWord()
+                    
+                },
+                widthFlood: true
+            )
+            .padding(.horizontal, 15)
+            .padding(.vertical, 25)
+            .transition(.scale)
+        }
+    }
+    private func dasProgressErklarung() -> some View{
+        @State var shallBlink: Bool = false
+        @State var opacity: CGFloat = 1.00
+        return VStack{
+            ScrollView(.vertical){
+                VStack{
+                    Divider()
+                    
+                    DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
+                    HStack{
+                        Rectangle().frame(width: 25, height: 25).foregroundColor(Color.green)
+                        Text(" - какая часть изучается")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        Spacer()
+                    }
+                    if(wort.count > pickedWortFormen!.formsToShow){
+                        HStack{
+                            Rectangle().frame(width: 25, height: 25).foregroundColor(Color.yellow)
+                            Text(" - часть, которая дополнительно изучена в этот раз")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Spacer()
+                        }
+                    }
+                    HStack{
+                        Rectangle().frame(width: 25, height: 25).foregroundColor(Color.gray)
+                        Text(" - какая часть не изучена")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        Spacer()
+                    }
+                    
+                    Divider()
+                    
+                    let current = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
+                    
+                    HStack{
+                        Text("Сейчас это слово в состоянии ")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        Image(systemName: progressIconName(current))
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .NG_iconStyling(progressIconStyle(current), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        if(current.state == WortFormen.state_never){
+                            Text(" - значит показывается впервые")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                        Spacer()
+                    }
+                    if(current.state == WortFormen.state_frequent){
+                        if(current.failCounter > 0){
+                            Text(" - значит сейчас оно в режиме активного заучивания, прогресса особо нет, и оно будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Но если ошибок будет много, то оно будет переведено в режим пассивного заучивания.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }else{
+                            Text(" - значит сейчас оно в режиме активного заучивания, дела идут хорошо и оно будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Быстро перейдёт в режим пассивного заучивания если всё и дальше будет идти хорошо.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                    }
+                    if(current.state == WortFormen.state_daily){
+                        Text(" - значит сейчас оно в режиме пассивного заучивания и будет предлагаться к переводу не особо часто (обычно пару-тройку раз в день). Если всё будет хорошо то через несколько дней оно перейдёт в разряд хорошо известных.")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    if(current.state == WortFormen.state_weekly){
+                        Text(" - считается хорошо известным и будет предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    
+                    Divider()
+                    
+                    HStack{
+                        Text("Предполагается что слово перейдёт в состояние ")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        Image(systemName: forecastedIconName)
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            .transition(.opacity)
+                            .animation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true))
+                        Spacer()
+                    }
+                    if(forecastedIconBlinking){
+                        HStack{
+                            Text("Пока иконка мигает всё зависит от твоего дальнейшего прохождения теста.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
+                            Spacer()
+                        }
+                    }
+                    if(forecastedState.state == WortFormen.state_frequent){
+                        if(forecastedState.randomFail){
+                            Text(" - кажется это была случайная ошибка. Так что если ты исправишься то слово перейдёт в редим пассивного заучивания и не будет мозолить глаза.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }else{
+                            if(forecastedState.failCounter > 0){
+                                Text(" - перейдёт в режим активного заучивания и будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Но если ошибок будет много, то оно будет переведено в режим пассивного заучивания.")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            }else{
+                                Text(" - перейдёт в режим активного заучивания и будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Если всё будет хорошо, то оно очень быстро будет переведено в режим пассивного заучивания.")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            }
+                        }
+                    }
+                    if(forecastedState.state == WortFormen.state_daily){
+                        if(forecastedAction == WortFormen.action_hasNoProgress){
+                            Text(" - ошибок было слишом много. Отдохни пока от этого слова. Планируемый режим пассивного изучения.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }else{
+                            Text(" - О! Ты молодец! Похоже, дальше можно предлагать слово к переводу уже не так часто. Планируется режим пассивного изучения.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                    }
+                    if(forecastedState.state == WortFormen.state_weekly){
+                        Text(" - будет считаться хорошо известным и предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    
+                    Divider()
+                }
+            }
+            
+            NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
+                showProgressBarDetails = false
+            }, widthFlood: true)
+        }
+    }
+    private func iconNameByGuessingResultFurPrufungModus(_ index: Int) -> String{
+        return guessingResult[index] == -1 ?  "multiply.square.fill" : guessingResult[index] == 0 ? "questionmark.square.fill" : "checkmark.square.fill"
+    }
+    private func iconColorByGuessingResultFurPrufungModus(_ index: Int) -> Color{
+        return guessingResult[index] == -1 ?  Color.red : guessingResult[index] == 0 ? Color.yellow : Color.green
+    }
+    private func progressIconName(_ check: WortFormenKeyParameters) -> String {
+        if(check.state == WortFormen.state_frequent){
+            if(check.randomFail){
+                return "questionmark.diamond.fill"
+            }else{
+                return "hare.fill"
+            }
+        }
+        if(check.state == WortFormen.state_daily){
+            return "tortoise.fill"
+        }
+        if(check.state == WortFormen.state_weekly){
+            return "star.fill"
+        }
+        return "plus.square.fill"
+    }
+    private func progressIconStyle(_ check: WortFormenKeyParameters) -> NG_IconStyle {
+        if(check.state == WortFormen.state_frequent){
+            if(check.randomFail){
+                return .NG_IconStyle_Red
+            }else{
+                if(check.successCounter > 0){
+                    return .NG_IconStyle_Green
+                }else if(check.failCounter > 0){
+                    return .NG_IconStyle_Red
+                }else{
+                    return .NG_IconStyle_Regular
+                }
+            }
+        }
+        if(check.state == WortFormen.state_daily){
+            if(check.successCounter > 0){
+                return .NG_IconStyle_Green
+            }else if(check.failCounter > 0){
+                return .NG_IconStyle_Red
+            }else{
+                return .NG_IconStyle_Regular
+            }
+        }
+        if(check.state == WortFormen.state_weekly){
+            if(check.successCounter > 0){
+                return .NG_IconStyle_Green
+            }else if(check.failCounter > 0){
+                return .NG_IconStyle_Red
+            }else{
+                return .NG_IconStyle_Green
+            }
+        }
+        return .NG_IconStyle_Green
+    }
+    private func recalcProgressBarValues(){
+        let totalCount: Double = Double(WortFormen.alleFormenZahlung(pickedWortFormen!))
+        let previousCount: Double = Double(pickedWortFormen!.formsToShow)
+        let potentialCount: Double = Double(wort.count)
+        let progressCount: Double = Double(runningWort)
+        
+        countedProgress = progressCount / totalCount
+        countedAsPreviouslyKnown = previousCount / totalCount
+        countedAsPotentialyKnown = potentialCount / totalCount
+    }
+    private func dasProgressSektion() -> some View {
+        return HStack{
+            DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
+            Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
+                .resizable()
+                .frame(width: 25, height: 25)
+                .NG_iconStyling(progressIconStyle(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+            Image(systemName: "arrow.right")
+                .resizable()
+                .frame(width: 15, height: 15)
+                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+            Image(systemName: forecastedIconName)
+                .resizable()
+                .frame(width: 25, height: 25)
+                .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                .opacity(forecastedIconBlinking ? (dim ? 0.0 : 1.0) : 1.0)
+                .onAppear {
+                    if forecastedIconBlinking {
+                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                            dim.toggle()
+                        }
+                    }
+                }
+                .onChange(of: forecastedIconBlinking) { newValue in
+                    if newValue {
+                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                            dim.toggle()
+                        }
+                    } else {
+                        dim = false
+                    }
+                }
+        }
+        .onTapGesture {
+            showProgressBarDetails.toggle()
+        }
+        
+    }
+    
+    private func RegularTestingSection() -> some View{
+        Group{
+            if(pickedWortFormen != nil){
+                ScrollViewReader { proxy in
+                    ScrollView(.vertical, showsIndicators: true){
+                        ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
+                            dasWortSektion(dasWort: dasWort, index: index)
+                                .id(index)
+                                .if(index > runningWort){ view in
+                                    view.opacity(0.2)
+                                }
+                        }
+                        if(readyToMoveOn){
+                            SizeAware(onChange: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
+                                }
+                            }) {
+                                NextButton_Regular()
+                            }
+                        }
+                        Color.clear.frame(height: 1).id("bottom-anchor")
+                    }
+                    .background(.clear)
+                    .animation(.easeInOut(duration: 0.35), value: readyToMoveOn)
+                    .onChange(of: runningWort) { newValue in
+                        withAnimation {
+                            proxy.scrollTo(newValue, anchor: .center)
+                        }
+                    }
+                    .onChange(of: flippedSeite) { newValue in
+                        withAnimation {
+                            proxy.scrollTo(runningWort, anchor: .center)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     private func sollMehrFormJetztZuappenden() -> Bool {
         if guessingResult.contains(0){
             return false
@@ -1502,20 +1250,6 @@ struct WortRepeater: View {
         }
     }
     
-    func doWeNeedToAnnounce(){
-        if(pickedWortFormen != nil){
-            let pickedWortArt = pickedWortFormen!.relWortArt
-            if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: pickedWortArt)){
-                showDailyWortArtAnnouncement =  true
-            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: pickedWortArt)){
-                showAverageWortArtAnnouncement =  true
-            }else if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: nil)){
-                showDailyAnnouncement =  true
-            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: nil)){
-                showAverageAnnouncement =  true
-            }
-        }
-    }
     func pickTheWord() {
         let pickedSache = Statistics.pickWortFormen_2(wortArt)
         //print("WortRepeater.pickTheWord(): picked sache: \(pickedSache.relWortArt!.name_DE!)-\(pickedSache.wortFrequencyOrder)")
@@ -1579,6 +1313,311 @@ struct WortRepeater: View {
         
         forecastIcon()
         recalcProgressBarValues()
+    }
+    
+    func forecastIcon(){
+        forecastedIconBlinking = true
+        forecastedAction = WortFormen.action_allRight
+        if(!guessingResult.contains(0)){
+            //if has all answered
+            forecastedIconBlinking = false
+            if(!guessingResult.contains(-1)){
+                //and all answered right
+                forecastedAction = WortFormen.action_allRight
+            }else{
+                if(guessingResult.count > pickedWortFormen!.formsToShow){
+                    //has progress
+                    forecastedAction = WortFormen.action_hasProgress
+                }else{
+                    //has no progress
+                    forecastedAction = WortFormen.action_hasNoProgress
+                }
+            }
+        }else{
+            //still in progress
+            if(guessingResult.contains(-1)){
+                //already has failures means there will be no progress
+                forecastedAction = WortFormen.action_hasNoProgress
+                forecastedIconBlinking = false
+            }else{
+                //still have a potential to has all right
+                forecastedAction = WortFormen.action_allRight
+                forecastedIconBlinking = true
+            }
+        }
+        let forecastedStateBeforeTransition = WortFormen.forecastedState(current: WortFormenKeyParameters.fromWortFormen(pickedWortFormen!), action: forecastedAction)
+        let forecastedStateAfterTransition = WortFormen.forecastedTransition(forecastedStateBeforeTransition)
+        forecastedIconName = progressIconName(forecastedStateAfterTransition)
+        forecastedIconStyle = progressIconStyle(forecastedStateAfterTransition)
+        forecastedState = forecastedStateAfterTransition
+    }
+    
+    //prufung
+    private func NextButton_Prufung_Skip() -> some View{
+        Group{
+            let successFormen = guessingResult.filter{$0 == 1}.count
+            let checkedFormen = guessingResult.count
+            NG_Button(
+                title: "К следующему разделу".localized(for: language),
+                style: .NG_ButtonStyle_Regular,
+                isDisabled: .constant(false),
+                isHighlighting: .constant(true),
+                isPulsating: .constant(true),
+                action: {
+                    pickTheWordFurPrufung()
+                },
+                widthFlood: true
+            )
+            .padding(.horizontal, 15)
+            .padding(.vertical, 25)
+            .transition(.scale)
+        }
+    }
+    private func NextButton_Prufung_Next() -> some View{
+        Group{
+            let successFormen = guessingResult.filter{$0 == 1}.count
+            let checkedFormen = guessingResult.count
+            NG_Button(
+                title: "Дальше (\(successFormen)/\(checkedFormen) было правильно)".localized(for: language),
+                style: successFormen==checkedFormen ? .NG_ButtonStyle_Green : .NG_ButtonStyle_Red,
+                isDisabled: .constant(false),
+                isHighlighting: .constant(true),
+                isPulsating: .constant(true),
+                action: {
+                    prufungResult.updateValue(guessingResult.filter{$0 == 1}.count, forKey: runningWortArt!)
+                    pickTheWordFurPrufung()
+                },
+                widthFlood: true
+            )
+            .padding(.horizontal, 15)
+            .padding(.vertical, 25)
+            .transition(.scale)
+        }
+    }
+    private func NextButton_Prufung_Ende() -> some View{
+        Group{
+            NG_Button(
+                title: "Экзамен закончен".localized(for: language),
+                style: .NG_ButtonStyle_Regular,
+                isDisabled: .constant(false),
+                isHighlighting: .constant(false),
+                isPulsating: .constant(true),
+                action: {
+                    dismiss()
+                },
+                widthFlood: true
+            )
+            .padding(.horizontal, 15)
+            .padding(.vertical, 25)
+            .transition(.scale)
+        }
+    }
+    
+    private func PrufungCompletedSection() -> some View{
+        Group{
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: true){
+                    HStack{
+                        let precentageResult: Int = prufungScorePercent()
+                        if(precentageResult >= 0){
+                            Text("Общая оценка: \(prufungResult()) - \(prufungScorePercent())%")
+                                .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
+                        }else{
+                            Text("Общая оценка: \(prufungResult())")
+                                .NG_textStyling(.NG_TextStyle_Text_Big, prufungResultNGTextTint(), theme: theme)
+                        }
+                        
+                        Spacer()
+                    }
+                    .NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .padding(.horizontal, 20)
+                    ForEach(0..<alleWortArten.count){ index in
+                        HStack{
+                            let precentageResult: Int = prufungScorePercent(alleWortArten[index])
+                            if(precentageResult >= 0){
+                                Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index])) - \(prufungScorePercent(alleWortArten[index]))%")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
+                            }else{
+                                Text("[\(alleWortArten[index].name_RU!)]: \(prufungResult(alleWortArten[index]))")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, prufungResultNGTextTint(alleWortArten[index]), theme: theme)
+                            }
+                            Spacer()
+                        }
+                        .padding(.leading, 20)
+                    }
+                    SizeAware(onChange: { _ in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                            withAnimation(.easeInOut(duration: 0.35)) {
+                                proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                            }
+                        }
+                    }) {
+                        NextButton_Prufung_Ende()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func dasPrufungProgressSektion() -> some View {
+        return VStack{
+            if(prufungCompleted){
+                HStack{
+                    ForEach(0..<alleWortArten.count){ index in
+                        let derPrufungResult: Int = prufungResult[alleWortArten[index]]!
+                        let iconName = nummerIconName(derPrufungResult)
+                        let iconColor = nummerIconColor(derPrufungResult)
+                        Image(systemName: iconName)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.black, iconColor)
+                            .font(.system(size: 25))
+                    }
+                }
+            }else{
+                if(runningWortArt != nil){
+                    if(wort.count > 0){
+                        HStack{
+                            Text("Проверяем раздел [\(runningWortArt!.name_RU!)]")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                        HStack{
+                            let iconName0 = iconNameByGuessingResultFurPrufungModus(0)
+                            let iconColor0 = iconColorByGuessingResultFurPrufungModus(0)
+                            let iconName1 = iconNameByGuessingResultFurPrufungModus(1)
+                            let iconColor1 = iconColorByGuessingResultFurPrufungModus(1)
+                            let iconName2 = iconNameByGuessingResultFurPrufungModus(2)
+                            let iconColor2 = iconColorByGuessingResultFurPrufungModus(2)
+                            let iconName3 = iconNameByGuessingResultFurPrufungModus(3)
+                            let iconColor3 = iconColorByGuessingResultFurPrufungModus(3)
+                            let iconName4 = iconNameByGuessingResultFurPrufungModus(4)
+                            let iconColor4 = iconColorByGuessingResultFurPrufungModus(4)
+                            let iconName5 = iconNameByGuessingResultFurPrufungModus(5)
+                            let iconColor5 = iconColorByGuessingResultFurPrufungModus(5)
+                            let iconName6 = iconNameByGuessingResultFurPrufungModus(6)
+                            let iconColor6 = iconColorByGuessingResultFurPrufungModus(6)
+                            let iconName7 = iconNameByGuessingResultFurPrufungModus(7)
+                            let iconColor7 = iconColorByGuessingResultFurPrufungModus(7)
+                            let iconName8 = iconNameByGuessingResultFurPrufungModus(8)
+                            let iconColor8 = iconColorByGuessingResultFurPrufungModus(8)
+                            let iconName9 = iconNameByGuessingResultFurPrufungModus(9)
+                            let iconColor9 = iconColorByGuessingResultFurPrufungModus(9)
+                            Image(systemName: iconName0)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor0)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName1)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor1)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName2)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor2)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName3)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor3)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName4)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor4)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName5)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor5)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName6)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor6)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName7)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor7)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName8)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor8)
+                                .font(.system(size: 25))
+                            Image(systemName: iconName9)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(.black, iconColor9)
+                                .font(.system(size: 25))
+                        }
+                    }else{
+                        HStack{
+                            Text("Пока ещё нечего проверять в  разделе [\(runningWortArt!.name_RU!)]")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                    }
+                }
+            }
+        }
+        .onTapGesture {
+            //showProgressBarDetails.toggle()
+        }
+        
+    }
+
+    private func PrufungExamSection() -> some View{
+        Group{
+            ScrollViewReader { proxy in
+                ScrollView(.vertical, showsIndicators: true){
+                    ForEach(Array(wort.enumerated()), id: \.element.objectID) { index, dasWort in
+                        dasWortSektion(dasWort: dasWort, index: index)
+                            .id(index)
+                            .if(index > runningWort){ view in
+                                view.opacity(0.2)
+                            }
+                    }
+                    
+                    if(wort.count > 0){
+                        if(readyToMoveOn){
+                            SizeAware(onChange: { _ in
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
+                                }
+                            }) {
+                                NextButton_Prufung_Next()
+                            }
+                            
+                        }
+                    }else{
+                        if(prufungLoadCompleted){
+                            SizeAware(onChange: { _ in
+                                print("PrufungExamSection.wortcount is 0. Scroll to bottom-anchor triggered")
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.36) {
+                                    withAnimation(.easeInOut(duration: 0.35)) {
+                                        proxy.scrollTo("bottom-anchor", anchor: .bottom)
+                                    }
+                                }
+                                
+                            }) {
+                                NextButton_Prufung_Skip()
+                                    .id(prufungButtonTrigger)
+                            }
+                        }
+                    }
+                    
+                    Color.clear.frame(height: 1).id("bottom-anchor")
+                }
+                .background(.clear)
+                .animation(.easeInOut(duration: 0.35), value: prufungButtonTrigger)
+                .onChange(of: prufungButtonTrigger){ newValue in
+                    print("prufungButtonTrigger changed to \(newValue) and shall trigger animation")
+                }
+                .onChange(of: runningWort) { newValue in
+                    withAnimation {
+                        proxy.scrollTo(newValue, anchor: .center)
+                    }
+                }
+                .onChange(of: flippedSeite) { newValue in
+                    withAnimation {
+                        proxy.scrollTo(runningWort, anchor: .center)
+                    }
+                }
+            }
+        }
     }
     
     func pickTheWordFurPrufung() {
@@ -1666,42 +1705,5 @@ struct WortRepeater: View {
         prufungResult.updateValue(0, forKey: runningWortArt!)
         runningWortArtIndex += 1
         prufungLoadCompleted = true
-    }
-    
-    func forecastIcon(){
-        forecastedIconBlinking = true
-        forecastedAction = WortFormen.action_allRight
-        if(!guessingResult.contains(0)){
-            //if has all answered
-            forecastedIconBlinking = false
-            if(!guessingResult.contains(-1)){
-                //and all answered right
-                forecastedAction = WortFormen.action_allRight
-            }else{
-                if(guessingResult.count > pickedWortFormen!.formsToShow){
-                    //has progress
-                    forecastedAction = WortFormen.action_hasProgress
-                }else{
-                    //has no progress
-                    forecastedAction = WortFormen.action_hasNoProgress
-                }
-            }
-        }else{
-            //still in progress
-            if(guessingResult.contains(-1)){
-                //already has failures means there will be no progress
-                forecastedAction = WortFormen.action_hasNoProgress
-                forecastedIconBlinking = false
-            }else{
-                //still have a potential to has all right
-                forecastedAction = WortFormen.action_allRight
-                forecastedIconBlinking = true
-            }
-        }
-        let forecastedStateBeforeTransition = WortFormen.forecastedState(current: WortFormenKeyParameters.fromWortFormen(pickedWortFormen!), action: forecastedAction)
-        let forecastedStateAfterTransition = WortFormen.forecastedTransition(forecastedStateBeforeTransition)
-        forecastedIconName = progressIconName(forecastedStateAfterTransition)
-        forecastedIconStyle = progressIconStyle(forecastedStateAfterTransition)
-        forecastedState = forecastedStateAfterTransition
     }
 }

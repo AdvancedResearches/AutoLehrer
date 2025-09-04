@@ -86,7 +86,7 @@ class RecommendationModel: ObservableObject {
                     return
                 }
                 if (keinPrufungDauert > 1){
-                    let minutesSpentToday: Int = TimeStatistics.auslesenWieVieleMinutenHeute(context)
+                    let minutesSpentToday: Int = TimeStatistics.auslesen_WieVieleMinutenHeute(context)
                     if(minutesSpentToday >= 5){
                         recommendation = .keinPrufungDieseWoche
                         shallBeNone = false
@@ -96,7 +96,7 @@ class RecommendationModel: ObservableObject {
                     }
                 }
                 if (keinPrufungDauert == 1){
-                    let minutesSpentToday: Int = TimeStatistics.auslesenWieVieleMinutenHeute(context)
+                    let minutesSpentToday: Int = TimeStatistics.auslesen_WieVieleMinutenHeute(context)
                     if(minutesSpentToday >= 15){
                         recommendation = .keinPrufungHeute
                         shallBeNone = false

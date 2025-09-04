@@ -8,7 +8,7 @@
 import CoreData
 
 extension TimeStatistics{
-    public static func auslesenWieVieleMinutenHeute(_ context: NSManagedObjectContext) -> Int{
+    public static func auslesen_WieVieleMinutenHeute(_ context: NSManagedObjectContext) -> Int{
         guard let statsHeute: TimeStatistics? = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: nil) else {
             return 0
         }
