@@ -526,8 +526,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -536,6 +536,22 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "335ED096-9A4E-44B6-BF38-DE8C3C4EA25D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B97C36FA-FB74-4815-8470-BDC6312FA64C"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -551,8 +567,9 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B97C36FA-FB74-4815-8470-BDC6312FA64C"
+            uuid = "C60A3553-F789-48F7-9FD6-457C27B41459"
             shouldBeEnabled = "No"
+            condition = "theOffset == -1"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
@@ -567,23 +584,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C60A3553-F789-48F7-9FD6-457C27B41459"
-            shouldBeEnabled = "No"
-            condition = "theOffset == -1"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "62A71E82-344D-4E20-A4F6-CCCF438112E2"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -591,8 +591,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>

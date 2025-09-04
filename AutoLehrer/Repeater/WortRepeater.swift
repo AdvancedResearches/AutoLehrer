@@ -392,7 +392,7 @@ struct WortRepeater: View {
             }
             
             NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                TimeStatistics.hasAnnouncedAboveYesterday(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+                TimeStatistics.auslesen_hasAnnouncedAboveYesterday(in: viewContext, forThe: pickedWortFormen!.relWortArt)
                 showDailyWortArtAnnouncement = false
             }, widthFlood: true)
         }
@@ -436,7 +436,7 @@ struct WortRepeater: View {
             }
             
             NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                TimeStatistics.hasAnnouncedAboveYesterday(in: viewContext, forThe: nil)
+                TimeStatistics.auslesen_hasAnnouncedAboveYesterday(in: viewContext, forThe: nil)
                 showDailyAnnouncement = false
             }, widthFlood: true)
         }
@@ -815,13 +815,13 @@ struct WortRepeater: View {
     func doWeNeedToAnnounce(){
         if(pickedWortFormen != nil){
             let pickedWortArt = pickedWortFormen!.relWortArt
-            if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: pickedWortArt)){
+            if(TimeStatistics.auslesen_isAboveYesterdayToAnnounce(in: viewContext, forThe: pickedWortArt)){
                 showDailyWortArtAnnouncement =  true
-            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: pickedWortArt)){
+            }else if(TimeStatistics.auslesen_isAboveAverageToAnnounce(in: viewContext, forThe: pickedWortArt)){
                 showAverageWortArtAnnouncement =  true
-            }else if(TimeStatistics.isAboveYesterdayToAnnounce(in: viewContext, forThe: nil)){
+            }else if(TimeStatistics.auslesen_isAboveYesterdayToAnnounce(in: viewContext, forThe: nil)){
                 showDailyAnnouncement =  true
-            }else if(TimeStatistics.isAboveAverageToAnnounce(in: viewContext, forThe: nil)){
+            }else if(TimeStatistics.auslesen_isAboveAverageToAnnounce(in: viewContext, forThe: nil)){
                 showAverageAnnouncement =  true
             }
         }

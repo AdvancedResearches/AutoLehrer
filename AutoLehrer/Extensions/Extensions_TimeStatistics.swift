@@ -37,6 +37,50 @@ extension TimeStatistics{
             try! context.save()
         }
     }
+    public static func auslesen_isAboveAverageToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
+        let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
+        if(today == nil){
+            return false
+        }
+        if(today!.hasDeclaredSuperriorityVsAverage){
+            return false
+        }
+        let average = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt)
+        if(average == nil){
+            return false
+        }
+        let averageTime = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt) ?? 0
+        let todayTime = today!.learningTime
+        if(todayTime > averageTime){
+            return true
+        }
+        return false
+    }
+    public static func auslesen_hasAnnouncedAboveYesterday(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
+        if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
+            today.hasDeclaredSuperriorityVsYesterday = true
+            try! context.save()
+        }
+    }
+    public static func auslesen_isAboveYesterdayToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
+        let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
+        if(today == nil){
+            return false
+        }
+        if(today!.hasDeclaredSuperriorityVsYesterday){
+            return false
+        }
+        let yesterday = fetchYesterdayLearningTime(in: context, forThe: wortArt)
+        if(yesterday == nil){
+            return false
+        }
+        let yesterdayTime = yesterday!.learningTime
+        let todayTime = today!.learningTime
+        if(todayTime > yesterdayTime){
+            return true
+        }
+        return false
+    }
     
     public static func speichern_ExamResults(in context: NSManagedObjectContext, at date: Date, for examScore: Double, forThe wortArt: WortArt?){
         let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
@@ -82,51 +126,6 @@ extension TimeStatistics{
         }catch{}
     }
     
-    
-    public static func isAboveAverageToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
-        let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
-        if(today == nil){
-            return false
-        }
-        if(today!.hasDeclaredSuperriorityVsAverage){
-            return false
-        }
-        let average = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt)
-        if(average == nil){
-            return false
-        }
-        let averageTime = fetchWeeklyAverageLearningTime(in: context, forThe: wortArt) ?? 0
-        let todayTime = today!.learningTime
-        if(todayTime > averageTime){
-            return true
-        }
-        return false
-    }
-    public static func hasAnnouncedAboveYesterday(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
-        if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
-            today.hasDeclaredSuperriorityVsYesterday = true
-            try! context.save()
-        }
-    }
-    public static func isAboveYesterdayToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
-        let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
-        if(today == nil){
-            return false
-        }
-        if(today!.hasDeclaredSuperriorityVsYesterday){
-            return false
-        }
-        let yesterday = fetchYesterdayLearningTime(in: context, forThe: wortArt)
-        if(yesterday == nil){
-            return false
-        }
-        let yesterdayTime = yesterday!.learningTime
-        let todayTime = today!.learningTime
-        if(todayTime > yesterdayTime){
-            return true
-        }
-        return false
-    }
     public static func submitLearningTime(in context: NSManagedObjectContext, at date: Date, for duration: Double, forThe wortArt: WortArt?){
         if(wortArt != nil){
             let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
