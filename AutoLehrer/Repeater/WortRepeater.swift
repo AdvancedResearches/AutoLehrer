@@ -839,7 +839,6 @@ struct WortRepeater: View {
             }
         }
     }
-    
     private func dasProgressSektion() -> some View {
         return HStack{
             DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
@@ -878,7 +877,6 @@ struct WortRepeater: View {
         }
         
     }
-    
     private func RegularTestingSection() -> some View{
         Group{
             if(pickedWortFormen != nil){
@@ -920,7 +918,6 @@ struct WortRepeater: View {
             }
         }
     }
-    
     private func NextButton_Regular() -> some View{
         Group{
             let successFormen = guessingResult.filter{$0 == 1}.count
@@ -979,7 +976,6 @@ struct WortRepeater: View {
             .transition(.scale)
         }
     }
-    
     private func dasProgressErklarung() -> some View{
         @State var shallBlink: Bool = false
         @State var opacity: CGFloat = 1.00
@@ -1428,7 +1424,6 @@ struct WortRepeater: View {
         }
         
     }
-    
     private func PrufungExamSection() -> some View{
         Group{
             ScrollViewReader { proxy in
@@ -1491,7 +1486,6 @@ struct WortRepeater: View {
             }
         }
     }
-    
     private func NextButton_Prufung_Skip() -> some View{
         Group{
             let successFormen = guessingResult.filter{$0 == 1}.count
@@ -1551,7 +1545,6 @@ struct WortRepeater: View {
             .transition(.scale)
         }
     }
-    
     private func PrufungCompletedSection() -> some View{
         Group{
             ScrollViewReader { proxy in
