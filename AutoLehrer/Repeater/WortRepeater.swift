@@ -65,6 +65,9 @@ struct WortRepeater: View {
     
     @State var toBeatYesterday: String?
     @State var toBeatAverage: String?
+    @State var spentToday: String = ""
+    @State var spentYesterday: String = ""
+    @State var spentAverage: String = ""
     
     @State var forecastedAction: String = ""
     @State var forecastedState: WortFormenKeyParameters = WortFormenKeyParameters(state: WortFormen.state_never, randomFail: false, successCounter: 0, failCounter: 0)
@@ -83,6 +86,11 @@ struct WortRepeater: View {
             let statsForToday: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
             let statsForYesterday: TimeStatistics? = TimeStatistics.fetchYesterdayLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
             let statsForAverage: Double? = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+            if( statsForToday != nil){
+                spentToday = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForToday!.learningTime)
+                spentYesterday = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForYesterday!.learningTime)
+                spentAverage = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForAverage!)
+            }
             if(statsForToday != nil && statsForYesterday != nil && statsForAverage != nil){
                 let remainderForYesterday = max(statsForYesterday!.learningTime - statsForToday!.learningTime, 0)
                 let remainderForAverage = max(statsForAverage! - statsForToday!.learningTime, 0)
@@ -360,6 +368,7 @@ struct WortRepeater: View {
     
     private func TimeStatisticsSection() -> some View{
         Group{
+            /*
             HStack{
                 Text("В этой сессии: опробовано слов: \(exercisedWorte.count) / из них выучено: \(confirmedWorte.count)")
                     .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
@@ -382,8 +391,17 @@ struct WortRepeater: View {
                     Spacer()
                 }
             }
+             */
+            HStack{
+                Image(systemName: "stopwatch")
+                    .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                Text("\(spentToday) за сегодня / \(spentYesterday) вчера / \(spentAverage) в среднем")
+                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme)
+                    .padding(.horizontal, 5)
+            }
         }
     }
+    
     private func NextButton_Regular() -> some View{
         Group{
             let successFormen = guessingResult.filter{$0 == 1}.count
@@ -737,6 +755,7 @@ struct WortRepeater: View {
             }, widthFlood: true)
         }
     }
+    
     private func dasProgressErklarung() -> some View{
         @State var shallBlink: Bool = false
         @State var opacity: CGFloat = 1.00
@@ -749,18 +768,21 @@ struct WortRepeater: View {
                     HStack{
                         Rectangle().frame(width: 25, height: 25).foregroundColor(Color.green)
                         Text(" - какая часть изучается")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         Spacer()
                     }
                     if(wort.count > pickedWortFormen!.formsToShow){
                         HStack{
                             Rectangle().frame(width: 25, height: 25).foregroundColor(Color.yellow)
                             Text(" - часть, которая дополнительно изучена в этот раз")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                             Spacer()
                         }
                     }
                     HStack{
                         Rectangle().frame(width: 25, height: 25).foregroundColor(Color.gray)
                         Text(" - какая часть не изучена")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                         Spacer()
                     }
                     
@@ -1034,190 +1056,7 @@ struct WortRepeater: View {
         }
         
     }
-    /*
-    private func forecastedProgressIconName() -> String {
-        var forecastedFailState: Bool = false
-        var forecastedRandomFailState: Bool = false
-        var forecastedDepth: Int = 0
-        
-        let hasFails: Bool = guessingResult.contains(-1)
-        let hasIncomplete: Bool = guessingResult.contains(0)
-        
-        if(hasFails){
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = 1
-                forecastedFailState = true
-                forecastedRandomFailState = false
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = Int(pickedWortFormen!.failCounter) + 1
-                    forecastedFailState = true
-                    forecastedRandomFailState = false
-                }else{
-                    if(pickedWortFormen!.successCounter >= WortFormen.treatedAsRandomFailCount){
-                        forecastedDepth = Int(pickedWortFormen!.successCounter)
-                        forecastedFailState = false
-                        forecastedRandomFailState = true
-                    }else{
-                        forecastedDepth = 1
-                        forecastedFailState = true
-                        forecastedRandomFailState = false
-                    }
-                }
-            }
-        }else if(hasIncomplete){
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = Int(pickedWortFormen!.successCounter)
-                forecastedFailState = false
-                forecastedRandomFailState = false
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                }else{
-                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                }
-            }
-        }else{
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = Int(pickedWortFormen!.successCounter)
-                forecastedFailState = false
-                forecastedRandomFailState = false
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                }else{
-                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                }
-            }
-        }
-        
-        if(forecastedRandomFailState){
-            if(forecastedRandomFailState){
-                return "person.fill.questionmark"
-            }else{
-                if(forecastedDepth <= 1){
-                    return "1.square.fill"
-                }
-                if(forecastedDepth == 2){
-                    return "2.square.fill"
-                }
-                if(forecastedDepth == 3){
-                    return "3.square.fill"
-                }
-                if(forecastedDepth == 4){
-                    return "4.square.fill"
-                }
-                if(forecastedDepth == 5){
-                    return "5.square.fill"
-                }
-                return "hand.thumbsdown.fill"
-            }
-        }else{
-            if(forecastedDepth <= 1){
-                return "1.square.fill"
-            }
-            if(forecastedDepth == 2){
-                return "2.square.fill"
-            }
-            if(forecastedDepth == 3){
-                return "3.square.fill"
-            }
-            if(forecastedDepth == 4){
-                return "4.square.fill"
-            }
-            if(forecastedDepth == 5){
-                return "5.square.fill"
-            }
-            return "star.square.fill"
-        }
-        
-        return "questionmark.app.fill"
-    }
-    private func forecastedProgressIconStyle() -> NG_IconStyle {
-        var forecastedFailState: Bool = false
-        var forecastedRandomFailState: Bool = false
-        var forecastedDepth: Int = 0
-        
-        let hasFails: Bool = guessingResult.contains(-1)
-        let hasIncomplete: Bool = guessingResult.contains(0)
-        
-        if(hasFails){
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = 1
-                forecastedFailState = true
-                forecastedRandomFailState = false
-                return .NG_IconStyle_Red
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = Int(pickedWortFormen!.failCounter) + 1
-                    forecastedFailState = true
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Red
-                }else{
-                    if(pickedWortFormen!.successCounter >= WortFormen.treatedAsRandomFailCount){
-                        forecastedDepth = Int(pickedWortFormen!.successCounter)
-                        forecastedFailState = false
-                        forecastedRandomFailState = true
-                        return .NG_IconStyle_Regular
-                    }else{
-                        forecastedDepth = 1
-                        forecastedFailState = true
-                        forecastedRandomFailState = false
-                        return .NG_IconStyle_Red
-                    }
-                }
-            }
-        }else if(hasIncomplete){
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = Int(pickedWortFormen!.successCounter)
-                forecastedFailState = false
-                forecastedRandomFailState = false
-                return .NG_IconStyle_Regular
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Regular
-                }else{
-                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Regular
-                }
-            }
-        }else{
-            if(pickedWortFormen!.randomFail){
-                forecastedDepth = Int(pickedWortFormen!.successCounter)
-                forecastedFailState = false
-                forecastedRandomFailState = false
-                return .NG_IconStyle_Green
-            }else{
-                if(pickedWortFormen!.failed){
-                    forecastedDepth = 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Green
-                }else{
-                    forecastedDepth = Int(pickedWortFormen!.successCounter) + 1
-                    forecastedFailState = false
-                    forecastedRandomFailState = false
-                    return .NG_IconStyle_Green
-                }
-            }
-        }
-        
-        return .NG_IconStyle_Regular
-    }
-    */
+
     private func progressIconName(_ check: WortFormenKeyParameters) -> String {
         if(check.state == WortFormen.state_frequent){
             if(check.randomFail){
@@ -1268,6 +1107,7 @@ struct WortRepeater: View {
         }
         return .NG_IconStyle_Green
     }
+    
     private func recalcProgressBarValues(){
         let totalCount: Double = Double(WortFormen.alleFormenZahlung(pickedWortFormen!))
         let previousCount: Double = Double(pickedWortFormen!.formsToShow)
@@ -1316,6 +1156,7 @@ struct WortRepeater: View {
         }
         
     }
+    
     private func dasWortSektion(dasWort: Wort, index: Int) -> some View {
         let spracheWahlen = deutschesSeite[index] ? "DE" : "RU"
         let hasPassed = index < runningWort
@@ -1652,6 +1493,7 @@ struct WortRepeater: View {
             //print("sollMehrFormJetztZuappenden fail")
         }
     }
+    
     func doWeNeedToAnnounce(){
         if(pickedWortFormen != nil){
             let pickedWortArt = pickedWortFormen!.relWortArt
@@ -1730,6 +1572,7 @@ struct WortRepeater: View {
         forecastIcon()
         recalcProgressBarValues()
     }
+    
     func pickTheWordFurPrufung() {
         prufungLoadCompleted = false
         readyToMoveOn = false
@@ -1816,6 +1659,7 @@ struct WortRepeater: View {
         runningWortArtIndex += 1
         prufungLoadCompleted = true
     }
+    
     func forecastIcon(){
         forecastedIconBlinking = true
         forecastedAction = WortFormen.action_allRight
