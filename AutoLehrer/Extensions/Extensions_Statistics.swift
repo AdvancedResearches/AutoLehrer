@@ -120,87 +120,91 @@ extension Statistics{
     public static func pickWortFormen_2(_ wortArt: WortArt) -> WortFormen{
         let context = wortArt.managedObjectContext!
         
-        let requestAlleAttemptedEligible: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
-        requestAlleAttemptedEligible.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == true AND (nextPlanedAttempt == nil OR nextPlanedAttempt < %@)",
+        let requestAllInWorkReadyAndNotFailed: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAllInWorkReadyAndNotFailed.predicate = NSPredicate(
+            format: "relWortArt == %@ AND state != %@ AND failCounter == 0 AND (nextPlanedAttempt == nil OR nextPlanedAttempt <= %@)",
             wortArt,
+            "never",
             Date() as CVarArg
         )
-        requestAlleAttemptedEligible.sortDescriptors = [
+        requestAllInWorkReadyAndNotFailed.sortDescriptors = [
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
-        let requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
-        requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == true AND nextPlanedAttempt == nil",
+        let requestAllInWorkReadyAndFailed: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAllInWorkReadyAndFailed.predicate = NSPredicate(
+            format: "relWortArt == %@ AND state != %@ AND failCounter > 0 AND (nextPlanedAttempt == nil OR nextPlanedAttempt <= %@)",
             wortArt,
+            "never",
             Date() as CVarArg
         )
-        
-        let requestAlleNeverAttempted: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
-        requestAlleNeverAttempted.predicate = NSPredicate(
-            format: "relWortArt == %@ AND (attempted == false OR attempted == nil)",
-            wortArt
-        )
-        requestAlleNeverAttempted.sortDescriptors = [
-            NSSortDescriptor(key: "wortFrequencyOrder", ascending: true)
+        requestAllInWorkReadyAndFailed.sortDescriptors = [
+            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
-        let requestAlleAttemptedNotYetReached: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
-        requestAlleAttemptedNotYetReached.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == true AND (nextPlanedAttempt != nil AND nextPlanedAttempt >= %@)",
+        let requestAllNotInWork: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAllNotInWork.predicate = NSPredicate(
+            format: "relWortArt == %@ AND state == %@",
             wortArt,
+            "never",
             Date() as CVarArg
         )
-        requestAlleAttemptedNotYetReached.sortDescriptors = [
+        requestAllNotInWork.sortDescriptors = [
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
-        let fiveMinutesLater = Date().addingTimeInterval(5 * 60)
-
-        let requestAlleAttemptedIn5MinOrLater: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
-        requestAlleAttemptedIn5MinOrLater.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == true AND nextPlanedAttempt >= %@",
+        let requestAllInWorkNotReady: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAllInWorkNotReady.predicate = NSPredicate(
+            format: "relWortArt == %@ AND state != %@ AND (nextPlanedAttempt != nil AND nextPlanedAttempt > %@)",
             wortArt,
-            fiveMinutesLater as CVarArg
+            "never",
+            Date() as CVarArg
         )
-        requestAlleAttemptedIn5MinOrLater.sortDescriptors = [
+        requestAllInWorkNotReady.sortDescriptors = [
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
-        let fifteenMinutesLater = Date().addingTimeInterval(15 * 60)
-
-        let requestAlleAttemptedIn15MinOrLater: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
-        requestAlleAttemptedIn15MinOrLater.predicate = NSPredicate(
-            format: "relWortArt == %@ AND attempted == true AND nextPlanedAttempt >= %@",
+        let requestAllInWorkNotReadyAndNotFailed: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAllInWorkNotReadyAndNotFailed.predicate = NSPredicate(
+            format: "relWortArt == %@ AND state != %@ AND failCounter == 0 AND (nextPlanedAttempt != nil AND nextPlanedAttempt > %@)",
             wortArt,
-            fifteenMinutesLater as CVarArg
+            "never",
+            Date() as CVarArg
         )
-        requestAlleAttemptedIn15MinOrLater.sortDescriptors = [
+        requestAllInWorkNotReadyAndNotFailed.sortDescriptors = [
             NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
         ]
         
-        let alleAttemptedEligibleWithoutSetNextPlannedAttempt = try! context.fetch(requestAlleAttemptedEligibleWithoutSetNextPlannedAttempt)
-
-        let alleAttemptedWortFormenEligible = try! context.fetch(requestAlleAttemptedEligible)
+        let requestAllInWorkNotReadyAndFailed: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
+        requestAllInWorkNotReadyAndFailed.predicate = NSPredicate(
+            format: "relWortArt == %@ AND state != %@ AND failCounter > 0 AND (nextPlanedAttempt != nil AND nextPlanedAttempt > %@)",
+            wortArt,
+            "never",
+            Date() as CVarArg
+        )
+        requestAllInWorkNotReadyAndFailed.sortDescriptors = [
+            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
+        ]
         
-        let alleNeverAttemptedWortFormen = try! context.fetch(requestAlleNeverAttempted)
+        let allInWorkReadyAndNotFailed = try! context.fetch(requestAllInWorkReadyAndNotFailed)
+        let allInWorkReadyAndFailed = try! context.fetch(requestAllInWorkReadyAndFailed)
+        let allNotInWork = try! context.fetch(requestAllNotInWork)
+        let allInWorkNotReady = try! context.fetch(requestAllInWorkNotReady)
+        let allInWorkNotReadyAndNotFailed = try! context.fetch(requestAllInWorkNotReadyAndNotFailed)
+        let allInWorkNotReadyAndFailed = try! context.fetch(requestAllInWorkNotReadyAndFailed)
         
-        let alleAttemptedWortFormenNotYetReached = try! context.fetch(requestAlleAttemptedNotYetReached)
+        print("pickWortFormen_2: ReadyAndNotFailed \(allInWorkReadyAndNotFailed.count), ReadyAndFailed \(allInWorkReadyAndFailed.count), NeverTried \(allNotInWork.count), NotReady \(allInWorkNotReady.count) (\(allInWorkNotReadyAndNotFailed.count)/\(allInWorkNotReadyAndFailed.count)), IN TOTAL \(allInWorkReadyAndNotFailed.count + allInWorkReadyAndFailed.count + allNotInWork.count + allInWorkNotReady.count)")
         
-        let alleAttemptedWortFormenNotYetReachedBeyondShortSession = try! context.fetch(requestAlleAttemptedIn5MinOrLater)
-        
-        let alleAttemptedWortFormenNotYetReachedBeyondLongSession = try! context.fetch(requestAlleAttemptedIn15MinOrLater)
-        
-        print("pickWortFormen_2: eligible \(alleAttemptedWortFormenEligible.count) where not set are \(alleAttemptedEligibleWithoutSetNextPlannedAttempt.count), neu \(alleNeverAttemptedWortFormen.count), not yet reached \(alleAttemptedWortFormenNotYetReached.count) where \(alleAttemptedWortFormenNotYetReachedBeyondShortSession.count) beyond short session and \(alleAttemptedWortFormenNotYetReachedBeyondLongSession.count) beyond long session")
-        
-        if let ersteEligible = alleAttemptedWortFormenEligible.first {
-            return ersteEligible
+        if let ersteReadyNotFailed = allInWorkReadyAndNotFailed.first {
+            return ersteReadyNotFailed
         }
-        if let ersteNeu = alleNeverAttemptedWortFormen.first {
-            return ersteNeu
+        if let ersteReadyFailed = allInWorkReadyAndFailed.first {
+            return ersteReadyFailed
         }
-        return alleAttemptedWortFormenNotYetReached.first!
+        if let ersteNotInWork = allNotInWork.first {
+            return ersteNotInWork
+        }
+        return allInWorkNotReady.first!
     }
     public static func pickWortFormen(_ context: NSManagedObjectContext, wortArt: WortArt) -> WortFormen{
         let startTime = Date().timeIntervalSince1970 * 1000

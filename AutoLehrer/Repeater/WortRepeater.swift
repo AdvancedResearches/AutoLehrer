@@ -72,6 +72,10 @@ struct WortRepeater: View {
     
     @State private var dim = false
     
+    @State private var countedAsPreviouslyKnown: Double = 0
+    @State private var countedAsPotentialyKnown: Double = 0
+    @State private var countedProgress: Double = 0
+    
     func recalcTimeToBeatReminder(){
         if(pickedWortFormen != nil){
             let statsForToday: TimeStatistics? = TimeStatistics.fetchLearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
@@ -1311,8 +1315,19 @@ struct WortRepeater: View {
         }
         return .NG_IconStyle_Green
     }
+    private func recalcProgressBarValues(){
+        let totalCount: Double = Double(WortFormen.alleFormenZahlung(pickedWortFormen!))
+        let previousCount: Double = Double(pickedWortFormen!.formsToShow)
+        let potentialCount: Double = Double(wort.count)
+        let progressCount: Double = Double(runningWort)
+        
+        countedProgress = progressCount / totalCount
+        countedAsPreviouslyKnown = previousCount / totalCount
+        countedAsPotentialyKnown = potentialCount / totalCount
+    }
     private func dasProgressSektion() -> some View {
         return HStack{
+            /*
             DualColorBar(
                 greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
                 yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!, fasttrackExtras: fasttrackExtras),
@@ -1322,7 +1337,6 @@ struct WortRepeater: View {
             )
             .onAppear{
                 potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                //print("Initialize potential word form add - pulse to \(potentiallyAddWortForme)")
             }
             .onChange(of: hasFaults){ _, newValue in
                 if(newValue){
@@ -1333,6 +1347,8 @@ struct WortRepeater: View {
                     //print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
                 }
             }
+             */
+            DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
             Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
                 .resizable()
                 .frame(width: 25, height: 25)
@@ -1419,6 +1435,7 @@ struct WortRepeater: View {
                                 }
                                 hasFaults = guessingResult.contains(-1)
                                 forecastIcon()
+                                recalcProgressBarValues()
                             }
                         Image(systemName: "multiply.square.fill")
                             .resizable()
@@ -1437,6 +1454,7 @@ struct WortRepeater: View {
                                 }
                                 hasFaults = guessingResult.contains(-1)
                                 forecastIcon()
+                                recalcProgressBarValues()
                             }
                     }
                 }
@@ -1481,6 +1499,7 @@ struct WortRepeater: View {
                             TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dieWortArt)
                             recalcTimeToBeatReminder()
                             forecastIcon()
+                            recalcProgressBarValues()
                         }, widthFlood: true)
                         .if((!flippedSeite[index])||(missedGuess[index])){ view in
                             view.opacity(0.0)
@@ -1519,6 +1538,7 @@ struct WortRepeater: View {
                             TimeStatistics.submitLearningTime(in: viewContext, at: Date.now.stripTime(), for: flipPassed[index], forThe: dieWortArt)
                             recalcTimeToBeatReminder()
                             forecastIcon()
+                            recalcProgressBarValues()
                         }, widthFlood: true)
                         .if(!flippedSeite[index]){ view in
                             view.opacity(0.0)
@@ -1776,6 +1796,7 @@ struct WortRepeater: View {
         recalcTimeToBeatReminder()
         
         forecastIcon()
+        recalcProgressBarValues()
     }
     func pickTheWordFurPrufung() {
         prufungLoadCompleted = false
