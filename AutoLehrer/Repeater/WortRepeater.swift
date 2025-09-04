@@ -66,6 +66,8 @@ struct WortRepeater: View {
     @State var toBeatYesterday: String?
     @State var toBeatAverage: String?
     
+    @State var forecastedAction: String = ""
+    @State var forecastedState: WortFormenKeyParameters = WortFormenKeyParameters(state: WortFormen.state_never, randomFail: false, successCounter: 0, failCounter: 0)
     @State var forecastedIconName: String = ""
     @State var forecastedIconStyle: NG_IconStyle = .NG_IconStyle_Regular
     @State var forecastedIconBlinking: Bool = true
@@ -736,157 +738,105 @@ struct WortRepeater: View {
         }
     }
     private func dasProgressErklarung() -> some View{
-        VStack{
-            HStack{
-                Text("Всего форм у этого слова: \(WortFormen.alleFormenZahlung(pickedWortFormen!))")
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                Spacer()
-            }
-            HStack{
-                Text("Сейчас предлагается: \(pickedWortFormen!.formsToShow)")
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                Spacer()
-            }
-            HStack{
-                Text("Отмечено как известное: \(guessingResult.filter{$0 == 1}.count)")
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                Spacer()
-            }
-            HStack{
-                Text("Отмечено как неизвестное: \(guessingResult.filter{$0 == -1}.count)")
-                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                Spacer()
+        
+        return VStack{
+            ScrollView(.vertical){
+                VStack{
+                    let current = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
+
+                    HStack{
+                        Text("Сейчас это слово в состоянии ")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        Image(systemName: progressIconName(current))
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .NG_iconStyling(progressIconStyle(current), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        if(current.state == WortFormen.state_never){
+                            Text(" - значит показывается впервые")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                        Spacer()
+                    }
+                    if(current.state == WortFormen.state_frequent){
+                        if(current.failCounter > 0){
+                            Text(" - значит сейчас оно в режиме активного заучивания, прогресса особо нет, и оно будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Но если ошибок будет много, то оно будет переведено в режим пассивного заучивания.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }else{
+                            Text(" - значит сейчас оно в режиме активного заучивания, дела идут хорошо и оно будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Быстро перейдёт в режим пассивного заучивания если всё и дальше будет идти хорошо.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                    }
+                    if(current.state == WortFormen.state_daily){
+                        Text(" - значит сейчас оно в режиме пассивного заучивания и будет предлагаться к переводу не особо часто (обычно пару-тройку раз в день). Если всё будет хорошо то через несколько дней оно перейдёт в разряд хорошо известных.")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    if(current.state == WortFormen.state_weekly){
+                        Text(" - считается хорошо известным и будет предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    
+                    HStack{
+                        Text("Предполагается что слово перейдёт в состояние ")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        Image(systemName: forecastedIconName)
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Spacer()
+                    }
+                    if(forecastedIconBlinking){
+                        HStack{
+                            Text("Пока иконка мигает всё зависит от твоего дальнейшего прохождения теста.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            Spacer()
+                        }
+                    }
+                    if(forecastedState.state == WortFormen.state_frequent){
+                        if(forecastedState.randomFail){
+                            Text(" - кажется это была случайная ошибка. Так что если ты исправишься то слово перейдёт в редим пассивного заучивания и не будет мозолить глаза.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }else{
+                            if(forecastedState.failCounter > 0){
+                                Text(" - перейдёт в режим активного заучивания и будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Но если ошибок будет много, то оно будет переведено в режим пассивного заучивания.")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            }else{
+                                Text(" - перейдёт в режим активного заучивания и будет часто предлагаться к переводу (оно будет постоянно мелькать у тебя перед глазами). Если всё будет хорошо, то оно очень быстро будет переведено в режим пассивного заучивания.")
+                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                            }
+                        }
+                    }
+                    if(forecastedState.state == WortFormen.state_daily){
+                        if(forecastedAction == WortFormen.action_hasNoProgress){
+                            Text(" - ошибок было слишом много. Отдохни пока от этого слова. Планируемый режим пассивного изучения.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }else{
+                            Text(" - О! Ты молодец! Похоже, дальше можно предлагать слово к переводу уже не так часто. Планируется режим пассивного изучения.")
+                                .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                        }
+                    }
+                    if(forecastedState.state == WortFormen.state_weekly){
+                        Text(" - будет считаться хорошо известным и предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    
+                }
             }
             
             Divider()
-            
-            let fasttrack = !pickedWortFormen!.failed
-            let gamepoint = pickedWortFormen!.formsToShow == WortFormen.alleFormenZahlung(pickedWortFormen!)
-            let allAnswered = !guessingResult.contains(0)
-            let hasFaults = guessingResult.contains(-1)
-            let matchpoint = fasttrack ? true : pickedWortFormen!.successCounter >= 2
-            
-            if(fasttrack){
-                HStack{
-                    Text("Этот набор форм слова предлагается впервые. Достаточно с первого раза перевести всё правильно чтобы этот набор форм слова считался изученным!")
-                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    Spacer()
-                }
-            }else{
-                HStack{
-                    Text("Ранее в этом наборе форм слова были ошибки. Чтобы этот набор форм слова считался изученным надо подтвердить знания 3 раза.")
-                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                        .padding(.bottom, 10)
-                    Spacer()
-                }
-                HStack{
-                    Text("До этой попытки было правильно переведено подряд раз: \(pickedWortFormen!.successCounter)")
-                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                    Spacer()
-                }
-            }
-            
-            Divider()
-            
-            if allAnswered{
-                if hasFaults{
-                    HStack{
-                        Text("Были ошибки. Придётся позже попробовать ещё раз.")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            .padding(.bottom, 10)
-                        Spacer()
-                    }
-                }else{
-                    if(gamepoint){
-                        if(matchpoint){
-                            HStack{
-                                Text("Ошибок не было! Поздравляю! Слово засчитано как изученное!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }else{
-                            HStack{
-                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь это слово позже правильным переводом ещё \(3-pickedWortFormen!.successCounter) раз. И вот тогда это слово будет считаться как изученное!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }
-                    }else{
-                        if(matchpoint){
-                            HStack{
-                                Text("Ошибок не было! В следующий раз добавим ещё одну форму этого слова для перевода!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }else{
-                            HStack{
-                                Text("Ошибок не было! Но так как ранее в этом наборе были ошибки придётся подтвердить что ты точно знаешь этот набор форм слова позже правильным переводом ещё \(2-pickedWortFormen!.successCounter) раз(а). И тогда будет добавлена ещё одна форма этого слова для перевода.")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-            }else{
-                if hasFaults{
-                    HStack{
-                        Text("Уже были ошибки. Придётся позже попробовать ещё раз. А пока продолжай переводить оставшиеся формы.")
-                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                            .padding(.bottom, 10)
-                        Spacer()
-                    }
-                }else{
-                    if(gamepoint){
-                        if(matchpoint){
-                            HStack{
-                                Text("Пока что ошибок не было! Ты в шаге от того, чтобы слово слиталось изученным. Просто переведи все оставшиеся формы правильно!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }else{
-                            HStack{
-                                Text("Пока что ошибок не было! Продолжай в том же духе!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }
-                    }else{
-                        if(matchpoint){
-                            HStack{
-                                Text("Пока что ошибок не было! Продолжай в том же духе и тогда в следующий раз добавим ещё одну форму этого слова для перевода!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }else{
-                            HStack{
-                                Text("Пока что ошибок не было! Продолжай в том же духе!")
-                                    .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                    .padding(.bottom, 10)
-                                Spacer()
-                            }
-                        }
-                    }
-                }
-            }
             
             NG_Button(title: "Всё понятно!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
                 showProgressBarDetails = false
             }, widthFlood: true)
         }
     }
+    
     private func iconNameByGuessingResultFurPrufungModus(_ index: Int) -> String{
         return guessingResult[index] == -1 ?  "multiply.square.fill" : guessingResult[index] == 0 ? "questionmark.square.fill" : "checkmark.square.fill"
     }
     private func iconColorByGuessingResultFurPrufungModus(_ index: Int) -> Color{
         return guessingResult[index] == -1 ?  Color.red : guessingResult[index] == 0 ? Color.yellow : Color.green
     }
+    
     private func nummerIconName(_ nummer: Int) -> String{
         if(nummer == 0){
             return "0.square.fill"
@@ -959,6 +909,7 @@ struct WortRepeater: View {
         }
         return .gray
     }
+    
     private func dasPrufungProgressSektion() -> some View {
         return VStack{
             if(prufungCompleted){
@@ -1056,6 +1007,7 @@ struct WortRepeater: View {
         }
         
     }
+    /*
     private func forecastedProgressIconName() -> String {
         var forecastedFailState: Bool = false
         var forecastedRandomFailState: Bool = false
@@ -1238,6 +1190,7 @@ struct WortRepeater: View {
         
         return .NG_IconStyle_Regular
     }
+    */
     private func progressIconName(_ check: WortFormenKeyParameters) -> String {
         if(check.state == WortFormen.state_frequent){
             if(check.randomFail){
@@ -1300,27 +1253,6 @@ struct WortRepeater: View {
     }
     private func dasProgressSektion() -> some View {
         return HStack{
-            /*
-            DualColorBar(
-                greenvalue: WortFormen.succeededFormenRatio(pickedWortFormen!),
-                yellowvalue: WortFormen.attemptingFormenRatio(pickedWortFormen!, fasttrackExtras: fasttrackExtras),
-                height: 25,
-                pulseyellowtogreen: $potentiallyAddWortForme,
-                highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green)
-            )
-            .onAppear{
-                potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-            }
-            .onChange(of: hasFaults){ _, newValue in
-                if(newValue){
-                    potentiallyAddWortForme = false
-                    //print("Discard potential word form add - pulse false")
-                }else{
-                    potentiallyAddWortForme = (!pickedWortFormen!.failed) || (pickedWortFormen!.failed && pickedWortFormen!.successCounter >= 2)
-                    //print("Reset potential word form add - pulse to \(potentiallyAddWortForme)")
-                }
-            }
-             */
             DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
             Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
                 .resizable()
@@ -1859,7 +1791,7 @@ struct WortRepeater: View {
     }
     func forecastIcon(){
         forecastedIconBlinking = true
-        var forecastedAction = WortFormen.action_allRight
+        forecastedAction = WortFormen.action_allRight
         if(!guessingResult.contains(0)){
             //if has all answered
             forecastedIconBlinking = false
@@ -1891,5 +1823,6 @@ struct WortRepeater: View {
         let forecastedStateAfterTransition = WortFormen.forecastedTransition(forecastedStateBeforeTransition)
         forecastedIconName = progressIconName(forecastedStateAfterTransition)
         forecastedIconStyle = progressIconStyle(forecastedStateAfterTransition)
+        forecastedState = forecastedStateAfterTransition
     }
 }
