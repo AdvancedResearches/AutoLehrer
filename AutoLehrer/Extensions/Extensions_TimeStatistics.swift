@@ -9,7 +9,7 @@ import CoreData
 
 extension TimeStatistics{
     public static func auslesen_WieVieleMinutenHeute(_ context: NSManagedObjectContext) -> Int{
-        guard let statsHeute: TimeStatistics? = auslesen_LearningTime(in: context, at: Date.now.stripTime(), forThe: nil) else {
+        guard let statsHeute: TimeStatistics? = auslesen_Statistics_amDate(in: context, at: Date.now.stripTime(), forThe: nil) else {
             return 0
         }
         return Int(statsHeute!.learningTime  / 60)
@@ -32,24 +32,24 @@ extension TimeStatistics{
         return -1
     }
     public static func auslesen_hasAnnouncedAboveAverage(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
-        if let today = auslesen_LearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
+        if let today = auslesen_Statistics_amDate(in: context, at: Date.now.stripTime(), forThe: wortArt){
             today.hasDeclaredSuperriorityVsAverage = true
             try! context.save()
         }
     }
     public static func auslesen_isAboveAverageToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
-        let today = auslesen_LearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
+        let today = auslesen_Statistics_amDate(in: context, at: Date.now.stripTime(), forThe: wortArt)
         if(today == nil){
             return false
         }
         if(today!.hasDeclaredSuperriorityVsAverage){
             return false
         }
-        let average = auslesen_WeeklyAverageLearningTime(in: context, forThe: wortArt)
+        let average = auslesen_Statistics_wochenAverage(in: context, forThe: wortArt)
         if(average == nil){
             return false
         }
-        let averageTime = auslesen_WeeklyAverageLearningTime(in: context, forThe: wortArt) ?? 0
+        let averageTime = auslesen_Statistics_wochenAverage(in: context, forThe: wortArt) ?? 0
         let todayTime = today!.learningTime
         if(todayTime > averageTime){
             return true
@@ -57,20 +57,20 @@ extension TimeStatistics{
         return false
     }
     public static func auslesen_hasAnnouncedAboveYesterday(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
-        if let today = auslesen_LearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
+        if let today = auslesen_Statistics_amDate(in: context, at: Date.now.stripTime(), forThe: wortArt){
             today.hasDeclaredSuperriorityVsYesterday = true
             try! context.save()
         }
     }
     public static func auslesen_isAboveYesterdayToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
-        let today = auslesen_LearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
+        let today = auslesen_Statistics_amDate(in: context, at: Date.now.stripTime(), forThe: wortArt)
         if(today == nil){
             return false
         }
         if(today!.hasDeclaredSuperriorityVsYesterday){
             return false
         }
-        let yesterday = auslesen_YesterdayLearningTime(in: context, forThe: wortArt)
+        let yesterday = auslesen_Statistics_Gestern(in: context, forThe: wortArt)
         if(yesterday == nil){
             return false
         }
@@ -81,18 +81,18 @@ extension TimeStatistics{
         }
         return false
     }
-    public static func auslesen_LearningTime(in context: NSManagedObjectContext, at date: Date, forThe wortArt: WortArt?)->TimeStatistics?{
+    public static func auslesen_Statistics_amDate(in context: NSManagedObjectContext, at date: Date, forThe wortArt: WortArt?)->TimeStatistics?{
         let theStamp = try! context.fetch(TimeStatistics.fetchRequest()).filter({$0.date == date && $0.relWortArt == wortArt}).first
         return theStamp
     }
-    public static func auslesen_YesterdayLearningTime(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->TimeStatistics?{
+    public static func auslesen_Statistics_Gestern(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->TimeStatistics?{
         let theStamp = try! context.fetch(TimeStatistics.fetchRequest()).filter({$0.date == Date.now.offset_inDays(-1).stripTime() && $0.relWortArt == wortArt}).first
         return theStamp
     }
-    public static func auslesen_WeeklyAverageLearningTime(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
+    public static func auslesen_Statistics_wochenAverage(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
         var timeStamps: [TimeStatistics] = []
         for theOffest in -7 ... -1{
-            if let timeStamp = auslesen_LearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
+            if let timeStamp = auslesen_Statistics_amDate(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
                     timeStamps.append(timeStamp)
             }
         }
@@ -108,7 +108,7 @@ extension TimeStatistics{
     public static func auslesen_WeeklyAverageLearningRatio(in context: NSManagedObjectContext, forThe wortArt: WortArt?)->Double?{
         var timeStamps: [TimeStatistics] = []
         for theOffest in -7 ... -1{
-            if let timeStamp = auslesen_LearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
+            if let timeStamp = auslesen_Statistics_amDate(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
                     timeStamps.append(timeStamp)
             }
         }
@@ -125,7 +125,7 @@ extension TimeStatistics{
         print("TimeStatistics.fetchWeeklyAverageExam: running for \(wortArt?.name_RU ?? "ALLES")")
         var timeStamps: [TimeStatistics] = []
         for theOffest in -7 ... -1{
-            if let timeStamp = auslesen_LearningTime(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
+            if let timeStamp = auslesen_Statistics_amDate(in: context, at: Date.now.offset_inDays(theOffest).stripTime(), forThe: wortArt){
                 if(timeStamp.examCount > 0){
                     timeStamps.append(timeStamp)
                 }

@@ -392,7 +392,7 @@ struct StatisticsView: View {
                                 ForEach(statArray) { theStat in
                                     if let completed = theStat.confirmedFormen {
                                         if let total = theStat.totalFormen {
-                                            let completionRate: Int = Int(100 * Double( Double(completed) / Double(total)))
+                                            let completionRate: Int = total != 0 ? Int(100 * Double( Double(completed) / Double(total))) : 0
                                             LineMark(
                                                 x: .value("Date", theStat.timeStamp),
                                                 y: .value("completionRate", completionRate),
@@ -907,7 +907,7 @@ struct StatisticsView: View {
         learningTimePieChartData.removeAll()
         for dieArt in alleWortArten{
             var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 newPieChartItem.value = recentTimeStats.learningTime
             }
@@ -915,30 +915,30 @@ struct StatisticsView: View {
         }
         learningTimeTableData.removeAll()
         var learningTableItem = TableItem(wortArtName: "ВСЕГО", today: 0, yesterday: 0, average: 0)
-        var recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: nil)
+        var recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: nil)
         if let recentTimeStats = recentTimeStats{
             learningTableItem.today = recentTimeStats.learningTime / 60.0
         }
-        var gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: nil)
+        var gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: nil)
         if let gesternTimeStats = gesternTimeStats{
             learningTableItem.yesterday = gesternTimeStats.learningTime / 60.0
         }
-        var averageValue = TimeStatistics.auslesen_WeeklyAverageLearningTime(in: viewContext, forThe: nil)
+        var averageValue = TimeStatistics.auslesen_Statistics_wochenAverage(in: viewContext, forThe: nil)
         if let averageValue = averageValue{
             learningTableItem.average = averageValue / 60.0
         }
         learningTimeTableData.append(learningTableItem)
         for dieArt in alleWortArten{
             var learningTableItem = TableItem(wortArtName: dieArt.name_RU ?? "Неизвестно", today: 0, yesterday: 0, average: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 learningTableItem.today = recentTimeStats.learningTime / 60.0
             }
-            let gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: dieArt)
+            let gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: dieArt)
             if let gesternTimeStats = gesternTimeStats{
                 learningTableItem.yesterday = gesternTimeStats.learningTime / 60.0
             }
-            let averageValue = TimeStatistics.auslesen_WeeklyAverageLearningTime(in: viewContext, forThe: dieArt)
+            let averageValue = TimeStatistics.auslesen_Statistics_wochenAverage(in: viewContext, forThe: dieArt)
             if let averageValue = averageValue{
                 learningTableItem.average = averageValue / 60.0
             }
@@ -950,7 +950,7 @@ struct StatisticsView: View {
         learningRatioPieChartData.removeAll()
         for dieArt in alleWortArten{
             var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 newPieChartItem.value = 100.0 * Double(recentTimeStats.completedFormen) / Double(recentTimeStats.totalFormen)
             }
@@ -958,30 +958,30 @@ struct StatisticsView: View {
         }
         learningRatioTableData.removeAll()
         learningTableItem = TableItem(wortArtName: "ВСЕГО", today: 0, yesterday: 0, average: 0)
-        recentTimeStats = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: nil)
+        recentTimeStats = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: nil)
         if let recentTimeStats = recentTimeStats{
             learningTableItem.today = 100.0 * Double(recentTimeStats.completedFormen) / Double(recentTimeStats.totalFormen)
         }
-        gesternTimeStats = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: nil)
+        gesternTimeStats = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: nil)
         if let gesternTimeStats = gesternTimeStats{
             learningTableItem.yesterday = 100.0 * Double(gesternTimeStats.completedFormen) / Double(gesternTimeStats.totalFormen)
         }
-        var gegesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.offset_inDays(-2).stripTime(), forThe: nil)
+        var gegesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.offset_inDays(-2).stripTime(), forThe: nil)
         if let gegesternTimeStats = gegesternTimeStats{
             learningTableItem.beforeyesterday = 100.0 * Double(gegesternTimeStats.completedFormen) / Double(gegesternTimeStats.totalFormen)
         }
         learningRatioTableData.append(learningTableItem)
         for dieArt in alleWortArten{
             var learningTableItem = TableItem(wortArtName: dieArt.name_RU ?? "Неизвестно", today: 0, yesterday: 0, average: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 learningTableItem.today = 100.0 * Double(recentTimeStats.completedFormen) / Double(recentTimeStats.totalFormen)
             }
-            let gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: dieArt)
+            let gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: dieArt)
             if let gesternTimeStats = gesternTimeStats{
                 learningTableItem.yesterday = 100.0 * Double(gesternTimeStats.completedFormen) / Double(gesternTimeStats.totalFormen)
             }
-            let gegesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.offset_inDays(-2).stripTime(), forThe: dieArt)
+            let gegesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.offset_inDays(-2).stripTime(), forThe: dieArt)
             if let gegesternTimeStats = gegesternTimeStats{
                 learningTableItem.beforeyesterday = 100.0 * Double(gegesternTimeStats.completedFormen) / Double(gegesternTimeStats.totalFormen)
             }
@@ -993,7 +993,7 @@ struct StatisticsView: View {
         examPieChartData.removeAll()
         for dieArt in alleWortArten{
             var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 if(recentTimeStats.examCount > 0){
                     newPieChartItem.value = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
@@ -1003,13 +1003,13 @@ struct StatisticsView: View {
         }
         examTableData.removeAll()
         var examTableItem = TableItem(wortArtName: "ВСЕГО", today: 0, yesterday: 0, average: 0)
-        recentTimeStats = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: nil)
+        recentTimeStats = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: nil)
         if let recentTimeStats = recentTimeStats{
             if(recentTimeStats.examCount > 0){
                 examTableItem.today = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
             }
         }
-        gesternTimeStats = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: nil)
+        gesternTimeStats = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: nil)
         if let gesternTimeStats = gesternTimeStats{
             if(gesternTimeStats.examCount > 0){
                 examTableItem.yesterday = Double(gesternTimeStats.examTotal) / Double(gesternTimeStats.examCount)
@@ -1022,13 +1022,13 @@ struct StatisticsView: View {
         examTableData.append(examTableItem)
         for dieArt in alleWortArten{
             var examTableItem = TableItem(wortArtName: dieArt.name_RU ?? "Неизвестно", today: 0, yesterday: 0, average: 0)
-            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
+            let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 if(recentTimeStats.examCount > 0){
                     examTableItem.today = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
                 }
             }
-            let gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: dieArt)
+            let gesternTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: dieArt)
             if let gesternTimeStats = gesternTimeStats{
                 if(gesternTimeStats.examCount > 0){
                     examTableItem.yesterday = Double(gesternTimeStats.examTotal) / Double(gesternTimeStats.examCount)
@@ -1053,7 +1053,7 @@ struct StatisticsView: View {
         }
         for theOffset in -27 ... 0 {
             var newTimeStampItem = StatsItem(id: theOffset+27, timeStamp: Date.now.stripTime().offset_inDays(theOffset), learnTime: nil, totalFormen: nil, confirmedFormen: nil, examMin: nil, examMax: nil, examAverage: nil)
-            let retrievedTimers = TimeStatistics.auslesen_LearningTime(in: viewContext, at: newTimeStampItem.timeStamp, forThe: theWortArt)
+            let retrievedTimers = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: newTimeStampItem.timeStamp, forThe: theWortArt)
             if(retrievedTimers != nil){
                 newTimeStampItem.learnTime = retrievedTimers!.learningTime
                 newTimeStampItem.totalFormen = retrievedTimers!.totalFormen
@@ -1067,8 +1067,7 @@ struct StatisticsView: View {
             statArray[theOffset + 27] = newTimeStampItem
             print("Statistics.reloadTimeLearningData(): statArray[\(theOffset + 27)] .timeStamp:\(statArray[theOffset + 27].timeStamp) .learnTime:\(statArray[theOffset + 27].learnTime) .id:\(statArray[theOffset + 27].id) - offset:\(theOffset)")
         }
-        
-        
+
         baseId += 1
     }
 }

@@ -83,9 +83,9 @@ struct WortRepeater: View {
     
     func recalcTimeToBeatReminder(){
         if(pickedWortFormen != nil){
-            let statsForToday: TimeStatistics? = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
-            let statsForYesterday: TimeStatistics? = TimeStatistics.auslesen_YesterdayLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
-            let statsForAverage: Double? = TimeStatistics.auslesen_WeeklyAverageLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+            let statsForToday: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+            let statsForYesterday: TimeStatistics? = TimeStatistics.auslesen_Statistics_Gestern(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+            let statsForAverage: Double? = TimeStatistics.auslesen_Statistics_wochenAverage(in: viewContext, forThe: pickedWortFormen!.relWortArt)
             if( statsForToday != nil){
                 spentToday = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForToday!.learningTime)
                 if(statsForYesterday != nil){
@@ -378,7 +378,7 @@ struct WortRepeater: View {
     private func dailyWortArtHorrayAnnouncement() -> some View{
         VStack{
             HStack{
-                let stats = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                let stats = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
                 if(stats != nil){
                     let spentMinutes: Int = Int(stats!.learningTime / 60)
                     let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
@@ -400,7 +400,7 @@ struct WortRepeater: View {
     private func averageWortArtHorrayAnnouncement() -> some View{
         VStack{
             HStack{
-                let stats = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                let stats = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
                 if(stats != nil){
                     let spentMinutes: Int = Int(stats!.learningTime / 60)
                     let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
@@ -422,7 +422,7 @@ struct WortRepeater: View {
     private func dailyHorrayAnnouncement() -> some View{
         VStack{
             HStack{
-                let stats = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                let stats = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
                 if(stats != nil){
                     let spentMinutes: Int = Int(stats!.learningTime / 60)
                     let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
@@ -444,7 +444,7 @@ struct WortRepeater: View {
     private func averageHorrayAnnouncement() -> some View{
         VStack{
             HStack{
-                let stats = TimeStatistics.auslesen_LearningTime(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
+                let stats = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: pickedWortFormen!.relWortArt)
                 if(stats != nil){
                     let spentMinutes: Int = Int(stats!.learningTime / 60)
                     let spentSeconds: Int = Int(stats!.learningTime - Double(spentMinutes*60))
@@ -963,8 +963,6 @@ struct WortRepeater: View {
                     try! viewContext.save()
                     
                     print("Processing wort next button: action \(theAction), was [\(previousState.debugString())], next [\(afterTransition.debugString())]")
-                     
-                    //Statistics.wortFormenUrgency(pickedWortFormen!)
                     
                     pickTheWord()
                     
