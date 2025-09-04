@@ -14,7 +14,7 @@ extension TimeStatistics{
         }
         return Int(statsHeute!.learningTime  / 60)
     }
-    public static func bereitFurPrufung(_ context: NSManagedObjectContext) -> Bool{
+    public static func auslesen_bereitFurPrufung(_ context: NSManagedObjectContext) -> Bool{
         let alleWortArten = try! context.fetch(WortArt.fetchRequest())
         var wortArtAcceptable: Int = 0
         for dieWortArt in alleWortArten{
@@ -24,14 +24,21 @@ extension TimeStatistics{
         }
         return wortArtAcceptable > 0
     }
-    public static func DaysSinceLastPrufung(_ context: NSManagedObjectContext) -> Int{
+    public static func auslesen_daysSinceLastPrufung(_ context: NSManagedObjectContext) -> Int{
         let letztePrufung = Settings.getLetztePrufung(in: context)
         if(letztePrufung != nil){
             return Date.get_offset_inDays(letztePrufung!, Date.now)
         }
         return -1
     }
-    public static func submitExamResults(in context: NSManagedObjectContext, at date: Date, for examScore: Double, forThe wortArt: WortArt?){
+    public static func auslesen_hasAnnouncedAboveAverage(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
+        if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
+            today.hasDeclaredSuperriorityVsAverage = true
+            try! context.save()
+        }
+    }
+    
+    public static func speichern_ExamResults(in context: NSManagedObjectContext, at date: Date, for examScore: Double, forThe wortArt: WortArt?){
         let theStamp = fetchOrCreateLearningTime(in: context, at: date, forThe: wortArt)
         theStamp.examTotal += examScore
         theStamp.examMin = min(theStamp.examMin, examScore)
@@ -39,7 +46,8 @@ extension TimeStatistics{
         theStamp.examCount += 1
         try! context.save()
     }
-    public static func recalculate_completion(in theContext: NSManagedObjectContext){
+    
+    public static func berechnen_completion(in theContext: NSManagedObjectContext){
         do{
             var allWortFormenTotal: Int64 = 0
             var allWortFormenConfirmed: Int64 = 0
@@ -73,12 +81,8 @@ extension TimeStatistics{
             try theContext.save()
         }catch{}
     }
-    public static func hasAnnouncedAboveAverage(in context: NSManagedObjectContext, forThe wortArt: WortArt?){
-        if let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt){
-            today.hasDeclaredSuperriorityVsAverage = true
-            try! context.save()
-        }
-    }
+    
+    
     public static func isAboveAverageToAnnounce(in context: NSManagedObjectContext, forThe wortArt: WortArt?) -> Bool{
         let today = fetchLearningTime(in: context, at: Date.now.stripTime(), forThe: wortArt)
         if(today == nil){

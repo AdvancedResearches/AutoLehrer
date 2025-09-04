@@ -414,7 +414,7 @@ struct WortRepeater: View {
             }
             
             NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                TimeStatistics.hasAnnouncedAboveAverage(in: viewContext, forThe: pickedWortFormen!.relWortArt)
+                TimeStatistics.auslesen_hasAnnouncedAboveAverage(in: viewContext, forThe: pickedWortFormen!.relWortArt)
                 showAverageWortArtAnnouncement = false
             }, widthFlood: true)
         }
@@ -458,7 +458,7 @@ struct WortRepeater: View {
             }
             
             NG_Button(title: "Ура!", style: .NG_ButtonStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(true), action: {
-                TimeStatistics.hasAnnouncedAboveAverage(in: viewContext, forThe: nil)
+                TimeStatistics.auslesen_hasAnnouncedAboveAverage(in: viewContext, forThe: nil)
                 showAverageAnnouncement = false
             }, widthFlood: true)
         }
@@ -1640,9 +1640,9 @@ struct WortRepeater: View {
         if(runningWortArtIndex >= alleWortArten.count){
             prufungCompleted = true
             for theWortArt in alleWortArten {
-                TimeStatistics.submitExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(theWortArt), forThe: theWortArt)
+                TimeStatistics.speichern_ExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(theWortArt), forThe: theWortArt)
             }
-            TimeStatistics.submitExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(nil), forThe: nil)
+            TimeStatistics.speichern_ExamResults(in: viewContext, at: Date.now.stripTime(), for: prufungScore(nil), forThe: nil)
             print("pickTheWordFurPrufung: end of exam detected")
             prufungLoadCompleted = true
             return

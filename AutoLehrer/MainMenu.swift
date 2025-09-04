@@ -223,7 +223,7 @@ struct MainMenu: View {
                                     NG_Button(
                                         title: "Экзамен",
                                         style: .NG_ButtonStyle_Regular,
-                                        isDisabled: .constant(!TimeStatistics.bereitFurPrufung(viewContext)),
+                                        isDisabled: .constant(!TimeStatistics.auslesen_bereitFurPrufung(viewContext)),
                                         isHighlighting: .constant(false),
                                         isPulsating: .constant(false),
                                         widthFlood: true
@@ -235,9 +235,9 @@ struct MainMenu: View {
                                     invokeUpdates()
                                 }
                             }
-                            .disabled(!TimeStatistics.bereitFurPrufung(viewContext))
+                            .disabled(!TimeStatistics.auslesen_bereitFurPrufung(viewContext))
                             .onTapGesture{
-                                if(!TimeStatistics.bereitFurPrufung(viewContext)){
+                                if(!TimeStatistics.auslesen_bereitFurPrufung(viewContext)){
                                     zeigeNichtGenugWorterPopup = true
                                 }
                             }

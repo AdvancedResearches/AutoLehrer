@@ -66,7 +66,7 @@ class RecommendationModel: ObservableObject {
             popupEnabled = false
         }
         
-        let prunungBereit = TimeStatistics.bereitFurPrufung(context)
+        let prunungBereit = TimeStatistics.auslesen_bereitFurPrufung(context)
         if(prunungBereit){
             let hatHeutePrufungGefragt = Settings.auslesenPrufungHeuteGefragt(in: context)
             if(!hatHeutePrufungGefragt){

@@ -526,8 +526,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -542,8 +542,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -558,8 +558,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -575,8 +575,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -591,8 +591,8 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
