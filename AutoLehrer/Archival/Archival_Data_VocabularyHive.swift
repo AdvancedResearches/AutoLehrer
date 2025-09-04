@@ -860,11 +860,11 @@ struct Archival_Vocabulary{
                     }
                     wortArtAllFormenTotalCount += wortArtFormenTotalCount
                     wortArtAllFormenAcceptedCount += wortArtFormenAcceptedCount
-                    let timeStatisticElement = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
+                    let timeStatisticElement = TimeStatistics.auslesenOderAnlegen_LearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
                     timeStatisticElement.totalFormen = wortArtFormenTotalCount
                     timeStatisticElement.completedFormen = wortArtFormenAcceptedCount
                 }
-                let timeStatisticElement = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: nil)
+                let timeStatisticElement = TimeStatistics.auslesenOderAnlegen_LearningTime(in: theContext, at: Date.now.stripTime(), forThe: nil)
                 timeStatisticElement.totalFormen = wortArtAllFormenTotalCount
                 timeStatisticElement.completedFormen = wortArtAllFormenAcceptedCount
                 
