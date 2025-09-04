@@ -393,10 +393,6 @@ struct WortRepeater: View {
                 isHighlighting: .constant(true),
                 isPulsating: .constant(true),
                 action: {
-                    //print("Wort zahlung: INITIATED")
-                    
-                    //was ist das für?
-                    //attemptCounter += 1
                     //Rechen success formen
                     let successCounter: Int = guessingResult.filter{$0 == 1}.count
                     let hasProgress: Bool = fasttrackExtras > 0
@@ -416,46 +412,23 @@ struct WortRepeater: View {
                     
                     pickedWortFormen!.lastSucceeded = Int64(successCounter)
                     pickedWortFormen!.formsToShow = Int64(guessingResult.count)
-                    /*
-                    //if(successCounter == wort.count){
-                    if(!guessingResult.contains(0) && !guessingResult.contains(-1)){
-                        //wenn all antworten sind rischig - kann sein nur wenn alle moglich wort formen war successfull
-                        //print("Wort zahlung: ALLE WORT FORMEN WAR SUCCESSFUL")
-                        if(WortFormen.set_success(pickedWortFormen!, attemptedFormen: wort)){
-                            //print("Wort zahlung: --- counted wie completed")
-                            confirmedWorte.insert(pickedWortFormen!)
-                        }else{
-                            //print("Wort zahlung: --- counted wie completed NICHT")
-                        }
-                    }else{
-                        //print("Wort zahlung: das war fails")
-                        
-                        var failedWorter: [Wort] = []
-                        for counter in 0..<guessingResult.count{
-                            if(guessingResult[counter] == -1 ){
-                                failedWorter.append(wort[counter])
-                            }
-                        }
-                        
-                        let failLevel = Int(failedWorter.map { $0.level ?? 0 }.min() ?? 0)
-                        
-                        WortFormen.set_failure(pickedWortFormen!, attemptedFormen: wort, failLevel: failLevel)
-                        confirmedWorte.remove(pickedWortFormen!)
-                    }
                     
-                    WortFormen.set_attempted(pickedWortFormen!)
-                    */
+                    let previousState = WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)
+                    let theAction = allRight ? WortFormen.action_allRight : hasProgress ?  WortFormen.action_hasProgress : WortFormen.action_hasNoProgress
+                    var afterPreProcessing: WortFormenKeyParameters = WortFormen.forecastedState(current: previousState, action: theAction)
+                    var afterTransition: WortFormenKeyParameters = WortFormen.forecastedTransition(afterPreProcessing)
                     
-                    if allRight{
-                        WortFormen.submit_allRight(pickedWortFormen!)
-                    }else if hasProgress{
-                        WortFormen.submit_hasProgress(pickedWortFormen!)
-                    }else{
-                        WortFormen.submit_hasNoProgress(pickedWortFormen!)
-                    }
+                    pickedWortFormen!.state = afterTransition.state
+                    pickedWortFormen!.randomFail = afterTransition.randomFail
+                    pickedWortFormen!.successCounter = Int64(afterTransition.successCounter)
+                    pickedWortFormen!.failCounter = Int64(afterTransition.failCounter)
+                    pickedWortFormen!.nextPlanedAttempt = afterTransition.nextPlanedAttempt
+                    
+                    try! viewContext.save()
+                    
+                    print("Processing wort next button: action \(theAction), was [\(previousState.debugString())], next [\(afterTransition.debugString())]")
                      
-                    Statistics.wortFormenUrgency(pickedWortFormen!)
-                    
+                    //Statistics.wortFormenUrgency(pickedWortFormen!)
                     
                     pickTheWord()
                     
@@ -1474,7 +1447,7 @@ struct WortRepeater: View {
                                 }
                                 guessingResult[index] = 1
                                 if(!prufungModus){
-                                    nechsterFormAppennding()
+                                    nechsterFormAppending()
                                 }
                                 readyToMoveOn = guessingResult.allSatisfy { $0 != 0}
                                 if readyToMoveOn {
@@ -1670,7 +1643,7 @@ struct WortRepeater: View {
         }
         return true
     }
-    private func nechsterFormAppennding(){
+    private func nechsterFormAppending(){
         //print("nechsterFormAppennding invoked")
         if(sollMehrFormJetztZuappenden()){
             //print("sollMehrFormJetztZuappenden pass")

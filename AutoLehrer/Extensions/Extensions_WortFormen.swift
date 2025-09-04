@@ -106,6 +106,9 @@ public struct WortFormenKeyParameters{
     public static func fromWortFormen(_ current: WortFormen) -> WortFormenKeyParameters{
         return WortFormenKeyParameters(state: current.state!, randomFail: current.randomFail, successCounter: Int(current.successCounter), failCounter: Int(current.failCounter))
     }
+    public func debugString() -> String{
+        return "\(state), \(randomFail), \(successCounter), \(failCounter), \(nextPlanedAttempt)"
+    }
 }
 
 extension WortFormen{
