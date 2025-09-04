@@ -88,8 +88,16 @@ struct WortRepeater: View {
             let statsForAverage: Double? = TimeStatistics.fetchWeeklyAverageLearningTime(in: viewContext, forThe: pickedWortFormen!.relWortArt)
             if( statsForToday != nil){
                 spentToday = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForToday!.learningTime)
-                spentYesterday = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForYesterday!.learningTime)
-                spentAverage = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForAverage!)
+                if(statsForYesterday != nil){
+                    spentYesterday = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForYesterday!.learningTime)
+                }else{
+                    spentYesterday = "не известно"
+                }
+                if(statsForAverage != nil){
+                    spentAverage = Date.doubleSeconds_toMinutesAndSecondsString_RU(statsForAverage!)
+                }else{
+                    spentAverage = "не известно"
+                }
             }
             if(statsForToday != nil && statsForYesterday != nil && statsForAverage != nil){
                 let remainderForYesterday = max(statsForYesterday!.learningTime - statsForToday!.learningTime, 0)

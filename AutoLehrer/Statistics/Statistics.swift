@@ -76,6 +76,7 @@ struct StatisticsView: View {
             let threefourth = UIScreen.main.bounds.height * 3.0 / 4.0
             ScrollView(.vertical){
                 VStack {
+                    //time spent
                     VStack{
                         HStack{
                             Text("Время изучения")
@@ -330,7 +331,7 @@ struct StatisticsView: View {
                     .animation(.easeInOut(duration: 0.5), value: mode_1)
                     .padding(.horizontal)
                     
-                    
+                    //completion rate
                     VStack{
                         HStack{
                             Text("Степень изучения")
@@ -578,7 +579,11 @@ struct StatisticsView: View {
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                     .padding(.horizontal)
+                    .transition(.blurReplace)
+                    .animation(.easeInOut(duration: 0.5), value: mode_1)
+                    .padding(.horizontal)
                     
+                    //exam rate
                     VStack{
                         HStack{
                             Text("Экзамен")
@@ -854,6 +859,9 @@ struct StatisticsView: View {
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
+                    .padding(.horizontal)
+                    .transition(.blurReplace)
+                    .animation(.easeInOut(duration: 0.5), value: mode_1)
                     .padding(.horizontal)
                 }
                 .id(baseId+1000000)

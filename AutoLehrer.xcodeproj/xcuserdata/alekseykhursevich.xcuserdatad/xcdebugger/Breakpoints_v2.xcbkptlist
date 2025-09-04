@@ -334,8 +334,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "986"
-            endingLineNumber = "986"
+            startingLineNumber = "994"
+            endingLineNumber = "994"
             landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +446,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "985"
-            endingLineNumber = "985"
+            startingLineNumber = "993"
+            endingLineNumber = "993"
             landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
@@ -462,8 +462,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "981"
-            endingLineNumber = "981"
+            startingLineNumber = "989"
+            endingLineNumber = "989"
             landmarkName = "dasPrufungProgressSektion()"
             landmarkType = "7">
          </BreakpointContent>
@@ -542,8 +542,8 @@
             filePath = "AutoLehrer/Repeater/WortRepeater.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "recalcTimeToBeatReminder()"
             landmarkType = "7">
          </BreakpointContent>
@@ -574,9 +574,9 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "recalculate_completion(in:)"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -590,9 +590,9 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "recalculate_completion(in:)"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -606,9 +606,9 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "recalculate_completion(in:)"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -623,9 +623,9 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
-            landmarkName = "recalculate_completion(in:)"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -639,9 +639,9 @@
             filePath = "AutoLehrer/Extensions/Extensions_TimeStatistics.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "recalculate_completion(in:)"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
+            landmarkName = "fetchWeeklyAverageLearningTime(in:forThe:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

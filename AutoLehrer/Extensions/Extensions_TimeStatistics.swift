@@ -56,13 +56,6 @@ extension TimeStatistics{
                     }else{
                         wortFormenConfirmed += max(theWortFormen.formsToShow - 1, 0)
                     }
-                    /*
-                    if(count == theWortFormen.formsToShow){
-                        if(theWortFormen.successCounter >= 2){
-                           wortFormenConfirmed += 1
-                        }
-                    }
-                     */
                 }
                 
                 var wortFormenTimeStats = TimeStatistics.fetchOrCreateLearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
