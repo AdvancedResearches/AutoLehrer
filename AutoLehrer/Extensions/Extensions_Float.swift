@@ -1,6 +1,10 @@
 extension Float {
     func formattedString(decimalPlaces: Int) -> String {
-        String(format: "%.\(decimalPlaces)f", self)
+        let retValue = String(format: "%.\(decimalPlaces)f", self)
+        if(retValue == "nan"){
+            return String(format: "%.\(decimalPlaces)f", 0.00)
+        }
+        return retValue
     }
     public static func maxFromArray(values: [Float]) -> Float{
         var retValue = values[0]

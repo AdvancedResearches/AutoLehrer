@@ -519,9 +519,8 @@ struct StatisticsView: View {
                                 }
                             )
                             VStack(alignment: .leading, spacing: 1){
-                                
                                 if(completionRate_mode == 0){
-                                    if learningTimePieChartData.allSatisfy({ $0.value_0 == 0 }) {
+                                    if learningRatioPieChartData.allSatisfy({ $0.value_0 == 0 }) {
                                         Text("Ничего ещё не считается изученным")
                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                     }else{
@@ -549,7 +548,7 @@ struct StatisticsView: View {
                                 }
                                 
                                 if(completionRate_mode == 1){
-                                    if learningTimePieChartData.allSatisfy({ $0.value_1 == 0 }) {
+                                    if learningRatioPieChartData.allSatisfy({ $0.value_1 == 0 }) {
                                         Text("Ещё ничего не изучалось")
                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                     }else{
@@ -575,7 +574,6 @@ struct StatisticsView: View {
                                     }
                                     
                                 }
-                                
                             }
                             .padding()
                             .frame(height: scaler_2)
@@ -914,22 +912,22 @@ struct StatisticsView: View {
                                         Text("В среднем")
                                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                     }
-                                    ForEach(examTableData) { learningItem in
+                                    ForEach(examTableData) { examTableItem in
                                         Divider()
                                         GridRow{
                                             HStack{
-                                                Text(learningItem.wortArtName)
+                                                Text(examTableItem.wortArtName)
                                                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                                 Spacer()
                                             }
                                             .gridCellColumns(3)
                                         }
                                         GridRow{
-                                            Text("\(Float(learningItem.today).formattedString(decimalPlaces: 1)) %")
+                                            Text("\(Float(examTableItem.today).formattedString(decimalPlaces: 1)) %")
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            Text("\(Float(learningItem.yesterday).formattedString(decimalPlaces: 1)) %")
+                                            Text("\(Float(examTableItem.yesterday).formattedString(decimalPlaces: 1)) %")
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                                            Text("\(Float(learningItem.average).formattedString(decimalPlaces: 1)) %")
+                                            Text("\(Float(examTableItem.average).formattedString(decimalPlaces: 1)) %")
                                                 .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                                         }
                                     }
