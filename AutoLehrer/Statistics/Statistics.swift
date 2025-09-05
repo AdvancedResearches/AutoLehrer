@@ -25,7 +25,8 @@ struct StatsItem: Identifiable{
 struct PieChartItem: Identifiable {
     var id = UUID()
     var wortArtName: String
-    var value: Double
+    var value_0: Double
+    var value_1: Double
 }
 
 struct TableItem: Identifiable {
@@ -68,6 +69,9 @@ struct StatisticsView: View {
     @State var mode_1: Int = 0
     @State var mode_2: Int = 0
     @State var mode_3: Int = 0
+    
+    // 0 - completion, 1 - attempted
+    @State var completionRate_mode: Int = 0
     
     @State var initiated: Bool = false
     
@@ -228,23 +232,28 @@ struct StatisticsView: View {
                                 }
                             )
                             VStack(alignment: .leading, spacing: 1){
-                                Chart(learningTimePieChartData) { slice in
-                                    SectorMark(
-                                        angle: .value("Значение", slice.value),
-                                        innerRadius: .ratio(0.2),   // 0 → pie, >0 → donut
-                                        outerRadius: .ratio(1.0)
-                                    )
-                                    //.foregroundStyle(by: .value("Категория", slice.wortArtName))
-                                    .foregroundStyle(scale[slice.wortArtName] ?? .gray)
-                                }
-                                VStack(alignment: .leading, spacing: 1) {
-                                    ForEach(learningTimePieChartData) { slice in
-                                        HStack(spacing: 8) {
-                                            Circle()
-                                                .fill(scale[slice.wortArtName] ?? .gray)
-                                                .frame(width: 12, height: 12)
-                                            Text(slice.wortArtName)
-                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                if learningTimePieChartData.allSatisfy({ $0.value_0 == 0 }) {
+                                    Text("Сегодня ещё ничего не изучалось")
+                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                }else{
+                                    Chart(learningTimePieChartData) { slice in
+                                        SectorMark(
+                                            angle: .value("Значение", slice.value_0),
+                                            innerRadius: .ratio(0.2),   // 0 → pie, >0 → donut
+                                            outerRadius: .ratio(1.0)
+                                        )
+                                        //.foregroundStyle(by: .value("Категория", slice.wortArtName))
+                                        .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                    }
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        ForEach(learningTimePieChartData) { slice in
+                                            HStack(spacing: 8) {
+                                                Circle()
+                                                    .fill(scale[slice.wortArtName] ?? .gray)
+                                                    .frame(width: 12, height: 12)
+                                                Text(slice.wortArtName)
+                                                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                            }
                                         }
                                     }
                                 }
@@ -496,6 +505,12 @@ struct StatisticsView: View {
                             .transition(.blurReplace)
                         }
                         if(mode_2==1){
+                            Picker("Типы", selection: $completionRate_mode) {
+                                Text("Считается выученным").tag(0)
+                                Text("Пока ещё только пробуем").tag(1)
+                            }
+                            .pickerStyle(.menu)
+                            
                             let scale: [String: Color] = Dictionary(uniqueKeysWithValues:
                                 learningRatioPieChartData.enumerated().map { i, slice in
                                     (slice.wortArtName, Color(hue: Double(i) / Double(learningRatioPieChartData.count),
@@ -504,25 +519,63 @@ struct StatisticsView: View {
                                 }
                             )
                             VStack(alignment: .leading, spacing: 1){
-                                Chart(learningRatioPieChartData) { slice in
-                                    SectorMark(
-                                        angle: .value("Значение", slice.value),
-                                        innerRadius: .ratio(0.2),
-                                        outerRadius: .ratio(1.0)
-                                    )
-                                    .foregroundStyle(scale[slice.wortArtName] ?? .gray)
-                                }
-                                VStack(alignment: .leading, spacing: 1) {
-                                    ForEach(learningRatioPieChartData) { slice in
-                                        HStack(spacing: 8) {
-                                            Circle()
-                                                .fill(scale[slice.wortArtName] ?? .gray)
-                                                .frame(width: 12, height: 12)
-                                            Text(slice.wortArtName)
-                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                
+                                if(completionRate_mode == 0){
+                                    if learningTimePieChartData.allSatisfy({ $0.value_0 == 0 }) {
+                                        Text("Ничего ещё не считается изученным")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }else{
+                                        Chart(learningRatioPieChartData) { slice in
+                                            SectorMark(
+                                                angle: .value("Значение", slice.value_0
+                                                             ),
+                                                innerRadius: .ratio(0.2),
+                                                outerRadius: .ratio(1.0)
+                                            )
+                                            .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                        }
+                                        VStack(alignment: .leading, spacing: 1) {
+                                            ForEach(learningRatioPieChartData) { slice in
+                                                HStack(spacing: 8) {
+                                                    Circle()
+                                                        .fill(scale[slice.wortArtName] ?? .gray)
+                                                        .frame(width: 12, height: 12)
+                                                    Text(slice.wortArtName)
+                                                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                
+                                if(completionRate_mode == 1){
+                                    if learningTimePieChartData.allSatisfy({ $0.value_1 == 0 }) {
+                                        Text("Ещё ничего не изучалось")
+                                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                    }else{
+                                        Chart(learningRatioPieChartData) { slice in
+                                            SectorMark(
+                                                angle: .value("Значение", slice.value_1),
+                                                innerRadius: .ratio(0.2),
+                                                outerRadius: .ratio(1.0)
+                                            )
+                                            .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                        }
+                                        VStack(alignment: .leading, spacing: 1) {
+                                            ForEach(learningRatioPieChartData) { slice in
+                                                HStack(spacing: 8) {
+                                                    Circle()
+                                                        .fill(scale[slice.wortArtName] ?? .gray)
+                                                        .frame(width: 12, height: 12)
+                                                    Text(slice.wortArtName)
+                                                        .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                
                             }
                             .padding()
                             .frame(height: scaler_2)
@@ -792,22 +845,27 @@ struct StatisticsView: View {
                                 }
                             )
                             VStack(alignment: .leading, spacing: 1){
-                                Chart(examPieChartData) { slice in
-                                    SectorMark(
-                                        angle: .value("Значение", slice.value),
-                                        innerRadius: .ratio(0.2),
-                                        outerRadius: .ratio(1.0)
-                                    )
-                                    .foregroundStyle(scale[slice.wortArtName] ?? .gray)
-                                }
-                                VStack(alignment: .leading, spacing: 1) {
-                                    ForEach(examPieChartData) { slice in
-                                        HStack(spacing: 8) {
-                                            Circle()
-                                                .fill(scale[slice.wortArtName] ?? .gray)
-                                                .frame(width: 12, height: 12)
-                                            Text(slice.wortArtName)
-                                                .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                if examPieChartData.allSatisfy({ $0.value_0 == 0 }) {
+                                    Text("Сегодня ещё экзамены не устраивались")
+                                        .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                                }else{
+                                    Chart(examPieChartData) { slice in
+                                        SectorMark(
+                                            angle: .value("Значение", slice.value_0),
+                                            innerRadius: .ratio(0.2),
+                                            outerRadius: .ratio(1.0)
+                                        )
+                                        .foregroundStyle(scale[slice.wortArtName] ?? .gray)
+                                    }
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        ForEach(examPieChartData) { slice in
+                                            HStack(spacing: 8) {
+                                                Circle()
+                                                    .fill(scale[slice.wortArtName] ?? .gray)
+                                                    .frame(width: 12, height: 12)
+                                                Text(slice.wortArtName)
+                                                    .NG_textStyling(.NG_TextStyle_Text_Small, theme: theme) // любые модификаторы тут
+                                            }
                                         }
                                     }
                                 }
@@ -930,10 +988,10 @@ struct StatisticsView: View {
         
         learningTimePieChartData.removeAll()
         for dieArt in alleWortArten{
-            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
+            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value_0: 0, value_1: 0)
             let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
-                newPieChartItem.value = recentTimeStats.learningTime
+                newPieChartItem.value_0 = recentTimeStats.learningTime
             }
             learningTimePieChartData.append(newPieChartItem)
         }
@@ -973,10 +1031,11 @@ struct StatisticsView: View {
         
         learningRatioPieChartData.removeAll()
         for dieArt in alleWortArten{
-            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
+            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value_0: 0, value_1: 0)
             let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
-                newPieChartItem.value = 100.0 * Double(recentTimeStats.completedFormen) / Double(recentTimeStats.totalFormen)
+                newPieChartItem.value_0 = 100.0 * Double(recentTimeStats.completedFormen) / Double(recentTimeStats.totalFormen)
+                newPieChartItem.value_1 = 100.0 * Double(recentTimeStats.attemptedFormen) / Double(recentTimeStats.totalFormen)
             }
             learningRatioPieChartData.append(newPieChartItem)
         }
@@ -1016,11 +1075,11 @@ struct StatisticsView: View {
         
         examPieChartData.removeAll()
         for dieArt in alleWortArten{
-            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value: 0)
+            var newPieChartItem = PieChartItem(wortArtName: dieArt.name_RU ?? "Неизвестно", value_0: 0, value_1: 0)
             let recentTimeStats: TimeStatistics? = TimeStatistics.auslesen_Statistics_amDate(in: viewContext, at: Date.now.stripTime(), forThe: dieArt)
             if let recentTimeStats = recentTimeStats{
                 if(recentTimeStats.examCount > 0){
-                    newPieChartItem.value = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
+                    newPieChartItem.value_0 = Double(recentTimeStats.examTotal) / Double(recentTimeStats.examCount)
                 }
             }
             examPieChartData.append(newPieChartItem)
