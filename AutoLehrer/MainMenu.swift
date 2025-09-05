@@ -199,7 +199,11 @@ struct MainMenu: View {
                                             isPulsating: .constant(false),
                                             widthFlood: true
                                         )
-                                        SimpleDoubleColorLine(topValue: WortArt.confirmedRatio(wortArt), bottomValue: WortArt.attemptingRatio(wortArt), topColor: .green, bottomColor: .yellow, height: 5)
+                                        let frequentRatio = WortArt.attemptingFrequentRatio(wortArt)
+                                        let dailyRatio = WortArt.attemptingDailyRatio(wortArt) + frequentRatio
+                                        let weeklyRatio = WortArt.attemptingWeeklyRatio(wortArt) + dailyRatio
+                                        /*SimpleDoubleColorLine(topValue: WortArt.confirmedRatio(wortArt), bottomValue: WortArt.attemptingRatio(wortArt), topColor: .green, bottomColor: .yellow, height: 5)*/
+                                        SimpleTripleColorLine(topValue: frequentRatio, middleValue: dailyRatio, bottomValue: weeklyRatio, topColor: .red, middleColor: .yellow, bottomColor: .green, height: 3)
                                     }
                                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
                                 }

@@ -23,6 +23,39 @@ extension WortArt{
         
         return 0
     }
+    public static func attemptingFrequentRatio(_ wortArt: WortArt) -> Double{
+        let alleWortFormen: [WortFormen] =
+            Array(wortArt.relWortFormen as? Set<WortFormen> ?? [])
+        let attemptingWortFormen = alleWortFormen.filter{$0.state == WortFormen.state_frequent}
+        
+        if alleWortFormen.count > 0 {
+            return Double(attemptingWortFormen.count) / Double(alleWortFormen.count)
+        }
+        
+        return 0
+    }
+    public static func attemptingDailyRatio(_ wortArt: WortArt) -> Double{
+        let alleWortFormen: [WortFormen] =
+            Array(wortArt.relWortFormen as? Set<WortFormen> ?? [])
+        let attemptingWortFormen = alleWortFormen.filter{$0.state == WortFormen.state_daily}
+        
+        if alleWortFormen.count > 0 {
+            return Double(attemptingWortFormen.count) / Double(alleWortFormen.count)
+        }
+        
+        return 0
+    }
+    public static func attemptingWeeklyRatio(_ wortArt: WortArt) -> Double{
+        let alleWortFormen: [WortFormen] =
+            Array(wortArt.relWortFormen as? Set<WortFormen> ?? [])
+        let attemptingWortFormen = alleWortFormen.filter{$0.state == WortFormen.state_weekly}
+        
+        if alleWortFormen.count > 0 {
+            return Double(attemptingWortFormen.count) / Double(alleWortFormen.count)
+        }
+        
+        return 0
+    }
     public static func get_instance(_ wortArtName: String, _ context: NSManagedObjectContext) -> WortArt?{
         return try! context.fetch(WortArt.fetchRequest()).filter{$0.name_DE == wortArtName}.first
     }
