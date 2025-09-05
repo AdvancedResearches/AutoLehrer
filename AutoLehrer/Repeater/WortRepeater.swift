@@ -70,7 +70,7 @@ struct WortRepeater: View {
     @State var spentAverage: String = ""
     
     @State var forecastedAction: String = ""
-    @State var forecastedState: WortFormenKeyParameters = WortFormenKeyParameters(state: WortFormen.state_never, randomFail: false, successCounter: 0, failCounter: 0)
+    @State var forecastedState: WortFormenKeyParameters = WortFormenKeyParameters(state: WortFormen.state_never, randomFail: false, justACooldown: false, successCounter: 0, failCounter: 0)
     @State var forecastedIconName: String = ""
     @State var forecastedIconStyle: NG_IconStyle = .NG_IconStyle_Regular
     @State var forecastedIconBlinking: Bool = true

@@ -100,11 +100,12 @@ public struct WortArtFormen{
 public struct WortFormenKeyParameters{
     var state: String
     var randomFail: Bool
+    var justACooldown: Bool
     var successCounter: Int
     var failCounter: Int
     var nextPlanedAttempt: Date?
     public static func fromWortFormen(_ current: WortFormen) -> WortFormenKeyParameters{
-        return WortFormenKeyParameters(state: current.state!, randomFail: current.randomFail, successCounter: Int(current.successCounter), failCounter: Int(current.failCounter))
+        return WortFormenKeyParameters(state: current.state!, randomFail: current.randomFail, justACooldown: current.justACooldown, successCounter: Int(current.successCounter), failCounter: Int(current.failCounter))
     }
     public func debugString() -> String{
         return "\(state), \(randomFail), \(successCounter), \(failCounter), \(nextPlanedAttempt)"
@@ -492,6 +493,9 @@ extension WortFormen{
     public static func forecastedState(current: WortFormenKeyParameters, action: String) -> WortFormenKeyParameters{
         var retValue: WortFormenKeyParameters = current
         if(action == action_allRight){
+            retValue.successCounter += 1
+            retValue.failCounter = 0
+            /*
             if(current.state == state_never){
                 retValue.randomFail = false
                 retValue.successCounter = 1
@@ -503,7 +507,7 @@ extension WortFormen{
                 retValue.failCounter = 0
             }
             if(current.state == state_daily){
-                retValue.randomFail = false
+                retValue.randomFail = current.randomFail
                 retValue.successCounter += 1
                 retValue.failCounter = 0
             }
@@ -512,8 +516,12 @@ extension WortFormen{
                 retValue.successCounter = 0
                 retValue.failCounter = 0
             }
+             */
         }
         if(action == action_hasProgress){
+            retValue.successCounter = 0
+            retValue.failCounter = 0
+            /*
             if(current.state == state_never){
                 retValue.randomFail = false
                 retValue.successCounter = 0
@@ -525,7 +533,7 @@ extension WortFormen{
                 retValue.failCounter = 0
             }
             if(current.state == state_daily){
-                retValue.randomFail = false
+                retValue.randomFail = current.randomFail
                 retValue.successCounter = 0
                 retValue.failCounter += 1
             }
@@ -534,8 +542,12 @@ extension WortFormen{
                 retValue.successCounter = 0
                 retValue.failCounter += 1
             }
+             */
         }
         if(action == action_hasNoProgress){
+            retValue.successCounter = 0
+            retValue.failCounter += 1
+            /*
             if(current.state == state_never){
                 retValue.randomFail = false
                 retValue.successCounter = 0
@@ -547,7 +559,7 @@ extension WortFormen{
                 retValue.failCounter += 1
             }
             if(current.state == state_daily){
-                retValue.randomFail = false
+                retValue.randomFail = current.randomFail
                 retValue.successCounter = 0
                 retValue.failCounter += 1
             }
@@ -556,62 +568,97 @@ extension WortFormen{
                 retValue.successCounter = 0
                 retValue.failCounter += 1
             }
+             */
         }
         return retValue
+    }
+    public static func nextAttempt(_ state: String) -> Date{
+        if state == state_frequent{
+            return Date.now.offset_inSeconds(Int.random(in: 60...180))
+        }
+        if state == state_daily{
+            return Date.now.offset_inSeconds(86400)
+        }
+        if state == state_weekly{
+            return Date.now.offset_inSeconds(Int.random(in: 686400...604800))
+        }
+        return Date.now
     }
     public static func forecastedTransition(_ current: WortFormenKeyParameters) -> WortFormenKeyParameters{
         var retValue: WortFormenKeyParameters = current
         if(current.state == state_never){
             retValue.state = state_frequent
-            retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+            retValue.nextPlanedAttempt = nextAttempt(state_frequent)
             retValue.randomFail = false
+            retValue.justACooldown = false
             retValue.successCounter = current.successCounter
             retValue.failCounter = current.failCounter
+            return retValue
         }
         if(current.state == state_frequent){
             if(current.randomFail && current.successCounter > 0){
                 retValue.state = state_daily
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                retValue.nextPlanedAttempt = nextAttempt(state_daily)
                 retValue.randomFail = false
+                retValue.justACooldown = false
                 retValue.successCounter = 0
                 retValue.failCounter = 0
-            }else if(!current.randomFail && current.successCounter > 1){
+                return retValue
+            }else if(current.successCounter > 1){
                 retValue.state = state_daily
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                retValue.nextPlanedAttempt = nextAttempt(state_daily)
                 retValue.randomFail = false
+                retValue.justACooldown = false
                 retValue.successCounter = 0
                 retValue.failCounter = 0
+                return retValue
             }else if(current.failCounter > 2){
                 retValue.state = state_daily
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
+                retValue.nextPlanedAttempt = nextAttempt(state_daily)
                 retValue.randomFail = false
+                retValue.justACooldown = true
                 retValue.successCounter = 0
                 retValue.failCounter = 0
+                return retValue
             }else{
                 retValue.state = state_frequent
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
-                retValue.randomFail = current.randomFail
+                retValue.nextPlanedAttempt = nextAttempt(state_frequent)
+                retValue.randomFail = false
                 retValue.successCounter = current.successCounter
                 retValue.failCounter = current.failCounter
+                return retValue
             }
         }
         if(current.state == state_daily){
-            if(current.successCounter > 4){
-                retValue.state = state_weekly
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
-                retValue.randomFail = false
-                retValue.successCounter = 0
-                retValue.failCounter = 0
-            }else if(current.failCounter > 0){
+            if(current.failCounter > 0){
                 retValue.state = state_frequent
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                retValue.nextPlanedAttempt = nextAttempt(state_frequent)
                 retValue.randomFail = false
+                retValue.justACooldown = false
                 retValue.successCounter = 0
                 retValue.failCounter = 1
+                return retValue
+            }else if(current.successCounter > 0 && current.justACooldown){
+                retValue.state = state_frequent
+                retValue.nextPlanedAttempt = nextAttempt(state_frequent)
+                retValue.randomFail = false
+                retValue.justACooldown = false
+                retValue.successCounter = 1
+                retValue.failCounter = 0
+                return retValue
+            }else if(current.successCounter > 3){
+                retValue.state = state_weekly
+                retValue.nextPlanedAttempt = nextAttempt(state_weekly)
+                retValue.randomFail = false
+                retValue.justACooldown = false
+                retValue.successCounter = 0
+                retValue.failCounter = 0
+                return retValue
             }else{
                 retValue.state = state_daily
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(86400)
+                retValue.nextPlanedAttempt = nextAttempt(state_daily)
                 retValue.randomFail = false
+                retValue.justACooldown = false
                 retValue.successCounter = current.successCounter
                 retValue.failCounter = current.failCounter
             }
@@ -619,14 +666,16 @@ extension WortFormen{
         if(current.state == state_weekly){
             if(current.failCounter > 0){
                 retValue.state = state_frequent
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
+                retValue.nextPlanedAttempt = nextAttempt(state_frequent)
                 retValue.randomFail = true
+                retValue.justACooldown = false
                 retValue.successCounter = 0
                 retValue.failCounter = 0
             }else{
                 retValue.state = state_weekly
-                retValue.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
+                retValue.nextPlanedAttempt = nextAttempt(state_frequent)
                 retValue.randomFail = false
+                retValue.justACooldown = false
                 retValue.successCounter = 0
                 retValue.failCounter = 0
             }
@@ -638,7 +687,7 @@ extension WortFormen{
             wortFormen.state = state_never
         }
         
-        let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        let previous: WortFormenKeyParameters = WortFormenKeyParameters.fromWortFormen(wortFormen) /*(state: wortFormen.state!, randomFail: wortFormen.randomFail, justACooldown: false, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))*/
         
         let next = forecastedState(current: previous, action: action_allRight)
         
@@ -646,6 +695,7 @@ extension WortFormen{
         wortFormen.randomFail = next.randomFail
         wortFormen.successCounter = Int64(next.successCounter)
         wortFormen.failCounter = Int64(next.failCounter)
+        wortFormen.justACooldown = next.justACooldown
         
         guard let context = wortFormen.managedObjectContext else { return }
         do{
@@ -660,7 +710,7 @@ extension WortFormen{
             wortFormen.state = state_never
         }
         
-        let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        let previous: WortFormenKeyParameters = WortFormenKeyParameters.fromWortFormen(wortFormen) /* WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter)) */
         
         let next = forecastedState(current: previous, action: action_hasProgress)
         
@@ -668,6 +718,7 @@ extension WortFormen{
         wortFormen.randomFail = next.randomFail
         wortFormen.successCounter = Int64(next.successCounter)
         wortFormen.failCounter = Int64(next.failCounter)
+        wortFormen.justACooldown = next.justACooldown
         
         guard let context = wortFormen.managedObjectContext else { return }
         do{
@@ -682,7 +733,7 @@ extension WortFormen{
             wortFormen.state = state_never
         }
         
-        let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        let previous: WortFormenKeyParameters = WortFormenKeyParameters.fromWortFormen(wortFormen) /*WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))*/
         
         let next = forecastedState(current: previous, action: action_hasProgress)
         
@@ -690,6 +741,7 @@ extension WortFormen{
         wortFormen.randomFail = next.randomFail
         wortFormen.successCounter = Int64(next.successCounter)
         wortFormen.failCounter = Int64(next.failCounter)
+        wortFormen.justACooldown = next.justACooldown
         
         guard let context = wortFormen.managedObjectContext else { return }
         do{
@@ -700,7 +752,7 @@ extension WortFormen{
         transition(wortFormen)
     }
     public static func transition(_ wortFormen: WortFormen){
-        let current: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
+        let current: WortFormenKeyParameters = WortFormenKeyParameters.fromWortFormen(wortFormen) /* WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter)) */
         
         let next = forecastedTransition(current)
         
@@ -709,6 +761,7 @@ extension WortFormen{
         wortFormen.randomFail = next.randomFail
         wortFormen.successCounter = Int64(next.successCounter)
         wortFormen.failCounter = Int64(next.failCounter)
+        wortFormen.justACooldown = next.justACooldown
         
         guard let context = wortFormen.managedObjectContext else { return }
         do{
