@@ -16,6 +16,7 @@ struct StatsItem: Identifiable{
     var learnTime: Double?
     var totalFormen: Int64?
     var confirmedFormen: Int64?
+    var attemptedFormen: Int64?
     var examMin: Double?
     var examMax: Double?
     var examAverage: Double?
@@ -396,7 +397,7 @@ struct StatisticsView: View {
                                             LineMark(
                                                 x: .value("Date", theStat.timeStamp),
                                                 y: .value("completionRate", completionRate),
-                                                series: .value("Metric", "learnTime")
+                                                series: .value("Metric", "completionRation")
                                             )
                                             .foregroundStyle(.green)
                                             .interpolationMethod(.linear)
@@ -409,6 +410,29 @@ struct StatisticsView: View {
                                             .symbol {
                                                 Rectangle()
                                                     .foregroundColor(.green)
+                                                    .frame(width: 10, height: 10)
+                                            }
+                                        }
+                                    }
+                                    if let attempted = theStat.attemptedFormen {
+                                        if let total = theStat.totalFormen {
+                                            let attemptedRate: Int = total != 0 ? Int(100 * Double( Double(attempted) / Double(total))) : 0
+                                            LineMark(
+                                                x: .value("Date", theStat.timeStamp),
+                                                y: .value("attemptedRate", attemptedRate),
+                                                series: .value("Metric", "attemptedRate")
+                                            )
+                                            .foregroundStyle(.yellow)
+                                            .interpolationMethod(.linear)
+                                            .lineStyle(StrokeStyle(lineWidth: 2))
+                                            
+                                            PointMark(
+                                                x: .value("Date", theStat.timeStamp),
+                                                y: .value("attemptedRate", attemptedRate)
+                                            )
+                                            .symbol {
+                                                Rectangle()
+                                                    .foregroundColor(.yellow)
                                                     .frame(width: 10, height: 10)
                                             }
                                         }
@@ -578,9 +602,9 @@ struct StatisticsView: View {
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
-                    .padding(.horizontal)
+                    .id(baseId+250000)
                     .transition(.blurReplace)
-                    .animation(.easeInOut(duration: 0.5), value: mode_1)
+                    .animation(.easeInOut(duration: 0.5), value: mode_2)
                     .padding(.horizontal)
                     
                     //exam rate
@@ -859,9 +883,9 @@ struct StatisticsView: View {
                         }
                     }
                     .NG_Card(.NG_CardStyle_Regular, theme: theme)
-                    .padding(.horizontal)
+                    .id(baseId+350000)
                     .transition(.blurReplace)
-                    .animation(.easeInOut(duration: 0.5), value: mode_1)
+                    .animation(.easeInOut(duration: 0.5), value: mode_3)
                     .padding(.horizontal)
                 }
                 .id(baseId+1000000)
@@ -1058,6 +1082,7 @@ struct StatisticsView: View {
                 newTimeStampItem.learnTime = retrievedTimers!.learningTime
                 newTimeStampItem.totalFormen = retrievedTimers!.totalFormen
                 newTimeStampItem.confirmedFormen = retrievedTimers!.completedFormen
+                newTimeStampItem.attemptedFormen = retrievedTimers!.attemptedFormen
                 if(retrievedTimers!.examCount > 0){
                     newTimeStampItem.examMin = retrievedTimers!.examMin
                     newTimeStampItem.examMax = retrievedTimers!.examMax
