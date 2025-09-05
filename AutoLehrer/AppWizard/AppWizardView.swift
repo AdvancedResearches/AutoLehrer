@@ -15,7 +15,6 @@ struct AppWizardView: View {
     var onWizardFinished: (() -> Void)?
     
     var body: some View {
-        
         Group{
             if recommendationModel.popupEnabled {
                 VStack{
