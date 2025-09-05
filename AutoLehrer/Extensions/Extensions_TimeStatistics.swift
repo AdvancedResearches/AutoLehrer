@@ -165,36 +165,37 @@ extension TimeStatistics{
         try! context.save()
     }
     
-    public static func berechnen_completion(in theContext: NSManagedObjectContext){
+    public static func berechnen_completion_amDate(in theContext: NSManagedObjectContext){
         do{
             var allWortFormenTotal: Int64 = 0
             var allWortFormenConfirmed: Int64 = 0
+            var allWortFormenAttempted: Int64 = 0
 
             for theWortArt in try theContext.fetch(WortArt.fetchRequest()) {
                 var wortFormenTotal: Int64 = 0
                 var wortFormenConfirmed: Int64 = 0
-
-                for theWortFormen in (theWortArt.relWortFormen as? Set<WortFormen>) ?? [] {
-                    let count = (theWortFormen.relWort as? Set<Wort>)?.count ?? 0
-                    wortFormenTotal += Int64(count)
-                    if(!theWortFormen.failed){
-                        wortFormenConfirmed += Int64(count)
-                    }else{
-                        wortFormenConfirmed += max(theWortFormen.formsToShow - 1, 0)
-                    }
-                }
+                var wortFormentAttempted: Int64 = 0
+                
+                let alleFormen: [WortFormen] = Array(theWortArt.relWortFormen as? Set<WortFormen> ?? [])
+                
+                wortFormenTotal = Int64(alleFormen.count)
+                wortFormenConfirmed = Int64(alleFormen.filter{$0.state == WortFormen.state_weekly}.count)
+                wortFormentAttempted = Int64(alleFormen.filter{$0.state != WortFormen.state_never && $0.state != WortFormen.state_weekly}.count)
                 
                 var wortFormenTimeStats = TimeStatistics.auslesenOderAnlegen_LearningTime(in: theContext, at: Date.now.stripTime(), forThe: theWortArt)
-                wortFormenTimeStats.totalFormen = Int64(wortFormenTotal)
-                wortFormenTimeStats.completedFormen = Int64(wortFormenConfirmed)
+                wortFormenTimeStats.totalFormen = wortFormenTotal
+                wortFormenTimeStats.completedFormen = wortFormenConfirmed
+                wortFormenTimeStats.attemptedFormen = wortFormentAttempted
 
                 allWortFormenTotal += wortFormenTotal
                 allWortFormenConfirmed += wortFormenConfirmed
+                allWortFormenAttempted += wortFormentAttempted
             }
             
             var wortFormenTimeStats = TimeStatistics.auslesenOderAnlegen_LearningTime(in: theContext, at: Date.now.stripTime(), forThe: nil)
-            wortFormenTimeStats.totalFormen = Int64(allWortFormenTotal)
-            wortFormenTimeStats.completedFormen = Int64(allWortFormenConfirmed)
+            wortFormenTimeStats.totalFormen = allWortFormenTotal
+            wortFormenTimeStats.completedFormen = allWortFormenConfirmed
+            wortFormenTimeStats.attemptedFormen = allWortFormenAttempted
             
             try theContext.save()
         }catch{}

@@ -1043,7 +1043,7 @@ struct StatisticsView: View {
     }
     
     func reloadTimeLearningData() {
-        TimeStatistics.berechnen_completion(in: viewContext)
+        TimeStatistics.berechnen_completion_amDate(in: viewContext)
         if(statArray.count == 0){
             defaultTimeLearningData()
         }

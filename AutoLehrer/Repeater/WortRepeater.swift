@@ -960,7 +960,11 @@ struct WortRepeater: View {
                     pickedWortFormen!.failCounter = Int64(afterTransition.failCounter)
                     pickedWortFormen!.nextPlanedAttempt = afterTransition.nextPlanedAttempt
                     
+                    
+                    
                     try! viewContext.save()
+                    
+                    TimeStatistics.berechnen_completion_amDate(in: viewContext)
                     
                     print("Processing wort next button: action \(theAction), was [\(previousState.debugString())], next [\(afterTransition.debugString())]")
                     
