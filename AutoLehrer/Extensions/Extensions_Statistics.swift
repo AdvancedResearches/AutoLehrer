@@ -150,7 +150,7 @@ extension Statistics{
             Date() as CVarArg
         )
         requestAllNotInWork.sortDescriptors = [
-            NSSortDescriptor(key: "nextPlanedAttempt", ascending: true)
+            NSSortDescriptor(key: "wortFrequencyOrder", ascending: true)
         ]
         
         let requestAllInWorkNotReady: NSFetchRequest<WortFormen> = WortFormen.fetchRequest()
