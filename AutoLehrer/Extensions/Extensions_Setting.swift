@@ -14,8 +14,9 @@ extension Settings {
     
     static func auslesenKeinPrufungDauert(in context: NSManagedObjectContext) -> Int {
         if let letzePrufungDate = getLetztePrufung(in: context) {
+            
             let derDauert = Date.get_offset_inDays(letzePrufungDate, Date.now)
-            if derDauert > 0 {
+            if derDauert < 0 {
                 return 0
             }
             return derDauert

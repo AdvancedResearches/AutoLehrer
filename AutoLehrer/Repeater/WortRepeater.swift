@@ -1625,7 +1625,7 @@ struct WortRepeater: View {
         }
         runningWortArt = alleWortArten[runningWortArtIndex]
         
-        var wortenZuWalhlenAus: [Wort] = WortArt.fetch_alleConfirmedWorten(runningWortArt!)
+        var wortenZuWalhlenAus: [Wort] = WortArt.fetch_allePrufungBereitWorten(runningWortArt!)
         
         var gewahltWorter: [Wort] = Array(wortenZuWalhlenAus.shuffled().prefix(10))
         

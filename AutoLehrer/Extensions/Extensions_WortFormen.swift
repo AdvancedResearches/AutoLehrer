@@ -640,29 +640,6 @@ extension WortFormen{
         
         let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
         
-        /*
-        if(wortFormen.state == state_never){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 1
-            wortFormen.failCounter = 0
-        }
-        if(wortFormen.state == state_frequent){
-            wortFormen.randomFail = wortFormen.randomFail
-            wortFormen.successCounter += 1
-            wortFormen.failCounter = 0
-        }
-        if(wortFormen.state == state_daily){
-            wortFormen.randomFail = false
-            wortFormen.successCounter += 1
-            wortFormen.failCounter = 0
-        }
-        if(wortFormen.state == state_weekly){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter = 0
-        }
-        */
-        
         let next = forecastedState(current: previous, action: action_allRight)
         
         wortFormen.state = next.state
@@ -684,29 +661,6 @@ extension WortFormen{
         }
         
         let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
-        
-        /*
-        if(wortFormen.state == state_never){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter = 0
-        }
-        if(wortFormen.state == state_frequent){
-            wortFormen.randomFail = wortFormen.randomFail
-            wortFormen.successCounter = 0
-            wortFormen.failCounter = 0
-        }
-        if(wortFormen.state == state_daily){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter += 1
-        }
-        if(wortFormen.state == state_weekly){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter += 1
-        }
-        */
         
         let next = forecastedState(current: previous, action: action_hasProgress)
         
@@ -730,29 +684,6 @@ extension WortFormen{
         
         let previous: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
         
-        /*
-        if(wortFormen.state == state_never){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter = 1
-        }
-        if(wortFormen.state == state_frequent){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter += 1
-        }
-        if(wortFormen.state == state_daily){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter += 1
-        }
-        if(wortFormen.state == state_weekly){
-            wortFormen.randomFail = false
-            wortFormen.successCounter = 0
-            wortFormen.failCounter += 1
-        }
-        */
-        
         let next = forecastedState(current: previous, action: action_hasProgress)
         
         wortFormen.state = next.state
@@ -770,79 +701,6 @@ extension WortFormen{
     }
     public static func transition(_ wortFormen: WortFormen){
         let current: WortFormenKeyParameters = WortFormenKeyParameters(state: wortFormen.state!, randomFail: wortFormen.randomFail, successCounter: Int(wortFormen.successCounter), failCounter: Int(wortFormen.failCounter))
-        
-        /*
-        if(wortFormen.state == state_never){
-            wortFormen.state = state_frequent
-            wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
-            wortFormen.randomFail = false
-            wortFormen.successCounter = wortFormen.successCounter
-            wortFormen.failCounter = wortFormen.failCounter
-        }
-        if(wortFormen.state == state_frequent){
-            if(wortFormen.randomFail && wortFormen.successCounter > 0){
-                wortFormen.state = state_daily
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
-                wortFormen.randomFail = false
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 0
-            }else if(!wortFormen.randomFail && wortFormen.successCounter > 1){
-                wortFormen.state = state_daily
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
-                wortFormen.randomFail = false
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 0
-            }else if(wortFormen.failCounter > 2){
-                wortFormen.state = state_daily
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 3600...21600))
-                wortFormen.randomFail = false
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 0
-            }else{
-                wortFormen.state = state_frequent
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
-                wortFormen.randomFail = wortFormen.randomFail
-                wortFormen.successCounter = wortFormen.successCounter
-                wortFormen.failCounter = wortFormen.failCounter
-            }
-        }
-        if(wortFormen.state == state_daily){
-            if(wortFormen.successCounter > 4){
-                wortFormen.state = state_weekly
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
-                wortFormen.randomFail = false
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 0
-            }else if(wortFormen.failCounter > 0){
-                wortFormen.state = state_frequent
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
-                wortFormen.randomFail = false
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 1
-            }else{
-                wortFormen.state = state_daily
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(86400)
-                wortFormen.randomFail = false
-                wortFormen.successCounter = wortFormen.successCounter
-                wortFormen.failCounter = wortFormen.failCounter
-            }
-        }
-        if(wortFormen.state == state_weekly){
-            if(wortFormen.failCounter > 0){
-                wortFormen.state = state_frequent
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 60...180))
-                wortFormen.randomFail = true
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 0
-            }else{
-                wortFormen.state = state_weekly
-                wortFormen.nextPlanedAttempt = Date.now.offset_inSeconds(Int.random(in: 86400...604800))
-                wortFormen.randomFail = false
-                wortFormen.successCounter = 0
-                wortFormen.failCounter = 0
-            }
-        }
-        */
         
         let next = forecastedTransition(current)
         

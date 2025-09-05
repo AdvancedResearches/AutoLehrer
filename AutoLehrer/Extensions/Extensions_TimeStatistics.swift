@@ -18,7 +18,7 @@ extension TimeStatistics{
         let alleWortArten = try! context.fetch(WortArt.fetchRequest())
         var wortArtAcceptable: Int = 0
         for dieWortArt in alleWortArten{
-            if(WortArt.fetch_alleConfirmedWorten(dieWortArt).count >= 10){
+            if(WortArt.fetch_allePrufungBereitWorten(dieWortArt).count >= 10){
                 wortArtAcceptable += 1
             }
         }

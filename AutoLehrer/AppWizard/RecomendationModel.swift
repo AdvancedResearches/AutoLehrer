@@ -68,14 +68,18 @@ class RecommendationModel: ObservableObject {
         
         let prunungBereit = TimeStatistics.auslesen_bereitFurPrufung(context)
         if(prunungBereit){
+            print("RecommendationModel: PrufungBereit detected")
             let hatHeutePrufungGefragt = Settings.auslesenPrufungHeuteGefragt(in: context)
             if(!hatHeutePrufungGefragt){
+                print("RecommendationModel: Die erste zeit heute wann fragen nach Prufung")
                 let keinPrufungDauert = Settings.auslesenKeinPrufungDauert(in: context)
+                print("RecommendationModel: Dauert ist \(keinPrufungDauert)")
                 if (keinPrufungDauert == Settings.Nie){
                     recommendation = .keinPrufungNie
                     shallBeNone = false
                     autoClose = false
                     popupEnabled = true
+                    print("RecommendationModel: Ersetzt die NIE modus")
                     return
                 }
                 if (keinPrufungDauert > 7){
@@ -83,6 +87,7 @@ class RecommendationModel: ObservableObject {
                     shallBeNone = false
                     autoClose = false
                     popupEnabled = true
+                    print("RecommendationModel: Ersetzt die LANGEZEIT modus")
                     return
                 }
                 if (keinPrufungDauert > 1){
@@ -92,20 +97,24 @@ class RecommendationModel: ObservableObject {
                         shallBeNone = false
                         autoClose = false
                         popupEnabled = true
+                        print("RecommendationModel: Ersetzt die DIESEWOCHE modus")
                         return
                     }
                 }
-                if (keinPrufungDauert == 1){
                     let minutesSpentToday: Int = TimeStatistics.auslesen_WieVieleMinutenHeute(context)
                     if(minutesSpentToday >= 15){
                         recommendation = .keinPrufungHeute
                         shallBeNone = false
                         autoClose = false
                         popupEnabled = true
+                        print("RecommendationModel: Ersetzt die HEUTE modus")
                         return
                     }
-                }
+            }else{
+                print("RecommendationModel: NICHT Die erste zeit heute wann fragen nach Prufung")
             }
+        } else{
+            print("RecommendationModel: KEIN PrufungBereit detected")
         }
     }
 }

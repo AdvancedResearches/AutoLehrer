@@ -57,7 +57,7 @@ extension WortArt{
         }catch{}
         return result!
     }
-    public static func fetch_alleConfirmedWorten(_ wortArt: WortArt) -> [Wort]{
+    public static func fetch_allePrufungBereitWorten(_ wortArt: WortArt) -> [Wort]{
         var retValue: [Wort] = []
         let allWortFormen: [WortFormen] = Array(wortArt.relWortFormen as? Set<WortFormen> ?? []).filter{$0.formsToShow >= 1}
         
