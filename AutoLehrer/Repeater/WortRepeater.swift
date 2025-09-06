@@ -546,6 +546,7 @@ struct WortRepeater: View {
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                 Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                dasTip()
                 HStack{
                     FlipCard(
                         deutschesSeite: $deutschesSeite[index],
@@ -841,12 +842,35 @@ struct WortRepeater: View {
     }
     private func dasTip() -> some View {
         return HStack{
-            
+            if(!prufungModus){
+                let wortArt: WortArt = pickedWortFormen!.relWortArt!
+                if(wortArt.name_DE == "Nomen"){
+                    Image(systemName: "allergens")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "allergens")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "allergens")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "allergens")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "allergens")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                }
+            }
         }
     }
     private func dasProgressSektion() -> some View {
         return VStack{
-            dasTip()
             HStack{
                 DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
                 Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
@@ -882,12 +906,6 @@ struct WortRepeater: View {
                     .resizable()
                     .frame(width: 25, height: 25)
                     .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Regular, isDisabled: .constant(!WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
-                /*
-                 Text("\(pickedWortFormen!.successCounter)")
-                 .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Green, theme: theme)
-                 Text("\(pickedWortFormen!.failCounter)")
-                 .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
-                 */
             }
             .onTapGesture {
                 showProgressBarDetails.toggle()
