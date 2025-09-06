@@ -871,6 +871,16 @@ struct WortRepeater: View {
                         dim = false
                     }
                 }
+            Image(systemName: "tornado")
+                .resizable()
+                .frame(width: 25, height: 25)
+                .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Transparent, isDisabled: .constant(false), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
+            /*
+            Text("\(pickedWortFormen!.successCounter)")
+                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Green, theme: theme)
+            Text("\(pickedWortFormen!.failCounter)")
+                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
+             */
         }
         .onTapGesture {
             showProgressBarDetails.toggle()

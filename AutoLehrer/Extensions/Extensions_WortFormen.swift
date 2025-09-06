@@ -604,7 +604,7 @@ extension WortFormen{
                 retValue.successCounter = 0
                 retValue.failCounter = 0
                 return retValue
-            }else if(current.successCounter > 1){
+            }else if(current.successCounter > 2){
                 retValue.state = state_daily
                 retValue.nextPlanedAttempt = nextAttempt(state_daily)
                 retValue.randomFail = false
@@ -772,7 +772,7 @@ extension WortFormen{
     }
     public static func auslesen_zuGemischen(_ wortFormen: WortFormen) -> Bool{
         if wortFormen.state == state_frequent {
-            if wortFormen.successCounter > 2 {
+            if wortFormen.successCounter > 1 {
                 return true
             }
             return false
