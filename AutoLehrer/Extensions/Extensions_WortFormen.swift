@@ -770,4 +770,16 @@ extension WortFormen{
             
         }
     }
+    public static func auslesen_zuGemischen(_ wortFormen: WortFormen) -> Bool{
+        if wortFormen.state == state_frequent {
+            if wortFormen.successCounter > 2 {
+                return true
+            }
+            return false
+        }
+        if wortFormen.state != state_never{
+            return true
+        }
+        return false
+    }
 }
