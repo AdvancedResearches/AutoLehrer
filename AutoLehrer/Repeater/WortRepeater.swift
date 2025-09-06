@@ -840,6 +840,25 @@ struct WortRepeater: View {
             }
         }
     }
+    private func verbModus(_ dasWort: Wort) -> String{
+        let wortModus: String = dasWort.relModus?.name_DE ?? "undefined"
+        if(wortModus == "Indikativ"){
+            return "play"
+        }
+            //Konjunktiv II    сослагательное наклонение II
+        if(wortModus == "Konjunktiv II"){
+            return "questionmark.app.dashed"
+        }
+            //Imperativ    повелительное наклонение
+        if(wortModus == "Imperativ"){
+            return "exclamationmark.triangle"
+        }
+            //Konjunktiv I    сослагательное наклонение I (косвенная речь)
+        if(wortModus == "Konjunktiv I"){
+            return "person.wave.2"
+        }
+        return ""
+    }
     private func dasTip(_ dasWort: Wort) -> some View {
         return HStack{
             let wortArt: String = dasWort.relWortFormen!.relWortArt!.name_DE!
@@ -914,61 +933,97 @@ struct WortRepeater: View {
                 }
             }
             if(wortArt == "Verb"){
-                let wortModus: String = dasWort.relModus?.name_DE ?? "undefined"
+                
                 let wortTempus: String = dasWort.relTempus?.name_DE ?? "undefined"
                 let wortPerson: String = dasWort.relPerson?.name_DE ?? "undefined"
                 let wortNumerus: String = dasWort.relNumerus?.name_DE ?? "undefined"
                 
-                //изъявительне
-                if(wortModus == "Indikativ"){
-                    if(wortTempus == "Präsens"){
-                        Image(systemName: "chevron.left.square.fill")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        Image(systemName: "minus")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        Image(systemName: "hand.raised.square.fill")
-                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                        Image(systemName: "minus")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        Image(systemName: "chevron.right.square.fill")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                    }
-                    if(wortTempus == "Perfekt"){
-                        Image(systemName: "chevron.left.square.fill")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        Image(systemName: "arrow.right")
-                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                        Image(systemName: "hand.raised.square.fill")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        Image(systemName: "minus")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        Image(systemName: "chevron.right.square.fill")
-                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                    }
-                    if(wortTempus == "Futur I"){
-                        
-                    }
-                    if(wortTempus == "Futur II"){
-                        
-                    }
-                    if(wortTempus == "Plusquamperfekt"){
-                        
-                    }
-                    if(wortTempus == "Präteritum"){
-
-                    }
+                let action: String = verbModus(dasWort)
+                
+                if(wortTempus == "Präsens"){
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.left.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: action)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.right.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                 }
-                //косвенная речь
-                if(wortModus == "Konjunktiv II"){
+                if(wortTempus == "Perfekt"){
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.left.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: action)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "i.square")
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.right.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                }
+                if(wortTempus == "Futur I"){
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.left.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "i.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: action)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                }
+                if(wortTempus == "Futur II"){
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.left.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "i.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: action)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "chevron.right.square")
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
                     
                 }
-                //повелительное
-                if(wortModus == "Imperativ"){
-                    
+                if(wortTempus == "Plusquamperfekt"){
+                    Image(systemName: action)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "chevron.left.square")
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "i.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.right.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                 }
-                //сослагательное
-                if(wortModus == "Konjunktiv I"){
-                    
+                if(wortTempus == "Präteritum"){
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: action)
+                        .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "i.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "multiply")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    Image(systemName: "chevron.right.square")
+                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                 }
             }
         }
