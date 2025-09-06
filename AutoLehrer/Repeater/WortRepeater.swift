@@ -842,77 +842,133 @@ struct WortRepeater: View {
     }
     private func dasTip(_ dasWort: Wort) -> some View {
         return HStack{
-            if(!prufungModus){
-                let wortArt: WortArt = pickedWortFormen!.relWortArt!
-                if(wortArt.name_DE == "Nomen"){
-                    if(dasWort.relNumerus!.name_DE == "Singular"){
-                        if(dasWort.relKasus!.name_DE == "Nominativ"){
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "person.fill")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        }
-                        if(dasWort.relKasus!.name_DE == "Genitiv"){
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "person.fill")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "wind")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                        }
-                        if(dasWort.relKasus!.name_DE == "Dativ"){
-                            Image(systemName: "arrow.right")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                            Image(systemName: "person.fill")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        }
-                        if(dasWort.relKasus!.name_DE == "Akkusativ"){
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "person.fill")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "arrow.right")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                        }
+            let wortArt: String = dasWort.relWortFormen!.relWortArt!.name_DE!
+            if(wortArt == "Nomen"){
+                if(dasWort.relNumerus!.name_DE == "Singular"){
+                    if(dasWort.relKasus!.name_DE == "Nominativ"){
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "person.fill")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                     }
-                    if(dasWort.relNumerus!.name_DE == "Plural"){
-                        if(dasWort.relKasus!.name_DE == "Nominativ"){
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "person.3.fill")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        }
-                        if(dasWort.relKasus!.name_DE == "Genitiv"){
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "person.3.fill")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "wind")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                        }
-                        if(dasWort.relKasus!.name_DE == "Dativ"){
-                            Image(systemName: "arrow.right")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                            Image(systemName: "person.3.fill")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                        }
-                        if(dasWort.relKasus!.name_DE == "Akkusativ"){
-                            Image(systemName: "multiply")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "person.3.fill")
-                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                            Image(systemName: "arrow.right")
-                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                        }
+                    if(dasWort.relKasus!.name_DE == "Genitiv"){
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "person.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "wind")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
                     }
+                    if(dasWort.relKasus!.name_DE == "Dativ"){
+                        Image(systemName: "arrow.right")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        Image(systemName: "person.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    }
+                    if(dasWort.relKasus!.name_DE == "Akkusativ"){
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "person.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "arrow.right")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    }
+                }
+                if(dasWort.relNumerus!.name_DE == "Plural"){
+                    if(dasWort.relKasus!.name_DE == "Nominativ"){
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "person.3.fill")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    }
+                    if(dasWort.relKasus!.name_DE == "Genitiv"){
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "person.3.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "wind")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    }
+                    if(dasWort.relKasus!.name_DE == "Dativ"){
+                        Image(systemName: "arrow.right")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        Image(systemName: "person.3.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    }
+                    if(dasWort.relKasus!.name_DE == "Akkusativ"){
+                        Image(systemName: "multiply")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "person.3.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "arrow.right")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                    }
+                }
+            }
+            if(wortArt == "Verb"){
+                let wortModus: String = dasWort.relModus?.name_DE ?? "undefined"
+                let wortTempus: String = dasWort.relTempus?.name_DE ?? "undefined"
+                let wortPerson: String = dasWort.relPerson?.name_DE ?? "undefined"
+                let wortNumerus: String = dasWort.relNumerus?.name_DE ?? "undefined"
+                
+                //изъявительне
+                if(wortModus == "Indikativ"){
+                    if(wortTempus == "Präsens"){
+                        Image(systemName: "chevron.left.square.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "minus")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "hand.raised.square.fill")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        Image(systemName: "minus")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "chevron.right.square.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    }
+                    if(wortTempus == "Perfekt"){
+                        Image(systemName: "chevron.left.square.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "arrow.right")
+                            .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        Image(systemName: "hand.raised.square.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "minus")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        Image(systemName: "chevron.right.square.fill")
+                            .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    }
+                    if(wortTempus == "Futur I"){
+                        
+                    }
+                    if(wortTempus == "Futur II"){
+                        
+                    }
+                    if(wortTempus == "Plusquamperfekt"){
+                        
+                    }
+                    if(wortTempus == "Präteritum"){
+
+                    }
+                }
+                //косвенная речь
+                if(wortModus == "Konjunktiv II"){
+                    
+                }
+                //повелительное
+                if(wortModus == "Imperativ"){
+                    
+                }
+                //сослагательное
+                if(wortModus == "Konjunktiv I"){
+                    
                 }
             }
         }
