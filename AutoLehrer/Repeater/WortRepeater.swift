@@ -1075,7 +1075,7 @@ struct WortRepeater: View {
                             .resizable()
                             .frame(width: 25, height: 25)
                             .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Regular, isDisabled: .constant(!WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
-                        Text("Слово слово ещё плохо мзучено. Поэтому пока формы идут в том порядке, что и в учебнике.")
+                        Text("Слово ещё плохо изучено. Поэтому пока формы идут в том порядке, что и в учебнике.")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     }
                     
