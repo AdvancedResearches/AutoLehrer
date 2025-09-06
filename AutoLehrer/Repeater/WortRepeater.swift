@@ -847,12 +847,70 @@ struct WortRepeater: View {
                 if(wortArt.name_DE == "Nomen"){
                     if(dasWort.relNumerus!.name_DE == "Singular"){
                         if(dasWort.relKasus!.name_DE == "Nominativ"){
-                            Image(systemName: "arrow.right")
+                            Image(systemName: "multiply")
                                 .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
                             Image(systemName: "person.fill")
                                 .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
-                            Image(systemName: "arrow.right")
+                            Image(systemName: "multiply")
                                 .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        }
+                        if(dasWort.relKasus!.name_DE == "Genitiv"){
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "person.fill")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "wind")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        }
+                        if(dasWort.relKasus!.name_DE == "Dativ"){
+                            Image(systemName: "arrow.right")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                            Image(systemName: "person.fill")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        }
+                        if(dasWort.relKasus!.name_DE == "Akkusativ"){
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "person.fill")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "arrow.right")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        }
+                    }
+                    if(dasWort.relNumerus!.name_DE == "Plural"){
+                        if(dasWort.relKasus!.name_DE == "Nominativ"){
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "person.3.fill")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        }
+                        if(dasWort.relKasus!.name_DE == "Genitiv"){
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "person.3.fill")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "wind")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                        }
+                        if(dasWort.relKasus!.name_DE == "Dativ"){
+                            Image(systemName: "arrow.right")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                            Image(systemName: "person.3.fill")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        }
+                        if(dasWort.relKasus!.name_DE == "Akkusativ"){
+                            Image(systemName: "multiply")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "person.3.fill")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "arrow.right")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
                         }
                     }
                 }
