@@ -546,7 +546,7 @@ struct WortRepeater: View {
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                 Text(Wort.get_wortArt_auxString(wort[index], spracheWahlen))
                     .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
-                dasTip()
+                dasTip(dasWort)
                 HStack{
                     FlipCard(
                         deutschesSeite: $deutschesSeite[index],
@@ -840,15 +840,11 @@ struct WortRepeater: View {
             }
         }
     }
-    private func dasTip() -> some View {
+    private func dasTip(_ dasWort: Wort) -> some View {
         return HStack{
             if(!prufungModus){
                 let wortArt: WortArt = pickedWortFormen!.relWortArt!
                 if(wortArt.name_DE == "Nomen"){
-                    Image(systemName: "allergens")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
                     Image(systemName: "allergens")
                         .resizable()
                         .frame(width: 25, height: 25)
