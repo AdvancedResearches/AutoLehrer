@@ -102,5 +102,19 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "closure #1 in WortRepeater.dasTip(_:):WortRepeater.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "wortArt.name_DE">
+            </PersistentString>
+            <PersistentString
+               value = "dasWort.relNumerus!.name_DE">
+            </PersistentString>
+            <PersistentString
+               value = "dasWort.relKasus!.name_DE">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

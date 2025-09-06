@@ -845,22 +845,16 @@ struct WortRepeater: View {
             if(!prufungModus){
                 let wortArt: WortArt = pickedWortFormen!.relWortArt!
                 if(wortArt.name_DE == "Nomen"){
-                    Image(systemName: "allergens")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                    Image(systemName: "allergens")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                    Image(systemName: "allergens")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                    Image(systemName: "allergens")
-                        .resizable()
-                        .frame(width: 25, height: 25)
-                        .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    if(dasWort.relNumerus!.name_DE == "Singular"){
+                        if(dasWort.relKasus!.name_DE == "Nominativ"){
+                            Image(systemName: "arrow.right")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                            Image(systemName: "person.fill")
+                                .NG_iconStyling(.NG_IconStyle_Green, isDisabled: .constant(false), isHighlighting: .constant(true), isPulsating: .constant(true), theme: theme)
+                            Image(systemName: "arrow.right")
+                                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(true), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                        }
+                    }
                 }
             }
         }
