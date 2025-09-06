@@ -1133,6 +1133,10 @@ struct WortRepeater: View {
         
         var topWorte: [Wort] = WortFormen.retrieve_allAllowedFormen(pickedSache)
         
+        if(WortFormen.auslesen_zuGemischen(pickedSache)){
+            topWorte = topWorte.shuffled()
+        }
+        
         alleWorter = WortFormen.retrieve_alleFormen(pickedSache)
         
         for theCounter in 0..<topWorte.count{
