@@ -839,51 +839,59 @@ struct WortRepeater: View {
             }
         }
     }
-    private func dasProgressSektion() -> some View {
+    private func dasTip() -> some View {
         return HStack{
-            DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
-            Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
-                .resizable()
-                .frame(width: 25, height: 25)
-                .NG_iconStyling(progressIconStyle(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-            Image(systemName: "arrow.right")
-                .resizable()
-                .frame(width: 15, height: 15)
-                .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-            Image(systemName: forecastedIconName)
-                .resizable()
-                .frame(width: 25, height: 25)
-                .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
-                .opacity(forecastedIconBlinking ? (dim ? 0.0 : 1.0) : 1.0)
-                .onAppear {
-                    if forecastedIconBlinking {
-                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                            dim.toggle()
-                        }
-                    }
-                }
-                .onChange(of: forecastedIconBlinking) { newValue in
-                    if newValue {
-                        withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
-                            dim.toggle()
-                        }
-                    } else {
-                        dim = false
-                    }
-                }
-            Image(systemName: "tornado")
-                .resizable()
-                .frame(width: 25, height: 25)
-                .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Transparent, isDisabled: .constant(false), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
-            /*
-            Text("\(pickedWortFormen!.successCounter)")
-                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Green, theme: theme)
-            Text("\(pickedWortFormen!.failCounter)")
-                .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
-             */
+            
         }
-        .onTapGesture {
-            showProgressBarDetails.toggle()
+    }
+    private func dasProgressSektion() -> some View {
+        return VStack{
+            dasTip()
+            HStack{
+                DoubleColorBarWithProgress(progressValue: countedProgress, topValue: countedAsPreviouslyKnown, bottomValue: countedAsPotentialyKnown, progressColor: .blue, topColor: .green, bottomColor: .yellow, highlightColor: .constant(guessingResult.contains(-1) ? .red : guessingResult.contains(0) ? .yellow : .green))
+                Image(systemName: progressIconName(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)))
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .NG_iconStyling(progressIconStyle(WortFormenKeyParameters.fromWortFormen(pickedWortFormen!)), isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                Image(systemName: "arrow.right")
+                    .resizable()
+                    .frame(width: 15, height: 15)
+                    .NG_iconStyling(.NG_IconStyle_Regular, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                Image(systemName: forecastedIconName)
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .NG_iconStyling(forecastedIconStyle, isDisabled: .constant(false), isHighlighting: .constant(false), isPulsating: .constant(false), theme: theme)
+                    .opacity(forecastedIconBlinking ? (dim ? 0.0 : 1.0) : 1.0)
+                    .onAppear {
+                        if forecastedIconBlinking {
+                            withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                                dim.toggle()
+                            }
+                        }
+                    }
+                    .onChange(of: forecastedIconBlinking) { newValue in
+                        if newValue {
+                            withAnimation(.easeInOut(duration: 0.5).repeatForever(autoreverses: true)) {
+                                dim.toggle()
+                            }
+                        } else {
+                            dim = false
+                        }
+                    }
+                Image(systemName: "tornado")
+                    .resizable()
+                    .frame(width: 25, height: 25)
+                    .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Regular, isDisabled: .constant(!WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
+                /*
+                 Text("\(pickedWortFormen!.successCounter)")
+                 .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Green, theme: theme)
+                 Text("\(pickedWortFormen!.failCounter)")
+                 .NG_textStyling(.NG_TextStyle_Text_Regular, .NG_TextColor_Red, theme: theme)
+                 */
+            }
+            .onTapGesture {
+                showProgressBarDetails.toggle()
+            }
         }
         
     }
@@ -1050,6 +1058,24 @@ struct WortRepeater: View {
                     }
                     if(current.state == WortFormen.state_weekly){
                         Text(" - считается хорошо известным и будет предлагаться к переводу только для проверки (обычно пару-тройку раз в неделю)")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }
+                    
+                    if(WortFormen.auslesen_zuGemischen(pickedWortFormen!)){
+                        Divider()
+                        Image(systemName: "tornado")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Regular, isDisabled: .constant(!WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
+                        Text("Слово достточно хорошо изучено. Пора перемешать все формы чтобы подтвердить знания!")
+                            .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
+                    }else{
+                        Divider()
+                        Image(systemName: "tornado")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .NG_iconStyling(WortFormen.auslesen_zuGemischen(pickedWortFormen!) ?  .NG_IconStyle_Green : .NG_IconStyle_Regular, isDisabled: .constant(!WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isHighlighting: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), isPulsating: .constant(WortFormen.auslesen_zuGemischen(pickedWortFormen!)), theme: theme)
+                        Text("Слово слово ещё плохо мзучено. Поэтому пока формы идут в том порядке, что и в учебнике.")
                             .NG_textStyling(.NG_TextStyle_Text_Regular, theme: theme)
                     }
                     
